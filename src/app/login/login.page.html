@@ -1,0 +1,34 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+    <div class="ion-padding">
+          <ion-grid>
+              <ion-row align-items-center="true" justify-content-center="true">
+                  <h1>Serious Game Frontend</h1>
+              </ion-row>
+
+              <ion-row align-items-center="true" justify-content-center="true">
+                  <form #loginForm="ngForm">
+                    <ion-list lines="full">
+                      <ion-item>
+                        <ion-label position="stacked">Benutzername <ion-text color="danger">*</ion-text></ion-label>
+                        <ion-input autocomplete="false" autofocus="true" clearInput="true" name="username" required="true" type="text"></ion-input>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label position="stacked">Passwort <ion-text color="danger">*</ion-text></ion-label>
+                        <ion-input autocomplete="false" autocorrect="false" clearInput="true" name="password" required="true" type="password"></ion-input>
+                      </ion-item>
+                    </ion-list>
+
+                    <ion-button (click)="onSignUp()" type="button" color="light" shape="round">Registrieren</ion-button>
+                    <ion-button (click)="onLogin(loginForm)" type="button" color="primary" shape="round">Anmelden</ion-button>
+                  </form>
+              </ion-row>
+          </ion-grid>
+    </div>
+
+</ion-content>
