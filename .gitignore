@@ -2,5 +2,7 @@
 \.idea/
 
 src/lib
+docs/
+www/
 
 www/
