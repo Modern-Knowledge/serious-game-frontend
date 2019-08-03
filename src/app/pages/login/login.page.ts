@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { GameData } from '../../providers/GameData';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -10,10 +13,14 @@ import { Router } from '@angular/router';
 export class LoginPage implements OnInit {
 
   constructor(
-    public router: Router
+    public router: Router,
+    private gameData: GameData
   ) { }
 
   ngOnInit() {
+    console.log(this.gameData.load().subscribe((data: any) => {
+      console.log(data);
+    }));
   }
 
   onLogin(form: NgForm): void {
