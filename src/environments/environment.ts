@@ -4,7 +4,15 @@
 
 export const environment = {
   production: false,
-  backendUrl: 'http://localhost:3000'
+  backendUrl: 'http://localhost:3000',
+  logging: {
+    logLevels: [
+      {
+        loggerName: 'Serious Game Frontend',
+        logLevel: 'DEBUG'
+      }
+    ]
+  }
 };
 
 /*

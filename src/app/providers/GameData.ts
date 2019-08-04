@@ -4,16 +4,28 @@ import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../../lib/models/User';
 import { environment } from '../../environments/environment';
+import { Logger, LoggingService } from 'ionic-logging-service'
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameData {
+  private logger: Logger;
+
   private data: User[];
 
   public constructor(
-    private http: HttpClient
-  ) {}
+    private http: HttpClient,
+    private loggingService: LoggingService
+  ) {
+    this.logger = loggingService.getLogger('Serious Game Frontend.GameData');
+
+    const methodName = 'constructor';
+    this.logger.entry(methodName);
+
+    this.logger.exit(methodName);
+
+  }
 
   public load() {
     if (this.data) {
