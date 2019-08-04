@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { User } from '../../lib/models/User';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameData {
-  data: any;
+  private data: User[];
 
   public constructor(
     private http: HttpClient
@@ -15,14 +17,26 @@ export class GameData {
 
   public load() {
     if (this.data) {
-      console.log('sadasds');
       return of(this.data);
     } else {
-      console.log('loaded');
-      const t = this.http.get('http://localhost:3003/home').pipe(map(s => console.log(s)));
-      console.log(t);
-      return t;
+      return this.http.get(environment.backendUrl + '/home').pipe(map(this.processData, this));
     }
+  }
+
+  private processData(data: any): User[] {
+    const users: User[] = [];
+
+    for (const item of data) {
+      const u: User = new User();
+      u.username = item._username;
+
+      users.push(u);
+    }
+
+    this.data = users;
+    console.log(this.data);
+
+    return this.data;
   }
 
 }
