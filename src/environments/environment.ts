@@ -8,10 +8,14 @@ export const environment = {
   logging: {
     logLevels: [
       {
-        loggerName: 'Serious Game Frontend',
+        loggerName: 'root',
         logLevel: 'DEBUG'
       }
-    ]
+    ],
+    ajaxAppender: {
+      url: 'http://localhost:3000/logging/create',
+      threshold: 'DEBUG'
+    }
   }
 };
 

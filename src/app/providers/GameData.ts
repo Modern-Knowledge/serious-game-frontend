@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../../lib/models/User';
 import { environment } from '../../environments/environment';
-import { Logger, LoggingService } from 'ionic-logging-service'
+import { Logger, LoggingService } from 'ionic-logging-service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,16 +18,14 @@ export class GameData {
     private http: HttpClient,
     private loggingService: LoggingService
   ) {
-    this.logger = loggingService.getLogger('Serious Game Frontend.GameData');
+    this.logger = loggingService.getLogger('Serious-Game-Frontend.GameData');
 
-    const methodName = 'constructor';
-    this.logger.entry(methodName);
-
-    this.logger.exit(methodName);
-
+    this.logger.debug('constructor', 'message', 'dsofjslkdfj', 'sadsad', 'dsfsdf');
   }
 
   public load() {
+    console.log(environment);
+
     if (this.data) {
       return of(this.data);
     } else {
