@@ -5,13 +5,15 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "npm run pre-build && ng serve",
+    "build": "npm run pre-build && ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build-docs": "npm run delete-docs && typedoc",
-    "delete-docs": "rm -rf www/"
+    "delete-docs": "rm -rf www/",
+    "pre-build-delete": "rm -rf src/app/lib",
+    "pre-build": "npm run pre-build-delete && cp -r ../serious-game-library/src/. ./src/lib"
   },
   "private": true,
   "dependencies": {
