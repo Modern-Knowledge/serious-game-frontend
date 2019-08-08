@@ -1,7 +1,7 @@
 {
   "out": "docs",
   "mode": "modules",
-  "name": "Serious-Game-Backend",
+  "name": "Serious-Game-Frontend",
   "readme": "README.md",
   "theme": "minimal",
   "includeDeclarations": true,
