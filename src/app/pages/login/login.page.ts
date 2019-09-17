@@ -24,12 +24,11 @@ export class LoginPage implements OnInit {
   }
 
   onLogin(form: NgForm): void {
-    console.log(form);
     this.router.navigateByUrl('/home');
   }
 
   onSignUp(): void {
-
+    this.router.navigateByUrl('/registration');
   }
 
 }
