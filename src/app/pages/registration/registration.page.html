@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>registration</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <div class="ion-padding">
+        <ion-grid>
+            <ion-row align-items-center="true" justify-content-center="true">
+                <h1>Serious Game Frontend</h1>
+            </ion-row>
+
+            <ion-row align-items-center="true" justify-content-center="true">
+                <form [formGroup]="registrationForm">
+                  <ion-list lines="full">
+                    <ion-item>
+                        <ion-label position="stacked">Vorname<ion-text color="danger">*</ion-text></ion-label>
+                        <ion-input autocomplete="false" formControlName="forename" autofocus="true" clearInput="true" name="forename" required="true" type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Nachname<ion-text color="danger">*</ion-text></ion-label>
+                        <ion-input autocomplete="false" formControlName="lastname" autofocus="true" clearInput="true" name="lastname" required="true" type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label position="stacked">Email<ion-text color="danger">*</ion-text></ion-label>
+                      <ion-input autocomplete="false" formControlName="email" autofocus="true" clearInput="true" name="email" required="true" type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label position="stacked">Passwort<ion-text color="danger">*</ion-text></ion-label>
+                      <ion-input autocomplete="false" formControlName="password" autocorrect="false" clearInput="true" name="password" required="true" type="password"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label position="stacked">Passwort bestätigen<ion-text color="danger">*</ion-text></ion-label>
+                      <ion-input autocomplete="false" formControlName="password_confirmation" autocorrect="false" clearInput="true" name="password_confirmation" required="true" type="password"></ion-input>
+                    </ion-item>
+                  </ion-list>
+
+                  <ion-button (click)="onSubmit(registrationForm)" type="button" color="light" shape="round">Registrieren</ion-button>
+                </form>
+            </ion-row>
+        </ion-grid>
+  </div>
+</ion-content>
