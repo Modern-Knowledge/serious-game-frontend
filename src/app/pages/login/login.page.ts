@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { GameData } from '../../providers/GameData';
+import { AuthService } from 'src/app/providers/auth.service';
 
 
 @Component({
@@ -12,19 +13,31 @@ import { GameData } from '../../providers/GameData';
 })
 export class LoginPage implements OnInit {
 
+  public loginForm: FormGroup;
+
   constructor(
     public router: Router,
-    private gameData: GameData
+    private gameData: GameData,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
-    console.log(this.gameData.load().subscribe((data: any) => {
-      console.log(data);
-    }));
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.email, Validators.required]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    });
   }
 
-  onLogin(form: NgForm): void {
-    this.router.navigateByUrl('/home');
+  onLogin(): void {
+    this.authService.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value).subscribe(response => {
+      // login successful if there's a jwt token in the response
+      const token = response["token"];
+      if (token) {
+        // store username and jwt token in local storage to keep user logged in between page refreshes
+        localStorage.setItem("accessToken", token);
+        this.router.navigateByUrl('/home');
+      }
+    });
   }
 
   onSignUp(): void {
