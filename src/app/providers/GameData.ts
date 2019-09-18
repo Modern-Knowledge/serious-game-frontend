@@ -38,7 +38,7 @@ export class GameData {
 
     for (const item of data) {
       const u: User = new User();
-      u.username = item._username;
+      u.email = item.email;
 
       users.push(u);
     }
