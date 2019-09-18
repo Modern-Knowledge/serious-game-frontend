@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { RegistrationService } from 'src/app/providers/registration.service';
+import { AuthService } from 'src/app/providers/auth.service';
 import { User } from 'src/lib/models/User';
 import { FormGroup, Validators, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Therapist } from 'src/lib/models/Therapist';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -13,7 +14,7 @@ export class RegistrationPage implements OnInit {
 
   public registrationForm: FormGroup;
 
-  constructor(private registrationService: RegistrationService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.registrationForm = new FormGroup({
@@ -27,8 +28,14 @@ export class RegistrationPage implements OnInit {
 
   onSubmit(){
     const formControls = this.registrationForm.controls;
-    const therapist = new Therapist(formControls.email.value, formControls.password.value, formControls.forename.value, formControls.lastname.value);
-    this.registrationService.register(therapist);
+    const therapist = new Therapist();
+    therapist.email = formControls.email.value;
+    therapist.password = formControls.password.value;
+    therapist.forename = formControls.forename.value;
+    therapist.lastname = formControls.lastname.value;
+    this.authService.register(therapist).subscribe(response => {
+      this.router.navigateByUrl('/home');
+    }); 
   }
 
   matchPasswords(form): Boolean {
