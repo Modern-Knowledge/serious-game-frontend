@@ -1,14 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title class="ion-text-start">
-      Hauptmenü
-    </ion-title>
-    <ion-title class="ion-text-end" (click)="onLogout()" *ngIf="user">
-      Logout
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <div class="ion-padding" *ngIf="user">Welcome, {{ user.forename }}!</div>
 </ion-content>
