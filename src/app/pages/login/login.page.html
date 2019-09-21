@@ -12,20 +12,20 @@
               </ion-row>
 
               <ion-row align-items-center="true" justify-content-center="true">
-                  <form #loginForm="ngForm">
+                <form [formGroup]="loginForm">
                     <ion-list lines="full">
                       <ion-item>
-                        <ion-label position="stacked">Benutzername <ion-text color="danger">*</ion-text></ion-label>
-                        <ion-input autocomplete="false" autofocus="true" clearInput="true" name="username" required="true" type="text"></ion-input>
+                        <ion-label position="stacked">Email<ion-text color="danger">*</ion-text></ion-label>
+                        <ion-input autocomplete="false" formControlName="email" autofocus="true" clearInput="true" name="email" required="true" type="text"></ion-input>
                       </ion-item>
                       <ion-item>
-                        <ion-label position="stacked">Passwort <ion-text color="danger">*</ion-text></ion-label>
-                        <ion-input autocomplete="false" autocorrect="false" clearInput="true" name="password" required="true" type="password"></ion-input>
+                        <ion-label position="stacked">Passwort<ion-text color="danger">*</ion-text></ion-label>
+                        <ion-input autocomplete="false" formControlName="password" autocorrect="false" clearInput="true" name="password" required="true" type="password"></ion-input>
                       </ion-item>
                     </ion-list>
 
                     <ion-button (click)="onSignUp()" type="button" color="light" shape="round">Registrieren</ion-button>
-                    <ion-button (click)="onLogin(loginForm)" type="button" color="primary" shape="round">Anmelden</ion-button>
+                    <ion-button (click)="onLogin()" type="button" color="primary" shape="round">Anmelden</ion-button>
                   </form>
               </ion-row>
           </ion-grid>
