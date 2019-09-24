@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MenuController } from "@ionic/angular";
 
 @Component({
-  selector: "app-navbar",
+  selector: "serious-game-navbar",
   templateUrl: "./navbar.page.html",
   styleUrls: ["./navbar.page.scss"]
 })

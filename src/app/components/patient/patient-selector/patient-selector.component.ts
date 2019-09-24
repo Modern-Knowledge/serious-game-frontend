@@ -3,7 +3,7 @@ import { PatientService } from "src/app/providers/patient.service";
 import { Patient } from "src/lib/models/Patient";
 
 @Component({
-  selector: "app-patient-selector",
+  selector: "serious-game-patient-selector",
   templateUrl: "./patient-selector.component.html",
   styleUrls: ["./patient-selector.component.scss"]
 })

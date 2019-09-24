@@ -12,7 +12,7 @@ import { Therapist } from "src/lib/models/Therapist";
 import { Router } from "@angular/router";
 
 @Component({
-  selector: "app-registration",
+  selector: "serious-game-registration",
   templateUrl: "./registration.page.html",
   styleUrls: ["./registration.page.scss"]
 })
