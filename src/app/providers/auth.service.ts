@@ -3,6 +3,7 @@ import { HttpHeaders, HttpClient } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { User } from "src/lib/models/User";
+import { map } from "rxjs/operators";
 @Injectable()
 export class AuthService {
   user: User;
@@ -22,7 +23,9 @@ export class AuthService {
   }
 
   getRelatedUser(): Observable<User> {
-    return this.httpClient.get<User>(`users/related`);
+    return this.httpClient
+      .get<User>(`users/related`)
+      .pipe(map(user => new User().deserialize(user)));
   }
   getToken(): string {
     const token = localStorage.getItem("accessToken");
