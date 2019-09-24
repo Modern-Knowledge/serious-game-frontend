@@ -32,21 +32,16 @@ export class RegistrationPage implements OnInit {
           Validators.required,
           Validators.minLength(6)
         ]),
-        password_confirmation: new FormControl("", Validators.required)
+        password_confirmation: new FormControl("", Validators.required),
+        therapist: new FormControl(false)
       },
       this.matchPasswords
     );
   }
 
   onSubmit() {
-    const formControls = this.registrationForm.controls;
-    const therapist = new Therapist();
-    therapist.email = formControls.email.value;
-    therapist.gender = formControls.gender.value;
-    therapist.password = formControls.password.value;
-    therapist.forename = formControls.forename.value;
-    therapist.lastname = formControls.lastname.value;
-    this.authService.register(therapist).subscribe(response => {
+    const user = new User().deserialize(this.registrationForm.value);
+    this.authService.register(user).subscribe(response => {
       const token = response["token"];
       this.authService.setToken(token);
       this.router.navigateByUrl("/home");
