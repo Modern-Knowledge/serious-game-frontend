@@ -18,8 +18,8 @@ export class AuthService {
     });
   }
 
-  register(user: User): Observable<User> {
-    return this.httpClient.post<User>("register", user);
+  register(user: User, type: boolean): Observable<User> {
+    return this.httpClient.post<User>(type ? "therapists" : "patients", user);
   }
 
   getRelatedUser(): Observable<User> {
