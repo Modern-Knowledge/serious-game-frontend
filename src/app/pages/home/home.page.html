@@ -9,5 +9,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <div class="ion-padding" *ngIf="user">Welcome, {{ user.forename }}!</div>
+  <div class="ion-padding" *ngIf="user">
+    Guten Tag, {{ user.gender | salutation }} {{ user.lastname }}!
+  </div>
 </ion-content>
