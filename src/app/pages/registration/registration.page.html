@@ -6,39 +6,111 @@
 
 <ion-content fullscreen="true">
   <div class="ion-padding">
-        <ion-grid>
-            <ion-row align-items-center="true" justify-content-center="true">
-                <h1>Serious Game Frontend</h1>
-            </ion-row>
+    <ion-grid>
+      <ion-row align-items-center="true" justify-content-center="true">
+        <h1>Serious Game Frontend</h1>
+      </ion-row>
 
-            <ion-row align-items-center="true" justify-content-center="true">
-                <form [formGroup]="registrationForm">
-                  <ion-list lines="full">
-                    <ion-item>
-                        <ion-label position="stacked">Vorname<ion-text color="danger">*</ion-text></ion-label>
-                        <ion-input autocomplete="false" formControlName="forename" autofocus="true" clearInput="true" name="forename" required="true" type="text"></ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label position="stacked">Nachname<ion-text color="danger">*</ion-text></ion-label>
-                        <ion-input autocomplete="false" formControlName="lastname" autofocus="true" clearInput="true" name="lastname" required="true" type="text"></ion-input>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label position="stacked">Email<ion-text color="danger">*</ion-text></ion-label>
-                      <ion-input autocomplete="false" formControlName="email" autofocus="true" clearInput="true" name="email" required="true" type="text"></ion-input>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label position="stacked">Passwort<ion-text color="danger">*</ion-text></ion-label>
-                      <ion-input autocomplete="false" formControlName="password" autocorrect="false" clearInput="true" name="password" required="true" type="password"></ion-input>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label position="stacked">Passwort bestätigen<ion-text color="danger">*</ion-text></ion-label>
-                      <ion-input autocomplete="false" formControlName="password_confirmation" autocorrect="false" clearInput="true" name="password_confirmation" required="true" type="password"></ion-input>
-                    </ion-item>
-                  </ion-list>
+      <ion-row align-items-center="true" justify-content-center="true">
+        <form [formGroup]="registrationForm">
+          <ion-list lines="full">
+            <ion-radio-group formControlName="gender">
+              <ion-list-header>
+                <ion-label>Anrede</ion-label>
+              </ion-list-header>
+              <ion-item>
+                <ion-label>Herr</ion-label>
+                <ion-radio slot="start" value="0" checked></ion-radio>
+              </ion-item>
 
-                  <ion-button (click)="onSubmit(registrationForm)" type="button" color="light" shape="round">Registrieren</ion-button>
-                </form>
-            </ion-row>
-        </ion-grid>
+              <ion-item>
+                <ion-label>Frau</ion-label>
+                <ion-radio slot="start" value="1"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+            <ion-item>
+              <ion-label position="stacked"
+                >Vorname<ion-text color="danger">*</ion-text></ion-label
+              >
+              <ion-input
+                autocomplete="false"
+                formControlName="forename"
+                autofocus="true"
+                clearInput="true"
+                name="forename"
+                required="true"
+                type="text"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked"
+                >Nachname<ion-text color="danger">*</ion-text></ion-label
+              >
+              <ion-input
+                autocomplete="false"
+                formControlName="lastname"
+                autofocus="true"
+                clearInput="true"
+                name="lastname"
+                required="true"
+                type="text"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked"
+                >Email<ion-text color="danger">*</ion-text></ion-label
+              >
+              <ion-input
+                autocomplete="false"
+                formControlName="email"
+                autofocus="true"
+                clearInput="true"
+                name="email"
+                required="true"
+                type="text"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked"
+                >Passwort<ion-text color="danger">*</ion-text></ion-label
+              >
+              <ion-input
+                autocomplete="false"
+                formControlName="password"
+                autocorrect="false"
+                clearInput="true"
+                name="password"
+                required="true"
+                type="password"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked"
+                >Passwort bestätigen<ion-text color="danger"
+                  >*</ion-text
+                ></ion-label
+              >
+              <ion-input
+                autocomplete="false"
+                formControlName="password_confirmation"
+                autocorrect="false"
+                clearInput="true"
+                name="password_confirmation"
+                required="true"
+                type="password"
+              ></ion-input>
+            </ion-item>
+          </ion-list>
+
+          <ion-button
+            (click)="onSubmit(registrationForm)"
+            type="button"
+            color="light"
+            shape="round"
+            >Registrieren</ion-button
+          >
+        </form>
+      </ion-row>
+    </ion-grid>
   </div>
 </ion-content>

@@ -25,6 +25,7 @@ export class RegistrationPage implements OnInit {
     this.registrationForm = new FormGroup(
       {
         email: new FormControl("", [Validators.email, Validators.required]),
+        gender: new FormControl("", [Validators.required]),
         forename: new FormControl("", Validators.required),
         lastname: new FormControl("", Validators.required),
         password: new FormControl("", [
@@ -41,6 +42,7 @@ export class RegistrationPage implements OnInit {
     const formControls = this.registrationForm.controls;
     const therapist = new Therapist();
     therapist.email = formControls.email.value;
+    therapist.gender = formControls.gender.value;
     therapist.password = formControls.password.value;
     therapist.forename = formControls.forename.value;
     therapist.lastname = formControls.lastname.value;
