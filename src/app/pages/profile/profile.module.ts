@@ -1,16 +1,15 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
 
-import { IonicModule } from "@ionic/angular";
+import { IonicModule } from '@ionic/angular';
 
-import { ProfilePage } from "./profile.page";
-import { PatientSelectorComponent } from "src/app/components/patient-selector/patient-selector.component";
+import { ProfilePage } from './profile.page';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: ProfilePage
   }
 ];
@@ -22,6 +21,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ProfilePage, PatientSelectorComponent]
+  declarations: [ProfilePage]
 })
 export class ProfilePageModule {}

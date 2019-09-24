@@ -11,13 +11,10 @@ const routes: Routes = [
       "./pages/registration/registration.module#RegistrationPageModule"
   },
   {
-    path: "profile",
-    loadChildren: "./pages/profile/profile.module#ProfilePageModule"
-  },
-  {
     path: "navbar",
     loadChildren: "./pages/navbar/navbar.module#NavbarPageModule"
-  }
+  },
+  { path: 'profile', loadChildren: './pages/profile/profile.module#ProfilePageModule' }
 ];
 
 @NgModule({
