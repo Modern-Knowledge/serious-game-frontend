@@ -4,7 +4,7 @@ import { AuthService } from "src/app/providers/auth.service";
 import { Router } from "@angular/router";
 
 @Component({
-  selector: "app-home",
+  selector: "serious-game-home",
   templateUrl: "home.page.html",
   styleUrls: ["home.page.scss"]
 })

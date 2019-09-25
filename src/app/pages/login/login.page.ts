@@ -6,7 +6,7 @@ import { GameData } from "../../providers/GameData";
 import { AuthService } from "src/app/providers/auth.service";
 
 @Component({
-  selector: "app-login",
+  selector: "serious-game-login",
   templateUrl: "./login.page.html",
   styleUrls: ["./login.page.scss"]
 })

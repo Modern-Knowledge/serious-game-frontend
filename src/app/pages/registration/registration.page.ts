@@ -12,7 +12,7 @@ import { Therapist } from "src/lib/models/Therapist";
 import { Router } from "@angular/router";
 
 @Component({
-  selector: "app-registration",
+  selector: "serious-game-registration",
   templateUrl: "./registration.page.html",
   styleUrls: ["./registration.page.scss"]
 })
@@ -25,26 +25,23 @@ export class RegistrationPage implements OnInit {
     this.registrationForm = new FormGroup(
       {
         email: new FormControl("", [Validators.email, Validators.required]),
+        gender: new FormControl("", [Validators.required]),
         forename: new FormControl("", Validators.required),
         lastname: new FormControl("", Validators.required),
         password: new FormControl("", [
           Validators.required,
           Validators.minLength(6)
         ]),
-        password_confirmation: new FormControl("", Validators.required)
+        password_confirmation: new FormControl("", Validators.required),
+        therapist: new FormControl(false)
       },
       this.matchPasswords
     );
   }
 
   onSubmit() {
-    const formControls = this.registrationForm.controls;
-    const therapist = new Therapist();
-    therapist.email = formControls.email.value;
-    therapist.password = formControls.password.value;
-    therapist.forename = formControls.forename.value;
-    therapist.lastname = formControls.lastname.value;
-    this.authService.register(therapist).subscribe(response => {
+    const user = new User().deserialize(this.registrationForm.value);
+    this.authService.register(user, this.registrationForm.controls.therapist.value).subscribe(response => {
       const token = response["token"];
       this.authService.setToken(token);
       this.router.navigateByUrl("/home");
