@@ -22,16 +22,24 @@ export class NavbarComponent implements OnInit {
       {
         title: "Home",
         url: "/home",
-        icon: "home"
+        icon: "home",
+        visible: true
       },
       {
         title: "Profile",
         url: "/profile",
-        icon: "person"
+        icon: "person",
+        visible: this.authService.isLoggedIn()
       },
       {
         title: "Logout",
-        onClick: "onLogout"
+        onClick: "onLogout",
+        visible: this.authService.isLoggedIn()
+      },
+      {
+        title: "Login",
+        url: "/login",
+        visible: !this.authService.isLoggedIn()
       },
     ];
   }
