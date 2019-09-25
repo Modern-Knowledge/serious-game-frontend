@@ -39,7 +39,7 @@ export class LoginPage implements OnInit {
         // login successful if there's a jwt token in the response
         const token = response["token"];
         this.authService.setToken(token);
-        this.router.navigateByUrl("/home");
+        this.router.navigateByUrl("/main-menu");
       });
   }
 

@@ -41,11 +41,13 @@ export class RegistrationPage implements OnInit {
 
   onSubmit() {
     const user = new User().deserialize(this.registrationForm.value);
-    this.authService.register(user, this.registrationForm.controls.therapist.value).subscribe(response => {
-      const token = response["token"];
-      this.authService.setToken(token);
-      this.router.navigateByUrl("/home");
-    });
+    this.authService
+      .register(user, this.registrationForm.controls.therapist.value)
+      .subscribe(response => {
+        const token = response["token"];
+        this.authService.setToken(token);
+        this.router.navigateByUrl("/main-menu");
+      });
   }
 
   matchPasswords(form): Boolean {
