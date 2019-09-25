@@ -49,4 +49,9 @@ export class AuthService {
       return this.helper.decodeToken(this.getToken()).id;
     }
   }
+  isTherapist() {
+    if (this.isLoggedIn()) {
+      return this.helper.decodeToken(this.getToken()).therapist;
+    }
+  }
 }

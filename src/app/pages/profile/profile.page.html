@@ -20,8 +20,8 @@
       >
     </ion-card-header>
     <ion-card-content>
-      <serious-game-therapist-profile></serious-game-therapist-profile>
-      <serious-game-patient-profile></serious-game-patient-profile>
+      <serious-game-therapist-profile user="user" *ngIf="isTherapist"></serious-game-therapist-profile>
+      <serious-game-patient-profile user="user" *ngIf="!isTherapist"></serious-game-patient-profile>
     </ion-card-content>
   </ion-card>
 </ion-content>

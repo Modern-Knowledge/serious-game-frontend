@@ -9,9 +9,12 @@ import { AuthService } from "src/app/providers/auth.service";
 export class ProfilePage implements OnInit {
 
   user: User = new User();
+  isTherapist: boolean;
   constructor(
     private authService: AuthService
-  ) {}
+  ) {
+    this.isTherapist = this.authService.isTherapist();
+  }
 
   ngOnInit() {
     this.authService.getRelatedUser().subscribe(user => {
