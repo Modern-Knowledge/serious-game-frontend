@@ -16,14 +16,15 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { BaseUrlInterceptor } from "./interceptors/base-url-interceptor";
 import { AuthService } from "./providers/auth.service";
 import { BearerTokenInterceptor } from "./interceptors/bearer-token-interceptor";
-import { NavbarPage } from "./pages/navbar/navbar.page";
+import { NavbarComponent } from './components/navbar/navbar.component';
+
 
 export function configureLogging(loggingService: LoggingService): () => void {
   return () => loggingService.configure(environment.logging);
 }
 
 @NgModule({
-  declarations: [AppComponent, NavbarPage],
+  declarations: [AppComponent, NavbarComponent],
   entryComponents: [],
   imports: [
     BrowserModule,

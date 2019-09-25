@@ -1,17 +1,19 @@
-import { Component, OnInit } from "@angular/core";
-import { MenuController } from "@ionic/angular";
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: "serious-game-navbar",
-  templateUrl: "./navbar.page.html",
-  styleUrls: ["./navbar.page.scss"]
+  selector: 'serious-game-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarPage {
+export class NavbarComponent implements OnInit {
+
   navigate: any;
 
   constructor() {
     this.sideMenu();
   }
+
+  ngOnInit(){}
 
   sideMenu() {
     this.navigate = [
@@ -24,7 +26,9 @@ export class NavbarPage {
         title: "Profile",
         url: "/profile",
         icon: "person"
-      }
+      },
+      
     ];
   }
+
 }
