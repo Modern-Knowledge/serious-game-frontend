@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 import { PatientService } from "src/app/providers/patient.service";
 import { Patient } from "src/lib/models/Patient";
 
@@ -9,7 +9,7 @@ import { Patient } from "src/lib/models/Patient";
 })
 export class PatientSelectorComponent implements OnInit {
   patients: Patient[];
-  selectedPatients: Patient[];
+  @Input() selectedPatients: Patient[];
   @Output() patientSelected: EventEmitter<Patient[]> = new EventEmitter();
 
   constructor(private patientService: PatientService) {}
@@ -24,5 +24,10 @@ export class PatientSelectorComponent implements OnInit {
       return value.map(v => +v).indexOf(patient.id) !== -1;
     });
     this.patientSelected.emit(this.selectedPatients);
+  }
+  checkIfPatientIsSelected(patient: Patient) {
+    return this.selectedPatients.some(
+      selectedPatient => selectedPatient.id === patient.id
+    );
   }
 }

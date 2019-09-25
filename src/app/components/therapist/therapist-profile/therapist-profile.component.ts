@@ -1,17 +1,16 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { TherapistService } from 'src/app/providers/therapist.service';
-import { Therapist } from 'src/lib/models/Therapist';
+import { TherapistService } from "src/app/providers/therapist.service";
+import { Therapist } from "src/lib/models/Therapist";
 
 @Component({
-  selector: 'serious-game-therapist-profile',
-  templateUrl: './therapist-profile.component.html',
-  styleUrls: ['./therapist-profile.component.scss'],
+  selector: "serious-game-therapist-profile",
+  templateUrl: "./therapist-profile.component.html",
+  styleUrls: ["./therapist-profile.component.scss"]
 })
 export class TherapistProfileComponent implements OnInit {
-
   @Input() user: Therapist;
 
-  constructor(private therapistService: TherapistService) { }
+  constructor(private therapistService: TherapistService) {}
 
   ngOnInit() {}
 
@@ -21,5 +20,4 @@ export class TherapistProfileComponent implements OnInit {
       console.log(response);
     });
   }
-
 }

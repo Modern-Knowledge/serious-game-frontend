@@ -1,5 +1,4 @@
-
-      <serious-game-patient-selector
-        (patientSelected)="assignPatients($event)"
-      ></serious-game-patient-selector>
-
+<serious-game-patient-selector
+  (patientSelected)="assignPatients($event)"
+  [selectedPatients]="user.patients"
+></serious-game-patient-selector>

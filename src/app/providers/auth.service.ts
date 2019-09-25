@@ -4,6 +4,8 @@ import { Observable, of } from "rxjs";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { User } from "src/lib/models/User";
 import { map } from "rxjs/operators";
+import { Therapist } from "src/lib/models/Therapist";
+import { Patient } from "src/lib/models/Patient";
 @Injectable()
 export class AuthService {
   user: User;
@@ -22,10 +24,16 @@ export class AuthService {
     return this.httpClient.post<User>(type ? "therapists" : "patients", user);
   }
 
-  getRelatedUser(): Observable<User> {
+  getRelatedUser(): Observable<Therapist | Patient> {
     return this.httpClient
-      .get<User>(`users/related`)
-      .pipe(map(user => new User().deserialize(user)));
+      .get<Therapist | Patient>(`users/related`)
+      .pipe(
+        map(user =>
+          this.isTherapist()
+            ? new Therapist().deserialize(user)
+            : new Patient().deserialize(user)
+        )
+      );
   }
   getToken(): string {
     const token = localStorage.getItem("accessToken");

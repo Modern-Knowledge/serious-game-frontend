@@ -9,6 +9,7 @@
       <ion-select-option
         *ngFor="let patient of patients"
         value="{{ patient.id }}"
+        [selected]="checkIfPatientIsSelected(patient)"
         >{{ patient.forename }} {{ patient.lastname }}</ion-select-option
       >
     </ion-select>
