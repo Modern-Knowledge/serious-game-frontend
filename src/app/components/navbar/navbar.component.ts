@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/providers/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'serious-game-navbar',
@@ -9,7 +11,7 @@ export class NavbarComponent implements OnInit {
 
   navigate: any;
 
-  constructor() {
+  constructor(private authService: AuthService, private router: Router) {
     this.sideMenu();
   }
 
@@ -27,8 +29,16 @@ export class NavbarComponent implements OnInit {
         url: "/profile",
         icon: "person"
       },
-      
+      {
+        title: "Logout",
+        onClick: "onLogout"
+      },
     ];
+  }
+
+  onLogout(){
+    this.authService.logout();
+    this.router.navigateByUrl("/login");
   }
 
 }
