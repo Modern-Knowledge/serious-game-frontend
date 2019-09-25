@@ -1,34 +1,65 @@
 <ion-header translucent="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen="true">
-    <div class="ion-padding">
-          <ion-grid>
-              <ion-row align-items-center="true" justify-content-center="true">
-                  <h1>Serious Game Frontend</h1>
-              </ion-row>
+  <div class="ion-padding">
+    <ion-grid>
+      <ion-row align-items-center="true" justify-content-center="true">
+        <h1>Serious Game Frontend</h1>
+      </ion-row>
 
-              <ion-row align-items-center="true" justify-content-center="true">
-                <form [formGroup]="loginForm">
-                    <ion-list lines="full">
-                      <ion-item>
-                        <ion-label position="stacked">Email<ion-text color="danger">*</ion-text></ion-label>
-                        <ion-input autocomplete="false" formControlName="email" autofocus="true" clearInput="true" name="email" required="true" type="text"></ion-input>
-                      </ion-item>
-                      <ion-item>
-                        <ion-label position="stacked">Passwort<ion-text color="danger">*</ion-text></ion-label>
-                        <ion-input autocomplete="false" formControlName="password" autocorrect="false" clearInput="true" name="password" required="true" type="password"></ion-input>
-                      </ion-item>
-                    </ion-list>
+      <ion-row align-items-center="true" justify-content-center="true">
+        <form [formGroup]="loginForm">
+          <ion-list lines="full">
+            <ion-item>
+              <ion-label position="stacked"
+                >Email<ion-text color="danger">*</ion-text></ion-label
+              >
+              <ion-input
+                autocomplete="false"
+                formControlName="email"
+                autofocus="true"
+                clearInput="true"
+                name="email"
+                required="true"
+                type="text"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked"
+                >Passwort<ion-text color="danger">*</ion-text></ion-label
+              >
+              <ion-input
+                autocomplete="false"
+                formControlName="password"
+                autocorrect="false"
+                clearInput="true"
+                name="password"
+                required="true"
+                type="password"
+              ></ion-input>
+            </ion-item>
+          </ion-list>
 
-                    <ion-button (click)="onSignUp()" type="button" color="light" shape="round">Registrieren</ion-button>
-                    <ion-button (click)="onLogin()" type="button" color="primary" shape="round">Anmelden</ion-button>
-                  </form>
-              </ion-row>
-          </ion-grid>
-    </div>
-
+          <ion-button
+            (click)="onSignUp()"
+            type="button"
+            color="light"
+            shape="round"
+            >Registrieren</ion-button
+          >
+          <ion-button
+            (click)="onLogin()"
+            type="button"
+            color="primary"
+            shape="round"
+            >Anmelden</ion-button
+          >
+        </form>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>

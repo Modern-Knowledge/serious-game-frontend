@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>registration</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -103,7 +103,11 @@
           </ion-list>
           <ion-item lines="full">
             <ion-label>TherapeutIn</ion-label>
-            <ion-checkbox color="primary" slot="start" formControlName="therapist"></ion-checkbox>
+            <ion-checkbox
+              color="primary"
+              slot="start"
+              formControlName="therapist"
+            ></ion-checkbox>
           </ion-item>
           <ion-button
             (click)="onSubmit(registrationForm)"
