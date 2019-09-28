@@ -23,7 +23,7 @@ export class RecipeService {
         map(recipes =>
           recipes.length
             ? recipes.map(recipe => new Recipe().deserialize(recipe))
-            : null
+            : []
         )
       );
   }

@@ -21,7 +21,7 @@ export class WordService {
       .get<Word[]>(`words`)
       .pipe(
         map(words =>
-          words.length ? words.map(word => new Word().deserialize(word)) : null
+          words.length ? words.map(word => new Word().deserialize(word)) : []
         )
       );
   }
