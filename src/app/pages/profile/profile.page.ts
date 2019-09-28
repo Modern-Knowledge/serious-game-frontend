@@ -9,11 +9,10 @@ import { AuthService } from "src/app/providers/auth.service";
 export class ProfilePage {
   user: User;
   isTherapist: boolean;
-  constructor(private authService: AuthService) {
-    this.isTherapist = this.authService.isTherapist();
-  }
+  constructor(private authService: AuthService) {}
 
   ionViewWillEnter() {
+    this.isTherapist = this.authService.isTherapist();
     this.authService.getRelatedUser().subscribe(user => {
       this.user = user;
     });
