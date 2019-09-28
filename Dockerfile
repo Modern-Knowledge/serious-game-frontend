@@ -9,5 +9,5 @@ RUN npm install -g gulp
 WORKDIR /www/app
 RUN npm install
 
-ENTRYPOINT ["ionic"]
-CMD ["serve", "8100", "--address", "0.0.0.0"]
+ENTRYPOINT ["npm run"]
+CMD ["start", "8100", "--address", "0.0.0.0"]

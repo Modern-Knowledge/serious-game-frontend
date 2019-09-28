@@ -16,8 +16,9 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { BaseUrlInterceptor } from "./interceptors/base-url-interceptor";
 import { AuthService } from "./providers/auth.service";
 import { BearerTokenInterceptor } from "./interceptors/bearer-token-interceptor";
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { NavbarComponent } from "./components/navbar/navbar.component";
 
+import { DragulaModule } from "ng2-dragula";
 
 export function configureLogging(loggingService: LoggingService): () => void {
   return () => loggingService.configure(environment.logging);
@@ -33,7 +34,8 @@ export function configureLogging(loggingService: LoggingService): () => void {
     AppRoutingModule,
     HttpClientModule,
     LoggingServiceModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DragulaModule.forRoot()
   ],
   providers: [
     StatusBar,
