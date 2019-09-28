@@ -6,14 +6,14 @@ import { AuthService } from "src/app/providers/auth.service";
   templateUrl: "./profile.page.html",
   styleUrls: ["./profile.page.scss"]
 })
-export class ProfilePage implements OnInit {
+export class ProfilePage {
   user: User;
   isTherapist: boolean;
   constructor(private authService: AuthService) {
     this.isTherapist = this.authService.isTherapist();
   }
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.authService.getRelatedUser().subscribe(user => {
       this.user = user;
     });
