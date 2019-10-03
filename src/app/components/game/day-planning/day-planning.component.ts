@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DragulaService } from 'ng2-dragula';
 import { Recipe } from 'src/lib/models/Recipe';
+import { Game } from 'src/lib/models/Game';
 
 @Component({
   selector: 'serious-game-day-planning',
@@ -12,6 +13,7 @@ export class DayPlanningComponent implements OnInit {
   constructor(private dragulaService: DragulaService){}
 
   @Input() words: String[];
+  @Input() game: Game;
   @Output() recipeAdded: EventEmitter<Recipe> = new EventEmitter<Recipe>();
 
   ngOnInit(){
