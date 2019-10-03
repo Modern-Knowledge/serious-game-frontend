@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Recipe } from 'src/lib/models/Recipe';
+import { Game } from 'src/lib/models/Game';
 
 @Component({
   selector: 'serious-game-recipe',
@@ -9,6 +10,7 @@ import { Recipe } from 'src/lib/models/Recipe';
 export class RecipeComponent implements OnInit {
 
   @Input() recipes: Recipe[];
+  @Input() game: Game;
   chosenRecipe: Recipe;
 
   constructor() { }

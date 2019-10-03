@@ -9,6 +9,7 @@ import { GamePage } from './game.page';
 import { DragulaModule } from 'ng2-dragula';
 import { DayPlanningComponent } from 'src/app/components/game/day-planning/day-planning.component';
 import { RecipeComponent } from 'src/app/components/game/recipe/recipe.component';
+import { HelptextComponent } from 'src/app/components/shared/helptext/helptext.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     DragulaModule
   ],
-  declarations: [GamePage, DayPlanningComponent, RecipeComponent]
+  declarations: [GamePage, DayPlanningComponent, RecipeComponent, HelptextComponent]
 })
 export class GamePageModule {}

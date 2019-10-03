@@ -5,6 +5,8 @@ import { Recipe } from 'src/lib/models/Recipe';
 import { AuthService } from 'src/app/providers/auth.service';
 import { WordService } from 'src/app/providers/word.service';
 import { RecipeService } from 'src/app/providers/recipe.service';
+import { GameService } from 'src/app/providers/game.service';
+import { Game } from 'src/lib/models/Game';
 
 @Component({
   selector: 'serious-game-game',
@@ -16,12 +18,14 @@ export class GamePage {
   user: User;
   words: Word[];
   recipes: Recipe[];
+  games: Game[];
   chosenRecipes: (Recipe|Word)[] = [];
   step: number;
   constructor(
     private authService: AuthService,
     private wordService: WordService,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private gameService: GameService
   ) {}
 
   ionViewWillEnter() {
@@ -35,6 +39,9 @@ export class GamePage {
     this.recipeService.getAll().subscribe(recipes => {
       this.recipes = recipes;
     });
+    this.gameService.getAll().subscribe(games => {
+      this.games = games;
+    })
   }
 
   mixWordsWithRecipes() {
