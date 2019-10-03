@@ -10,6 +10,7 @@ import {
 } from "@angular/forms";
 import { Therapist } from "src/lib/models/Therapist";
 import { Router } from "@angular/router";
+import {HttpResponse} from "../../../lib/utils/http/HttpResponse";
 
 @Component({
   selector: "serious-game-registration",
@@ -44,9 +45,11 @@ export class RegistrationPage implements OnInit {
     this.authService
       .register(user, this.registrationForm.controls.therapist.value)
       .subscribe(response => {
-        const token = response["token"];
-        this.authService.setToken(token);
-        this.router.navigateByUrl("/main-menu");
+          const httpResponse = new HttpResponse().deserialize(response);
+
+          const token = httpResponse.data["token"];
+          this.authService.setToken(token);
+          this.router.navigateByUrl("/main-menu");
       });
   }
 

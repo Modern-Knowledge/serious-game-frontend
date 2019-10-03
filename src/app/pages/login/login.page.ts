@@ -4,6 +4,8 @@ import { Router } from "@angular/router";
 
 import { GameData } from "../../providers/GameData";
 import { AuthService } from "src/app/providers/auth.service";
+import {Therapist} from "../../../../../serious-game-backend/src/lib/models/Therapist";
+import {HttpResponse} from "../../../lib/utils/http/HttpResponse";
 
 @Component({
   selector: "serious-game-login",
@@ -36,8 +38,11 @@ export class LoginPage implements OnInit {
         this.loginForm.controls.password.value
       )
       .subscribe(response => {
+        const httpResponse = new HttpResponse().deserialize(response);
+        console.log(httpResponse);
+
         // login successful if there's a jwt token in the response
-        const token = response["token"];
+        const token = httpResponse.data["token"];
         this.authService.setToken(token);
         this.router.navigateByUrl("/main-menu");
       });
