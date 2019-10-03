@@ -6,6 +6,7 @@ import { User } from "src/lib/models/User";
 import { map } from "rxjs/operators";
 import { Therapist } from "src/lib/models/Therapist";
 import { Patient } from "src/lib/models/Patient";
+import { HttpResponse } from 'src/lib/utils/http/HttpResponse';
 @Injectable()
 export class AuthService {
   user: User;
@@ -26,12 +27,12 @@ export class AuthService {
 
   getRelatedUser(): Observable<Therapist | Patient> {
     return this.httpClient
-      .get<Therapist | Patient>(`users/related`)
+      .get<HttpResponse>(`users/related`)
       .pipe(
         map(user =>
           this.isTherapist()
-            ? new Therapist().deserialize(user)
-            : new Patient().deserialize(user)
+            ? new Therapist().deserialize(new HttpResponse().deserialize(user).data)
+            : new Patient().deserialize(new HttpResponse().deserialize(user).data)
         )
       );
   }
