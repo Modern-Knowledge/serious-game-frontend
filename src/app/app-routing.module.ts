@@ -1,11 +1,21 @@
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'home', loadChildren: './pages/home/home.module#HomePageModule' },
-  { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
-  { path: 'registration', loadChildren: './pages/registration/registration.module#RegistrationPageModule' },
+  { path: "", redirectTo: "login", pathMatch: "full" },
+  { path: "home", loadChildren: "./pages/home/home.module#HomePageModule" },
+  { path: "login", loadChildren: "./pages/login/login.module#LoginPageModule" },
+  {
+    path: "registration",
+    loadChildren:
+      "./pages/registration/registration.module#RegistrationPageModule"
+  },
+  {
+    path: "profile",
+    loadChildren: "./pages/profile/profile.module#ProfilePageModule"
+  },
+  { path: 'main-menu', loadChildren: './pages/main-menu/main-menu.module#MainMenuPageModule' },
+  { path: 'game', loadChildren: './pages/game/game.module#GamePageModule' }
 ];
 
 @NgModule({
@@ -14,4 +24,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

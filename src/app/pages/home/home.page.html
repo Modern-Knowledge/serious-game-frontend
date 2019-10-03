@@ -1,13 +1,15 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
     <ion-title>
-      Hauptmenü
+      Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  <div class="ion-padding">
-    Welcome {{user.forename}}!
+  <div class="ion-padding" *ngIf="user">
+    Guten Tag, {{ user.gender | salutation }} {{ user.lastname }}!
   </div>
 </ion-content>

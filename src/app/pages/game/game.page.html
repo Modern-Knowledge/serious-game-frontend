@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title *ngIf="user">Tagesplan von {{ user.fullName }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <serious-game-day-planning *ngIf="step===0" [words]="mixWordsWithRecipes()" (recipeAdded)="addRecipe($event)"></serious-game-day-planning>
+  <serious-game-recipe *ngIf="step===1" [recipes]="chosenRecipes"></serious-game-recipe>
+  <ion-button expand="block" (click)="onSubmit()">Weiter</ion-button>
+</ion-content>

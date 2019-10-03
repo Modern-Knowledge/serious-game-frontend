@@ -1,29 +1,31 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core'
-import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
+import { APP_INITIALIZER, NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { RouteReuseStrategy } from "@angular/router";
 
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
+import { SplashScreen } from "@ionic-native/splash-screen/ngx";
+import { StatusBar } from "@ionic-native/status-bar/ngx";
 
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { IonicStorageModule } from '@ionic/storage';
-import { LoggingService, LoggingServiceModule } from 'ionic-logging-service';
-import { environment } from '../environments/environment';
-import { ReactiveFormsModule } from '@angular/forms';
-import { BaseUrlInterceptor } from './interceptors/base-url-interceptor';
-import { AuthService } from './providers/auth.service';
-import { BearerTokenInterceptor } from './interceptors/bearer-token-interceptor';
+import { AppComponent } from "./app.component";
+import { AppRoutingModule } from "./app-routing.module";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { IonicStorageModule } from "@ionic/storage";
+import { LoggingService, LoggingServiceModule } from "ionic-logging-service";
+import { environment } from "../environments/environment";
+import { ReactiveFormsModule } from "@angular/forms";
+import { BaseUrlInterceptor } from "./interceptors/base-url-interceptor";
+import { AuthService } from "./providers/auth.service";
+import { BearerTokenInterceptor } from "./interceptors/bearer-token-interceptor";
+import { NavbarComponent } from "./components/navbar/navbar.component";
 
+import { DragulaModule } from "ng2-dragula";
 
 export function configureLogging(loggingService: LoggingService): () => void {
   return () => loggingService.configure(environment.logging);
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, NavbarComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ export function configureLogging(loggingService: LoggingService): () => void {
     AppRoutingModule,
     HttpClientModule,
     LoggingServiceModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DragulaModule.forRoot()
   ],
   providers: [
     StatusBar,
