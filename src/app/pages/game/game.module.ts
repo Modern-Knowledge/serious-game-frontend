@@ -10,6 +10,7 @@ import { DragulaModule } from "ng2-dragula";
 import { DayPlanningComponent } from "src/app/components/game/day-planning/day-planning.component";
 import { RecipeComponent } from "src/app/components/game/recipe/recipe.component";
 import { HelptextComponent } from "src/app/components/shared/helptext/helptext.component";
+import { ShoppingListComponent } from "src/app/components/game/shopping-list/shopping-list.component";
 import { DropZoneComponent } from "src/app/components/shared/drop-zone/drop-zone.component";
 import { MealtimeComponent } from "src/app/components/game/day-planning/mealtime/mealtime.component";
 import { DragZoneComponent } from "src/app/components/shared/drag-zone/drag-zone.component";
@@ -33,6 +34,7 @@ const routes: Routes = [
     DayPlanningComponent,
     RecipeComponent,
     HelptextComponent,
+    ShoppingListComponent,
     DragZoneComponent,
     DropZoneComponent,
     MealtimeComponent
