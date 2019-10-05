@@ -6,12 +6,6 @@
         ingredient.name
       }}</ion-item>
     </ion-list>
-    <!--TODO: replace with real data-->
-    <!--<template *ngIf="game.helptexts.length">
-      <ion-card *ngFor="let helptext of game.helptexts">
-        <ion-card-header>{{helptext.name}}</ion-card-header>
-        <ion-card-content>{{helptext.text}}</ion-card-content>
-      </ion-card></template>-->
     <serious-game-helptext
       *ngFor="let helptext of game.helptexts"
       [helptext]="helptext"
