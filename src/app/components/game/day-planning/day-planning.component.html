@@ -1,31 +1,30 @@
-<ion-grid>
-  <ion-row dragula="recipes" [dragulaModel]="words">
-    <ion-col size="4" *ngFor="let recipe of words">
-      <ion-item>
-        <ion-label class="ion-text-wrap">{{ recipe.name }}</ion-label>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-</ion-grid>
+<serious-game-drag-zone name="recipes" [model]="words"></serious-game-drag-zone>
 <ion-card>
   <ion-reorder-group (ionItemReorder)="doReorder($event)" disabled="false">
     <ion-item>Zeitung holen</ion-item>
-    <serious-game-mealtime
-      title="Frühstück zubereiten"
-      [model]="words"
-      (recipeAdded)="addRecipe($event)"
-    ></serious-game-mealtime>
+    <ion-card>
+      <serious-game-mealtime
+        title="Frühstück zubereiten"
+        [model]="words"
+        (recipeAdded)="addRecipe($event)"
+      ></serious-game-mealtime>
+    </ion-card>
+
     <ion-item>Haustier füttern</ion-item>
-    <serious-game-mealtime
-      title="Mittagessen zubereiten"
-      [model]="words"
-      (recipeAdded)="addRecipe($event)"
-    ></serious-game-mealtime>
-    <serious-game-mealtime
-      title="Abendessen zubereiten"
-      [model]="words"
-      (recipeAdded)="addRecipe($event)"
-    ></serious-game-mealtime>
+    <ion-card>
+      <serious-game-mealtime
+        title="Mittagessen zubereiten"
+        [model]="words"
+        (recipeAdded)="addRecipe($event)"
+      ></serious-game-mealtime>
+    </ion-card>
+    <ion-card>
+      <serious-game-mealtime
+        title="Abendessen zubereiten"
+        [model]="words"
+        (recipeAdded)="addRecipe($event)"
+      ></serious-game-mealtime>
+    </ion-card>
     <ion-item>Bad nehmen</ion-item>
     <ion-item>Schlafen gehen</ion-item>
   </ion-reorder-group>

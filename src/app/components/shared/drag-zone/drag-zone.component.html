@@ -1,0 +1,9 @@
+<ion-grid>
+  <ion-row [dragula]="name" [dragulaModel]="model">
+    <ion-col size="4" *ngFor="let element of model">
+      <ion-item>
+        <ion-label class="ion-text-wrap">{{ element.name }}</ion-label>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>

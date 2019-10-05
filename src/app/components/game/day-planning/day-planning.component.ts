@@ -20,4 +20,8 @@ export class DayPlanningComponent implements OnInit {
   addRecipe(value: Recipe) {
     this.recipeAdded.emit(value);
   }
+
+  doReorder(event: any) {
+    event.detail.complete();
+  }
 }

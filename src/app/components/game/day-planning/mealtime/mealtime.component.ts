@@ -7,6 +7,7 @@ import { Recipe } from "src/lib/models/Recipe";
   styleUrls: ["./mealtime.component.scss"]
 })
 export class MealtimeComponent implements OnInit {
+  @Input() title: string;
   @Input() model: string;
   @Output() recipeAdded: EventEmitter<Recipe> = new EventEmitter<Recipe>();
   constructor() {}
