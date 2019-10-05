@@ -1,8 +1,10 @@
 <ion-card *ngIf="chosenRecipe">
-  <ion-card-header>Rezept: {{chosenRecipe.name}}</ion-card-header>
+  <ion-card-header>Rezept: {{ chosenRecipe.name }}</ion-card-header>
   <ion-card-content>
     <ion-list>
-      <ion-item *ngFor="let ingredient of chosenRecipe.ingredients">{{ingredient.name}}</ion-item>
+      <ion-item *ngFor="let ingredient of chosenRecipe.ingredients">{{
+        ingredient.name
+      }}</ion-item>
     </ion-list>
     <!--TODO: replace with real data-->
     <!--<template *ngIf="game.helptexts.length">
@@ -10,6 +12,9 @@
         <ion-card-header>{{helptext.name}}</ion-card-header>
         <ion-card-content>{{helptext.text}}</ion-card-content>
       </ion-card></template>-->
-      <serious-game-helptext></serious-game-helptext>
+    <serious-game-helptext
+      *ngFor="let helptext of game.helptexts"
+      [helptext]="helptext"
+    ></serious-game-helptext>
   </ion-card-content>
 </ion-card>
