@@ -10,40 +10,22 @@
 <ion-card>
   <ion-reorder-group (ionItemReorder)="doReorder($event)" disabled="false">
     <ion-item>Zeitung holen</ion-item>
-    <ion-card>
-      <ion-item>
-        <ion-reorder slot="end"></ion-reorder>
-        <ion-grid>
-          <ion-row><ion-label>Frühstück zubereiten</ion-label> </ion-row>
-          <ion-card dragula="recipes" [dragulaModel]="words">
-            <ion-card-header>Hierher ziehen</ion-card-header>
-          </ion-card>
-        </ion-grid>
-      </ion-item>
-    </ion-card>
+    <serious-game-mealtime
+      title="Frühstück zubereiten"
+      [model]="words"
+      (recipeAdded)="addRecipe($event)"
+    ></serious-game-mealtime>
     <ion-item>Haustier füttern</ion-item>
-    <ion-card>
-      <ion-item>
-        <ion-reorder slot="end"></ion-reorder>
-        <ion-grid>
-          <ion-row><ion-label>Mittagessen zubereiten</ion-label> </ion-row>
-          <ion-card dragula="recipes" [dragulaModel]="words">
-            <ion-card-header>Hierher ziehen</ion-card-header>
-          </ion-card>
-        </ion-grid>
-      </ion-item>
-    </ion-card>
-    <ion-card>
-      <ion-item>
-        <ion-reorder slot="end"></ion-reorder>
-        <ion-grid>
-          <ion-row><ion-label>Abendessen zubereiten</ion-label> </ion-row>
-          <ion-card dragula="recipes" [dragulaModel]="words">
-            <ion-card-header>Hierher ziehen</ion-card-header>
-          </ion-card>
-        </ion-grid>
-      </ion-item>
-    </ion-card>
+    <serious-game-mealtime
+      title="Mittagessen zubereiten"
+      [model]="words"
+      (recipeAdded)="addRecipe($event)"
+    ></serious-game-mealtime>
+    <serious-game-mealtime
+      title="Abendessen zubereiten"
+      [model]="words"
+      (recipeAdded)="addRecipe($event)"
+    ></serious-game-mealtime>
     <ion-item>Bad nehmen</ion-item>
     <ion-item>Schlafen gehen</ion-item>
   </ion-reorder-group>

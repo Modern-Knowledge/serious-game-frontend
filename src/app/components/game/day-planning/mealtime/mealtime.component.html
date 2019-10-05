@@ -1,0 +1,15 @@
+<ion-card>
+  <ion-item>
+    <ion-reorder slot="end"></ion-reorder>
+    <ion-grid>
+      <ion-row
+        ><ion-label>{{ title }}</ion-label>
+      </ion-row>
+      <serious-game-drop-zone
+        name="recipes"
+        [model]="model"
+        (itemDropped)="addRecipe($event)"
+      ></serious-game-drop-zone>
+    </ion-grid>
+  </ion-item>
+</ion-card>
