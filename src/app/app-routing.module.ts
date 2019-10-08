@@ -15,7 +15,8 @@ const routes: Routes = [
     loadChildren: "./pages/profile/profile.module#ProfilePageModule"
   },
   { path: 'main-menu', loadChildren: './pages/main-menu/main-menu.module#MainMenuPageModule' },
-  { path: 'game', loadChildren: './pages/game/game.module#GamePageModule' }
+  { path: 'game', loadChildren: './pages/game/game.module#GamePageModule' },
+  { path: 'fridge', loadChildren: './pages/game/fridge/fridge.module#FridgePageModule' }
 ];
 
 @NgModule({

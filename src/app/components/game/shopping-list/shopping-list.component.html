@@ -2,21 +2,17 @@
   name="shoppinglist"
   [model]="ingredients"
 ></serious-game-drag-zone>
+<serious-game-helptext
+  *ngFor="let helptext of game.helptexts"
+  [helptext]="helptext"
+></serious-game-helptext>
 <ion-card>
-  <ion-card-header>Vorbereitung</ion-card-header>
-  <ion-card-content>
-    <serious-game-helptext
-      *ngFor="let helptext of game.helptexts"
-      [helptext]="helptext"
-    ></serious-game-helptext>
-    <ion-card>
-      <ion-card-header>Einkaufsliste</ion-card-header>
-      <ion-card-content
-        ><serious-game-drop-zone
-          name="shoppinglist"
-          [model]="words"
-        ></serious-game-drop-zone
-      ></ion-card-content>
-    </ion-card>
-  </ion-card-content>
+  <ion-card-header>Einkaufsliste</ion-card-header>
+  <ion-card-content
+    ><serious-game-drop-zone
+      name="shoppinglist"
+      [model]="words"
+    ></serious-game-drop-zone
+  ></ion-card-content>
 </ion-card>
+<ion-card [routerLink]="['/fridge']" routerLinkActive="router-link-active"><ion-card-header>Kühlschrank</ion-card-header></ion-card>

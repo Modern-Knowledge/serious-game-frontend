@@ -25,10 +25,11 @@ export class GamePage {
     private wordService: WordService,
     private recipeService: RecipeService,
     private gameService: GameService
-  ) {}
+  ) {
+    this.step = 0;
+  }
 
   ionViewWillEnter() {
-    this.step = 0;
     this.authService.getRelatedUser().subscribe(user => {
       this.user = user;
     });
