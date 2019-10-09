@@ -8,7 +8,21 @@
 </ion-header>
 
 <ion-content *ngIf="games">
-  <serious-game-day-planning *ngIf="step===0" [game]="games[step]" [words]="mixWordsWithRecipes()" (recipeAdded)="addRecipe($event)"></serious-game-day-planning>
-  <serious-game-recipe *ngIf="step===1" [game]="games[step]" [recipes]="chosenRecipes"></serious-game-recipe>
+  <serious-game-day-planning
+    *ngIf="step === 0"
+    [game]="games[step]"
+    [words]="mixWordsWithRecipes()"
+    (recipeAdded)="addRecipe($event)"
+  ></serious-game-day-planning>
+  <serious-game-recipe
+    *ngIf="step === 1"
+    [game]="games[step]"
+    [recipes]="chosenRecipes"
+  ></serious-game-recipe>
+  <serious-game-shopping-list
+    *ngIf="step === 2"
+    [words]="mixWordsWithRecipes()"
+    [game]="games[step]"
+  ></serious-game-shopping-list>
   <ion-button expand="block" (click)="onSubmit()">Weiter</ion-button>
 </ion-content>

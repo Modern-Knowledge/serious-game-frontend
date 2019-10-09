@@ -6,6 +6,7 @@
         ingredient.name
       }}</ion-item>
     </ion-list>
+    {{ chosenRecipe.description }}
     <serious-game-helptext
       *ngFor="let helptext of game.helptexts"
       [helptext]="helptext"
