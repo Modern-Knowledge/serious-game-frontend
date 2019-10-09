@@ -16,6 +16,7 @@ import { DragZoneComponent } from 'src/app/components/shared/drag-zone/drag-zone
 import { DropZoneComponent } from 'src/app/components/shared/drop-zone/drop-zone.component';
 import { FridgePageModule } from './fridge/fridge.module';
 import { SharedModule } from 'src/app/components/shared/shared.module';
+import { ShelfComponent } from "src/app/components/game/shopping-center/shelf/shelf.component";
 import { ShoppingCenterComponent } from "src/app/components/game/shopping-center/shopping-center.component";
 
 const routes: Routes = [
@@ -40,6 +41,7 @@ const routes: Routes = [
     HelptextComponent,
     ShoppingListComponent,
     ShoppingCenterComponent,
+    ShelfComponent
   ]
 })
 export class GamePageModule {}
