@@ -1,4 +1,10 @@
 <ion-card>
   <ion-card-header>Einkauf</ion-card-header>
-  <ion-card-content> </ion-card-content>
+  <ion-card-content>
+    <serious-game-shelf
+      *ngFor="let shelf of shelves"
+      [shelf]="shelf"
+    ></serious-game-shelf>
+    <serious-game-cart></serious-game-cart>
+  </ion-card-content>
 </ion-card>

@@ -19,6 +19,7 @@ import { SharedModule } from "src/app/components/shared/shared.module";
 import { ShelfComponent } from "src/app/components/game/shopping-center/shelf/shelf.component";
 import { ShoppingCenterComponent } from "src/app/components/game/shopping-center/shopping-center.component";
 import { DirectivesModule } from "src/app/directives/directives.module";
+import { CartComponent } from "src/app/components/game/shopping-center/cart/cart.component";
 
 const routes: Routes = [
   {
@@ -44,7 +45,8 @@ const routes: Routes = [
     ShoppingListComponent,
     ShoppingCenterComponent,
     MealtimeComponent,
-    ShelfComponent
+    ShelfComponent,
+    CartComponent
   ],
   entryComponents: [
     DayPlanningComponent,
