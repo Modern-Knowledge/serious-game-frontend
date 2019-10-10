@@ -1,12 +1,12 @@
-<serious-game-drag-zone name="recipes" [model]="words"></serious-game-drag-zone>
+<serious-game-drag-zone name="recipes" [model]="data"></serious-game-drag-zone>
 <ion-card>
   <ion-reorder-group (ionItemReorder)="doReorder($event)" disabled="false">
     <ion-item>Zeitung holen</ion-item>
     <ion-card>
       <serious-game-mealtime
         title="Frühstück zubereiten"
-        [model]="words"
-        (recipeAdded)="addRecipe($event)"
+        [model]="data"
+        (event)="addRecipe($event)"
       ></serious-game-mealtime>
     </ion-card>
 
@@ -14,15 +14,15 @@
     <ion-card>
       <serious-game-mealtime
         title="Mittagessen zubereiten"
-        [model]="words"
-        (recipeAdded)="addRecipe($event)"
+        [model]="data"
+        (event)="addRecipe($event)"
       ></serious-game-mealtime>
     </ion-card>
     <ion-card>
       <serious-game-mealtime
         title="Abendessen zubereiten"
-        [model]="words"
-        (recipeAdded)="addRecipe($event)"
+        [model]="data"
+        (event)="addRecipe($event)"
       ></serious-game-mealtime>
     </ion-card>
     <ion-item>Bad nehmen</ion-item>

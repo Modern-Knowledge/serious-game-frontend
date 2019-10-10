@@ -28,7 +28,6 @@ export class GameService {
     return this.http.get<HttpResponse>(`games`).pipe(
       map(games => {
         const gamesModel = new HttpResponse().deserialize(games);
-        console.log(gamesModel);
         return gamesModel.status === HttpResponseStatus.SUCCESS
           ? gamesModel.data.game.map(game => new Game().deserialize(game))
           : [];

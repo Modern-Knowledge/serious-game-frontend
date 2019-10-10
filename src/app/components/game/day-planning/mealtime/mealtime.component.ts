@@ -9,12 +9,12 @@ import { Recipe } from "src/lib/models/Recipe";
 export class MealtimeComponent implements OnInit {
   @Input() title: string;
   @Input() model: string;
-  @Output() recipeAdded: EventEmitter<Recipe> = new EventEmitter<Recipe>();
+  @Output() event: EventEmitter<Recipe> = new EventEmitter<Recipe>();
   constructor() {}
 
   ngOnInit() {}
 
   addRecipe(value: Recipe) {
-    this.recipeAdded.emit(value);
+    this.event.emit(value);
   }
 }
