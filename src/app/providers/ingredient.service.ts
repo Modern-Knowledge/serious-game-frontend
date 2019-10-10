@@ -20,7 +20,7 @@ export class IngredientService {
       .pipe(
         map(ingredient =>
           new Ingredient().deserialize(
-            new HttpResponse().deserialize(ingredient).data
+            new HttpResponse().deserialize(ingredient).data.ingredients
           )
         )
       );
@@ -31,7 +31,7 @@ export class IngredientService {
       map(ingredients => {
         const ingredientsModel = new HttpResponse().deserialize(ingredients);
         return ingredientsModel.status === HttpResponseStatus.SUCCESS
-          ? ingredientsModel.data.map(ingredient =>
+          ? ingredientsModel.data.ingredients.map(ingredient =>
               new Ingredient().deserialize(ingredient)
             )
           : [];
