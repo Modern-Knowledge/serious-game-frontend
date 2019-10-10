@@ -8,6 +8,10 @@
 </ion-header>
 
 <ion-content>
+  <serious-game-helptext
+    *ngFor="let helptext of games && games[step].helptexts"
+    [helptext]="helptext"
+  ></serious-game-helptext>
   <ng-template component-is></ng-template>
   <ion-button expand="block" (click)="onSubmit()">Weiter</ion-button>
 </ion-content>
