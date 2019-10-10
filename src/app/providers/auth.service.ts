@@ -6,7 +6,7 @@ import { User } from "src/lib/models/User";
 import { map } from "rxjs/operators";
 import { Therapist } from "src/lib/models/Therapist";
 import { Patient } from "src/lib/models/Patient";
-import { HttpResponse } from 'src/lib/utils/http/HttpResponse';
+import { HttpResponse } from "src/lib/utils/http/HttpResponse";
 @Injectable()
 export class AuthService {
   user: User;
@@ -31,8 +31,12 @@ export class AuthService {
       .pipe(
         map(user =>
           this.isTherapist()
-            ? new Therapist().deserialize(new HttpResponse().deserialize(user).data)
-            : new Patient().deserialize(new HttpResponse().deserialize(user).data)
+            ? new Therapist().deserialize(
+                new HttpResponse().deserialize(user).data.user
+              )
+            : new Patient().deserialize(
+                new HttpResponse().deserialize(user).data.user
+              )
         )
       );
   }
