@@ -20,7 +20,7 @@ import { RecipeComponent } from "src/app/components/game/recipe/recipe.component
 import { ShoppingListComponent } from "src/app/components/game/shopping-list/shopping-list.component";
 import { ShoppingCenterComponent } from "src/app/components/game/shopping-center/shopping-center.component";
 import { GameComponent } from "src/app/components/game/game.component";
-import { Subscription, Observable, merge } from "rxjs";
+import { Subscription, Observable, merge, forkJoin } from "rxjs";
 
 @Component({
   selector: "serious-game-game",
@@ -49,16 +49,19 @@ export class GamePage {
   }
 
   ionViewWillEnter() {
-    this.user = this.authService.getRelatedUser();
-    merge(this.wordService.getAll(), this.recipeService.getAll())
-      .pipe()
-      .subscribe(data => {
-        this.data = data;
-      });
-    this.gameService.getAll().subscribe(games => {
-      this.games = games;
+    this.requestMultipleResources().subscribe(responseList => {
+      this.user = responseList[0];
+      this.data = responseList[1];
+      this.games = responseList[2];
       this.loadGame();
     });
+  }
+
+  requestMultipleResources(): Observable<any[]> {
+    const user = this.authService.getRelatedUser();
+    const data = merge(this.wordService.getAll(), this.recipeService.getAll());
+    const games = this.gameService.getAll();
+    return forkJoin(user, data, games);
   }
 
   loadGame() {
