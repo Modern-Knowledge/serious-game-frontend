@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card *ngIf="foodCategory">
+    <ion-card-header>{{ foodCategory.name }}</ion-card-header>
+    <ion-card-content
+      ><ion-item *ngFor="let foodItem of foodItems">{{
+        foodItem.name
+      }}</ion-item></ion-card-content
+    >
+  </ion-card>
+</ion-content>

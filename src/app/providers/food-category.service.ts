@@ -20,7 +20,7 @@ export class FoodCategoryService {
       .pipe(
         map(foodCategory =>
           new FoodCategory().deserialize(
-            new HttpResponse().deserialize(foodCategory).data.foodCategories
+            new HttpResponse().deserialize(foodCategory).data.foodCategory
           )
         )
       );
@@ -29,11 +29,11 @@ export class FoodCategoryService {
   getAll(): Observable<FoodCategory[]> {
     return this.http.get<HttpResponse>(`food-categories`).pipe(
       map(foodCategories => {
-        const foodCategorysModel = new HttpResponse().deserialize(
+        const foodCategoriessModel = new HttpResponse().deserialize(
           foodCategories
         );
-        return foodCategorysModel.status === HttpResponseStatus.SUCCESS
-          ? foodCategorysModel.data.foodCategories.map(foodCategory =>
+        return foodCategoriessModel.status === HttpResponseStatus.SUCCESS
+          ? foodCategoriessModel.data.foodCategories.map(foodCategory =>
               new FoodCategory().deserialize(foodCategory)
             )
           : [];

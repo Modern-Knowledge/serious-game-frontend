@@ -1,1 +1,5 @@
-<ion-item>{{ shelf.name }}</ion-item>
+<ion-item
+  [routerLink]="['/shelf', shelf.id]"
+  routerLinkActive="router-link-active"
+  >{{ shelf.name }}</ion-item
+>
