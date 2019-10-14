@@ -14,9 +14,19 @@ const routes: Routes = [
     path: "profile",
     loadChildren: "./pages/profile/profile.module#ProfilePageModule"
   },
-  { path: 'main-menu', loadChildren: './pages/main-menu/main-menu.module#MainMenuPageModule' },
-  { path: 'game', loadChildren: './pages/game/game.module#GamePageModule' },
-  { path: 'fridge', loadChildren: './pages/game/fridge/fridge.module#FridgePageModule' }
+  {
+    path: "main-menu",
+    loadChildren: "./pages/main-menu/main-menu.module#MainMenuPageModule"
+  },
+  { path: "game", loadChildren: "./pages/game/game.module#GamePageModule" },
+  {
+    path: "fridge",
+    loadChildren: "./pages/game/fridge/fridge.module#FridgePageModule"
+  },
+  {
+    path: "shelf/:id",
+    loadChildren: "./pages/game/shelf/shelf.module#ShelfPageModule"
+  }
 ];
 
 @NgModule({
