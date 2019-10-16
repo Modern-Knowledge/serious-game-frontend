@@ -19,6 +19,7 @@ import { BearerTokenInterceptor } from "./interceptors/bearer-token-interceptor"
 import { NavbarComponent } from "./components/navbar/navbar.component";
 
 import { DragulaModule } from "ng2-dragula";
+import { ErrorInterceptor } from "./interceptors/error-interceptor";
 
 export function configureLogging(loggingService: LoggingService): () => void {
   return () => loggingService.configure(environment.logging);
@@ -52,6 +53,12 @@ export function configureLogging(loggingService: LoggingService): () => void {
       useClass: BearerTokenInterceptor,
       multi: true,
       deps: [AuthService]
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true,
+      deps: [AuthService, Router, LoggingService]
     },
     {
       deps: [LoggingService],
