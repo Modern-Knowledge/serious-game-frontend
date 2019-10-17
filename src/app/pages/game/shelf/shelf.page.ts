@@ -5,6 +5,7 @@ import { Ingredient } from "src/lib/models/Ingredient";
 import { forkJoin } from "rxjs";
 import { FoodCategoryService } from "src/app/providers/food-category.service";
 import { FoodCategory } from "src/lib/models/FoodCategory";
+import { CartStoreService } from "src/app/providers/store/cart-store.service";
 
 @Component({
   selector: "serious-game-shelf",
@@ -18,7 +19,8 @@ export class ShelfPage {
   constructor(
     private route: ActivatedRoute,
     private ingredientService: IngredientService,
-    private foodCategoryService: FoodCategoryService
+    private foodCategoryService: FoodCategoryService,
+    private cartStore: CartStoreService
   ) {}
 
   ionViewWillEnter() {
@@ -32,5 +34,8 @@ export class ShelfPage {
           this.foodItems = ingredients;
         });
     });
+  }
+  doReorder(event: any) {
+    event.detail.complete();
   }
 }

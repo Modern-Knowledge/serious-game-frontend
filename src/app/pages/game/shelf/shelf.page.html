@@ -6,12 +6,19 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-card *ngIf="foodCategory">
-    <ion-card-header>{{ foodCategory.name }}</ion-card-header>
-    <ion-card-content
-      ><ion-item *ngFor="let foodItem of foodItems">{{
-        foodItem.name
-      }}</ion-item></ion-card-content
-    >
-  </ion-card>
+  <ion-reorder-group (ionItemReorder)="doReorder($event)" disabled="false">
+    <ion-card *ngIf="foodCategory">
+      <ion-card-header>{{ foodCategory.name }}</ion-card-header>
+      <ion-card-content>
+        <serious-game-drag-zone
+          name="foodItems"
+          [model]="foodItems"
+        ></serious-game-drag-zone
+      ></ion-card-content>
+    </ion-card>
+    <serious-game-cart
+      name="foodItems"
+      [data]="cartStore.items"
+    ></serious-game-cart>
+  </ion-reorder-group>
 </ion-content>

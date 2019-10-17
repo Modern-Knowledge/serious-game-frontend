@@ -1,2 +1,6 @@
 <span>Einkaufswagen</span>
-<serious-game-drop-zone name="cart" [model]="data"></serious-game-drop-zone>
+<serious-game-drop-zone
+  [name]="name"
+  [model]="data"
+  (itemDropped)="addFoodItem($event)"
+></serious-game-drop-zone>
