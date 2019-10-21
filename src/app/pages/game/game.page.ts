@@ -103,11 +103,20 @@ export class GamePage {
   }
 
   onSubmit() {
-    this.step++;
+    if (this.stepValid()) {
+      this.step++;
+    }
     this.loadGame();
   }
 
   addRecipe(recipe: Recipe) {
     this.chosenRecipes.push(recipe);
+  }
+
+  stepValid(): boolean {
+    if (this.games) {
+      return this.step < this.games.length - 1;
+    }
+    return false;
   }
 }

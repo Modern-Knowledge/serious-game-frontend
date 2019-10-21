@@ -3,4 +3,10 @@
   [name]="name"
   [model]="data"
   (itemDropped)="addFoodItem($event)"
+  *ngIf="!viewing"
 ></serious-game-drop-zone>
+<ion-card *ngIf="items.length">
+  <ion-card-content *ngFor="let item of items">
+    <span>{{ item.name }}</span>
+  </ion-card-content>
+</ion-card>

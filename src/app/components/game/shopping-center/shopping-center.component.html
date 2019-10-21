@@ -5,6 +5,10 @@
       *ngFor="let shelf of shelves"
       [shelf]="shelf"
     ></serious-game-shelf>
-    <serious-game-cart [data]="cartStore.items"></serious-game-cart>
+    <serious-game-cart
+      name="foodItems"
+      [data]="data"
+      [viewing]="true"
+    ></serious-game-cart>
   </ion-card-content>
 </ion-card>

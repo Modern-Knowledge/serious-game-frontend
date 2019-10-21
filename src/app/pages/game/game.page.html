@@ -13,5 +13,7 @@
     [helptext]="helptext"
   ></serious-game-helptext>
   <ng-template component-is></ng-template>
-  <ion-button expand="block" (click)="onSubmit()">Weiter</ion-button>
+  <ion-button expand="block" (click)="onSubmit()" *ngIf="stepValid()"
+    >Weiter</ion-button
+  >
 </ion-content>

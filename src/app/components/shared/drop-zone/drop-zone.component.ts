@@ -8,14 +8,16 @@ import { DragulaService } from "ng2-dragula";
 })
 export class DropZoneComponent implements OnInit {
   @Input() name: string;
-  @Input() model: string;
+  @Input() model: any[];
+  @Input() displayedItems: any[];
   @Output() itemDropped: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private dragulaService: DragulaService) {}
 
   ngOnInit() {
     this.dragulaService.dropModel(this.name).subscribe(value => {
-      this.itemDropped.emit(value.item);
+      const item = this.model.find(element => element.id === +value.el.id);
+      this.itemDropped.emit(item);
     });
   }
 }
