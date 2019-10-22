@@ -21,6 +21,8 @@ import { ShoppingListComponent } from "src/app/components/game/shopping-list/sho
 import { ShoppingCenterComponent } from "src/app/components/game/shopping-center/shopping-center.component";
 import { GameComponent } from "src/app/components/game/game.component";
 import { Subscription, Observable, merge, forkJoin } from "rxjs";
+import { IngredientService } from "src/app/providers/ingredient.service";
+import { Ingredient } from "src/lib/models/Ingredient";
 
 @Component({
   selector: "serious-game-game",
@@ -32,9 +34,10 @@ export class GamePage {
   componentIs: ComponentIsDirective;
 
   user: Observable<User>;
-  data: (Word | Recipe)[];
+  dayPlanningData: (Word | Recipe)[];
   games: Game[];
   chosenRecipes: Recipe[] = [];
+  shoppingCenterData: (Word | Ingredient)[];
   step: number;
   gameComponents;
 
@@ -43,7 +46,8 @@ export class GamePage {
     private wordService: WordService,
     private recipeService: RecipeService,
     private gameService: GameService,
-    private componentFactoryResolver: ComponentFactoryResolver
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private ingredientService: IngredientService
   ) {
     this.step = 0;
   }
@@ -51,24 +55,26 @@ export class GamePage {
   ionViewWillEnter() {
     this.requestMultipleResources().subscribe(responseList => {
       this.user = responseList[0];
-      this.data = responseList[1];
+      this.dayPlanningData = responseList[1];
       this.games = responseList[2];
+      this.shoppingCenterData = responseList[3];
       this.loadGame();
     });
   }
 
   requestMultipleResources(): Observable<any[]> {
     const user = this.authService.getRelatedUser();
-    const data = merge(this.wordService.getAll(), this.recipeService.getAll());
+    const dayPlanningData = this.recipeService.getAll();
     const games = this.gameService.getAll();
-    return forkJoin(user, data, games);
+    const shoppingCenterData = this.ingredientService.getAll();
+    return forkJoin(user, dayPlanningData, games, shoppingCenterData);
   }
 
   loadGame() {
     this.gameComponents = {
       "serious-game-day-planning": {
         type: DayPlanningComponent,
-        data: this.data,
+        data: this.dayPlanningData,
         callback: "addRecipe"
       },
       "serious-game-recipe": {
@@ -77,11 +83,11 @@ export class GamePage {
       },
       "serious-game-shopping-list": {
         type: ShoppingListComponent,
-        data: this.data
+        data: this.shoppingCenterData
       },
       "serious-game-shopping-center": {
         type: ShoppingCenterComponent,
-        data: this.data
+        data: this.shoppingCenterData
       }
     };
     const currentGame = this.games[this.step];
