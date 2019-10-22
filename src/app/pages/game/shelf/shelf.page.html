@@ -11,12 +11,14 @@
       <ion-card-header>{{ foodCategory.name }}</ion-card-header>
       <ion-card-content>
         <serious-game-drag-zone
+          id="shelf"
           name="foodItems"
           [model]="foodItems"
         ></serious-game-drag-zone
       ></ion-card-content>
     </ion-card>
     <serious-game-cart
+      id="cart"
       name="foodItems"
       [data]="foodItems"
       [viewing]="false"

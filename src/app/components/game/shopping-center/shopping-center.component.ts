@@ -21,10 +21,7 @@ export class ShoppingCenterComponent implements OnInit, GameComponent {
   availableItems: (Ingredient | Word)[];
   shelves: FoodCategory[];
 
-  constructor(
-    private foodCategoryService: FoodCategoryService,
-    private cartStore: CartStoreService
-  ) {
+  constructor(private foodCategoryService: FoodCategoryService) {
     this.foodCategoryService.getAll().subscribe(foodCategories => {
       this.shelves = foodCategories;
     });

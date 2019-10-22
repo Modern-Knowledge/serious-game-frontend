@@ -1,12 +1,11 @@
 <span>Einkaufswagen</span>
-<serious-game-drop-zone
-  [name]="name"
-  [model]="data"
-  (itemDropped)="addFoodItem($event)"
-  *ngIf="!viewing"
-></serious-game-drop-zone>
-<ion-card *ngIf="items.length">
-  <ion-card-content *ngFor="let item of items">
-    <span>{{ item.name }}</span>
-  </ion-card-content>
-</ion-card>
+<ion-grid>
+  <ion-row [dragula]="name" [dragulaModel]="data" [id]="id">
+    <ion-col size="4" [id]="item.id" *ngFor="let item of items">
+      <ion-item>
+        <ion-label class="ion-text-wrap">{{ item.name }}</ion-label>
+      </ion-item>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+</ion-grid>

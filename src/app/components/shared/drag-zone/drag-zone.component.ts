@@ -6,6 +6,7 @@ import { Component, OnInit, Input } from "@angular/core";
   styleUrls: ["./drag-zone.component.scss"]
 })
 export class DragZoneComponent implements OnInit {
+  @Input() id: string;
   @Input() name: string;
   @Input() model: string;
 

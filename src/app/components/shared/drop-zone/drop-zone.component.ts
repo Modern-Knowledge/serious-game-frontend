@@ -11,6 +11,7 @@ export class DropZoneComponent implements OnInit {
   @Input() model: any[];
   @Input() displayedItems: any[];
   @Output() itemDropped: EventEmitter<any> = new EventEmitter<any>();
+  @Output() itemDragged: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private dragulaService: DragulaService) {}
 
@@ -18,6 +19,10 @@ export class DropZoneComponent implements OnInit {
     this.dragulaService.dropModel(this.name).subscribe(value => {
       const item = this.model.find(element => element.id === +value.el.id);
       this.itemDropped.emit(item);
+    });
+    this.dragulaService.drag(this.name).subscribe(value => {
+      const item = this.model.find(element => element.id === +value.el.id);
+      this.itemDragged.emit(item);
     });
   }
 }
