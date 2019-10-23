@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { timer } from "rxjs";
 import moment from "moment";
 @Component({
@@ -7,17 +7,19 @@ import moment from "moment";
   styleUrls: ["./stopwatch.component.scss"]
 })
 export class StopwatchComponent implements OnInit {
+  @Input() running: boolean;
+  @Output() isReset: EventEmitter<number> = new EventEmitter();
   private start: number = Date.now();
   private elapsedTime: number;
   constructor() {}
 
   ngOnInit() {
-    console.log("start!");
     timer(0, 1).subscribe(ellapsedCycles => {
       this.elapsedTime = Date.now() - this.start;
     });
   }
-  ngOnDestroy() {
-    console.log("end!");
+  reset() {
+    this.isReset.emit(this.elapsedTime);
+    this.start = Date.now();
   }
 }

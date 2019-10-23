@@ -23,6 +23,9 @@ import { GameComponent } from "src/app/components/game/game.component";
 import { Subscription, Observable, merge, forkJoin } from "rxjs";
 import { IngredientService } from "src/app/providers/ingredient.service";
 import { Ingredient } from "src/lib/models/Ingredient";
+import { StopwatchComponent } from "src/app/components/shared/stopwatch/stopwatch.component";
+import { SessionService } from "src/app/providers/session.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "serious-game-game",
@@ -30,6 +33,8 @@ import { Ingredient } from "src/lib/models/Ingredient";
   styleUrls: ["./game.page.scss"]
 })
 export class GamePage {
+  @ViewChild(StopwatchComponent, { static: false })
+  stopWatch: StopwatchComponent;
   @ViewChild(ComponentIsDirective, { static: false })
   componentIs: ComponentIsDirective;
 
@@ -47,7 +52,9 @@ export class GamePage {
     private recipeService: RecipeService,
     private gameService: GameService,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private ingredientService: IngredientService
+    private ingredientService: IngredientService,
+    private sessionService: SessionService,
+    private router: Router
   ) {
     this.step = 0;
   }
@@ -110,9 +117,27 @@ export class GamePage {
 
   onSubmit() {
     if (this.stepValid()) {
+      this.storeSession();
       this.step++;
+      this.stopWatch.reset();
     }
     this.loadGame();
+  }
+
+  onFinish() {
+    this.stopWatch.reset();
+    this.storeSession();
+    this.router.navigateByUrl("/main-menu");
+  }
+
+  storeSession() {
+    const game = this.games[this.step];
+    const userId = this.authService.getUserIdFromToken();
+    this.sessionService
+      .create(game.id, userId, game.gameSettings[0].id)
+      .subscribe(response => {
+        console.log(response);
+      });
   }
 
   addRecipe(recipe: Recipe) {
@@ -124,5 +149,9 @@ export class GamePage {
       return this.step < this.games.length - 1;
     }
     return false;
+  }
+
+  setTime(time: number) {
+    this.games[this.step];
   }
 }

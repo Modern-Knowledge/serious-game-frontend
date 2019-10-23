@@ -13,7 +13,11 @@
     [helptext]="helptext"
   ></serious-game-helptext>
   <ng-template component-is></ng-template>
-  <ion-button expand="block" (click)="onSubmit()" *ngIf="stepValid()"
-    >Weiter</ion-button
+  <serious-game-stopwatch (isReset)="setTime($event)"></serious-game-stopwatch>
+  <ion-button expand="block" (click)="onSubmit()" *ngIf="stepValid()">
+    Weiter</ion-button
+  >
+  <ion-button expand="block" (click)="onFinish()" *ngIf="!stepValid()"
+    >Fertigstellen</ion-button
   >
 </ion-content>
