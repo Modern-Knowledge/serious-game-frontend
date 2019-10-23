@@ -26,6 +26,9 @@ import { Ingredient } from "src/lib/models/Ingredient";
 import { StopwatchComponent } from "src/app/components/shared/stopwatch/stopwatch.component";
 import { SessionService } from "src/app/providers/session.service";
 import { Router } from "@angular/router";
+import { UserStoreService } from "src/app/providers/store/user-store.service";
+import { Patient } from "src/lib/models/Patient";
+import { Therapist } from "src/lib/models/Therapist";
 
 @Component({
   selector: "serious-game-game",
@@ -38,7 +41,7 @@ export class GamePage {
   @ViewChild(ComponentIsDirective, { static: false })
   componentIs: ComponentIsDirective;
 
-  user: Observable<User>;
+  user: Therapist | Patient;
   dayPlanningData: (Word | Recipe)[];
   games: Game[];
   chosenRecipes: Recipe[] = [];
@@ -47,34 +50,35 @@ export class GamePage {
   gameComponents;
 
   constructor(
-    private authService: AuthService,
     private wordService: WordService,
     private recipeService: RecipeService,
     private gameService: GameService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private ingredientService: IngredientService,
     private sessionService: SessionService,
-    private router: Router
+    private router: Router,
+    private userStore: UserStoreService
   ) {
     this.step = 0;
   }
 
   ionViewWillEnter() {
+    this.userStore.user.subscribe(user => {
+      this.user = user;
+    });
     this.requestMultipleResources().subscribe(responseList => {
-      this.user = responseList[0];
-      this.dayPlanningData = responseList[1];
-      this.games = responseList[2];
-      this.shoppingCenterData = responseList[3];
+      this.dayPlanningData = responseList[0];
+      this.games = responseList[1];
+      this.shoppingCenterData = responseList[2];
       this.loadGame();
     });
   }
 
   requestMultipleResources(): Observable<any[]> {
-    const user = this.authService.getRelatedUser();
     const dayPlanningData = this.recipeService.getAll();
     const games = this.gameService.getAll();
     const shoppingCenterData = this.ingredientService.getAll();
-    return forkJoin(user, dayPlanningData, games, shoppingCenterData);
+    return forkJoin(dayPlanningData, games, shoppingCenterData);
   }
 
   loadGame() {
@@ -127,14 +131,15 @@ export class GamePage {
   onFinish() {
     this.stopWatch.reset();
     this.storeSession();
+    this.step = 0;
     this.router.navigateByUrl("/main-menu");
   }
 
   storeSession() {
     const game = this.games[this.step];
-    const userId = this.authService.getUserIdFromToken();
+    console.log(this.user);
     this.sessionService
-      .create(game.id, userId, game.gameSettings[0].id)
+      .create(game.id, this.user.id, game.gameSettings[0].id)
       .subscribe(response => {
         console.log(response);
       });

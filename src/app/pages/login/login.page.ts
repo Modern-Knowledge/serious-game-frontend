@@ -4,8 +4,9 @@ import { Router } from "@angular/router";
 
 import { GameData } from "../../providers/GameData";
 import { AuthService } from "src/app/providers/auth.service";
-import {Therapist} from "../../../../../serious-game-backend/src/lib/models/Therapist";
-import {HttpResponse} from "../../../lib/utils/http/HttpResponse";
+import { Therapist } from "../../../../../serious-game-backend/src/lib/models/Therapist";
+import { HttpResponse } from "../../../lib/utils/http/HttpResponse";
+import { UserStoreService } from "src/app/providers/store/user-store.service";
 
 @Component({
   selector: "serious-game-login",
@@ -18,7 +19,8 @@ export class LoginPage implements OnInit {
   constructor(
     public router: Router,
     private gameData: GameData,
-    private authService: AuthService
+    private authService: AuthService,
+    private userStore: UserStoreService
   ) {}
 
   ngOnInit() {
@@ -39,8 +41,6 @@ export class LoginPage implements OnInit {
       )
       .subscribe(response => {
         const httpResponse = new HttpResponse().deserialize(response);
-        console.log(httpResponse);
-
         // login successful if there's a jwt token in the response
         const token = httpResponse.data["token"];
         this.authService.setToken(token);
