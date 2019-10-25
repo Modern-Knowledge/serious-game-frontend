@@ -26,7 +26,8 @@ const routes: Routes = [
   {
     path: "shelf/:id",
     loadChildren: "./pages/game/shelf/shelf.module#ShelfPageModule"
-  }
+  },
+  { path: 'score-board', loadChildren: './pages/game/score-board/score-board.module#ScoreBoardPageModule' }
 ];
 
 @NgModule({
