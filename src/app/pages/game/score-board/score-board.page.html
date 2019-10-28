@@ -11,7 +11,12 @@
     <ion-card-content
       >{{
         getDifference(session.statistic.startTime, session.statistic.endTime)
-      }}ms</ion-card-content
-    >
+      }}ms
+      <serious-game-scored-points
+        [time]="
+          getDifference(session.statistic.startTime, session.statistic.endTime)
+        "
+      ></serious-game-scored-points>
+    </ion-card-content>
   </ion-card>
 </ion-content>
