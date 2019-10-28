@@ -9,6 +9,7 @@ import moment from "moment";
 export class StopwatchComponent implements OnInit {
   @Input() running: boolean;
   @Output() isReset: EventEmitter<number> = new EventEmitter();
+  @Output() timeChanged: EventEmitter<number> = new EventEmitter();
   private start: number = Date.now();
   private elapsedTime: number;
   constructor() {}
@@ -16,6 +17,7 @@ export class StopwatchComponent implements OnInit {
   ngOnInit() {
     timer(0, 1).subscribe(ellapsedCycles => {
       this.elapsedTime = Date.now() - this.start;
+      this.timeChanged.emit(this.elapsedTime);
     });
   }
   reset() {
