@@ -9,6 +9,7 @@ import { IonicModule } from "@ionic/angular";
 import { CartComponent } from "./cart/cart.component";
 import { HelptextComponent } from "./helptext/helptext.component";
 import { StopwatchComponent } from "./stopwatch/stopwatch.component";
+import { ScoredPointsComponent } from "./scored-points/scored-points.component";
 
 @NgModule({
   imports: [DragulaModule, CommonModule, FormsModule, IonicModule],
@@ -17,14 +18,16 @@ import { StopwatchComponent } from "./stopwatch/stopwatch.component";
     DropZoneComponent,
     CartComponent,
     HelptextComponent,
-    StopwatchComponent
+    StopwatchComponent,
+    ScoredPointsComponent
   ],
   exports: [
     DragZoneComponent,
     DropZoneComponent,
     CartComponent,
     HelptextComponent,
-    StopwatchComponent
+    StopwatchComponent,
+    ScoredPointsComponent
   ]
 })
 export class SharedModule {}
