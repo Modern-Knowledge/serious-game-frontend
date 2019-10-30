@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 import { PatientService } from "src/app/providers/patient.service";
 import { Patient } from "src/lib/models/Patient";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "serious-game-patient-selector",
@@ -9,15 +10,18 @@ import { Patient } from "src/lib/models/Patient";
 })
 export class PatientSelectorComponent implements OnInit {
   patients: Patient[];
+  patientSubscription: Subscription = new Subscription();
   @Input() selectedPatients: Patient[];
   @Output() patientSelected: EventEmitter<Patient[]> = new EventEmitter();
 
   constructor(private patientService: PatientService) {}
 
   ngOnInit() {
-    this.patientService.getAll().subscribe(patients => {
-      this.patients = patients;
-    });
+    this.patientSubscription.add(
+      this.patientService.getAll().subscribe(patients => {
+        this.patients = patients;
+      })
+    );
   }
   selectPatient(value) {
     this.selectedPatients = this.patients.filter(patient => {
@@ -29,5 +33,8 @@ export class PatientSelectorComponent implements OnInit {
     return this.selectedPatients.some(
       selectedPatient => selectedPatient.id === patient.id
     );
+  }
+  ngOnDestroy() {
+    this.patientSubscription.unsubscribe();
   }
 }

@@ -3,6 +3,7 @@ import { Ingredient } from "src/lib/models/Ingredient";
 import { Word } from "src/lib/models/Word";
 import { CartStoreService } from "src/app/providers/store/cart-store.service";
 import { DragulaService } from "ng2-dragula";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "serious-game-cart",
@@ -15,6 +16,7 @@ export class CartComponent implements OnInit {
   @Input() name: string;
   @Input() viewing: boolean;
   private items: (Ingredient | Word)[];
+  private subscriptions: Subscription = new Subscription();
 
   constructor(
     private cartStore: CartStoreService,
@@ -22,18 +24,22 @@ export class CartComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.cartStore.items$.subscribe(items => {
-      this.items = items;
-    });
-    this.dragulaService.dropModel(this.name).subscribe(value => {
-      const item = this.data.find(element => element.id === +value.el.id);
-      if (value.target.id === "shelf") {
-        this.removeFoodItem(item);
-      } else {
-        this.addFoodItem(item);
-        this.dragulaService.find(this.name).drake.cancel(true);
-      }
-    });
+    this.subscriptions.add(
+      this.cartStore.items$.subscribe(items => {
+        this.items = items;
+      })
+    );
+    this.subscriptions.add(
+      this.dragulaService.dropModel(this.name).subscribe(value => {
+        const item = this.data.find(element => element.id === +value.el.id);
+        if (value.target.id === "shelf") {
+          this.removeFoodItem(item);
+        } else {
+          this.addFoodItem(item);
+          this.dragulaService.find(this.name).drake.cancel(true);
+        }
+      })
+    );
   }
 
   addFoodItem(item) {
@@ -42,5 +48,9 @@ export class CartComponent implements OnInit {
 
   removeFoodItem(item) {
     this.cartStore.removeItem(item);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

@@ -10,7 +10,8 @@ import {
 } from "@angular/forms";
 import { Therapist } from "src/lib/models/Therapist";
 import { Router } from "@angular/router";
-import {HttpResponse} from "../../../lib/utils/http/HttpResponse";
+import { HttpResponse } from "../../../lib/utils/http/HttpResponse";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "serious-game-registration",
@@ -19,7 +20,7 @@ import {HttpResponse} from "../../../lib/utils/http/HttpResponse";
 })
 export class RegistrationPage implements OnInit {
   public registrationForm: FormGroup;
-
+  private subscription: Subscription = new Subscription();
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
@@ -42,18 +43,24 @@ export class RegistrationPage implements OnInit {
 
   onSubmit() {
     const user = new User().deserialize(this.registrationForm.value);
-    this.authService
-      .register(user, this.registrationForm.controls.therapist.value)
-      .subscribe(response => {
+    this.subscription.add(
+      this.authService
+        .register(user, this.registrationForm.controls.therapist.value)
+        .subscribe(response => {
           const httpResponse = new HttpResponse().deserialize(response);
 
           const token = httpResponse.data["token"];
           this.authService.setToken(token);
           this.router.navigateByUrl("/main-menu");
-      });
+        })
+    );
   }
 
   matchPasswords(form): Boolean {
     return form.get("password") === form.get("password_confirmation");
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

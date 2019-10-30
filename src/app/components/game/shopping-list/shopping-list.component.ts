@@ -5,6 +5,7 @@ import { Ingredient } from "src/lib/models/Ingredient";
 import { GameComponent } from "../game.component";
 import { Word } from "src/lib/models/Word";
 import { Recipe } from "src/lib/models/Recipe";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "serious-game-shopping-list",
@@ -15,12 +16,10 @@ export class ShoppingListComponent implements OnInit, GameComponent {
   @Input() game: Game;
   @Input() data: (Recipe | Word)[];
   @Output() event: EventEmitter<any> = new EventEmitter();
-  ingredients: Ingredient[];
+  ingredients: Observable<Ingredient[]>;
 
   constructor(private ingredientService: IngredientService) {
-    this.ingredientService.getAll().subscribe(ingredients => {
-      this.ingredients = ingredients;
-    });
+    this.ingredients = this.ingredientService.getAll();
   }
 
   ngOnInit() {}

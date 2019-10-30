@@ -14,20 +14,22 @@ import moment from "moment";
 })
 export class ScoreBoardPage implements OnInit {
   sessions: Observable<Array<Session>>;
-  userSubscription: Subscription;
+  subscription: Subscription = new Subscription();
   constructor(
     private sessionService: SessionService,
     private userStore: UserStoreService
   ) {}
 
   ngOnInit() {
-    this.userSubscription = this.userStore.user.subscribe(user => {
-      this.sessions = this.sessionService.getForPatient(user.id);
-    });
+    this.subscription.add(
+      this.userStore.user.subscribe(user => {
+        this.sessions = this.sessionService.getForPatient(user.id);
+      })
+    );
   }
 
   ngOnDestroy() {
-    this.userSubscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   getDifference(start: Date, end: Date) {

@@ -9,7 +9,10 @@
   <ion-card>
     <ion-card-header>Kühlschrank</ion-card-header>
     <ion-card-content
-      ><serious-game-drag-zone name="recipes" [model]="ingredients"></serious-game-drag-zone>
+      ><serious-game-drag-zone
+        name="recipes"
+        [model]="ingredients | async"
+      ></serious-game-drag-zone>
     </ion-card-content>
   </ion-card>
 </ion-content>

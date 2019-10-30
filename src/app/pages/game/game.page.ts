@@ -41,14 +41,15 @@ export class GamePage {
   @ViewChild(ComponentIsDirective, { static: false })
   componentIs: ComponentIsDirective;
 
-  user: Therapist | Patient;
-  dayPlanningData: (Word | Recipe)[];
-  games: Game[];
-  chosenRecipes: Recipe[] = [];
-  shoppingCenterData: (Word | Ingredient)[];
-  step: number;
-  elapsedTime: number;
-  gameComponents;
+  private user: Therapist | Patient;
+  private dayPlanningData: (Word | Recipe)[];
+  private games: Game[];
+  private chosenRecipes: Recipe[] = [];
+  private shoppingCenterData: (Word | Ingredient)[];
+  private step: number;
+  private elapsedTime: number;
+  private gameComponents;
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private wordService: WordService,
@@ -64,15 +65,19 @@ export class GamePage {
   }
 
   ionViewWillEnter() {
-    this.userStore.user.subscribe(user => {
-      this.user = user;
-    });
-    this.requestMultipleResources().subscribe(responseList => {
-      this.dayPlanningData = responseList[0];
-      this.games = responseList[1];
-      this.shoppingCenterData = responseList[2];
-      this.loadGame();
-    });
+    this.subscription.add(
+      this.userStore.user.subscribe(user => {
+        this.user = user;
+      })
+    );
+    this.subscription.add(
+      this.requestMultipleResources().subscribe(responseList => {
+        this.dayPlanningData = responseList[0];
+        this.games = responseList[1];
+        this.shoppingCenterData = responseList[2];
+        this.loadGame();
+      })
+    );
   }
 
   requestMultipleResources(): Observable<any[]> {
@@ -138,11 +143,18 @@ export class GamePage {
 
   storeSession() {
     const game = this.games[this.step];
-    this.sessionService
-      .create(game.id, this.user.id, game.gameSettings[0].id, this.elapsedTime)
-      .subscribe(response => {
-        console.log(response);
-      });
+    this.subscription.add(
+      this.sessionService
+        .create(
+          game.id,
+          this.user.id,
+          game.gameSettings[0].id,
+          this.elapsedTime
+        )
+        .subscribe(response => {
+          console.log(response);
+        })
+    );
   }
 
   addRecipe(recipe: Recipe) {
@@ -158,5 +170,9 @@ export class GamePage {
 
   setTime(time: number) {
     this.elapsedTime = time;
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

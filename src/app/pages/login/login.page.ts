@@ -7,6 +7,7 @@ import { AuthService } from "src/app/providers/auth.service";
 import { Therapist } from "../../../../../serious-game-backend/src/lib/models/Therapist";
 import { HttpResponse } from "../../../lib/utils/http/HttpResponse";
 import { UserStoreService } from "src/app/providers/store/user-store.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "serious-game-login",
@@ -15,6 +16,7 @@ import { UserStoreService } from "src/app/providers/store/user-store.service";
 })
 export class LoginPage implements OnInit {
   public loginForm: FormGroup;
+  private subscription: Subscription = new Subscription();
 
   constructor(
     public router: Router,
@@ -34,21 +36,27 @@ export class LoginPage implements OnInit {
   }
 
   onLogin(): void {
-    this.authService
-      .login(
-        this.loginForm.controls.email.value,
-        this.loginForm.controls.password.value
-      )
-      .subscribe(response => {
-        const httpResponse = new HttpResponse().deserialize(response);
-        // login successful if there's a jwt token in the response
-        const token = httpResponse.data["token"];
-        this.authService.setToken(token);
-        this.router.navigateByUrl("/main-menu");
-      });
+    this.subscription.add(
+      this.authService
+        .login(
+          this.loginForm.controls.email.value,
+          this.loginForm.controls.password.value
+        )
+        .subscribe(response => {
+          const httpResponse = new HttpResponse().deserialize(response);
+          // login successful if there's a jwt token in the response
+          const token = httpResponse.data["token"];
+          this.authService.setToken(token);
+          this.router.navigateByUrl("/main-menu");
+        })
+    );
   }
 
   onSignUp(): void {
     this.router.navigateByUrl("/registration");
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

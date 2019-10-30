@@ -2,7 +2,7 @@
   <ion-card-header>Einkauf</ion-card-header>
   <ion-card-content>
     <serious-game-shelf
-      *ngFor="let shelf of shelves"
+      *ngFor="let shelf of shelves | async"
       [shelf]="shelf"
     ></serious-game-shelf>
     <serious-game-cart
