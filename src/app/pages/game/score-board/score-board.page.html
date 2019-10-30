@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card *ngFor="let session of sessions | async">
+    <ion-card-header
+      ><span class="ion-float-left">{{ session.game.name }}</span>
+      <span class="ion-float-right">{{
+        session.statistic.startTime | date: "dd.MM.yyyy HH:mm"
+      }}</span>
+    </ion-card-header>
+    <ion-card-content
+      >{{
+        getDifference(session.statistic.startTime, session.statistic.endTime)
+      }}ms
+    </ion-card-content>
+    <serious-game-scored-points
+      [time]="
+        getDifference(session.statistic.startTime, session.statistic.endTime)
+      "
+    ></serious-game-scored-points>
+  </ion-card>
+</ion-content>

@@ -47,6 +47,7 @@ export class GamePage {
   chosenRecipes: Recipe[] = [];
   shoppingCenterData: (Word | Ingredient)[];
   step: number;
+  elapsedTime: number;
   gameComponents;
 
   constructor(
@@ -121,9 +122,9 @@ export class GamePage {
 
   onSubmit() {
     if (this.stepValid()) {
+      this.stopWatch.reset();
       this.storeSession();
       this.step++;
-      this.stopWatch.reset();
     }
     this.loadGame();
   }
@@ -137,9 +138,8 @@ export class GamePage {
 
   storeSession() {
     const game = this.games[this.step];
-    console.log(this.user);
     this.sessionService
-      .create(game.id, this.user.id, game.gameSettings[0].id)
+      .create(game.id, this.user.id, game.gameSettings[0].id, this.elapsedTime)
       .subscribe(response => {
         console.log(response);
       });
@@ -157,6 +157,6 @@ export class GamePage {
   }
 
   setTime(time: number) {
-    this.games[this.step];
+    this.elapsedTime = time;
   }
 }

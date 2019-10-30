@@ -4,17 +4,17 @@
 
 export const environment = {
   production: false,
-  backendUrl: 'http://localhost:3000',
+  backendUrl: "http://localhost:3000",
   logging: {
     logLevels: [
       {
-        loggerName: 'root',
-        logLevel: 'DEBUG'
+        loggerName: "root",
+        logLevel: "DEBUG"
       }
     ],
     ajaxAppender: {
-      url: 'http://localhost:3000/logging/create',
-      threshold: 'DEBUG'
+      url: "http://localhost:3000/logging/",
+      threshold: "DEBUG"
     }
   }
 };
