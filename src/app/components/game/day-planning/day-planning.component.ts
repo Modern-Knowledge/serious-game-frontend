@@ -11,16 +11,26 @@ import { GameComponent } from "../game.component";
   styleUrls: ["./day-planning.component.scss"]
 })
 export class DayPlanningComponent implements OnInit, GameComponent {
-  constructor() {}
-
   @Input() data: (Recipe | Word)[];
   @Input() game: Game;
   @Output() event: EventEmitter<Recipe> = new EventEmitter<Recipe>();
+  @Output() errorEvent: EventEmitter<any> = new EventEmitter<any>();
+
+  Mealtimes: Mealtimes;
+  breakfast: Mealtimes = Mealtimes.BREAKFAST;
+  lunch: Mealtimes = Mealtimes.LUNCH;
+  dinner: Mealtimes = Mealtimes.DINNER;
+
+  constructor() {}
 
   ngOnInit() {}
 
   addRecipe(value: Recipe) {
     this.event.emit(value);
+  }
+
+  showError(error) {
+    this.errorEvent.emit(error);
   }
 
   doReorder(event: any) {

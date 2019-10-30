@@ -29,6 +29,9 @@ import { Router } from "@angular/router";
 import { UserStoreService } from "src/app/providers/store/user-store.service";
 import { Patient } from "src/lib/models/Patient";
 import { Therapist } from "src/lib/models/Therapist";
+import { ToastPosition, ToastWrapper } from "src/app/util/ToastWrapper";
+import { HttpResponseMessageSeverity } from "src/lib/utils/http/HttpResponse";
+import { ScoredPointsComponent } from "src/app/components/shared/scored-points/scored-points.component";
 
 @Component({
   selector: "serious-game-game",
@@ -40,6 +43,8 @@ export class GamePage {
   stopWatch: StopwatchComponent;
   @ViewChild(ComponentIsDirective, { static: false })
   componentIs: ComponentIsDirective;
+  @ViewChild(ScoredPointsComponent, { static: false })
+  scoreComponent: ScoredPointsComponent;
 
   private user: Therapist | Patient;
   private dayPlanningData: (Word | Recipe)[];
@@ -123,11 +128,17 @@ export class GamePage {
     dynamicComponentInstance.event.subscribe(event =>
       this[currentGameComponent.callback](event)
     );
+    dynamicComponentInstance.errorEvent.subscribe(error => {
+      // TODO: use something like currentGame.gameSettings.pointsDeducted here,
+      //       so the amount of points deducted are dependant on the type of game
+      this.handleError(error, 10);
+    });
   }
 
   onSubmit() {
     if (this.stepValid()) {
       this.stopWatch.reset();
+      this.scoreComponent.resetScore();
       this.storeSession();
       this.step++;
     }
@@ -136,6 +147,7 @@ export class GamePage {
 
   onFinish() {
     this.stopWatch.reset();
+    this.scoreComponent.resetScore();
     this.storeSession();
     this.step = 0;
     this.router.navigateByUrl("/main-menu");
@@ -159,6 +171,16 @@ export class GamePage {
 
   addRecipe(recipe: Recipe) {
     this.chosenRecipes.push(recipe);
+  }
+
+  handleError(error: string, deductedPoints: number = 10) {
+    const message = new ToastWrapper(
+      error,
+      ToastPosition.TOP,
+      HttpResponseMessageSeverity.DANGER
+    );
+    message.alert();
+    this.scoreComponent.deductScore(deductedPoints);
   }
 
   stepValid(): boolean {

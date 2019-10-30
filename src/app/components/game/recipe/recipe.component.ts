@@ -12,6 +12,7 @@ export class RecipeComponent implements OnInit, GameComponent {
   @Input() data: Recipe[];
   @Input() game: Game;
   @Output() event: EventEmitter<any> = new EventEmitter();
+  @Output() errorEvent: EventEmitter<any> = new EventEmitter();
   chosenRecipe: Recipe;
 
   constructor() {}

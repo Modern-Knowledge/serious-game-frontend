@@ -8,4 +8,5 @@ export interface GameComponent {
   data: AbstractModel<any>[];
   game: Game;
   event: EventEmitter<any>;
+  errorEvent: EventEmitter<any>;
 }

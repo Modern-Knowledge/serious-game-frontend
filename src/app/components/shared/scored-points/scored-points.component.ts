@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
   selector: "serious-game-scored-points",
@@ -7,14 +7,27 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 export class ScoredPointsComponent implements OnInit {
   @Input() time: number;
-  points: number = 100;
+  private points: number = 100;
 
   constructor() {}
 
   ngOnInit() {}
 
   calculatePoints(): number {
-    // TODO: also calculate points based on failed tries
-    return this.points - this.time / 1000;
+    return this.points > 0 ? this.points - this.time / 1000 : 0;
+  }
+
+  deductScore(value: number) {
+    // TODO: store score in database - the score cannot be calculated with only the elapsed time, because
+    // points must be deductable on an error
+    this.points -= value;
+  }
+
+  resetScore() {
+    this.points = 100;
+  }
+
+  ngOnDestroy() {
+    this.resetScore();
   }
 }

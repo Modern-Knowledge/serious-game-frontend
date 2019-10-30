@@ -16,6 +16,7 @@ export class ShoppingListComponent implements OnInit, GameComponent {
   @Input() game: Game;
   @Input() data: (Recipe | Word)[];
   @Output() event: EventEmitter<any> = new EventEmitter();
+  @Output() errorEvent: EventEmitter<any> = new EventEmitter();
   ingredients: Observable<Ingredient[]>;
 
   constructor(private ingredientService: IngredientService) {

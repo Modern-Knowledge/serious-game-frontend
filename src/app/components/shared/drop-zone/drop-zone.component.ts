@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { DragulaService } from "ng2-dragula";
+import { DragulaService, DrakeFactory } from "ng2-dragula";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -8,6 +8,7 @@ import { Subscription } from "rxjs";
   styleUrls: ["./drop-zone.component.scss"]
 })
 export class DropZoneComponent implements OnInit {
+  @Input() id: string;
   @Input() name: string;
   @Input() model: any[];
   @Input() displayedItems: any[];
@@ -15,18 +16,20 @@ export class DropZoneComponent implements OnInit {
   @Output() itemDropped: EventEmitter<any> = new EventEmitter<any>();
   @Output() itemDragged: EventEmitter<any> = new EventEmitter<any>();
 
-  subscriptions = new Subscription();
+  private subscription: Subscription = new Subscription();
 
   constructor(private dragulaService: DragulaService) {}
 
   ngOnInit() {
-    this.subscriptions.add(
+    this.subscription.add(
       this.dragulaService.dropModel(this.name).subscribe(value => {
-        const item = this.model.find(element => element.id === +value.el.id);
-        this.itemDropped.emit(item);
+        if (value.target.id === this.id) {
+          const item = this.model.find(element => element.id === +value.el.id);
+          this.itemDropped.emit(item);
+        }
       })
     );
-    this.subscriptions.add(
+    this.subscription.add(
       this.dragulaService.drag(this.name).subscribe(value => {
         const item = this.model.find(element => element.id === +value.el.id);
         this.itemDragged.emit(item);
@@ -35,6 +38,6 @@ export class DropZoneComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

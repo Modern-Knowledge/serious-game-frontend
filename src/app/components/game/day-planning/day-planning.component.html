@@ -7,15 +7,18 @@
         title="Frühstück zubereiten"
         [model]="data"
         (event)="addRecipe($event)"
+        [mealtime]="breakfast"
+        (errorEvent)="showError($event)"
       ></serious-game-mealtime>
     </ion-card>
-
     <ion-item>Haustier füttern</ion-item>
     <ion-card>
       <serious-game-mealtime
         title="Mittagessen zubereiten"
         [model]="data"
         (event)="addRecipe($event)"
+        [mealtime]="lunch"
+        (errorEvent)="showError($event)"
       ></serious-game-mealtime>
     </ion-card>
     <ion-card>
@@ -23,6 +26,8 @@
         title="Abendessen zubereiten"
         [model]="data"
         (event)="addRecipe($event)"
+        [mealtime]="dinner"
+        (errorEvent)="showError($event)"
       ></serious-game-mealtime>
     </ion-card>
     <ion-item>Bad nehmen</ion-item>

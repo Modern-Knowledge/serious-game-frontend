@@ -17,6 +17,7 @@ export class ShoppingCenterComponent implements OnInit, GameComponent {
   @Input() data: Ingredient[];
   @Input() game: Game;
   @Output() event: EventEmitter<any> = new EventEmitter();
+  @Output() errorEvent: EventEmitter<any> = new EventEmitter();
 
   shoppingCart: Ingredient[];
   availableItems: (Ingredient | Word)[];
