@@ -32,6 +32,9 @@ import { Therapist } from "src/lib/models/Therapist";
 import { ToastPosition, ToastWrapper } from "src/app/util/ToastWrapper";
 import { HttpResponseMessageSeverity } from "src/lib/utils/http/HttpResponse";
 import { ScoredPointsComponent } from "src/app/components/shared/scored-points/scored-points.component";
+import { ErrorCountComponent } from "src/app/components/shared/error-count/error-count.component";
+import { Errortext } from "src/lib/models/Errortext";
+import { ErrorTextService } from "src/app/providers/error-text.service";
 
 @Component({
   selector: "serious-game-game",
@@ -43,8 +46,8 @@ export class GamePage {
   stopWatch: StopwatchComponent;
   @ViewChild(ComponentIsDirective, { static: false })
   componentIs: ComponentIsDirective;
-  @ViewChild(ScoredPointsComponent, { static: false })
-  scoreComponent: ScoredPointsComponent;
+  @ViewChild(ErrorCountComponent, { static: false })
+  errorCount: ErrorCountComponent;
 
   private user: Therapist | Patient;
   private dayPlanningData: (Word | Recipe)[];
@@ -55,6 +58,7 @@ export class GamePage {
   private elapsedTime: number;
   private gameComponents;
   private subscription: Subscription = new Subscription();
+  private errorTexts: Errortext[];
 
   constructor(
     private wordService: WordService,
@@ -64,7 +68,8 @@ export class GamePage {
     private ingredientService: IngredientService,
     private sessionService: SessionService,
     private router: Router,
-    private userStore: UserStoreService
+    private userStore: UserStoreService,
+    private errorTextService: ErrorTextService
   ) {
     this.step = 0;
   }
@@ -80,6 +85,7 @@ export class GamePage {
         this.dayPlanningData = responseList[0];
         this.games = responseList[1];
         this.shoppingCenterData = responseList[2];
+        this.errorTexts = responseList[3];
         this.loadGame();
       })
     );
@@ -89,7 +95,8 @@ export class GamePage {
     const dayPlanningData = this.recipeService.getAll();
     const games = this.gameService.getAll();
     const shoppingCenterData = this.ingredientService.getAll();
-    return forkJoin(dayPlanningData, games, shoppingCenterData);
+    const errorTexts = this.errorTextService.getAll();
+    return forkJoin(dayPlanningData, games, shoppingCenterData, errorTexts);
   }
 
   loadGame() {
@@ -125,20 +132,19 @@ export class GamePage {
     const dynamicComponentInstance = <GameComponent>componentRef.instance;
     dynamicComponentInstance.data = currentGameComponent.data;
     dynamicComponentInstance.game = currentGame;
+    dynamicComponentInstance.errorTexts = this.errorTexts;
     dynamicComponentInstance.event.subscribe(event =>
       this[currentGameComponent.callback](event)
     );
     dynamicComponentInstance.errorEvent.subscribe(error => {
-      // TODO: use something like currentGame.gameSettings.pointsDeducted here,
-      //       so the amount of points deducted are dependant on the type of game
-      this.handleError(error, 10);
+      this.handleError(error);
     });
   }
 
   onSubmit() {
     if (this.stepValid()) {
       this.stopWatch.reset();
-      this.scoreComponent.resetScore();
+      this.errorCount.reset();
       this.storeSession();
       this.step++;
     }
@@ -147,7 +153,7 @@ export class GamePage {
 
   onFinish() {
     this.stopWatch.reset();
-    this.scoreComponent.resetScore();
+    this.errorCount.reset();
     this.storeSession();
     this.step = 0;
     this.router.navigateByUrl("/main-menu");
@@ -173,14 +179,19 @@ export class GamePage {
     this.chosenRecipes.push(recipe);
   }
 
-  handleError(error: string, deductedPoints: number = 10) {
+  handleError(error: string) {
     const message = new ToastWrapper(
       error,
       ToastPosition.TOP,
       HttpResponseMessageSeverity.DANGER
     );
     message.alert();
-    this.scoreComponent.deductScore(deductedPoints);
+    this.errorCount.increaseCount();
+    this.addErrorText(new Errortext());
+  }
+
+  addErrorText(errorText: Errortext) {
+    // TODO: save error count in statistic_has_errortext
   }
 
   stepValid(): boolean {
