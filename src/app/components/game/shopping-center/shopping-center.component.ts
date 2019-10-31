@@ -5,8 +5,8 @@ import { Word } from "src/lib/models/Word";
 import { GameComponent } from "../game.component";
 import { FoodCategory } from "src/lib/models/FoodCategory";
 import { FoodCategoryService } from "src/app/providers/food-category.service";
-import { CartStoreService } from "src/app/providers/store/cart-store.service";
 import { Observable } from "rxjs";
+import { Errortext } from "src/lib/models/Errortext";
 
 @Component({
   selector: "serious-game-shopping-center",
@@ -16,6 +16,7 @@ import { Observable } from "rxjs";
 export class ShoppingCenterComponent implements OnInit, GameComponent {
   @Input() data: Ingredient[];
   @Input() game: Game;
+  @Input() errorTexts: Errortext[];
   @Output() event: EventEmitter<any> = new EventEmitter();
   @Output() errorEvent: EventEmitter<any> = new EventEmitter();
 

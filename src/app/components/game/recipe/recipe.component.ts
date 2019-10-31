@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Recipe } from "src/lib/models/Recipe";
 import { Game } from "src/lib/models/Game";
 import { GameComponent } from "../game.component";
+import { Errortext } from "src/lib/models/Errortext";
 
 @Component({
   selector: "serious-game-recipe",
@@ -11,6 +12,7 @@ import { GameComponent } from "../game.component";
 export class RecipeComponent implements OnInit, GameComponent {
   @Input() data: Recipe[];
   @Input() game: Game;
+  @Input() errorTexts: Errortext[];
   @Output() event: EventEmitter<any> = new EventEmitter();
   @Output() errorEvent: EventEmitter<any> = new EventEmitter();
   chosenRecipe: Recipe;

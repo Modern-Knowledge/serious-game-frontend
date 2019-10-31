@@ -4,6 +4,7 @@ import { Game } from "src/lib/models/Game";
 import { Mealtimes } from "src/lib/enums/Mealtimes";
 import { Word } from "src/lib/models/Word";
 import { GameComponent } from "../game.component";
+import { Errortext } from "src/lib/models/Errortext";
 
 @Component({
   selector: "serious-game-day-planning",
@@ -13,6 +14,7 @@ import { GameComponent } from "../game.component";
 export class DayPlanningComponent implements OnInit, GameComponent {
   @Input() data: (Recipe | Word)[];
   @Input() game: Game;
+  @Input() errorTexts: Errortext[];
   @Output() event: EventEmitter<Recipe> = new EventEmitter<Recipe>();
   @Output() errorEvent: EventEmitter<any> = new EventEmitter<any>();
 
