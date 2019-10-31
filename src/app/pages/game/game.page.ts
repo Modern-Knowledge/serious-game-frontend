@@ -68,9 +68,9 @@ export class GamePage {
     private ingredientService: IngredientService,
     private sessionService: SessionService,
     private router: Router,
-    private userStore: UserStoreService,
-    private errorTextService: ErrorTextService
-  ) {
+    private userStore: UserStoreService
+  ) //private errorTextService: ErrorTextService
+  {
     this.step = 0;
   }
 
@@ -95,8 +95,8 @@ export class GamePage {
     const dayPlanningData = this.recipeService.getAll();
     const games = this.gameService.getAll();
     const shoppingCenterData = this.ingredientService.getAll();
-    const errorTexts = this.errorTextService.getAll();
-    return forkJoin(dayPlanningData, games, shoppingCenterData, errorTexts);
+    //const errorTexts = this.errorTextService.getAll();
+    return forkJoin(dayPlanningData, games, shoppingCenterData);
   }
 
   loadGame() {
