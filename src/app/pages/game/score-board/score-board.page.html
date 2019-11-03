@@ -18,10 +18,6 @@
         getDifference(session.statistic.startTime, session.statistic.endTime)
       }}ms
     </ion-card-content>
-    <serious-game-scored-points
-      [time]="
-        getDifference(session.statistic.startTime, session.statistic.endTime)
-      "
-    ></serious-game-scored-points>
+    <serious-game-error-count [givenErrorCount]="0"></serious-game-error-count>
   </ion-card>
 </ion-content>

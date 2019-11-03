@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 
 @Component({
   selector: "serious-game-error-count",
@@ -6,6 +6,11 @@ import { Component, OnInit, Output, EventEmitter } from "@angular/core";
   styleUrls: ["./error-count.component.scss"]
 })
 export class ErrorCountComponent implements OnInit {
+  /**
+   * the error count passed to the component
+   */
+  @Input() givenErrorCount: number;
+
   /**
    * emits when the error count has increased
    */
@@ -16,7 +21,11 @@ export class ErrorCountComponent implements OnInit {
    */
   private errorCount: number = 0;
 
-  constructor() {}
+  constructor() {
+    if (this.givenErrorCount) {
+      this.errorCount = this.givenErrorCount;
+    }
+  }
 
   ngOnInit() {}
 
