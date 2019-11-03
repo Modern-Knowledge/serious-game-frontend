@@ -18,7 +18,12 @@
     (timeChanged)="setTime($event)"
   ></serious-game-stopwatch>
   <serious-game-error-count></serious-game-error-count>
-  <ion-button expand="block" (click)="onSubmit()" *ngIf="stepValid()">
+  <ion-button
+    expand="block"
+    (click)="onSubmit()"
+    *ngIf="stepValid()"
+    [disabled]="!canContinue"
+  >
     Weiter</ion-button
   >
   <ion-button expand="block" (click)="onFinish()" *ngIf="!stepValid()"

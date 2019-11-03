@@ -59,6 +59,7 @@ export class GamePage {
   private gameComponents;
   private subscription: Subscription = new Subscription();
   private errorTexts: Errortext[];
+  private canContinue: boolean;
 
   constructor(
     private wordService: WordService,
@@ -104,19 +105,23 @@ export class GamePage {
       "serious-game-day-planning": {
         type: DayPlanningComponent,
         data: this.dayPlanningData,
-        callback: "addRecipe"
+        callback: "addRecipe",
+        canContinue: false
       },
       "serious-game-recipe": {
         type: RecipeComponent,
-        data: this.chosenRecipes
+        data: this.chosenRecipes,
+        canContinue: true
       },
       "serious-game-shopping-list": {
         type: ShoppingListComponent,
-        data: this.shoppingCenterData
+        data: this.shoppingCenterData,
+        canContinue: true
       },
       "serious-game-shopping-center": {
         type: ShoppingCenterComponent,
-        data: this.shoppingCenterData
+        data: this.shoppingCenterData,
+        canContinue: true
       }
     };
     const currentGame = this.games[this.step];
@@ -139,14 +144,16 @@ export class GamePage {
     dynamicComponentInstance.errorEvent.subscribe(error => {
       this.handleError(error);
     });
+    this.canContinue = currentGameComponent.canContinue;
   }
 
   onSubmit() {
-    if (this.stepValid()) {
+    if (this.stepValid() && this.canContinue) {
       this.stopWatch.reset();
       this.errorCount.reset();
       this.storeSession();
       this.step++;
+      this.canContinue = false;
     }
     this.loadGame();
   }
@@ -177,6 +184,7 @@ export class GamePage {
 
   addRecipe(recipe: Recipe) {
     this.chosenRecipes.push(recipe);
+    this.canContinue = true;
   }
 
   handleError(error: string) {
