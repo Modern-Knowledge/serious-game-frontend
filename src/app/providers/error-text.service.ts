@@ -31,8 +31,8 @@ export class ErrorTextService {
       map(errorText => {
         const errorTextsModel = new HttpResponse().deserialize(errorText);
         return errorTextsModel.status === HttpResponseStatus.SUCCESS
-          ? errorTextsModel.data.errorText.map(Errortext =>
-              new Errortext().deserialize(Errortext)
+          ? errorTextsModel.data.errortexts.map(errortext =>
+              new Errortext().deserialize(errortext)
             )
           : [];
       })
