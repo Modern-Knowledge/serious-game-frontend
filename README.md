@@ -25,6 +25,7 @@ $ sudo npm install -g ionic
 
 Um eine lokale Instanz zum laufen zu bringen, müssen folgende Schritte ausgeführt werden:
 
+
 ####Dependencies installieren:
 
 ```
