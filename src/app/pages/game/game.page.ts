@@ -116,7 +116,8 @@ export class GamePage {
       "serious-game-shopping-list": {
         type: ShoppingListComponent,
         data: this.shoppingCenterData,
-        canContinue: true
+        callback: "setCanContinue",
+        canContinue: false
       },
       "serious-game-shopping-center": {
         type: ShoppingCenterComponent,
@@ -184,6 +185,10 @@ export class GamePage {
 
   addRecipe(recipe: Recipe) {
     this.chosenRecipes.push(recipe);
+    this.setCanContinue();
+  }
+
+  setCanContinue() {
     this.canContinue = true;
   }
 
@@ -194,6 +199,7 @@ export class GamePage {
       HttpResponseMessageSeverity.DANGER
     );
     message.alert();
+    this.canContinue = false;
     this.errorCount.increaseCount();
     this.addErrorText(new Errortext());
   }
