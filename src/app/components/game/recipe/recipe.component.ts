@@ -3,6 +3,7 @@ import { Recipe } from "src/lib/models/Recipe";
 import { Game } from "src/lib/models/Game";
 import { GameComponent } from "../game.component";
 import { Errortext } from "src/lib/models/Errortext";
+import { RecipeStoreService } from "src/app/providers/store/recipe-store.service";
 
 @Component({
   selector: "serious-game-recipe",
@@ -18,10 +19,11 @@ export class RecipeComponent implements OnInit, GameComponent {
 
   private chosenRecipe: Recipe;
 
-  constructor() {}
+  constructor(private recipeStore: RecipeStoreService) {}
 
   ngOnInit() {
     this.chosenRecipe = this.chooseRandomRecipe();
+    this.recipeStore.currentRecipe = this.chosenRecipe;
   }
 
   /**
