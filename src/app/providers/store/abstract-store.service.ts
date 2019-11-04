@@ -6,7 +6,7 @@ import { Logger, LoggingService } from "ionic-logging-service";
   providedIn: "root"
 })
 export abstract class AbstractStoreService {
-  private logging: Logger;
+  protected logging: Logger;
   constructor(loggingService: LoggingService, private loggingName: string) {
     this.logging = loggingService.getLogger(this.loggingName);
   }

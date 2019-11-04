@@ -21,7 +21,7 @@ export class FridgePage {
   ionViewWillEnter() {
     this.subscription.add(
       this.fridgeStore.items$.subscribe(items => {
-        if (items.length) {
+        if (this.fridgeStore.getAlreadyRandomized()) {
           this.ingredients = items;
         } else {
           this.getRandomIngredients();
@@ -34,12 +34,14 @@ export class FridgePage {
    * gets random ingredients from the backend and stores them in the fridge
    */
   getRandomIngredients() {
-    let ingredients;
     this.subscription.add(
       this.ingredientService.getAll().subscribe(ingredients => {
-        ingredients = ingredients;
-        ingredients = this.dropRandomItems(ingredients);
-        this.fridgeStore.addItems(ingredients);
+        if (!this.fridgeStore.getAlreadyRandomized()) {
+          const randomizedIngredients = this.dropRandomItems(ingredients);
+          this.ingredients = randomizedIngredients;
+          this.fridgeStore.addItems(randomizedIngredients);
+          this.fridgeStore.setAlreadyRandomized(true);
+        }
       })
     );
   }

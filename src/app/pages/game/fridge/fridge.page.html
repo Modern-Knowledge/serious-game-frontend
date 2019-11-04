@@ -14,7 +14,9 @@
         [model]="ingredients"
         *ngIf="ingredients && ingredients.length > 0"
       ></serious-game-drag-zone>
-      <span *ngIf="!ingredients">Der Kühlschrank ist leer!</span>
+      <span *ngIf="ingredients && ingredients.length === 0"
+        >Der Kühlschrank ist leer!</span
+      >
     </ion-card-content>
   </ion-card>
 </ion-content>
