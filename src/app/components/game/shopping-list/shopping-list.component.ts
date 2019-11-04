@@ -82,18 +82,27 @@ export class ShoppingListComponent implements OnInit, GameComponent {
       );
     } else {
       this.shoppingListStore.addItem(item);
-      this.shoppingListItems.concat(this.fridgeItems).map(ingredient => {
-        if (
-          this.recipeStore.currentRecipe.ingredients.find(
-            recipeIngredient => recipeIngredient.id === ingredient.id
-          )
-        ) {
-          this.event.emit();
-        } else {
-          this.errorEvent.emit(`Die Einkaufsliste enthält ungültige Zutaten!`);
-        }
-      });
+      if (this.compareShoppingListWithRecipe()) {
+        this.event.emit();
+      } else {
+        this.errorEvent.emit(`Die Einkaufsliste enthält ungültige Zutaten!`);
+      }
     }
+  }
+
+  /**
+   * compares the ingredients defined in the recipe with the items
+   * of the fridge + the items in the shopping list
+   * @return whether the shopping list contains every needed item or not
+   */
+  compareShoppingListWithRecipe(): boolean {
+    this.shoppingListItems.concat(this.fridgeItems).map(ingredient => {
+      this.itemsValid =
+        this.recipeStore.currentRecipe.ingredients.findIndex(
+          recipeIngredient => recipeIngredient.id === ingredient.id
+        ) > -1;
+    });
+    return this.itemsValid;
   }
 
   /**
