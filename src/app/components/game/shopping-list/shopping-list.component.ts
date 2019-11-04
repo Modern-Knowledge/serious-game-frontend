@@ -89,7 +89,7 @@ export class ShoppingListComponent implements OnInit, GameComponent {
    */
   validShoppingListItem(item: Ingredient | Word): boolean {
     return (
-      this.fridgeItems.findIndex(fridgeItem => fridgeItem.id === item.id) > -1
+      this.fridgeItems.findIndex(fridgeItem => fridgeItem.id === item.id) === -1
     );
   }
 }
