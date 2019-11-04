@@ -1,15 +1,22 @@
 <serious-game-drag-zone
-  name="shoppinglist"
-  [model]="ingredients | async"
+  id="drag"
+  [name]="name"
+  [model]="ingredients"
 ></serious-game-drag-zone>
 <ion-card>
   <ion-card-header>Einkaufsliste</ion-card-header>
-  <ion-card-content
-    ><serious-game-drop-zone
-      name="shoppinglist"
-      [model]="data"
-    ></serious-game-drop-zone
-  ></ion-card-content>
+  <ion-card-content>
+    <ion-grid>
+      <ion-row [dragula]="name" [dragulaModel]="ingredients" [id]="id">
+        <ion-col size="4" [id]="item.id" *ngFor="let item of shoppingListItems">
+          <ion-item>
+            <ion-label class="ion-text-wrap">{{ item.name }}</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
 </ion-card>
 <ion-card [routerLink]="['/fridge']" routerLinkActive="router-link-active"
   ><ion-card-header>Kühlschrank</ion-card-header></ion-card

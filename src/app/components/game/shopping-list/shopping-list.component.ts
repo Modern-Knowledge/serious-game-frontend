@@ -5,8 +5,11 @@ import { Ingredient } from "src/lib/models/Ingredient";
 import { GameComponent } from "../game.component";
 import { Word } from "src/lib/models/Word";
 import { Recipe } from "src/lib/models/Recipe";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { Errortext } from "src/lib/models/Errortext";
+import { ShoppingListStoreService } from "src/app/providers/store/shopping-list-store.service";
+import { DragulaService } from "ng2-dragula";
+import { FridgeStoreService } from "src/app/providers/store/fridge-store.service";
 
 @Component({
   selector: "serious-game-shopping-list",
@@ -19,11 +22,74 @@ export class ShoppingListComponent implements OnInit, GameComponent {
   @Input() errorTexts: Errortext[];
   @Output() event: EventEmitter<any> = new EventEmitter();
   @Output() errorEvent: EventEmitter<any> = new EventEmitter();
-  ingredients: Observable<Ingredient[]>;
+  private name: string = "shoppinglist";
+  private ingredients: Ingredient[];
+  private subscription: Subscription = new Subscription();
+  private shoppingListItems: Ingredient[];
+  private fridgeItems: (Ingredient | Word)[];
 
-  constructor(private ingredientService: IngredientService) {
-    this.ingredients = this.ingredientService.getAll();
+  constructor(
+    private ingredientService: IngredientService,
+    private shoppingListStore: ShoppingListStoreService,
+    private dragulaService: DragulaService,
+    private fridgeStore: FridgeStoreService
+  ) {}
+
+  ngOnInit() {
+    this.subscription.add(
+      this.ingredientService.getAll().subscribe(ingredient => {
+        this.ingredients = ingredient;
+        this;
+      })
+    );
+    this.subscription.add(
+      this.dragulaService.dropModel(this.name).subscribe(value => {
+        const item = this.data.find(element => element.id === +value.el.id);
+        if (value.target.id === "drag") {
+          this.removeItem(item);
+        } else {
+          this.addItem(item);
+          this.dragulaService.find(this.name).drake.cancel(true);
+        }
+      })
+    );
+    this.subscription.add(
+      this.shoppingListStore.items$.subscribe(items => {
+        this.shoppingListItems = items;
+      })
+    );
+    this.subscription.add(
+      this.fridgeStore.items$.subscribe(items => {
+        this.fridgeItems = items;
+      })
+    );
+  }
+  /**
+   * adds item to shopping list
+   * @param item Ingredient|Word
+   */
+  addItem(item) {
+    console.log(this.validShoppingListItem(item));
+    if (this.validShoppingListItem(item)) {
+      this.shoppingListStore.addItem(item);
+    }
   }
 
-  ngOnInit() {}
+  /**
+   * removes item from the shopping list
+   * @param item Ingredient|Word
+   */
+  removeItem(item) {
+    this.shoppingListStore.removeItem(item);
+  }
+
+  /**
+   * checks if item added to the shopping list is valid
+   * @param item Ingredient|Word
+   */
+  validShoppingListItem(item: Ingredient | Word): boolean {
+    return (
+      this.fridgeItems.findIndex(fridgeItem => fridgeItem.id === item.id) > -1
+    );
+  }
 }
