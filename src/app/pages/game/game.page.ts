@@ -122,7 +122,7 @@ export class GamePage {
       "serious-game-shopping-center": {
         type: ShoppingCenterComponent,
         data: this.shoppingCenterData,
-        canContinue: true
+        canContinue: false
       }
     };
     const currentGame = this.games[this.step];
