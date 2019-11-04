@@ -15,7 +15,8 @@ export class RecipeComponent implements OnInit, GameComponent {
   @Input() errorTexts: Errortext[];
   @Output() event: EventEmitter<any> = new EventEmitter();
   @Output() errorEvent: EventEmitter<any> = new EventEmitter();
-  chosenRecipe: Recipe;
+
+  private chosenRecipe: Recipe;
 
   constructor() {}
 
@@ -23,6 +24,10 @@ export class RecipeComponent implements OnInit, GameComponent {
     this.chosenRecipe = this.chooseRandomRecipe();
   }
 
+  /**
+   * choose a random recipe from the passed recipes
+   * @return Recipe
+   */
   chooseRandomRecipe() {
     return this.data[Math.floor(Math.random() * this.data.length)];
   }
