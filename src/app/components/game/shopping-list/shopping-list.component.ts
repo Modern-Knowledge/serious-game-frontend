@@ -10,6 +10,7 @@ import { Errortext } from "src/lib/models/Errortext";
 import { ShoppingListStoreService } from "src/app/providers/store/shopping-list-store.service";
 import { DragulaService } from "ng2-dragula";
 import { FridgeStoreService } from "src/app/providers/store/fridge-store.service";
+import { RecipeStoreService } from "src/app/providers/store/recipe-store.service";
 
 @Component({
   selector: "serious-game-shopping-list",
@@ -26,13 +27,15 @@ export class ShoppingListComponent implements OnInit, GameComponent {
   private ingredients: Ingredient[];
   private subscription: Subscription = new Subscription();
   private shoppingListItems: Ingredient[];
-  private fridgeItems: (Ingredient | Word)[];
+  private fridgeItems: Ingredient[];
+  private itemsValid: boolean = false;
 
   constructor(
     private ingredientService: IngredientService,
     private shoppingListStore: ShoppingListStoreService,
     private dragulaService: DragulaService,
-    private fridgeStore: FridgeStoreService
+    private fridgeStore: FridgeStoreService,
+    private recipeStore: RecipeStoreService
   ) {}
 
   ngOnInit() {
@@ -69,9 +72,27 @@ export class ShoppingListComponent implements OnInit, GameComponent {
    * @param item Ingredient|Word
    */
   addItem(item) {
-    console.log(this.validShoppingListItem(item));
-    if (this.validShoppingListItem(item)) {
+    if (!this.fridgeStore.alreadyRandomized) {
+      this.errorEvent.emit(
+        `Sehen Sie zuerst nach, was im Kühlschrank vorhanden ist!`
+      );
+    } else if (!this.validShoppingListItem(item)) {
+      this.errorEvent.emit(
+        `${item.name} ist bereits im Kühlschrank vorhanden!`
+      );
+    } else {
       this.shoppingListStore.addItem(item);
+      this.shoppingListItems.concat(this.fridgeItems).map(ingredient => {
+        if (
+          this.recipeStore.currentRecipe.ingredients.find(
+            recipeIngredient => recipeIngredient.id === ingredient.id
+          )
+        ) {
+          this.event.emit();
+        } else {
+          this.errorEvent.emit(`Die Einkaufsliste enthält ungültige Zutaten!`);
+        }
+      });
     }
   }
 
