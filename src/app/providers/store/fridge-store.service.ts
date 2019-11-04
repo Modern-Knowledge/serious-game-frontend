@@ -8,7 +8,7 @@ import { Logger } from "log4javascript";
   providedIn: "root"
 })
 export class FridgeStoreService extends AbstractStoreService {
-  private alreadyRandomized: boolean = false;
+  private _alreadyRandomized: boolean = false;
   constructor(loggingService: LoggingService) {
     super(loggingService, "fridge-store");
   }
@@ -25,19 +25,19 @@ export class FridgeStoreService extends AbstractStoreService {
     super.removeItem(value);
   }
 
-  public getAlreadyRandomized(): boolean {
+  public get alreadyRandomized(): boolean {
     this.logging.info(
       "getAlreadyRandomized",
-      `getting value of alreadyRandomized: ${this.alreadyRandomized}`
+      `getting value of alreadyRandomized: ${this._alreadyRandomized}`
     );
-    return this.alreadyRandomized;
+    return this._alreadyRandomized;
   }
 
-  public setAlreadyRandomized(value: boolean) {
+  public set alreadyRandomized(value: boolean) {
     this.logging.info(
       "setAlreadyRandomized",
       `setting value of alreadyRandomized: ${value}`
     );
-    this.alreadyRandomized = value;
+    this._alreadyRandomized = value;
   }
 }
