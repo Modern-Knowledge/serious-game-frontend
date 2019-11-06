@@ -1,20 +1,23 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { Recipe } from "src/lib/models/Recipe";
-import { Game } from "src/lib/models/Game";
-import { Mealtimes } from "src/lib/enums/Mealtimes";
-import { Word } from "src/lib/models/Word";
-import { GameComponent } from "../game.component";
-import { Errortext } from "src/lib/models/Errortext";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Subject } from 'rxjs';
+import { Mealtimes } from 'src/lib/enums/Mealtimes';
+import { Errortext } from 'src/lib/models/Errortext';
+import { Game } from 'src/lib/models/Game';
+import { Recipe } from 'src/lib/models/Recipe';
+import { Word } from 'src/lib/models/Word';
+
+import { GameComponent } from '../game.component';
 
 @Component({
-  selector: "serious-game-day-planning",
-  templateUrl: "./day-planning.component.html",
-  styleUrls: ["./day-planning.component.scss"]
+  selector: 'serious-game-day-planning',
+  templateUrl: './day-planning.component.html',
+  styleUrls: ['./day-planning.component.scss']
 })
 export class DayPlanningComponent implements OnInit, GameComponent {
   @Input() data: (Recipe | Word)[];
   @Input() game: Game;
   @Input() errorTexts: Errortext[];
+  @Input() mainGameSubject: Subject<any>;
   @Output() event: EventEmitter<Recipe> = new EventEmitter<Recipe>();
   @Output() errorEvent: EventEmitter<any> = new EventEmitter<any>();
 

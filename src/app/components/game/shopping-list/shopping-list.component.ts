@@ -1,29 +1,31 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { Game } from "src/lib/models/Game";
-import { IngredientService } from "src/app/providers/ingredient.service";
-import { Ingredient } from "src/lib/models/Ingredient";
-import { GameComponent } from "../game.component";
-import { Word } from "src/lib/models/Word";
-import { Recipe } from "src/lib/models/Recipe";
-import { Observable, Subscription } from "rxjs";
-import { Errortext } from "src/lib/models/Errortext";
-import { ShoppingListStoreService } from "src/app/providers/store/shopping-list-store.service";
-import { DragulaService } from "ng2-dragula";
-import { FridgeStoreService } from "src/app/providers/store/fridge-store.service";
-import { RecipeStoreService } from "src/app/providers/store/recipe-store.service";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DragulaService } from 'ng2-dragula';
+import { Subject, Subscription } from 'rxjs';
+import { IngredientService } from 'src/app/providers/ingredient.service';
+import { FridgeStoreService } from 'src/app/providers/store/fridge-store.service';
+import { RecipeStoreService } from 'src/app/providers/store/recipe-store.service';
+import { ShoppingListStoreService } from 'src/app/providers/store/shopping-list-store.service';
+import { Errortext } from 'src/lib/models/Errortext';
+import { Game } from 'src/lib/models/Game';
+import { Ingredient } from 'src/lib/models/Ingredient';
+import { Recipe } from 'src/lib/models/Recipe';
+import { Word } from 'src/lib/models/Word';
+
+import { GameComponent } from '../game.component';
 
 @Component({
-  selector: "serious-game-shopping-list",
-  templateUrl: "./shopping-list.component.html",
-  styleUrls: ["./shopping-list.component.scss"]
+  selector: 'serious-game-shopping-list',
+  templateUrl: './shopping-list.component.html',
+  styleUrls: ['./shopping-list.component.scss']
 })
 export class ShoppingListComponent implements OnInit, GameComponent {
   @Input() game: Game;
   @Input() data: (Recipe | Word)[];
   @Input() errorTexts: Errortext[];
+  @Input() mainGameSubject: Subject<any>;
   @Output() event: EventEmitter<any> = new EventEmitter();
   @Output() errorEvent: EventEmitter<any> = new EventEmitter();
-  private name: string = "shoppinglist";
+  private name: string = 'shoppinglist';
   private ingredients: Ingredient[];
   private subscription: Subscription = new Subscription();
   private shoppingListItems: Ingredient[];
@@ -48,7 +50,7 @@ export class ShoppingListComponent implements OnInit, GameComponent {
     this.subscription.add(
       this.dragulaService.dropModel(this.name).subscribe(value => {
         const item = this.data.find(element => element.id === +value.el.id);
-        if (value.target.id === "drag") {
+        if (value.target.id === 'drag') {
           this.removeItem(item);
         } else {
           this.addItem(item);
@@ -73,13 +75,9 @@ export class ShoppingListComponent implements OnInit, GameComponent {
    */
   addItem(item) {
     if (!this.fridgeStore.alreadyRandomized) {
-      this.errorEvent.emit(
-        `Sehen Sie zuerst nach, was im Kühlschrank vorhanden ist!`
-      );
+      this.errorEvent.emit(`Sehen Sie zuerst nach, was im Kühlschrank vorhanden ist!`);
     } else if (!this.validShoppingListItem(item)) {
-      this.errorEvent.emit(
-        `${item.name} ist bereits im Kühlschrank vorhanden!`
-      );
+      this.errorEvent.emit(`${item.name} ist bereits im Kühlschrank vorhanden!`);
     } else {
       this.shoppingListStore.addItem(item);
       if (this.compareShoppingListWithRecipe()) {
@@ -98,9 +96,7 @@ export class ShoppingListComponent implements OnInit, GameComponent {
       this.itemsValid =
         this.shoppingListItems
           .concat(this.fridgeItems)
-          .findIndex(
-            recipeIngredient => recipeIngredient.id === ingredient.id
-          ) > -1;
+          .findIndex(recipeIngredient => recipeIngredient.id === ingredient.id) > -1;
     });
     return this.itemsValid;
   }
@@ -121,8 +117,6 @@ export class ShoppingListComponent implements OnInit, GameComponent {
    * @param item Ingredient|Word
    */
   validShoppingListItem(item: Ingredient | Word): boolean {
-    return (
-      this.fridgeItems.findIndex(fridgeItem => fridgeItem.id === item.id) === -1
-    );
+    return this.fridgeItems.findIndex(fridgeItem => fridgeItem.id === item.id) === -1;
   }
 }

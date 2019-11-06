@@ -1,19 +1,22 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { Recipe } from "src/lib/models/Recipe";
-import { Game } from "src/lib/models/Game";
-import { GameComponent } from "../game.component";
-import { Errortext } from "src/lib/models/Errortext";
-import { RecipeStoreService } from "src/app/providers/store/recipe-store.service";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Subject } from 'rxjs';
+import { RecipeStoreService } from 'src/app/providers/store/recipe-store.service';
+import { Errortext } from 'src/lib/models/Errortext';
+import { Game } from 'src/lib/models/Game';
+import { Recipe } from 'src/lib/models/Recipe';
+
+import { GameComponent } from '../game.component';
 
 @Component({
-  selector: "serious-game-recipe",
-  templateUrl: "./recipe.component.html",
-  styleUrls: ["./recipe.component.scss"]
+  selector: 'serious-game-recipe',
+  templateUrl: './recipe.component.html',
+  styleUrls: ['./recipe.component.scss']
 })
 export class RecipeComponent implements OnInit, GameComponent {
   @Input() data: Recipe[];
   @Input() game: Game;
   @Input() errorTexts: Errortext[];
+  @Input() mainGameSubject: Subject<any>;
   @Output() event: EventEmitter<any> = new EventEmitter();
   @Output() errorEvent: EventEmitter<any> = new EventEmitter();
 

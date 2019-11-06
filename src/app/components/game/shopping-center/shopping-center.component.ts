@@ -1,46 +1,55 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { Game } from "src/lib/models/Game";
-import { Ingredient } from "src/lib/models/Ingredient";
-import { Word } from "src/lib/models/Word";
-import { GameComponent } from "../game.component";
-import { FoodCategory } from "src/lib/models/FoodCategory";
-import { FoodCategoryService } from "src/app/providers/food-category.service";
-import { Observable } from "rxjs";
-import { Errortext } from "src/lib/models/Errortext";
-import { ShoppingListStoreService } from "src/app/providers/store/shopping-list-store.service";
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { FoodCategoryService } from 'src/app/providers/food-category.service';
+import { CartStoreService } from 'src/app/providers/store/cart-store.service';
+import { ShoppingListStoreService } from 'src/app/providers/store/shopping-list-store.service';
+import { Errortext } from 'src/lib/models/Errortext';
+import { FoodCategory } from 'src/lib/models/FoodCategory';
+import { Game } from 'src/lib/models/Game';
+import { Ingredient } from 'src/lib/models/Ingredient';
+import { Word } from 'src/lib/models/Word';
+
+import { GameComponent } from '../game.component';
 
 @Component({
-  selector: "serious-game-shopping-center",
-  templateUrl: "./shopping-center.component.html",
-  styleUrls: ["./shopping-center.component.scss"]
+  selector: 'serious-game-shopping-center',
+  templateUrl: './shopping-center.component.html',
+  styleUrls: ['./shopping-center.component.scss']
 })
-export class ShoppingCenterComponent implements OnInit, GameComponent {
+export class ShoppingCenterComponent implements OnInit, GameComponent, OnDestroy {
   @Input() data: Ingredient[];
   @Input() game: Game;
   @Input() errorTexts: Errortext[];
+  @Input() mainGameSubject: Subject<any>;
   @Output() event: EventEmitter<any> = new EventEmitter();
   @Output() errorEvent: EventEmitter<any> = new EventEmitter();
 
-  private shoppingCart: Ingredient[];
+  private shoppingCart: Ingredient[] = [];
   private availableItems: (Ingredient | Word)[];
   private shelves: Observable<FoodCategory[]>;
-  private validShoppingCart: boolean = false;
+  private validShoppingCart = false;
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private foodCategoryService: FoodCategoryService,
-    private shoppingListStore: ShoppingListStoreService
+    private shoppingListStore: ShoppingListStoreService,
+    private shoppingCartStore: CartStoreService
   ) {
     this.shelves = this.foodCategoryService.getAll();
   }
 
   ngOnInit() {
-    if (this.shoppingCart) {
-      if (this.shoppingCartIsValid()) {
-        this.event.emit();
-      } else {
-        this.errorEvent.emit("Der Inhalt des Einkaufswagens ist nicht gültig!");
-      }
-    }
+    this.subscription.add(
+      this.mainGameSubject.subscribe(() => {
+        if (this.shoppingCart) {
+          if (this.shoppingCartIsValid()) {
+            this.event.emit();
+          } else {
+            this.errorEvent.emit('Der Inhalt des Einkaufswagens ist nicht gültig!');
+          }
+        }
+      })
+    );
   }
 
   /**
@@ -49,11 +58,14 @@ export class ShoppingCenterComponent implements OnInit, GameComponent {
   shoppingCartIsValid(): boolean {
     this.shoppingListStore.items.map(item => {
       this.validShoppingCart =
-        this.shoppingCart.findIndex(
-          shoppingCartItem => shoppingCartItem.id === item.id
-        ) > -1;
+        this.shoppingCartStore.items.findIndex(shoppingCartItem => {
+          return shoppingCartItem.id === item.id;
+        }) > -1;
     });
-    console.log(this.validShoppingCart);
     return this.validShoppingCart;
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
