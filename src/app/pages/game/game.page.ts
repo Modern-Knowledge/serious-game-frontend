@@ -39,12 +39,12 @@ export class GamePage {
   @ViewChild(ErrorCountComponent, { static: false })
   errorCount: ErrorCountComponent;
 
-  private user: Therapist | Patient;
+  public user: Therapist | Patient;
   private dayPlanningData: (Word | Recipe)[];
-  private games: Game[];
+  public games: Game[];
   private chosenRecipes: Recipe[] = [];
   private shoppingCenterData: (Word | Ingredient)[];
-  private step: number;
+  public step: number;
   private elapsedTime: number;
   private gameComponents;
   private subscription: Subscription = new Subscription();

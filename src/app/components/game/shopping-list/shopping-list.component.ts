@@ -25,12 +25,12 @@ export class ShoppingListComponent implements OnInit, GameComponent {
   @Input() mainGameSubject: Subject<any>;
   @Output() event: EventEmitter<any> = new EventEmitter();
   @Output() errorEvent: EventEmitter<any> = new EventEmitter();
-  private name: string = 'shoppinglist';
+  private name = 'shoppinglist';
   private ingredients: Ingredient[];
   private subscription: Subscription = new Subscription();
   private shoppingListItems: Ingredient[];
   private fridgeItems: Ingredient[];
-  private itemsValid: boolean = false;
+  private itemsValid = false;
 
   constructor(
     private ingredientService: IngredientService,
@@ -44,7 +44,6 @@ export class ShoppingListComponent implements OnInit, GameComponent {
     this.subscription.add(
       this.ingredientService.getAll().subscribe(ingredient => {
         this.ingredients = ingredient;
-        this;
       })
     );
     this.subscription.add(

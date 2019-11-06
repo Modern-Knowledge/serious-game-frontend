@@ -1,3 +1,4 @@
-<ion-card class="helptext">
-  <ion-card-content>{{ helptext.text }}</ion-card-content>
+<ion-card>
+  <ion-card-content *ngFor="let helptext of helptexts">{{ helptext.text }}</ion-card-content>
 </ion-card>
+<ion-button (click)="dismiss()">Schließen</ion-button>

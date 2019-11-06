@@ -8,25 +8,17 @@
 </ion-header>
 
 <ion-content>
-  <serious-game-helptext
-    *ngFor="let helptext of games && games[step].helptexts"
-    [helptext]="helptext"
-  ></serious-game-helptext>
+  <serious-game-helptext-button
+    [helptexts]="games && games[step].helptexts"
+  ></serious-game-helptext-button>
   <ng-template component-is></ng-template>
   <serious-game-stopwatch
     (isReset)="setTime($event)"
     (timeChanged)="setTime($event)"
   ></serious-game-stopwatch>
   <serious-game-error-count></serious-game-error-count>
-  <ion-button
-    expand="block"
-    (click)="onSubmit()"
-    *ngIf="stepValid()"
-    [disabled]="!canContinue"
-  >
+  <ion-button expand="block" (click)="onSubmit()" *ngIf="stepValid()" [disabled]="!canContinue">
     Weiter</ion-button
   >
-  <ion-button expand="block" (click)="onFinish()" *ngIf="!stepValid()"
-    >Fertigstellen</ion-button
-  >
+  <ion-button expand="block" (click)="onFinish()" *ngIf="!stepValid()">Fertigstellen</ion-button>
 </ion-content>
