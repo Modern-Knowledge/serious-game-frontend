@@ -10,6 +10,7 @@
 <ion-content>
   <serious-game-helptext-button
     [helptexts]="games && games[step].helptexts"
+    *ngIf="games && games[step].helptexts.length"
   ></serious-game-helptext-button>
   <ng-template component-is></ng-template>
   <serious-game-stopwatch
