@@ -34,8 +34,8 @@ export class DayPlanningComponent implements OnInit, GameComponent {
     this.event.emit(value);
   }
 
-  showError(error) {
-    this.errorEvent.emit(error);
+  showError(errortext: Errortext) {
+    this.errorEvent.emit(errortext);
   }
 
   doReorder(event: any) {

@@ -1,24 +1,19 @@
-import { Component, OnInit } from "@angular/core";
-import { Observable, Subscription } from "rxjs";
-import { Session } from "src/lib/models/Session";
-import { SessionService } from "src/app/providers/session.service";
-import { UserStoreService } from "src/app/providers/store/user-store.service";
-import { User } from "src/lib/models/User";
-import { Therapist } from "src/lib/models/Therapist";
-import { Patient } from "src/lib/models/Patient";
-import moment from "moment";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import moment from 'moment';
+import { Observable, Subscription } from 'rxjs';
+import { SessionService } from 'src/app/providers/session.service';
+import { UserStoreService } from 'src/app/providers/store/user-store.service';
+import { Session } from 'src/lib/models/Session';
+
 @Component({
-  selector: "serious-game-score-board",
-  templateUrl: "./score-board.page.html",
-  styleUrls: ["./score-board.page.scss"]
+  selector: 'serious-game-score-board',
+  templateUrl: './score-board.page.html',
+  styleUrls: ['./score-board.page.scss']
 })
-export class ScoreBoardPage implements OnInit {
-  sessions: Observable<Array<Session>>;
-  subscription: Subscription = new Subscription();
-  constructor(
-    private sessionService: SessionService,
-    private userStore: UserStoreService
-  ) {}
+export class ScoreBoardPage implements OnInit, OnDestroy {
+  public sessions: Observable<Array<Session>>;
+  private subscription: Subscription = new Subscription();
+  constructor(private sessionService: SessionService, private userStore: UserStoreService) {}
 
   ngOnInit() {
     this.subscription.add(
@@ -34,5 +29,9 @@ export class ScoreBoardPage implements OnInit {
 
   getDifference(start: Date, end: Date) {
     return moment.duration(moment(end).diff(start)).asMilliseconds();
+  }
+
+  countErrortexts(session: Session) {
+    return session.statistic.errortexts.length;
   }
 }

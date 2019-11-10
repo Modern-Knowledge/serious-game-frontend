@@ -45,7 +45,8 @@ export class ShoppingCenterComponent implements OnInit, GameComponent, OnDestroy
           if (this.shoppingCartIsValid()) {
             this.event.emit();
           } else {
-            this.errorEvent.emit('Der Inhalt des Einkaufswagens ist nicht gültig!');
+            // TODO: get correct errortext (Der Inhalt des Einkaufswagens ist nicht gültig!)
+            this.errorEvent.emit(this.errorTexts[0]);
           }
         }
       })

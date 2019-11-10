@@ -10,14 +10,14 @@
     <ion-card-header
       ><span class="ion-float-left">{{ session.game.name }}</span>
       <span class="ion-float-right">{{
-        session.statistic.startTime | date: "dd.MM.yyyy HH:mm"
+        session.statistic.startTime | date: 'dd.MM.yyyy HH:mm'
       }}</span>
     </ion-card-header>
     <ion-card-content
-      >{{
-        getDifference(session.statistic.startTime, session.statistic.endTime)
-      }}ms
+      >{{ getDifference(session.statistic.startTime, session.statistic.endTime) }}ms
     </ion-card-content>
-    <serious-game-error-count [givenErrorCount]="0"></serious-game-error-count>
+    <serious-game-error-count
+      [givenErrorCount]="countErrortexts(session)"
+    ></serious-game-error-count>
   </ion-card>
 </ion-content>

@@ -8,6 +8,7 @@
         [model]="data"
         (event)="addRecipe($event)"
         [mealtime]="breakfast"
+        [errorTexts]="errorTexts"
         (errorEvent)="showError($event)"
       ></serious-game-mealtime>
     </ion-card>
@@ -18,6 +19,7 @@
         [model]="data"
         (event)="addRecipe($event)"
         [mealtime]="lunch"
+        [errorTexts]="errorTexts"
         (errorEvent)="showError($event)"
       ></serious-game-mealtime>
     </ion-card>
@@ -27,6 +29,7 @@
         [model]="data"
         (event)="addRecipe($event)"
         [mealtime]="dinner"
+        [errorTexts]="errorTexts"
         (errorEvent)="showError($event)"
       ></serious-game-mealtime>
     </ion-card>

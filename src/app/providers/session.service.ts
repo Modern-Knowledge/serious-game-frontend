@@ -1,18 +1,13 @@
-import { Injectable } from "@angular/core";
-import { Session } from "../../../src/lib/models/Session";
-import { HttpClient } from "@angular/common/http";
-import { Observable, forkJoin } from "rxjs";
-import { map } from "rxjs/operators";
-import { UserStoreService } from "./store/user-store.service";
-import { Patient } from "src/lib/models/Patient";
-import { Therapist } from "src/lib/models/Therapist";
-import {
-  HttpResponse,
-  HttpResponseStatus
-} from "src/lib/utils/http/HttpResponse";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { HttpResponse, HttpResponseStatus } from 'src/lib/utils/http/HttpResponse';
+
+import { Session } from '../../../src/lib/models/Session';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class SessionService {
   constructor(private http: HttpClient) {}
@@ -28,25 +23,25 @@ export class SessionService {
       map(sessions => {
         const sessionsModel = new HttpResponse().deserialize(sessions);
         return sessionsModel.status === HttpResponseStatus.SUCCESS
-          ? sessionsModel.data.sessions.map(session =>
-              new Session().deserialize(session)
-            )
+          ? sessionsModel.data.sessions.map(session => new Session().deserialize(session))
           : [];
       })
     );
   }
 
-  create(
-    gameId: number,
-    patientId: number,
-    gameSettingId: number,
-    elapsedTime: number
-  ) {
-    return this.http.post<Session>("sessions", {
-      _gameId: gameId,
-      _patientId: patientId,
-      _gameSettingId: gameSettingId,
-      _elapsedTime: elapsedTime
-    });
+  create(gameId: number, patientId: number, gameSettingId: number, elapsedTime: number) {
+    return this.http
+      .post<HttpResponse>('sessions', {
+        _gameId: gameId,
+        _patientId: patientId,
+        _gameSettingId: gameSettingId,
+        _elapsedTime: elapsedTime
+      })
+      .pipe(
+        map(session => {
+          const sessionsModel = new HttpResponse().deserialize(session);
+          return new Session().deserialize(sessionsModel.data.session);
+        })
+      );
   }
 }

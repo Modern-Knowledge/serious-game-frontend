@@ -74,9 +74,11 @@ export class ShoppingListComponent implements OnInit, GameComponent {
    */
   addItem(item) {
     if (!this.fridgeStore.alreadyRandomized) {
-      this.errorEvent.emit(`Sehen Sie zuerst nach, was im Kühlschrank vorhanden ist!`);
+      // TODO: get correct errortext (Sehen sie zuerst im Kühlschrank nach!)
+      this.errorEvent.emit(this.errorTexts[0]);
     } else if (!this.validShoppingListItem(item)) {
-      this.errorEvent.emit(`${item.name} ist bereits im Kühlschrank vorhanden!`);
+      // TODO: get correct errortext (${item.name} ist bereits im Kühlschrank vorhanden!)
+      this.errorEvent.emit(this.errorTexts[0]);
     } else {
       this.shoppingListStore.addItem(item);
       if (this.compareShoppingListWithRecipe()) {

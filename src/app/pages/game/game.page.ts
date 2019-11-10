@@ -1,6 +1,7 @@
 import { Component, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { forkJoin, Observable, Subject, Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { DayPlanningComponent } from 'src/app/components/game/day-planning/day-planning.component';
 import { GameComponent } from 'src/app/components/game/game.component';
 import { RecipeComponent } from 'src/app/components/game/recipe/recipe.component';
@@ -22,6 +23,7 @@ import { Game } from 'src/lib/models/Game';
 import { Ingredient } from 'src/lib/models/Ingredient';
 import { Patient } from 'src/lib/models/Patient';
 import { Recipe } from 'src/lib/models/Recipe';
+import { Session } from 'src/lib/models/Session';
 import { Therapist } from 'src/lib/models/Therapist';
 import { Word } from 'src/lib/models/Word';
 import { HttpResponseMessageSeverity } from 'src/lib/utils/http/HttpResponse';
@@ -48,7 +50,7 @@ export class GamePage {
   private elapsedTime: number;
   private gameComponents;
   private subscription: Subscription = new Subscription();
-  private errorTexts: Errortext[];
+  private sessionErrorTexts: Errortext[] = [];
   private canContinue: boolean;
   private mainGameSubject: Subject<any> = new Subject();
   constructor(
@@ -76,7 +78,6 @@ export class GamePage {
         this.dayPlanningData = responseList[0];
         this.games = responseList[1];
         this.shoppingCenterData = responseList[2];
-        this.errorTexts = responseList[3];
         this.loadGame();
       })
     );
@@ -86,9 +87,8 @@ export class GamePage {
     const dayPlanningData = this.recipeService.getAll();
     const games = this.gameService.getAll();
     const shoppingCenterData = this.ingredientService.getAll();
-    const errorTexts = this.errorTextService.getAll();
 
-    return forkJoin([dayPlanningData, games, shoppingCenterData, errorTexts]);
+    return forkJoin([dayPlanningData, games, shoppingCenterData]);
   }
 
   loadGame() {
@@ -129,7 +129,7 @@ export class GamePage {
     dynamicComponentInstance.data = currentGameComponent.data;
     dynamicComponentInstance.game = currentGame;
     dynamicComponentInstance.mainGameSubject = this.mainGameSubject;
-    dynamicComponentInstance.errorTexts = this.errorTexts;
+    dynamicComponentInstance.errorTexts = currentGame.errortexts;
     dynamicComponentInstance.event.subscribe(event => {
       if (currentGameComponent.callback) {
         this[currentGameComponent.callback](event);
@@ -167,13 +167,23 @@ export class GamePage {
 
   storeSession() {
     const game = this.games[this.step];
-    this.subscription.add(
-      this.sessionService
-        .create(game.id, this.user.id, game.gameSettings[0].id, this.elapsedTime)
-        .subscribe(response => {
-          console.log(response);
-        })
+
+    const sessionResponse$ = this.sessionService.create(
+      game.id,
+      this.user.id,
+      game.gameSettings[0].id,
+      this.elapsedTime
     );
+    sessionResponse$
+      .pipe(
+        switchMap(session => {
+          const sessionData = session as Session;
+          return this.errorTextService.bulkCreate(this.sessionErrorTexts, sessionData);
+        })
+      )
+      .subscribe(response => {
+        console.log(response);
+      });
   }
 
   addRecipe(recipe: Recipe) {
@@ -185,16 +195,22 @@ export class GamePage {
     this.canContinue = true;
   }
 
-  handleError(error: string) {
-    const message = new ToastWrapper(error, ToastPosition.TOP, HttpResponseMessageSeverity.DANGER);
-    message.alert();
-    this.canContinue = false;
-    this.errorCount.increaseCount();
-    this.addErrorText(new Errortext());
+  handleError(errortext: Errortext) {
+    if (errortext) {
+      const message = new ToastWrapper(
+        errortext.text,
+        ToastPosition.TOP,
+        HttpResponseMessageSeverity.DANGER
+      );
+      message.alert();
+      this.canContinue = false;
+      this.errorCount.increaseCount();
+      this.addErrorText(errortext);
+    }
   }
 
-  addErrorText(errorText: Errortext) {
-    // TODO: save error count in statistic_has_errortext
+  addErrorText(errortext: Errortext) {
+    this.sessionErrorTexts.push(errortext);
   }
 
   stepValid(): boolean {

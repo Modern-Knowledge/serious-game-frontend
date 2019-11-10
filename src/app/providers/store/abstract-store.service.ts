@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
-import { Logger, LoggingService } from "ionic-logging-service";
+import { Injectable } from '@angular/core';
+import { Logger, LoggingService } from 'ionic-logging-service';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export abstract class AbstractStoreService {
   protected logging: Logger;
@@ -42,18 +42,12 @@ export abstract class AbstractStoreService {
   protected addItem(value: any) {
     if (value) {
       if (this.items.findIndex(item => item.id === value.id) === -1) {
-        this.logging.info("addItem", `store item with id ${value.id}`);
+        this.logging.info('addItem', `store item with id ${value.id}`);
         this.items = [...this.items, value];
       } else {
-        this.logging.warn(
-          "addItem",
-          `item with id ${value.id} is already in the store`
-        );
+        this.logging.warn('addItem', `item with id ${value.id} is already in the store`);
       }
-      this.logging.info(
-        "addItem",
-        `current state:${JSON.stringify(this.items)}`
-      );
+      this.logging.info('addItem', `current state:${JSON.stringify(this.items)}`);
     }
   }
 
@@ -70,11 +64,16 @@ export abstract class AbstractStoreService {
    * removes an item from the state
    */
   protected removeItem(value: any) {
-    this.logging.info("removeItem", `remove item with id ${value.id}`);
+    this.logging.info('removeItem', `remove item with id ${value.id}`);
     this.items = this.items.filter(item => item.id !== value.id);
-    this.logging.info(
-      "removeItem",
-      `current state:${JSON.stringify(this.items)}`
-    );
+    this.logging.info('removeItem', `current state:${JSON.stringify(this.items)}`);
+  }
+
+  /**
+   * removes all items from the state
+   */
+  public clearItems() {
+    this.logging.info('clearItems', `remove all items from store`);
+    this.items = [];
   }
 }
