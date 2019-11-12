@@ -6,14 +6,17 @@ import { UserStoreService } from 'src/app/providers/store/user-store.service';
 import { Session } from 'src/lib/models/Session';
 
 @Component({
-  selector: 'serious-game-score-board',
-  templateUrl: './score-board.page.html',
-  styleUrls: ['./score-board.page.scss']
+  selector: "serious-game-score-board",
+  templateUrl: "./score-board.page.html",
+  styleUrls: ["./score-board.page.scss"]
 })
 export class ScoreBoardPage implements OnInit, OnDestroy {
   public sessions: Observable<Array<Session>>;
   private subscription: Subscription = new Subscription();
-  constructor(private sessionService: SessionService, private userStore: UserStoreService) {}
+  constructor(
+    private sessionService: SessionService,
+    private userStore: UserStoreService
+  ) {}
 
   ngOnInit() {
     this.subscription.add(
@@ -32,6 +35,7 @@ export class ScoreBoardPage implements OnInit, OnDestroy {
   }
 
   countErrortexts(session: Session) {
+    console.log(session);
     return session.statistic.errortexts.length;
   }
 }

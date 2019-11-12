@@ -5,9 +5,9 @@ import { Errortext } from 'src/lib/models/Errortext';
 import { Recipe } from 'src/lib/models/Recipe';
 
 @Component({
-  selector: 'serious-game-mealtime',
-  templateUrl: './mealtime.component.html',
-  styleUrls: ['./mealtime.component.scss']
+  selector: "serious-game-mealtime",
+  templateUrl: "./mealtime.component.html",
+  styleUrls: ["./mealtime.component.scss"]
 })
 export class MealtimeComponent implements OnInit {
   @Input() title: string;
@@ -24,9 +24,10 @@ export class MealtimeComponent implements OnInit {
     if (this.matchMealtimes(value.mealtime)) {
       this.event.emit(value);
     } else {
-      this.dragulaService.find('recipes').drake.cancel(true);
-      // TODO: get correct error text.
-      this.errorEvent.emit(this.errorTexts[0]);
+      this.dragulaService.find("recipes").drake.cancel(true);
+      this.errorEvent.emit(
+        this.errorTexts.find(errorText => errorText.name === "mealtime")
+      );
     }
   }
 

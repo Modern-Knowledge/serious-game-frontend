@@ -29,9 +29,9 @@ import { Word } from 'src/lib/models/Word';
 import { HttpResponseMessageSeverity } from 'src/lib/utils/http/HttpResponse';
 
 @Component({
-  selector: 'serious-game-game',
-  templateUrl: './game.page.html',
-  styleUrls: ['./game.page.scss']
+  selector: "serious-game-game",
+  templateUrl: "./game.page.html",
+  styleUrls: ["./game.page.scss"]
 })
 export class GamePage {
   @ViewChild(StopwatchComponent, { static: false })
@@ -93,32 +93,34 @@ export class GamePage {
 
   loadGame() {
     this.gameComponents = {
-      'serious-game-day-planning': {
+      "serious-game-day-planning": {
         type: DayPlanningComponent,
         data: this.dayPlanningData,
-        callback: 'addRecipe',
+        callback: "addRecipe",
         canContinue: false
       },
-      'serious-game-recipe': {
+      "serious-game-recipe": {
         type: RecipeComponent,
         data: this.chosenRecipes,
         canContinue: true
       },
-      'serious-game-shopping-list': {
+      "serious-game-shopping-list": {
         type: ShoppingListComponent,
         data: this.shoppingCenterData,
-        callback: 'setCanContinue',
+        callback: "setCanContinue",
         canContinue: false
       },
-      'serious-game-shopping-center': {
+      "serious-game-shopping-center": {
         type: ShoppingCenterComponent,
         data: this.shoppingCenterData,
-        callback: 'setCanContinue',
+        callback: "setCanContinue",
         canContinue: false
       }
     };
     const currentGame = this.games[this.step];
-    const currentGameComponent = this.gameComponents[`serious-game-${currentGame.component}`];
+    const currentGameComponent = this.gameComponents[
+      `serious-game-${currentGame.component}`
+    ];
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
       currentGameComponent.type
     );
@@ -161,7 +163,7 @@ export class GamePage {
       this.errorCount.reset();
       this.storeSession();
       this.step = 0;
-      this.router.navigateByUrl('/main-menu');
+      this.router.navigateByUrl("/main-menu");
     }
   }
 
@@ -178,7 +180,10 @@ export class GamePage {
       .pipe(
         switchMap(session => {
           const sessionData = session as Session;
-          return this.errorTextService.bulkCreate(this.sessionErrorTexts, sessionData);
+          return this.errorTextService.bulkCreate(
+            this.sessionErrorTexts,
+            sessionData
+          );
         })
       )
       .subscribe(response => {

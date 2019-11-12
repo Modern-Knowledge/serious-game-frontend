@@ -12,11 +12,12 @@ import { Word } from 'src/lib/models/Word';
 import { GameComponent } from '../game.component';
 
 @Component({
-  selector: 'serious-game-shopping-center',
-  templateUrl: './shopping-center.component.html',
-  styleUrls: ['./shopping-center.component.scss']
+  selector: "serious-game-shopping-center",
+  templateUrl: "./shopping-center.component.html",
+  styleUrls: ["./shopping-center.component.scss"]
 })
-export class ShoppingCenterComponent implements OnInit, GameComponent, OnDestroy {
+export class ShoppingCenterComponent
+  implements OnInit, GameComponent, OnDestroy {
   @Input() data: Ingredient[];
   @Input() game: Game;
   @Input() errorTexts: Errortext[];
@@ -45,8 +46,11 @@ export class ShoppingCenterComponent implements OnInit, GameComponent, OnDestroy
           if (this.shoppingCartIsValid()) {
             this.event.emit();
           } else {
-            // TODO: get correct errortext (Der Inhalt des Einkaufswagens ist nicht gültig!)
-            this.errorEvent.emit(this.errorTexts[0]);
+            this.errorEvent.emit(
+              this.errorTexts.find(
+                errorText => errorText.name === "shopping-cart"
+              )
+            );
           }
         }
       })

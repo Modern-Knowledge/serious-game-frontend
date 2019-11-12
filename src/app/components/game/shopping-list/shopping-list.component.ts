@@ -14,9 +14,9 @@ import { Word } from 'src/lib/models/Word';
 import { GameComponent } from '../game.component';
 
 @Component({
-  selector: 'serious-game-shopping-list',
-  templateUrl: './shopping-list.component.html',
-  styleUrls: ['./shopping-list.component.scss']
+  selector: "serious-game-shopping-list",
+  templateUrl: "./shopping-list.component.html",
+  styleUrls: ["./shopping-list.component.scss"]
 })
 export class ShoppingListComponent implements OnInit, GameComponent {
   @Input() game: Game;
@@ -25,7 +25,7 @@ export class ShoppingListComponent implements OnInit, GameComponent {
   @Input() mainGameSubject: Subject<any>;
   @Output() event: EventEmitter<any> = new EventEmitter();
   @Output() errorEvent: EventEmitter<any> = new EventEmitter();
-  private name = 'shoppinglist';
+  private name = "shoppinglist";
   private ingredients: Ingredient[];
   private subscription: Subscription = new Subscription();
   private shoppingListItems: Ingredient[];
@@ -49,7 +49,7 @@ export class ShoppingListComponent implements OnInit, GameComponent {
     this.subscription.add(
       this.dragulaService.dropModel(this.name).subscribe(value => {
         const item = this.data.find(element => element.id === +value.el.id);
-        if (value.target.id === 'drag') {
+        if (value.target.id === "drag") {
           this.removeItem(item);
         } else {
           this.addItem(item);
@@ -74,11 +74,17 @@ export class ShoppingListComponent implements OnInit, GameComponent {
    */
   addItem(item) {
     if (!this.fridgeStore.alreadyRandomized) {
-      // TODO: get correct errortext (Sehen sie zuerst im Kühlschrank nach!)
-      this.errorEvent.emit(this.errorTexts[0]);
+      this.errorEvent.emit(
+        this.errorTexts.find(
+          errorText => errorText.name === "fridge-not-checked"
+        )
+      );
     } else if (!this.validShoppingListItem(item)) {
-      // TODO: get correct errortext (${item.name} ist bereits im Kühlschrank vorhanden!)
-      this.errorEvent.emit(this.errorTexts[0]);
+      this.errorEvent.emit(
+        this.errorTexts.find(
+          errorText => errorText.name === "item-already-in-fridge"
+        )
+      );
     } else {
       this.shoppingListStore.addItem(item);
       if (this.compareShoppingListWithRecipe()) {
@@ -97,7 +103,9 @@ export class ShoppingListComponent implements OnInit, GameComponent {
       this.itemsValid =
         this.shoppingListItems
           .concat(this.fridgeItems)
-          .findIndex(recipeIngredient => recipeIngredient.id === ingredient.id) > -1;
+          .findIndex(
+            recipeIngredient => recipeIngredient.id === ingredient.id
+          ) > -1;
     });
     return this.itemsValid;
   }
@@ -118,6 +126,8 @@ export class ShoppingListComponent implements OnInit, GameComponent {
    * @param item Ingredient|Word
    */
   validShoppingListItem(item: Ingredient | Word): boolean {
-    return this.fridgeItems.findIndex(fridgeItem => fridgeItem.id === item.id) === -1;
+    return (
+      this.fridgeItems.findIndex(fridgeItem => fridgeItem.id === item.id) === -1
+    );
   }
 }

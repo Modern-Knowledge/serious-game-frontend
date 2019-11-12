@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: "serious-game-scored-points",
@@ -18,8 +18,6 @@ export class ScoredPointsComponent implements OnInit {
   }
 
   deductScore(value: number) {
-    // TODO: store score in database - the score cannot be calculated with only the elapsed time, because
-    // points must be deductable on an error
     this.points -= value;
   }
 
