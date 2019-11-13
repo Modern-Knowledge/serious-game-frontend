@@ -35,7 +35,6 @@ export class ScoreBoardPage implements OnInit, OnDestroy {
   }
 
   countErrortexts(session: Session) {
-    console.log(session);
     return session.statistic.errortexts.length;
   }
 }
