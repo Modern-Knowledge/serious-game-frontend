@@ -26,10 +26,10 @@ export class ShoppingListComponent implements OnInit, GameComponent {
     @Input() public mainGameSubject: Subject<any>;
     @Output() public event: EventEmitter<any> = new EventEmitter();
     @Output() public errorEvent: EventEmitter<any> = new EventEmitter();
-    private name = "shoppinglist";
-    private ingredients: Ingredient[];
+    public name = "shoppinglist";
+    public ingredients: Ingredient[];
+    public shoppingListItems: Ingredient[];
     private subscription: Subscription = new Subscription();
-    private shoppingListItems: Ingredient[];
     private fridgeItems: Ingredient[];
     private itemsValid = false;
     private templateParser: TemplateParser = new TemplateParser();
@@ -69,6 +69,19 @@ export class ShoppingListComponent implements OnInit, GameComponent {
         this.subscription.add(
             this.fridgeStore.items$.subscribe((items) => {
                 this.fridgeItems = items;
+            })
+        );
+        this.subscription.add(
+            this.mainGameSubject.subscribe(() => {
+                if (this.compareShoppingListWithRecipe()) {
+                    this.event.emit();
+                } else {
+                    this.errorEvent.emit(
+                        this.errorTexts.find(
+                            (errorText) => errorText.name === "shopping-list"
+                        )
+                    );
+                }
             })
         );
     }

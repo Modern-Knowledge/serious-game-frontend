@@ -1,235 +1,233 @@
-import { Component, ComponentFactoryResolver, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { forkJoin, Observable, Subject, Subscription } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { DayPlanningComponent } from 'src/app/components/game/day-planning/day-planning.component';
-import { GameComponent } from 'src/app/components/game/game.component';
-import { RecipeComponent } from 'src/app/components/game/recipe/recipe.component';
-import { ShoppingCenterComponent } from 'src/app/components/game/shopping-center/shopping-center.component';
-import { ShoppingListComponent } from 'src/app/components/game/shopping-list/shopping-list.component';
-import { ErrorCountComponent } from 'src/app/components/shared/error-count/error-count.component';
-import { StopwatchComponent } from 'src/app/components/shared/stopwatch/stopwatch.component';
-import { ComponentIsDirective } from 'src/app/directives/component-is.directive';
-import { ErrorTextService } from 'src/app/providers/error-text.service';
-import { GameService } from 'src/app/providers/game.service';
-import { IngredientService } from 'src/app/providers/ingredient.service';
-import { RecipeService } from 'src/app/providers/recipe.service';
-import { SessionService } from 'src/app/providers/session.service';
-import { UserStoreService } from 'src/app/providers/store/user-store.service';
-import { WordService } from 'src/app/providers/word.service';
-import { ToastPosition, ToastWrapper } from 'src/app/util/ToastWrapper';
-import { Errortext } from 'src/lib/models/Errortext';
-import { Game } from 'src/lib/models/Game';
-import { Ingredient } from 'src/lib/models/Ingredient';
-import { Patient } from 'src/lib/models/Patient';
-import { Recipe } from 'src/lib/models/Recipe';
-import { Session } from 'src/lib/models/Session';
-import { Therapist } from 'src/lib/models/Therapist';
-import { Word } from 'src/lib/models/Word';
-import { HttpResponseMessageSeverity } from 'src/lib/utils/http/HttpResponse';
+import { Component, ComponentFactoryResolver, ViewChild } from "@angular/core";
+import { Router } from "@angular/router";
+import { forkJoin, Observable, Subject, Subscription } from "rxjs";
+import { switchMap } from "rxjs/operators";
+import { DayPlanningComponent } from "src/app/components/game/day-planning/day-planning.component";
+import { GameComponent } from "src/app/components/game/game.component";
+import { RecipeComponent } from "src/app/components/game/recipe/recipe.component";
+import { ShoppingCenterComponent } from "src/app/components/game/shopping-center/shopping-center.component";
+import { ShoppingListComponent } from "src/app/components/game/shopping-list/shopping-list.component";
+import { ErrorCountComponent } from "src/app/components/shared/error-count/error-count.component";
+import { StopwatchComponent } from "src/app/components/shared/stopwatch/stopwatch.component";
+import { ComponentIsDirective } from "src/app/directives/component-is.directive";
+import { ErrorTextService } from "src/app/providers/error-text.service";
+import { GameService } from "src/app/providers/game.service";
+import { IngredientService } from "src/app/providers/ingredient.service";
+import { RecipeService } from "src/app/providers/recipe.service";
+import { SessionService } from "src/app/providers/session.service";
+import { UserStoreService } from "src/app/providers/store/user-store.service";
+import { WordService } from "src/app/providers/word.service";
+import { ToastPosition, ToastWrapper } from "src/app/util/ToastWrapper";
+import { Errortext } from "src/lib/models/Errortext";
+import { Game } from "src/lib/models/Game";
+import { Ingredient } from "src/lib/models/Ingredient";
+import { Patient } from "src/lib/models/Patient";
+import { Recipe } from "src/lib/models/Recipe";
+import { Therapist } from "src/lib/models/Therapist";
+import { Word } from "src/lib/models/Word";
+import { HttpResponseMessageSeverity } from "src/lib/utils/http/HttpResponse";
 
 @Component({
-  selector: "serious-game-game",
-  templateUrl: "./game.page.html",
-  styleUrls: ["./game.page.scss"]
+    selector: "serious-game-game",
+    styleUrls: ["./game.page.scss"],
+    templateUrl: "./game.page.html"
 })
 export class GamePage {
-  @ViewChild(StopwatchComponent, { static: false })
-  stopWatch: StopwatchComponent;
-  @ViewChild(ComponentIsDirective, { static: false })
-  componentIs: ComponentIsDirective;
-  @ViewChild(ErrorCountComponent, { static: false })
-  errorCount: ErrorCountComponent;
+    @ViewChild(StopwatchComponent, { static: false })
+    public stopWatch: StopwatchComponent;
+    @ViewChild(ComponentIsDirective, { static: false })
+    public componentIs: ComponentIsDirective;
+    @ViewChild(ErrorCountComponent, { static: false })
+    public errorCount: ErrorCountComponent;
 
-  public user: Therapist | Patient;
-  private dayPlanningData: (Word | Recipe)[];
-  public games: Game[];
-  private chosenRecipes: Recipe[] = [];
-  private shoppingCenterData: (Word | Ingredient)[];
-  public step: number;
-  private elapsedTime: number;
-  private gameComponents;
-  private subscription: Subscription = new Subscription();
-  private sessionErrorTexts: Errortext[] = [];
-  private canContinue: boolean;
-  private mainGameSubject: Subject<any> = new Subject();
-  constructor(
-    private wordService: WordService,
-    private recipeService: RecipeService,
-    private gameService: GameService,
-    private componentFactoryResolver: ComponentFactoryResolver,
-    private ingredientService: IngredientService,
-    private sessionService: SessionService,
-    private router: Router,
-    private userStore: UserStoreService,
-    private errorTextService: ErrorTextService
-  ) {
-    this.step = 0;
-  }
+    public user: Therapist | Patient;
+    public games: Game[];
+    public step: number;
+    private dayPlanningData: Array<Word | Recipe>;
+    private chosenRecipes: Recipe[] = [];
+    private shoppingCenterData: Array<Word | Ingredient>;
+    private elapsedTime: number;
+    private gameComponents;
+    private subscription: Subscription = new Subscription();
+    private sessionErrorTexts: Errortext[] = [];
+    private canContinue: boolean;
+    private mainGameSubject: Subject<any> = new Subject();
+    constructor(
+        private wordService: WordService,
+        private recipeService: RecipeService,
+        private gameService: GameService,
+        private componentFactoryResolver: ComponentFactoryResolver,
+        private ingredientService: IngredientService,
+        private sessionService: SessionService,
+        private router: Router,
+        private userStore: UserStoreService,
+        private errorTextService: ErrorTextService
+    ) {
+        this.step = 0;
+    }
 
-  ionViewWillEnter() {
-    this.subscription.add(
-      this.userStore.user.subscribe(user => {
-        this.user = user;
-      })
-    );
-    this.subscription.add(
-      this.requestMultipleResources().subscribe(responseList => {
-        this.dayPlanningData = responseList[0];
-        this.games = responseList[1];
-        this.shoppingCenterData = responseList[2];
+    public ionViewWillEnter() {
+        this.subscription.add(
+            this.userStore.user.subscribe((user) => {
+                this.user = user;
+            })
+        );
+        this.subscription.add(
+            this.requestMultipleResources().subscribe((responseList) => {
+                this.dayPlanningData = responseList[0];
+                this.games = responseList[1];
+                this.shoppingCenterData = responseList[2];
+                this.loadGame();
+            })
+        );
+    }
+
+    public requestMultipleResources(): Observable<any[]> {
+        const dayPlanningData = this.recipeService.getAll();
+        const games = this.gameService.getAll();
+        const shoppingCenterData = this.ingredientService.getAll();
+
+        return forkJoin([dayPlanningData, games, shoppingCenterData]);
+    }
+
+    public loadGame() {
+        this.gameComponents = {
+            "serious-game-day-planning": {
+                callback: "addRecipe",
+                canContinue: false,
+                data: this.dayPlanningData,
+                type: DayPlanningComponent
+            },
+            "serious-game-recipe": {
+                canContinue: true,
+                data: this.chosenRecipes,
+                type: RecipeComponent
+            },
+            "serious-game-shopping-list": {
+                callback: "setCanContinue",
+                canContinue: false,
+                data: this.shoppingCenterData,
+                type: ShoppingListComponent
+            },
+            // tslint:disable-next-line: object-literal-sort-keys
+            "serious-game-shopping-center": {
+                callback: "setCanContinue",
+                canContinue: false,
+                data: this.shoppingCenterData,
+                type: ShoppingCenterComponent
+            }
+        };
+        const currentGame = this.games[this.step];
+        const currentGameComponent = this.gameComponents[
+            `serious-game-${currentGame.component}`
+        ];
+        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
+            currentGameComponent.type
+        );
+        const viewContainerRef = this.componentIs.viewContainerRef;
+        viewContainerRef.clear();
+        const componentRef = viewContainerRef.createComponent(componentFactory);
+        const dynamicComponentInstance = componentRef.instance as GameComponent;
+        dynamicComponentInstance.data = currentGameComponent.data;
+        dynamicComponentInstance.game = currentGame;
+        dynamicComponentInstance.mainGameSubject = this.mainGameSubject;
+        dynamicComponentInstance.errorTexts = currentGame.errortexts;
+        dynamicComponentInstance.event.subscribe((event) => {
+            if (currentGameComponent.callback) {
+                this[currentGameComponent.callback](event);
+            }
+        });
+
+        dynamicComponentInstance.errorEvent.subscribe((error) => {
+            this.handleError(error);
+        });
+        this.canContinue = currentGameComponent.canContinue;
+    }
+
+    public onSubmit() {
+        this.mainGameSubject.next();
+        if (this.canContinue) {
+            this.stopWatch.reset();
+            this.errorCount.reset();
+            this.storeSession();
+            this.step++;
+            this.canContinue = false;
+        }
         this.loadGame();
-      })
-    );
-  }
-
-  requestMultipleResources(): Observable<any[]> {
-    const dayPlanningData = this.recipeService.getAll();
-    const games = this.gameService.getAll();
-    const shoppingCenterData = this.ingredientService.getAll();
-
-    return forkJoin([dayPlanningData, games, shoppingCenterData]);
-  }
-
-  loadGame() {
-    this.gameComponents = {
-      "serious-game-day-planning": {
-        type: DayPlanningComponent,
-        data: this.dayPlanningData,
-        callback: "addRecipe",
-        canContinue: false
-      },
-      "serious-game-recipe": {
-        type: RecipeComponent,
-        data: this.chosenRecipes,
-        canContinue: true
-      },
-      "serious-game-shopping-list": {
-        type: ShoppingListComponent,
-        data: this.shoppingCenterData,
-        callback: "setCanContinue",
-        canContinue: false
-      },
-      "serious-game-shopping-center": {
-        type: ShoppingCenterComponent,
-        data: this.shoppingCenterData,
-        callback: "setCanContinue",
-        canContinue: false
-      }
-    };
-    const currentGame = this.games[this.step];
-    const currentGameComponent = this.gameComponents[
-      `serious-game-${currentGame.component}`
-    ];
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      currentGameComponent.type
-    );
-    const viewContainerRef = this.componentIs.viewContainerRef;
-    viewContainerRef.clear();
-    const componentRef = viewContainerRef.createComponent(componentFactory);
-    const dynamicComponentInstance = componentRef.instance as GameComponent;
-    dynamicComponentInstance.data = currentGameComponent.data;
-    dynamicComponentInstance.game = currentGame;
-    dynamicComponentInstance.mainGameSubject = this.mainGameSubject;
-    dynamicComponentInstance.errorTexts = currentGame.errortexts;
-    dynamicComponentInstance.event.subscribe(event => {
-      if (currentGameComponent.callback) {
-        this[currentGameComponent.callback](event);
-      }
-    });
-
-    dynamicComponentInstance.errorEvent.subscribe(error => {
-      this.handleError(error);
-    });
-    this.canContinue = currentGameComponent.canContinue;
-  }
-
-  onSubmit() {
-    this.mainGameSubject.next();
-    if (this.stepValid() && this.canContinue) {
-      this.stopWatch.reset();
-      this.errorCount.reset();
-      this.storeSession();
-      this.step++;
-      this.canContinue = false;
     }
-    this.loadGame();
-  }
 
-  onFinish() {
-    this.mainGameSubject.next();
-    if (this.canContinue) {
-      this.stopWatch.reset();
-      this.errorCount.reset();
-      this.storeSession();
-      this.step = 0;
-      this.router.navigateByUrl("/main-menu");
+    public onFinish() {
+        this.mainGameSubject.next();
+        if (this.canContinue) {
+            this.stopWatch.reset();
+            this.errorCount.reset();
+            this.storeSession();
+            this.step = 0;
+            this.router.navigateByUrl("/main-menu");
+        }
     }
-  }
 
-  storeSession() {
-    const game = this.games[this.step];
+    public storeSession() {
+        const game = this.games[this.step];
 
-    const sessionResponse$ = this.sessionService.create(
-      game.id,
-      this.user.id,
-      game.gameSettings[0].id,
-      this.elapsedTime
-    );
-    sessionResponse$
-      .pipe(
-        switchMap(session => {
-          const sessionData = session as Session;
-          return this.errorTextService.bulkCreate(
-            this.sessionErrorTexts,
-            sessionData
-          );
-        })
-      )
-      .subscribe(response => {
-        console.log(response);
-      });
-  }
-
-  addRecipe(recipe: Recipe) {
-    this.chosenRecipes.push(recipe);
-    this.setCanContinue();
-  }
-
-  setCanContinue() {
-    this.canContinue = true;
-  }
-
-  handleError(errortext: Errortext) {
-    if (errortext) {
-      const message = new ToastWrapper(
-        errortext.text,
-        ToastPosition.TOP,
-        HttpResponseMessageSeverity.DANGER
-      );
-      message.alert();
-      this.canContinue = false;
-      this.errorCount.increaseCount();
-      this.addErrorText(errortext);
+        const sessionResponse$ = this.sessionService.create(
+            game.id,
+            this.user.id,
+            game.gameSettings[0].id,
+            this.elapsedTime
+        );
+        sessionResponse$
+            .pipe(
+                switchMap((session) => {
+                    const sessionData = session;
+                    return this.errorTextService.bulkCreate(
+                        this.sessionErrorTexts,
+                        sessionData
+                    );
+                })
+            )
+            .subscribe();
     }
-  }
 
-  addErrorText(errortext: Errortext) {
-    this.sessionErrorTexts.push(errortext);
-  }
-
-  stepValid(): boolean {
-    if (this.games) {
-      return this.step < this.games.length - 1;
+    public addRecipe(recipe: Recipe) {
+        this.chosenRecipes.push(recipe);
+        this.setCanContinue();
     }
-    return false;
-  }
 
-  setTime(time: number) {
-    this.elapsedTime = time;
-  }
+    public setCanContinue() {
+        this.canContinue = true;
+    }
 
-  ionViewDidLeave() {
-    this.subscription.unsubscribe();
-  }
+    public handleError(errortext: Errortext) {
+        if (errortext) {
+            const message = new ToastWrapper(
+                errortext.text,
+                ToastPosition.TOP,
+                HttpResponseMessageSeverity.DANGER
+            );
+            message.alert();
+            this.canContinue = false;
+            this.errorCount.increaseCount();
+            this.addErrorText(errortext);
+        }
+    }
+
+    public addErrorText(errortext: Errortext) {
+        this.sessionErrorTexts.push(errortext);
+    }
+
+    public stepValid(): boolean {
+        if (this.games) {
+            return this.step < this.games.length - 1;
+        }
+        return false;
+    }
+
+    public setTime(time: number) {
+        this.elapsedTime = time;
+    }
+
+    public ionViewDidLeave() {
+        this.subscription.unsubscribe();
+    }
 }
