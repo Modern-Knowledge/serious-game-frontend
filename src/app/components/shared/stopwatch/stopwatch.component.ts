@@ -1,31 +1,30 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { timer, Subscription } from "rxjs";
-import moment from "moment";
-@Component({
-  selector: "serious-game-stopwatch",
-  templateUrl: "./stopwatch.component.html",
-  styleUrls: ["./stopwatch.component.scss"]
-})
-export class StopwatchComponent implements OnInit {
-  @Input() running: boolean;
-  @Output() isReset: EventEmitter<number> = new EventEmitter();
-  @Output() timeChanged: EventEmitter<number> = new EventEmitter();
-  private start: number = Date.now();
-  private elapsedTime: number;
-  private timerSubscription: Subscription = new Subscription();
-  constructor() {}
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
+import { Subscription, timer } from "rxjs";
 
-  ngOnInit() {
-    this.timerSubscription = timer(0, 1).subscribe(ellapsedCycles => {
-      this.elapsedTime = Date.now() - this.start;
-      this.timeChanged.emit(this.elapsedTime);
-    });
-  }
-  reset() {
-    this.isReset.emit(this.elapsedTime);
-    this.start = Date.now();
-  }
-  ngOnDestroy() {
-    this.timerSubscription.unsubscribe();
-  }
+@Component({
+    selector: "serious-game-stopwatch",
+    styleUrls: ["./stopwatch.component.scss"],
+    templateUrl: "./stopwatch.component.html"
+})
+export class StopwatchComponent implements OnInit, OnDestroy {
+    public elapsedTime: number;
+    @Input() private running: boolean;
+    @Output() private isReset: EventEmitter<number> = new EventEmitter();
+    @Output() private timeChanged: EventEmitter<number> = new EventEmitter();
+    private start: number = Date.now();
+    private timerSubscription: Subscription = new Subscription();
+
+    public ngOnInit() {
+        this.timerSubscription = timer(0, 1).subscribe(() => {
+            this.elapsedTime = Date.now() - this.start;
+            this.timeChanged.emit(this.elapsedTime);
+        });
+    }
+    public reset() {
+        this.isReset.emit(this.elapsedTime);
+        this.start = Date.now();
+    }
+    public ngOnDestroy() {
+        this.timerSubscription.unsubscribe();
+    }
 }
