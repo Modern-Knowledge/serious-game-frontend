@@ -1,70 +1,127 @@
-import { Injectable, Inject } from "@angular/core";
-import { HttpHeaders, HttpClient } from "@angular/common/http";
-import { Observable, of } from "rxjs";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Inject, Injectable } from "@angular/core";
 import { JwtHelperService } from "@auth0/angular-jwt";
-import { User } from "src/lib/models/User";
+import { Observable, of } from "rxjs";
 import { map } from "rxjs/operators";
-import { Therapist } from "src/lib/models/Therapist";
 import { Patient } from "src/lib/models/Patient";
+import { Therapist } from "src/lib/models/Therapist";
+import { User } from "src/lib/models/User";
 import { HttpResponse } from "src/lib/utils/http/HttpResponse";
+
 @Injectable()
 export class AuthService {
-  user: User;
-  helper = new JwtHelperService();
-  redirectUrl: string;
-  constructor(private httpClient: HttpClient) {}
+    public user: User;
+    public helper = new JwtHelperService();
+    public redirectUrl: string;
+    constructor(private httpClient: HttpClient) {}
 
-  login(email: string, password: string) {
-    return this.httpClient.post<User>("login", {
-      email: email,
-      password: password
-    });
-  }
+    /**
+     * Tries to login in the application with the provided credentials.
+     *
+     * @param email email of the user
+     * @param password password of the user
+     */
+    public login(email: string, password: string) {
+        return this.httpClient.post<User>("login", {
+            email,
+            password
+        });
+    }
 
-  register(user: User, type: boolean): Observable<User> {
-    return this.httpClient.post<User>(type ? "therapists" : "patients", user);
-  }
+    /**
+     * Registers the provided user and returns the inserted user.
+     *
+     * @param user user that should be registered
+     * @param type type of the user (patient = false, therapist = true) that should be registered
+     */
+    public register(user: User, type: boolean): Observable<User> {
+        return this.httpClient.post<User>(type ? "therapists" : "patients", user);
+    }
 
-  getRelatedUser(): Observable<Therapist | Patient> {
-    return this.httpClient
-      .get<HttpResponse>(`users/related`)
-      .pipe(
-        map(user =>
-          this.isTherapist()
-            ? new Therapist().deserialize(
-                new HttpResponse().deserialize(user).data.user
-              )
-            : new Patient().deserialize(
-                new HttpResponse().deserialize(user).data.user
-              )
-        )
-      );
-  }
-  getToken(): string {
-    const token = localStorage.getItem("accessToken");
-    return token ? token : null;
-  }
-  setToken(token): void {
-    if (token) {
-      // store username and jwt token in local storage to keep user logged in between page refreshes
-      localStorage.setItem("accessToken", token);
+    /**
+     * Requests the reset of the password.
+     *
+     * @param email email of the user
+     */
+    public requestResetPassword(email: string) {
+        return this.httpClient.post<HttpResponse>("password/reset", {
+            email
+        });
     }
-  }
-  logout(): void {
-    // clear token remove user from local storage to log user out
-    localStorage.removeItem("accessToken");
-  }
-  isLoggedIn(): boolean {
-    return this.getToken() !== null;
-  }
-  getUserIdFromToken() {
-    if (this.isLoggedIn()) {
-      return this.helper.decodeToken(this.getToken()).id;
+
+    /**
+     * Returns information about the user.
+     */
+    public getRelatedUser(): Observable<Therapist | Patient> {
+        return this.httpClient
+            .get<HttpResponse>(`users/related`)
+            .pipe(
+                map((user) =>
+                    this.isTherapist()
+                        ? new Therapist().deserialize(
+                        new HttpResponse().deserialize(user).data.user
+                        )
+                        : new Patient().deserialize(
+                        new HttpResponse().deserialize(user).data.user
+                        )
+                )
+            );
     }
-  }
-  isTherapist() {
-    if (this.isLoggedIn()) {
-      return this.helper.decodeToken(this.getToken()).therapist;
+
+    /**
+     * Returns the authentication token or null if the user is not logged in.
+     */
+    public getToken(): string {
+        const token = localStorage.getItem("accessToken");
+        return token ? token : null;
     }
-  }
+
+    /**
+     * Stores the authentication token in the local storage.
+     *
+     * @param token authentication token of the user
+     */
+    public setToken(token): void {
+        if (token) {
+            // store username and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem("accessToken", token);
+        }
+    }
+
+    /**
+     * Removes the authentication token from the local storage
+     */
+    public logout(): void {
+        // clear token remove user from local storage to log user out
+        localStorage.removeItem("accessToken");
+    }
+
+    /**
+     * Checks if the user is logged in. Tests if the token is not null.
+     */
+    public isLoggedIn(): boolean {
+        return this.getToken() !== null;
+    }
+
+    /**
+     * Checks if the user is logged in and returns the user id. If the user is not logged in, null is returned.
+     */
+    public getUserIdFromToken() {
+        if (this.isLoggedIn()) {
+            return this.helper.decodeToken(this.getToken()).id;
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns true if the logged in user is a therapist. If the user is not logged in, the function returns false.
+     */
+    public isTherapist() {
+        if (this.isLoggedIn()) {
+            return this.helper.decodeToken(this.getToken()).therapist;
+        }
+
+        return false;
+    }
 }

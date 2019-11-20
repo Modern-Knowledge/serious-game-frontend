@@ -5,17 +5,17 @@ import { RouterModule, Routes } from "@angular/router";
 
 import { IonicModule } from "@ionic/angular";
 
-import { LoginPage } from "./login.page";
+import { PasswordResetPage } from "./password-reset.page";
 
 const routes: Routes = [
   {
-    component: LoginPage,
+    component: PasswordResetPage,
     path: ""
   }
 ];
 
 @NgModule({
-  declarations: [LoginPage],
+  declarations: [PasswordResetPage],
   imports: [
     CommonModule,
     FormsModule,
@@ -24,4 +24,4 @@ const routes: Routes = [
     ReactiveFormsModule
   ]
 })
-export class LoginPageModule {}
+export class PasswordResetModule {}
