@@ -1,39 +1,45 @@
-import { Injectable } from "@angular/core";
-import { Word } from "src/lib/models/Word";
-import { Observable } from "rxjs";
-import { HttpClient } from "@angular/common/http";
-import { map } from "rxjs/operators";
-import {
-  HttpResponse,
-  HttpResponseStatus
-} from "src/lib/utils/http/HttpResponse";
+import {HttpClient} from "@angular/common/http";
+import {Injectable} from "@angular/core";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
+import {Word} from "src/lib/models/Word";
+import {HttpResponse, HttpResponseStatus} from "src/lib/utils/http/HttpResponse";
 
 @Injectable({
-  providedIn: "root"
+    providedIn: "root"
 })
 export class WordService {
-  constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+    }
 
-  get(id): Observable<Word> {
-    return this.http
-      .get<HttpResponse>(`words/${id}`)
-      .pipe(
-        map(word =>
-          new Word().deserialize(
-            new HttpResponse().deserialize(word).data.words
-          )
-        )
-      );
-  }
+    /**
+     * Returns the word by id.
+     *
+     * @param id id of the word to receive
+     */
+    public get(id): Observable<Word> {
+        return this.http
+            .get<HttpResponse>(`words/${id}`)
+            .pipe(
+                map((word) =>
+                    new Word().deserialize(
+                        new HttpResponse().deserialize(word).data.words
+                    )
+                )
+            );
+    }
 
-  getAll(): Observable<Word[]> {
-    return this.http.get<HttpResponse>(`words`).pipe(
-      map(words => {
-        const wordsModel = new HttpResponse().deserialize(words);
-        return wordsModel.status === HttpResponseStatus.SUCCESS
-          ? wordsModel.data.words.map(word => new Word().deserialize(word))
-          : [];
-      })
-    );
-  }
+    /**
+     * Returns all words of the application.
+     */
+    public getAll(): Observable<Word[]> {
+        return this.http.get<HttpResponse>(`words`).pipe(
+            map((words) => {
+                const wordsModel = new HttpResponse().deserialize(words);
+                return wordsModel.status === HttpResponseStatus.SUCCESS
+                    ? wordsModel.data.words.map((word) => new Word().deserialize(word))
+                    : [];
+            })
+        );
+    }
 }

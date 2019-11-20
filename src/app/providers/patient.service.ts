@@ -1,31 +1,40 @@
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { Patient } from "src/lib/models/Patient";
-import { HttpClient } from "@angular/common/http";
-import { map } from "rxjs/operators";
-import { HttpResponse } from 'src/lib/utils/http/HttpResponse';
+import {HttpClient} from "@angular/common/http";
+import {Injectable} from "@angular/core";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
+import {Patient} from "src/lib/models/Patient";
+import {HttpResponse} from "src/lib/utils/http/HttpResponse";
 
 @Injectable({
-  providedIn: "root"
+    providedIn: "root"
 })
 export class PatientService {
-  constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+    }
 
-  get(id): Observable<Patient> {
-    return this.http.get<HttpResponse>(`patients/${id}`)
-    .pipe(
-      map(patient => new Patient().deserialize(new HttpResponse().deserialize(patient).data)));
-  }
+    /**
+     * Returns the patient by id.
+     *
+     * @param id id of the patient to retrieve
+     */
+    public get(id): Observable<Patient> {
+        return this.http.get<HttpResponse>(`patients/${id}`)
+            .pipe(
+                map((patient) => new Patient().deserialize(new HttpResponse().deserialize(patient).data)));
+    }
 
-  getAll(): Observable<Patient[]> {
-    return this.http
-      .get<HttpResponse>(`patients`)
-      .pipe(
-        map(patients => {
-          const patientsModel = new HttpResponse().deserialize(patients);
-          return patientsModel.data.map(patient => new Patient().deserialize(patient))
-        } 
-        )
-      );
-  }
+    /**
+     * Returns all patients of the application.
+     */
+    public getAll(): Observable<Patient[]> {
+        return this.http
+            .get<HttpResponse>(`patients`)
+            .pipe(
+                map((patients) => {
+                        const patientsModel = new HttpResponse().deserialize(patients);
+                        return patientsModel.data.map((patient) => new Patient().deserialize(patient));
+                    }
+                )
+            );
+    }
 }
