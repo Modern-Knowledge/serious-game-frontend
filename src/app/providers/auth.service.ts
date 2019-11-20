@@ -50,6 +50,21 @@ export class AuthService {
     }
 
     /**
+     * Resets the password for the user.
+     *
+     * @param email email of the user, that wants to reset his password
+     * @param password password of the user that wants to reset his password
+     * @param token reset-token of the user, that wants to reset his password
+     */
+    public resetPassword(email: string, password: string, token: number) {
+        return this.httpClient.post<HttpResponse>("password/reset-password", {
+            email,
+            password,
+            token
+        });
+    }
+
+    /**
      * Returns information about the user.
      */
     public getRelatedUser(): Observable<Therapist | Patient> {
