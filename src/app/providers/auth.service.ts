@@ -96,11 +96,29 @@ export class AuthService {
      *
      * @param token authentication token of the user
      */
-    public setToken(token): void {
+    public setToken(token: string): void {
         if (token) {
             // store username and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem("accessToken", token);
         }
+    }
+
+    /**
+     * Stores the reset-token valid until time in the local storage
+     *
+     * @param resetTokenValidUntil time until the reset code is valid
+     */
+    public setResetTokenValidUntil(resetTokenValidUntil: string): void {
+        if (resetTokenValidUntil) {
+            localStorage.setItem("resetCodeValidUntil", resetTokenValidUntil);
+        }
+    }
+
+    /**
+     * Removes the reset-token-valid-until from the local storage
+     */
+    public removeResetTokenValidUntil(): void {
+        localStorage.removeItem("resetCodeValidUntil");
     }
 
     /**

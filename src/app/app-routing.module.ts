@@ -10,6 +10,10 @@ const routes: Routes = [
         loadChildren: "./pages/password-reset/password-reset.module#PasswordResetModule"
     },
     {
+        path: "reset-password",
+        loadChildren: "./pages/reset-password/reset-password.module#ResetPasswordModule"
+    },
+    {
         path: "registration",
         loadChildren: "./pages/registration/registration.module#RegistrationPageModule"
     },

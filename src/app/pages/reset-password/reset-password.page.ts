@@ -7,12 +7,12 @@ import { AuthService } from "src/app/providers/auth.service";
 import {HttpResponse} from "../../../lib/utils/http/HttpResponse";
 
 @Component({
-    selector: "serious-game-password-reset",
-    styleUrls: ["./password-reset.page.scss"],
-    templateUrl: "./password-reset.page.html"
+    selector: "serious-game-reset-password",
+    styleUrls: ["./reset-password.page.scss"],
+    templateUrl: "./reset-password.page.html"
 })
-export class PasswordResetPage implements OnInit {
-    public passwordResetForm: FormGroup;
+export class ResetPasswordPage implements OnInit {
+    public resetPasswordForm: FormGroup;
     private subscription: Subscription = new Subscription();
 
     constructor(
@@ -20,9 +20,14 @@ export class PasswordResetPage implements OnInit {
         private authService: AuthService,
     ) {}
 
+    /**
+     * initiates the form when, the component mounted
+     */
     public ngOnInit() {
-        this.passwordResetForm = new FormGroup({
-            email: new FormControl("", [Validators.email, Validators.required])
+        this.resetPasswordForm = new FormGroup({
+            email: new FormControl("", [Validators.email, Validators.required]),
+            password: new FormControl("", [Validators.minLength(6), Validators.required]),
+            token: new FormControl("", [Validators.minLength(8), Validators.required])
         });
     }
 
@@ -32,14 +37,15 @@ export class PasswordResetPage implements OnInit {
     public onResetPassword(): void {
         this.subscription.add(
             this.authService
-                .requestResetPassword(
-                    this.passwordResetForm.controls.email.value,
+                .resetPassword(
+                    this.resetPasswordForm.controls.email.value,
+                    this.resetPasswordForm.controls.password.value,
+                    this.resetPasswordForm.controls.token.value
                 )
                 .subscribe((response) => {
                     const httpResponse = new HttpResponse().deserialize(response);
-                    const validUntil = httpResponse.data.reset_code.valid_until;
-                    this.authService.setResetTokenValidUntil(validUntil);
-                    this.router.navigateByUrl("/reset-password");
+                    console.log(httpResponse);
+                    this.router.navigateByUrl("/login");
                 })
         );
     }
