@@ -47,13 +47,7 @@
                             shape="round">
                         Registrieren
                     </ion-button>
-                    <ion-button
-                            (click)="onPasswordForgotten()"
-                            type="button"
-                            color="tertiary"
-                            shape="round">
-                        Password vergessen
-                    </ion-button>
+
                     <ion-button
                             (click)="onLogin()"
                             type="button"
@@ -62,6 +56,18 @@
                         Anmelden
                     </ion-button>
                 </form>
+            </ion-row>
+            <br/>
+            <ion-row class="ion-align-items-center ion-justify-content-center">
+                <ion-button
+                        (click)="onPasswordForgotten()"
+                        type="button"
+                        color="medium"
+                        shape="round"
+                        size="small"
+                >
+                    Password vergessen
+                </ion-button>
             </ion-row>
         </ion-grid>
     </div>

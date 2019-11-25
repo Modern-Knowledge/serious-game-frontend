@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/providers/auth.service";
 import {HttpResponse} from "../../../lib/utils/http/HttpResponse";
+import {environment} from "../../../environments/environment";
 
 @Component({
     selector: "serious-game-reset-password",
@@ -26,8 +27,12 @@ export class ResetPasswordPage implements OnInit {
     public ngOnInit() {
         this.resetPasswordForm = new FormGroup({
             email: new FormControl("", [Validators.email, Validators.required]),
-            password: new FormControl("", [Validators.minLength(6), Validators.required]),
-            token: new FormControl("", [Validators.minLength(8), Validators.required])
+            password: new FormControl("", [Validators.minLength(environment.passwordLength), Validators.required]),
+            token: new FormControl("", [
+                Validators.maxLength(environment.tokenLength),
+                Validators.minLength(environment.tokenLength),
+                Validators.required
+            ])
         });
     }
 

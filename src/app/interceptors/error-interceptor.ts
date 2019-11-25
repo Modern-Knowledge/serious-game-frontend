@@ -10,6 +10,7 @@ import { Router } from "@angular/router";
 import { LoggingService } from "ionic-logging-service";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
+import {HTTPStatusCode} from "../../lib/utils/httpStatusCode";
 import { AuthService } from "../providers/auth.service";
 import { ToastPosition, ToastWrapper } from "../util/ToastWrapper";
 
@@ -27,21 +28,88 @@ export class ErrorInterceptor implements HttpInterceptor {
     ): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(
             catchError((error: HttpErrorResponse) => {
-                if (error.status === 401) {
-                    this.authService.logout();
-                    this.router.navigateByUrl("/login");
-                    this.logging.getRootLogger().info("error-interceptor", {
-                        message: `${error.message} Redirecting user to login page.`
-                    });
+                switch (error.status) {
+                    case HTTPStatusCode.UNAUTHORIZED:
+                        this.handleUnauthorized(error);
+                        break;
+                    case HTTPStatusCode.BAD_REQUEST:
+                        this.handleBadRequest(error);
+                        break;
+                    case HTTPStatusCode.FORBIDDEN:
+                        this.handleForbidden(error);
+                        break;
+                    case HTTPStatusCode.NOT_FOUND:
+                        this.handleNotFound(error);
+                        break;
+                    case HTTPStatusCode.INTERNAL_SERVER_ERROR:
+                        this.handleInternalServerError(error);
+                        break;
+                }
+
+                for (const item of error.error._messages) {
                     const message = new ToastWrapper(
-                        error.error._messages[0].message,
-                        ToastPosition.BOTTOM,
-                        error.error._messages[0]._severity
+                        item.message,
+                        ToastPosition.TOP,
+                        item._severity
                     );
                     message.alert();
                 }
+
                 return throwError(error);
             })
         );
     }
+
+    /**
+     * Handles the http unauthorized (401) status code.
+     * @param error http-response error
+     */
+    private handleUnauthorized(error: HttpErrorResponse): void {
+        this.authService.logout();
+        this.router.navigateByUrl("/login");
+        this.logging.getRootLogger().info(this.handleUnauthorized.name, {
+            message: `${error.message} Redirecting user to login page.`
+        });
+    }
+
+    /**
+     * Handles the http bad-request (400) status code.
+     * @param error http-response error
+     */
+    private handleBadRequest(error: HttpErrorResponse): void {
+        this.logging.getRootLogger().info(this.handleBadRequest.name, {
+            message: `${error.message}`
+        });
+    }
+
+    /**
+     * Handles the http forbidden (403) status code.
+     * @param error http-response error
+     */
+    private handleForbidden(error: HttpErrorResponse): void {
+        this.logging.getRootLogger().info(this.handleForbidden.name, {
+            message: `${error.message}`
+        });
+    }
+
+    /**
+     * Handles the http not-found (404) status code.
+     * @param error http-response error
+     */
+    private handleNotFound(error: HttpErrorResponse): void {
+        this.logging.getRootLogger().info(this.handleNotFound.name, {
+            message: `${error.message}`
+        });
+    }
+
+    /**
+     * Handles the http internal-server-error (500) status code.
+     * @param error http-response error
+     */
+    private handleInternalServerError(error: HttpErrorResponse): void {
+        this.logging.getRootLogger().info(this.handleInternalServerError.name, {
+            message: `${error.message}`
+        });
+    }
+
 }

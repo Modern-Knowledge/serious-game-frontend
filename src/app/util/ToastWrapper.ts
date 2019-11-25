@@ -2,99 +2,101 @@ import { ToastController } from "@ionic/angular";
 import { HttpResponseMessageSeverity } from "src/lib/utils/http/HttpResponse";
 
 export class ToastWrapper {
-  private _header: string;
-  private _position: ToastPosition;
-  private _message: string;
-  private _buttons: ToastButton[];
-  private _severity: HttpResponseMessageSeverity;
-  private _toastController: ToastController;
-  constructor(
-    message: string,
-    position?: ToastPosition,
-    severity?: HttpResponseMessageSeverity,
-    header?: string,
-    buttons?: ToastButton[]
-  ) {
-    this._header = header ? header : "Nachricht";
-    this._position = position ? position : ToastPosition.TOP;
-    this._message = message;
-    this._buttons = buttons ? buttons : [new ToastButton(ToastButtonLabel.OK)];
-    this._severity = severity ? severity : HttpResponseMessageSeverity.SUCCESS;
-    this._toastController = new ToastController();
-  }
+    private _header: string;
+    private _position: ToastPosition;
+    private _message: string;
+    private _buttons: ToastButton[];
+    private _severity: HttpResponseMessageSeverity;
+    private _toastController: ToastController;
 
-  public get header() {
-    return this._header;
-  }
+    constructor(
+        message: string,
+        position?: ToastPosition,
+        severity?: HttpResponseMessageSeverity,
+        header?: string,
+        buttons?: ToastButton[]
+    ) {
+        this._header = header ? header : "Nachricht";
+        this._position = position ? position : ToastPosition.TOP;
+        this._message = message;
+        this._buttons = buttons ? buttons : [new ToastButton(ToastButtonLabel.OK)];
+        this._severity = severity ? severity : HttpResponseMessageSeverity.SUCCESS;
 
-  public set header(value) {
-    this._header = value;
-  }
+        this._toastController = new ToastController();
+    }
 
-  public get position() {
-    return this._position;
-  }
+    public get header() {
+        return this._header;
+    }
 
-  public set position(value) {
-    this._position = value;
-  }
+    public set header(value) {
+        this._header = value;
+    }
 
-  public get severity() {
-    return this._severity;
-  }
+    public get position() {
+        return this._position;
+    }
 
-  public set severity(value) {
-    this._severity = value;
-  }
+    public set position(value) {
+        this._position = value;
+    }
 
-  public get message() {
-    return this._message;
-  }
+    public get severity() {
+        return this._severity;
+    }
 
-  public set message(value) {
-    this._message = value;
-  }
+    public set severity(value) {
+        this._severity = value;
+    }
 
-  public get buttons() {
-    return this._buttons;
-  }
+    public get message() {
+        return this._message;
+    }
 
-  public set buttons(value) {
-    this._buttons = value;
-  }
+    public set message(value) {
+        this._message = value;
+    }
 
-  public async alert() {
-    const alert = await this._toastController.create({
-      header: this.header,
-      position: this.position,
-      message: this.message,
-      color: this.severity.toString(),
-      animated: true,
-      duration: 2000
-    });
-    await alert.present();
-  }
+    public get buttons() {
+        return this._buttons;
+    }
+
+    public set buttons(value) {
+        this._buttons = value;
+    }
+
+    public async alert() {
+        const alert = await this._toastController.create({
+            animated: true,
+            color: this.severity.toString(),
+            duration: 2000,
+            header: this.header,
+            message: this.message,
+            position: this.position,
+        });
+        await alert.present();
+    }
 }
 
 class ToastButton {
-  private _side: string;
-  private _icon: string;
-  private _text: string;
+    private _side: string;
+    private _icon: string;
+    private _text: string;
 
-  constructor(text: string, icon?: string, side?: string) {
-    this._side = side ? side : "start";
-    this._icon = icon ? icon : "star";
-    this._text = text;
-  }
+    constructor(text: string, icon?: string, side?: string) {
+        this._side = side ? side : "start";
+        this._icon = icon ? icon : "star";
+        this._text = text;
+    }
 }
 
 export const enum ToastPosition {
-  TOP = "top",
-  MIDDLE = "middle",
-  BOTTOM = "bottom"
+    TOP = "top",
+    MIDDLE = "middle",
+    BOTTOM = "bottom"
 }
 
 export const enum ToastButtonLabel {
-  OK = "OK",
-  ABORT = "Abbrechen"
+    OK = "OK",
+    ABORT = "Abbrechen"
 }
