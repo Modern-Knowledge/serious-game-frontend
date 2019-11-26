@@ -4,8 +4,6 @@ import { Router } from "@angular/router";
 
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/providers/auth.service";
-import { UserStoreService } from "src/app/providers/store/user-store.service";
-import { Therapist } from "../../../../../serious-game-backend/src/lib/models/Therapist";
 import { HttpResponse } from "../../../lib/utils/http/HttpResponse";
 import { GameData } from "../../providers/GameData";
 
