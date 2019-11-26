@@ -4,12 +4,13 @@ import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {AuthService} from "src/app/providers/auth.service";
 import {User} from "src/lib/models/User";
+import {environment} from "../../../environments/environment";
 import {HttpResponse} from "../../../lib/utils/http/HttpResponse";
 
 @Component({
     selector: "serious-game-registration",
-    templateUrl: "./registration.page.html",
-    styleUrls: ["./registration.page.scss"]
+    styleUrls: ["./registration.page.scss"],
+    templateUrl: "./registration.page.html"
 })
 export class RegistrationPage implements OnInit {
     public registrationForm: FormGroup;
@@ -27,7 +28,7 @@ export class RegistrationPage implements OnInit {
                 lastname: new FormControl("", Validators.required),
                 password: new FormControl("", [
                     Validators.required,
-                    Validators.minLength(6)
+                    Validators.minLength(environment.passwordLength)
                 ]),
                 password_confirmation: new FormControl("", Validators.required),
                 therapist: new FormControl(false)

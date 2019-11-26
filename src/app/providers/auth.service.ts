@@ -54,9 +54,10 @@ export class AuthService {
      *
      * @param email email of the user, that wants to reset his password
      * @param password password of the user that wants to reset his password
+     * @param passwordConfirmation password confirmation
      * @param token reset-token of the user, that wants to reset his password
      */
-    public resetPassword(email: string, password: string, token: number) {
+    public resetPassword(email: string, password: string, passwordConfirmation: string, token: number) {
         return this.httpClient.post<HttpResponse>("password/reset-password", {
             email,
             password,
