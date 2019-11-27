@@ -1,33 +1,79 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button autoHide="false"></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      Profile
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button autoHide="false"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            Profil
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-      <ion-avatar justify-content-center align-items-center
-        ><img
-          src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
-      /></ion-avatar>
-      <ion-card-title *ngIf="user"
-        >{{ user.forename }} {{ user.lastname }}</ion-card-title
-      >
-    </ion-card-header>
-    <ion-card-content *ngIf="user">
-      <serious-game-therapist-profile
-        [user]="user"
-        *ngIf="isTherapist"
-      ></serious-game-therapist-profile>
-      <serious-game-patient-profile
-        [user]="user"
-        *ngIf="!isTherapist"
-      ></serious-game-patient-profile>
-    </ion-card-content>
-  </ion-card>
+    <ion-card>
+        <ion-card-header>
+<!--            <ion-avatar justify-content-center align-items-center>-->
+<!--                <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"/>-->
+<!--            </ion-avatar>-->
+            <ion-card-title *ngIf="user">{{ user.forename }} {{ user.lastname }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content *ngIf="user">
+            <ion-row>
+                <form>
+                    <ion-list lines="full">
+                        <ion-item>
+                            <ion-label position="stacked">
+                                E-Mail
+                            </ion-label>
+                            <ion-input
+                                    autocomplete="false"
+                                    autofocus="true"
+                                    clearInput="true"
+                                    name="forename"
+                                    required="true"
+                                    type="text"
+                                    value="{{user.email}}">
+                            </ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="stacked">
+                                Vorname
+                            </ion-label>
+                            <ion-input
+                                    autocomplete="false"
+                                    autofocus="true"
+                                    clearInput="true"
+                                    name="forename"
+                                    required="true"
+                                    type="text"
+                                    value="{{user.forename}}">
+                            </ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="stacked">
+                                Nachname
+                            </ion-label>
+                            <ion-input
+                                    autocomplete="false"
+                                    autofocus="true"
+                                    clearInput="true"
+                                    name="forename"
+                                    required="true"
+                                    type="text"
+                                    value="{{user.lastname}}">
+                            </ion-input>
+                        </ion-item>
+                    </ion-list>
+                </form>
+            </ion-row>
+
+            <serious-game-therapist-profile
+                    [user]="user"
+                    *ngIf="isTherapist">
+            </serious-game-therapist-profile>
+            <serious-game-patient-profile
+                    [user]="user"
+                    *ngIf="!isTherapist">
+            </serious-game-patient-profile>
+        </ion-card-content>
+    </ion-card>
 </ion-content>
