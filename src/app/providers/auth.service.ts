@@ -61,6 +61,7 @@ export class AuthService {
         return this.httpClient.post<HttpResponse>("password/reset-password", {
             email,
             password,
+            passwordConfirmation,
             token
         });
     }
