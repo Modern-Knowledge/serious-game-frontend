@@ -18,7 +18,7 @@ export class ResetPasswordPage implements OnInit {
 
     /**
      * @param router application router
-     * @param authService authentication server
+     * @param authService authentication service
      */
     constructor(
         public router: Router,

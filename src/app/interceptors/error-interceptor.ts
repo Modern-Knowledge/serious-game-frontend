@@ -3,16 +3,17 @@ import {
     HttpEvent,
     HttpHandler,
     HttpInterceptor,
-    HttpRequest
+    HttpRequest,
+    HttpResponse
 } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-import { LoggingService } from "ionic-logging-service";
-import { Observable, throwError } from "rxjs";
-import { catchError } from "rxjs/operators";
+import {Injectable} from "@angular/core";
+import {Router} from "@angular/router";
+import {LoggingService} from "ionic-logging-service";
+import {Observable, throwError} from "rxjs";
+import {catchError, tap} from "rxjs/operators";
 import {HTTPStatusCode} from "../../lib/utils/httpStatusCode";
-import { AuthService } from "../providers/auth.service";
-import { ToastPosition, ToastWrapper } from "../util/ToastWrapper";
+import {AuthService} from "../providers/auth.service";
+import {ToastPosition, ToastWrapper} from "../util/ToastWrapper";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -20,13 +21,33 @@ export class ErrorInterceptor implements HttpInterceptor {
         private authService: AuthService,
         private router: Router,
         private logging: LoggingService
-    ) {}
+    ) {
+    }
 
     public intercept(
         request: HttpRequest<any>,
         next: HttpHandler
     ): Observable<HttpEvent<any>> {
-        return next.handle(request).pipe(
+        return next.handle(request).pipe(tap((evt) => {
+
+                if (evt instanceof HttpResponse && evt.body && evt.body._status === "success") {
+                    const messages = evt.body._messages;
+
+                    for (const item of messages) {
+                        const message = new ToastWrapper(
+                            item.message,
+                            ToastPosition.TOP,
+                            item._severity,
+                            "Erfolg"
+                        );
+                        message.alert();
+
+                        this.logging.getRootLogger().info(this.handleUnauthorized.name, {
+                            message: `${item.message}`
+                        });
+                    }
+                }
+            }),
             catchError((error: HttpErrorResponse) => {
                 switch (error.status) {
                     case HTTPStatusCode.UNAUTHORIZED:

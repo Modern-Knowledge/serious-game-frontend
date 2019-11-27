@@ -141,7 +141,7 @@ export class AuthService {
     /**
      * Checks if the user is logged in and returns the user id. If the user is not logged in, null is returned.
      */
-    public getUserIdFromToken() {
+    public getUserIdFromToken(): number | null {
         if (this.isLoggedIn()) {
             return this.helper.decodeToken(this.getToken()).id;
         }
