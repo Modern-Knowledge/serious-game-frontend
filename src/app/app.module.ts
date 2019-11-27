@@ -1,22 +1,22 @@
 import { APP_INITIALIZER, NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { RouteReuseStrategy, Router } from "@angular/router";
+import { Router, RouteReuseStrategy } from "@angular/router";
 
-import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
+import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
 
-import { AppComponent } from "./app.component";
-import { AppRoutingModule } from "./app-routing.module";
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { ReactiveFormsModule } from "@angular/forms";
 import { IonicStorageModule } from "@ionic/storage";
 import { LoggingService, LoggingServiceModule } from "ionic-logging-service";
 import { environment } from "../environments/environment";
-import { ReactiveFormsModule } from "@angular/forms";
-import { BaseUrlInterceptor } from "./interceptors/base-url-interceptor";
-import { AuthService } from "./providers/auth.service";
-import { BearerTokenInterceptor } from "./interceptors/bearer-token-interceptor";
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
+import { BaseUrlInterceptor } from "./interceptors/base-url-interceptor";
+import { BearerTokenInterceptor } from "./interceptors/bearer-token-interceptor";
+import { AuthService } from "./providers/auth.service";
 
 import { DragulaModule } from "ng2-dragula";
 import { ErrorInterceptor } from "./interceptors/error-interceptor";

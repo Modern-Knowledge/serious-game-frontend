@@ -40,6 +40,10 @@ const routes: Routes = [
     {
         path: "score-board",
         loadChildren: "./pages/game/score-board/score-board.module#ScoreBoardPageModule"
+    },
+    {
+        path: "change-password",
+        loadChildren: "./pages/user/change-password/change-password.module#ChangePasswordPageModule"
     }
 ];
 
