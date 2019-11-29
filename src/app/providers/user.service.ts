@@ -28,4 +28,20 @@ export class UserService {
         });
     }
 
+    /**
+     * Updates common attributes that patients and therapists have in common.
+     *
+     * @param id id of the user
+     * @param email email of the user
+     * @param forename forename of the user
+     * @param lastname lastname of the user
+     */
+    public updateUser(id: number, email: string, forename: string, lastname: string) {
+        return this.httpClient.put<HttpResponse>("users/" + id, {
+           _email: email,
+           _forename: forename,
+           _lastname: lastname
+        });
+    }
+
 }
