@@ -9,7 +9,7 @@ import { Game } from "src/lib/models/Game";
 import { Ingredient } from "src/lib/models/Ingredient";
 import { Word } from "src/lib/models/Word";
 
-import { GameComponent } from "../game.component";
+import { IGameComponent } from "../game.component";
 
 @Component({
     selector: "serious-game-shopping-center",
@@ -17,7 +17,7 @@ import { GameComponent } from "../game.component";
     templateUrl: "./shopping-center.component.html"
 })
 export class ShoppingCenterComponent
-    implements OnInit, GameComponent, OnDestroy {
+    implements OnInit, IGameComponent, OnDestroy {
     @Input() public data: Ingredient[];
     @Input() public game: Game;
     @Input() public errorTexts: Errortext[];

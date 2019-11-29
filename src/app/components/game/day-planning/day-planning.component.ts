@@ -1,44 +1,41 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Mealtimes } from 'src/lib/enums/Mealtimes';
-import { Errortext } from 'src/lib/models/Errortext';
-import { Game } from 'src/lib/models/Game';
-import { Recipe } from 'src/lib/models/Recipe';
-import { Word } from 'src/lib/models/Word';
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Subject } from "rxjs";
+import { Mealtimes } from "src/lib/enums/Mealtimes";
+import { Errortext } from "src/lib/models/Errortext";
+import { Game } from "src/lib/models/Game";
+import { Recipe } from "src/lib/models/Recipe";
+import { Word } from "src/lib/models/Word";
 
-import { GameComponent } from '../game.component';
+import { IGameComponent } from "../game.component";
 
 @Component({
-  selector: 'serious-game-day-planning',
-  templateUrl: './day-planning.component.html',
-  styleUrls: ['./day-planning.component.scss']
+    selector: "serious-game-day-planning",
+    styleUrls: ["./day-planning.component.scss"],
+    templateUrl: "./day-planning.component.html"
 })
-export class DayPlanningComponent implements OnInit, GameComponent {
-  @Input() data: (Recipe | Word)[];
-  @Input() game: Game;
-  @Input() errorTexts: Errortext[];
-  @Input() mainGameSubject: Subject<any>;
-  @Output() event: EventEmitter<Recipe> = new EventEmitter<Recipe>();
-  @Output() errorEvent: EventEmitter<any> = new EventEmitter<any>();
+export class DayPlanningComponent implements IGameComponent {
+    @Input() public data: Array<Recipe | Word>;
+    @Input() public game: Game;
+    @Input() public errorTexts: Errortext[];
+    @Input() public mainGameSubject: Subject<any>;
+    @Output() public event: EventEmitter<Recipe> = new EventEmitter<Recipe>();
+    @Output() public errorEvent: EventEmitter<any> = new EventEmitter<any>();
 
-  Mealtimes: Mealtimes;
-  breakfast: Mealtimes = Mealtimes.BREAKFAST;
-  lunch: Mealtimes = Mealtimes.LUNCH;
-  dinner: Mealtimes = Mealtimes.DINNER;
+    // tslint:disable-next-line: variable-name
+    public Mealtimes: Mealtimes;
+    public breakfast: Mealtimes = Mealtimes.BREAKFAST;
+    public lunch: Mealtimes = Mealtimes.LUNCH;
+    public dinner: Mealtimes = Mealtimes.DINNER;
 
-  constructor() {}
+    public addRecipe(value: Recipe) {
+        this.event.emit(value);
+    }
 
-  ngOnInit() {}
+    public showError(errortext: Errortext) {
+        this.errorEvent.emit(errortext);
+    }
 
-  addRecipe(value: Recipe) {
-    this.event.emit(value);
-  }
-
-  showError(errortext: Errortext) {
-    this.errorEvent.emit(errortext);
-  }
-
-  doReorder(event: any) {
-    event.detail.complete();
-  }
+    public doReorder(event: any) {
+        event.detail.complete();
+    }
 }

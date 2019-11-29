@@ -1,19 +1,13 @@
-import {
-    HttpErrorResponse,
-    HttpEvent,
-    HttpHandler,
-    HttpInterceptor,
-    HttpRequest,
-    HttpResponse
-} from "@angular/common/http";
-import {Injectable} from "@angular/core";
-import {Router} from "@angular/router";
-import {LoggingService} from "ionic-logging-service";
-import {Observable, throwError} from "rxjs";
-import {catchError, tap} from "rxjs/operators";
-import {HTTPStatusCode} from "../../lib/utils/httpStatusCode";
-import {AuthService} from "../providers/auth.service";
-import {ToastPosition, ToastWrapper} from "../util/ToastWrapper";
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { LoggingService } from "ionic-logging-service";
+import { Observable, throwError } from "rxjs";
+import { catchError, tap } from "rxjs/operators";
+
+import { HTTPStatusCode } from "../../lib/utils/httpStatusCode";
+import { AuthService } from "../providers/auth.service";
+import { ToastPosition, ToastWrapper } from "../util/ToastWrapper";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -21,16 +15,19 @@ export class ErrorInterceptor implements HttpInterceptor {
         private authService: AuthService,
         private router: Router,
         private logging: LoggingService
-    ) {
-    }
+    ) {}
 
     public intercept(
         request: HttpRequest<any>,
         next: HttpHandler
     ): Observable<HttpEvent<any>> {
-        return next.handle(request).pipe(tap((evt) => {
-
-                if (evt instanceof HttpResponse && evt.body && evt.body._status === "success") {
+        return next.handle(request).pipe(
+            tap((evt) => {
+                if (
+                    evt instanceof HttpResponse &&
+                    evt.body &&
+                    evt.body._status === "success"
+                ) {
                     const messages = evt.body._messages;
 
                     for (const item of messages) {
@@ -40,11 +37,13 @@ export class ErrorInterceptor implements HttpInterceptor {
                             item._severity,
                             "Erfolg"
                         );
-                        message.alert();
+                        //message.alert();
 
-                        this.logging.getRootLogger().info(this.handleUnauthorized.name, {
-                            message: `${item.message}`
-                        });
+                        this.logging
+                            .getRootLogger()
+                            .info(this.handleUnauthorized.name, {
+                                message: `${item.message}`
+                            });
                     }
                 }
             }),
@@ -132,5 +131,4 @@ export class ErrorInterceptor implements HttpInterceptor {
             message: `${error.message}`
         });
     }
-
 }

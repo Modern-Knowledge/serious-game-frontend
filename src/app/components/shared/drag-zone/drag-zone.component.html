@@ -1,9 +1,14 @@
 <ion-grid>
-  <ion-row [dragula]="name" [dragulaModel]="model" [id]="id">
-    <ion-col size="4" [id]="element.id" *ngFor="let element of model">
-      <ion-item>
-        <ion-label class="ion-text-wrap">{{ element.name }}</ion-label>
-      </ion-item>
-    </ion-col>
-  </ion-row>
+    <ion-row [dragula]="name" [dragulaModel]="model" [id]="id">
+        <ion-col size="4" [id]="element.id" *ngFor="let element of model">
+            <ion-item>
+                <serious-game-image
+                    [imageId]="element.imageId"
+                ></serious-game-image>
+                <ion-label class="ion-text-wrap" *ngIf="!element.imageId">{{
+                    element.name
+                }}</ion-label>
+            </ion-item>
+        </ion-col>
+    </ion-row>
 </ion-grid>

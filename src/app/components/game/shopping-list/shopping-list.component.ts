@@ -12,14 +12,16 @@ import { Recipe } from "src/lib/models/Recipe";
 import { Word } from "src/lib/models/Word";
 import { TemplateParser } from "src/lib/utils/TemplateParser";
 
-import { GameComponent } from "../game.component";
+import { SharedModule } from "../../shared/shared.module";
+import { IGameComponent } from "../game.component";
 
 @Component({
     selector: "serious-game-shopping-list",
     templateUrl: "./shopping-list.component.html",
+    providers: [SharedModule],
     styleUrls: ["./shopping-list.component.scss"]
 })
-export class ShoppingListComponent implements OnInit, GameComponent {
+export class ShoppingListComponent implements OnInit, IGameComponent {
     @Input() public game: Game;
     @Input() public data: Array<Recipe | Word>;
     @Input() public errorTexts: Errortext[];

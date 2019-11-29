@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { forkJoin, Observable, Subject, Subscription } from "rxjs";
 import { switchMap } from "rxjs/operators";
 import { DayPlanningComponent } from "src/app/components/game/day-planning/day-planning.component";
-import { GameComponent } from "src/app/components/game/game.component";
+import { IGameComponent } from "src/app/components/game/game.component";
 import { RecipeComponent } from "src/app/components/game/recipe/recipe.component";
 import { ShoppingCenterComponent } from "src/app/components/game/shopping-center/shopping-center.component";
 import { ShoppingListComponent } from "src/app/components/game/shopping-list/shopping-list.component";
@@ -127,7 +127,7 @@ export class GamePage {
         const viewContainerRef = this.componentIs.viewContainerRef;
         viewContainerRef.clear();
         const componentRef = viewContainerRef.createComponent(componentFactory);
-        const dynamicComponentInstance = componentRef.instance as GameComponent;
+        const dynamicComponentInstance = componentRef.instance as IGameComponent;
         dynamicComponentInstance.data = currentGameComponent.data;
         dynamicComponentInstance.game = currentGame;
         dynamicComponentInstance.mainGameSubject = this.mainGameSubject;

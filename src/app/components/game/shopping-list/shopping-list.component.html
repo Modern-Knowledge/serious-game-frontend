@@ -14,9 +14,15 @@
                     *ngFor="let item of shoppingListItems"
                 >
                     <ion-item>
-                        <ion-label class="ion-text-wrap">{{
-                            item.name
-                        }}</ion-label>
+                        <serious-game-image
+                            [imageId]="item.imageId"
+                        ></serious-game-image>
+
+                        <ion-label
+                            class="ion-text-wrap"
+                            *ngIf="!item.imageId"
+                            >{{ item.name }}</ion-label
+                        >
                     </ion-item>
                 </ion-col>
                 <ion-col></ion-col>

@@ -1,16 +1,14 @@
-import { Recipe } from "src/lib/models/Recipe";
-import { Word } from "src/lib/models/Word";
-import { Game } from "src/lib/models/Game";
 import { EventEmitter } from "@angular/core";
+import { Subject } from "rxjs";
 import { AbstractModel } from "src/lib/models/AbstractModel";
 import { Errortext } from "src/lib/models/Errortext";
-import { Subject } from "rxjs";
+import { Game } from "src/lib/models/Game";
 
-export interface GameComponent {
-  data: AbstractModel<any>[];
-  game: Game;
-  errorTexts: Errortext[];
-  mainGameSubject: Subject<any>;
-  event: EventEmitter<any>;
-  errorEvent: EventEmitter<any>;
+export interface IGameComponent {
+    data: Array<AbstractModel<any>>;
+    game: Game;
+    errorTexts: Errortext[];
+    mainGameSubject: Subject<any>;
+    event: EventEmitter<any>;
+    errorEvent: EventEmitter<any>;
 }

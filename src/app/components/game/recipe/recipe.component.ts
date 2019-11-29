@@ -1,39 +1,39 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Subject } from 'rxjs';
-import { RecipeStoreService } from 'src/app/providers/store/recipe-store.service';
-import { Errortext } from 'src/lib/models/Errortext';
-import { Game } from 'src/lib/models/Game';
-import { Recipe } from 'src/lib/models/Recipe';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Subject } from "rxjs";
+import { RecipeStoreService } from "src/app/providers/store/recipe-store.service";
+import { Errortext } from "src/lib/models/Errortext";
+import { Game } from "src/lib/models/Game";
+import { Recipe } from "src/lib/models/Recipe";
 
-import { GameComponent } from '../game.component';
+import { IGameComponent } from "../game.component";
 
 @Component({
-  selector: 'serious-game-recipe',
-  templateUrl: './recipe.component.html',
-  styleUrls: ['./recipe.component.scss']
+    selector: "serious-game-recipe",
+    styleUrls: ["./recipe.component.scss"],
+    templateUrl: "./recipe.component.html"
 })
-export class RecipeComponent implements OnInit, GameComponent {
-  @Input() data: Recipe[];
-  @Input() game: Game;
-  @Input() errorTexts: Errortext[];
-  @Input() mainGameSubject: Subject<any>;
-  @Output() event: EventEmitter<any> = new EventEmitter();
-  @Output() errorEvent: EventEmitter<any> = new EventEmitter();
+export class RecipeComponent implements OnInit, IGameComponent {
+    @Input() public data: Recipe[];
+    @Input() public game: Game;
+    @Input() public errorTexts: Errortext[];
+    @Input() public mainGameSubject: Subject<any>;
+    @Output() public event: EventEmitter<any> = new EventEmitter();
+    @Output() public errorEvent: EventEmitter<any> = new EventEmitter();
 
-  private chosenRecipe: Recipe;
+    private chosenRecipe: Recipe;
 
-  constructor(private recipeStore: RecipeStoreService) {}
+    constructor(private recipeStore: RecipeStoreService) {}
 
-  ngOnInit() {
-    this.chosenRecipe = this.chooseRandomRecipe();
-    this.recipeStore.currentRecipe = this.chosenRecipe;
-  }
+    public ngOnInit() {
+        this.chosenRecipe = this.chooseRandomRecipe();
+        this.recipeStore.currentRecipe = this.chosenRecipe;
+    }
 
-  /**
-   * choose a random recipe from the passed recipes
-   * @return Recipe
-   */
-  chooseRandomRecipe() {
-    return this.data[Math.floor(Math.random() * this.data.length)];
-  }
+    /**
+     * choose a random recipe from the passed recipes
+     * @return Recipe
+     */
+    public chooseRandomRecipe() {
+        return this.data[Math.floor(Math.random() * this.data.length)];
+    }
 }
