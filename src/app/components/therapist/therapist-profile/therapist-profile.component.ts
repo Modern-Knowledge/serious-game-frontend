@@ -1,31 +1,31 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
+import { Subscription } from "rxjs";
 import { TherapistService } from "src/app/providers/therapist.service";
 import { Therapist } from "src/lib/models/Therapist";
-import { Subscription } from "rxjs";
 
 @Component({
-  selector: "serious-game-therapist-profile",
-  templateUrl: "./therapist-profile.component.html",
-  styleUrls: ["./therapist-profile.component.scss"]
+    selector: "serious-game-therapist-profile",
+    styleUrls: ["./therapist-profile.component.scss"],
+    templateUrl: "./therapist-profile.component.html",
 })
 export class TherapistProfileComponent implements OnInit {
-  @Input() user: Therapist;
-  private subscription: Subscription = new Subscription();
+    @Input() public user: Therapist;
+    private subscription: Subscription = new Subscription();
 
-  constructor(private therapistService: TherapistService) {}
+    constructor(private therapistService: TherapistService) {}
 
-  ngOnInit() {}
+    public ngOnInit() {}
 
-  assignPatients(patients) {
-    this.user.patients = patients;
-    this.subscription.add(
-      this.therapistService.update(this.user).subscribe(response => {
-        console.log(response);
-      })
-    );
-  }
+    public assignPatients(patients) {
+        this.user.patients = patients;
+        this.subscription.add(
+            this.therapistService.update(this.user).subscribe((response) => {
+                console.log(response);
+            })
+        );
+    }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
+    public ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
 }

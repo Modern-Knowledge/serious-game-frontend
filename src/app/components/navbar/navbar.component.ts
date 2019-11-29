@@ -10,12 +10,19 @@ import { AuthService } from "src/app/providers/auth.service";
 export class NavbarComponent implements OnInit {
     public navigate: any;
 
+    /**
+     * @param authService authentication service
+     * @param router application router
+     */
     constructor(private authService: AuthService, private router: Router) {
         this.sideMenu();
     }
 
     public ngOnInit() {}
 
+    /**
+     * Removes the authentication token and navigates the user back to the login
+     */
     public onLogout() {
         this.authService.logout();
         this.router.navigateByUrl("/login");
@@ -24,29 +31,31 @@ export class NavbarComponent implements OnInit {
     public sideMenu() {
         this.navigate = [
             {
+                icon: "home",
                 title: "Hauptmenü",
                 url: "/main-menu",
-                icon: "home",
                 visible: this.authService.isLoggedIn()
             },
             {
+                icon: "person",
                 title: "Profil",
                 url: "/profile",
-                icon: "person",
                 visible: this.authService.isLoggedIn()
             },
             {
+                icon: "lock",
                 title: "Passwort ändern",
                 url: "/change-password",
-                icon: "lock",
                 visible: this.authService.isLoggedIn()
             },
             {
-                title: "Logout",
+                icon: "arrow-dropleft-circle",
                 onClick: "onLogout",
+                title: "Logout",
                 visible: this.authService.isLoggedIn()
             },
             {
+                icon: "arrow-dropright-circle",
                 title: "Login",
                 url: "/login",
                 visible: !this.authService.isLoggedIn()
