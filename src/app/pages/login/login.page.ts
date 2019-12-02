@@ -5,7 +5,6 @@ import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/providers/auth.service";
 import { HttpResponse } from "../../../lib/utils/http/HttpResponse";
-import { GameData } from "../../providers/GameData";
 
 @Component({
     selector: "serious-game-login",
@@ -18,7 +17,6 @@ export class LoginPage implements OnInit {
 
     constructor(
         public router: Router,
-        private gameData: GameData,
         private authService: AuthService,
     ) {}
 
