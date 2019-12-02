@@ -21,7 +21,7 @@ export class UserService {
      * @param newPasswordConfirmation confirmation of the user, that wants to change his password
      */
     public changePassword(id: number, oldPassword: string, newPassword: string, newPasswordConfirmation: string) {
-        return this.httpClient.put<HttpResponse>("users/change-password/" + 1, {
+        return this.httpClient.put<HttpResponse>("users/change-password/" + id, {
             newPassword,
             newPasswordConfirmation,
             oldPassword

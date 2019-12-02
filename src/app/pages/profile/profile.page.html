@@ -24,7 +24,7 @@
                                     formControlName="email"
                                     autofocus="true"
                                     clearInput="true"
-                                    name="forename"
+                                    name="email"
                                     required="true"
                                     type="email"
                                     value="{{user.email}}">
@@ -50,15 +50,24 @@
                                     formControlName="lastname"
                                     autofocus="true"
                                     clearInput="true"
-                                    name="forename"
+                                    name="lastname"
                                     required="true"
                                     type="text"
                                     value="{{user.lastname}}">
                             </ion-input>
                         </ion-item>
                     </ion-list>
+
+                    <ion-button
+                            (click)="onSave()"
+                            type="button"
+                            color="primary"
+                            shape="round">
+                        Speichern
+                    </ion-button>
                 </form>
             </ion-row>
+
 
 <!--            <serious-game-therapist-profile-->
 <!--                    [user]="user"-->

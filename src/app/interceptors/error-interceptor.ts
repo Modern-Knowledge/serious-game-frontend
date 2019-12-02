@@ -31,13 +31,15 @@ export class ErrorInterceptor implements HttpInterceptor {
                     const messages = evt.body._messages;
 
                     for (const item of messages) {
-                        const message = new ToastWrapper(
-                            item.message,
-                            ToastPosition.TOP,
-                            item._severity,
-                            "Erfolg"
-                        );
-                        //message.alert();
+                        if (item._visible === true) {
+                            const message = new ToastWrapper(
+                                item.message,
+                                ToastPosition.TOP,
+                                item._severity,
+                                "Erfolg"
+                            );
+                            message.alert();
+                        }
 
                         this.logging
                             .getRootLogger()

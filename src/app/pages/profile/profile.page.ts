@@ -39,7 +39,8 @@ export class ProfilePage implements OnInit {
         });
     }
 
-    public onSubmit() {
+    public onSave() {
+        console.log(this.changeProfileForm.controls);
         this.subscription.add(
             this.userService
                 .updateUser(

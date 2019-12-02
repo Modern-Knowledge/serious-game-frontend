@@ -53,8 +53,7 @@ export class ChangePasswordPage implements OnInit {
                     this.changePasswordForm.controls.password_confirmation.value,
                 )
                 .subscribe((response) => {
-                    const httpResponse = new HttpResponse().deserialize(response);
-                    this.router.navigateByUrl("/login");
+                    new HttpResponse().deserialize(response);
                 })
         );
     }
