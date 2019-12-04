@@ -52,6 +52,18 @@ export class GamePage {
     private sessionErrorTexts: Errortext[] = [];
     private canContinue: boolean;
     private mainGameSubject: Subject<any> = new Subject();
+
+    /**
+     * @param wordService word service
+     * @param recipeService recipe service
+     * @param gameService game service
+     * @param componentFactoryResolver component-factory resolver
+     * @param ingredientService ingredient-service
+     * @param sessionService session-service
+     * @param router application service
+     * @param userStore user store
+     * @param errorTextService error-text service
+     */
     constructor(
         private wordService: WordService,
         private recipeService: RecipeService,
@@ -66,6 +78,11 @@ export class GamePage {
         this.step = 0;
     }
 
+    /**
+     * Function that is executed, when the view is entered.
+     * First it loads the authenticated user. Afterwards it loads the
+     * recipes, games and ingredients.
+     */
     public ionViewWillEnter() {
         this.subscription.add(
             this.userStore.user.subscribe((user) => {
@@ -82,6 +99,10 @@ export class GamePage {
         );
     }
 
+    /**
+     * Requests all recipes, games and ingredients.
+     * Afterwards it joins the three results to an array.
+     */
     public requestMultipleResources(): Observable<any[]> {
         const dayPlanningData = this.recipeService.getAll();
         const games = this.gameService.getAll();
@@ -90,6 +111,9 @@ export class GamePage {
         return forkJoin([dayPlanningData, games, shoppingCenterData]);
     }
 
+    /**
+     *
+     */
     public loadGame() {
         this.gameComponents = {
             "serious-game-day-planning": {
@@ -144,6 +168,9 @@ export class GamePage {
         this.canContinue = currentGameComponent.canContinue;
     }
 
+    /**
+     *
+     */
     public onSubmit() {
         this.mainGameSubject.next();
         if (this.canContinue) {
@@ -156,6 +183,9 @@ export class GamePage {
         this.loadGame();
     }
 
+    /**
+     *
+     */
     public onFinish() {
         this.mainGameSubject.next();
         if (this.canContinue) {
@@ -167,6 +197,9 @@ export class GamePage {
         }
     }
 
+    /**
+     * Creates a session from the current user, game, game-settings, elapsed time.
+     */
     public storeSession() {
         const game = this.games[this.step];
 
@@ -176,6 +209,7 @@ export class GamePage {
             game.gameSettings[0].id,
             this.elapsedTime
         );
+
         sessionResponse$
             .pipe(
                 switchMap((session) => {
@@ -189,15 +223,27 @@ export class GamePage {
             .subscribe();
     }
 
+    /**
+     * Adds a recipe to the chosen recipes.
+     *
+     * @param recipe recipe to add to the chosen recipes
+     */
     public addRecipe(recipe: Recipe) {
         this.chosenRecipes.push(recipe);
         this.setCanContinue();
     }
 
+    /**
+     * Sets the variable canContinue to true.
+     */
     public setCanContinue() {
         this.canContinue = true;
     }
 
+    /**
+     * Creates an toast for the received error-message. Increases the errorCount and forbids the user to continue.
+     * @param errortext error-text that should be handled
+     */
     public handleError(errortext: Errortext) {
         if (errortext) {
             const message = new ToastWrapper(
@@ -212,10 +258,18 @@ export class GamePage {
         }
     }
 
-    public addErrorText(errortext: Errortext) {
+    /**
+     * Adds an error-text to the already stored errotexts by the session.
+     *
+     * @param errortext error-text to add
+     */
+    public addErrorText(errortext: Errortext): void {
         this.sessionErrorTexts.push(errortext);
     }
 
+    /**
+     * Checks if the current step of the game is still in the boundaries
+     */
     public stepValid(): boolean {
         if (this.games) {
             return this.step < this.games.length - 1;
@@ -223,11 +277,18 @@ export class GamePage {
         return false;
     }
 
-    public setTime(time: number) {
+    /**
+     * Sets the elapsed time.
+     * @param time time to set
+     */
+    public setTime(time: number): void {
         this.elapsedTime = time;
     }
 
-    public ionViewDidLeave() {
+    /**
+     * Executed, when the view is left
+     */
+    public ionViewDidLeave(): void {
         this.subscription.unsubscribe();
     }
 }
