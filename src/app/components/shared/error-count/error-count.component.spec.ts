@@ -1,9 +1,9 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ErrorCountComponent } from './error-count.component';
+import { ErrorCountComponent } from "./error-count.component";
 
-describe('ErrorCountComponent', () => {
+describe("ErrorCountComponent", () => {
   let component: ErrorCountComponent;
   let fixture: ComponentFixture<ErrorCountComponent>;
 
@@ -21,7 +21,7 @@ describe('ErrorCountComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

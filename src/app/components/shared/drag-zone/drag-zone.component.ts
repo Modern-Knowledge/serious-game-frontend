@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 
 @Component({
   selector: "serious-game-drag-zone",
@@ -6,11 +6,11 @@ import { Component, OnInit, Input } from "@angular/core";
   styleUrls: ["./drag-zone.component.scss"]
 })
 export class DragZoneComponent implements OnInit {
-  @Input() id: string;
-  @Input() name: string;
-  @Input() model: string;
+  @Input() public id: string;
+  @Input() public name: string;
+  @Input() public model: string;
 
   constructor() {}
 
-  ngOnInit() {}
+  public ngOnInit() {}
 }

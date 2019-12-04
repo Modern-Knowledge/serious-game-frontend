@@ -1,9 +1,9 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { StopwatchComponent } from './stopwatch.component';
+import { StopwatchComponent } from "./stopwatch.component";
 
-describe('StopwatchComponent', () => {
+describe("StopwatchComponent", () => {
   let component: StopwatchComponent;
   let fixture: ComponentFixture<StopwatchComponent>;
 
@@ -21,7 +21,7 @@ describe('StopwatchComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

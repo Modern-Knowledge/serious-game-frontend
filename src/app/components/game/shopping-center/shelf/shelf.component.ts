@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { FoodCategory } from "src/lib/models/FoodCategory";
 
 @Component({
@@ -7,9 +7,9 @@ import { FoodCategory } from "src/lib/models/FoodCategory";
   styleUrls: ["./shelf.component.scss"]
 })
 export class ShelfComponent implements OnInit {
-  @Input() shelf: FoodCategory[];
+  @Input() public shelf: FoodCategory[];
 
   constructor() {}
 
-  ngOnInit() {}
+  public ngOnInit() {}
 }

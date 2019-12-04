@@ -1,9 +1,9 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { MainMenuPage } from './main-menu.page';
+import { MainMenuPage } from "./main-menu.page";
 
-describe('MainMenuPage', () => {
+describe("MainMenuPage", () => {
   let component: MainMenuPage;
   let fixture: ComponentFixture<MainMenuPage>;
 
@@ -21,7 +21,7 @@ describe('MainMenuPage', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from "@angular/core";
 
 @Component({
   selector: "serious-game-scored-points",
@@ -6,26 +6,26 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ["./scored-points.component.scss"]
 })
 export class ScoredPointsComponent implements OnInit {
-  @Input() time: number;
+  @Input() public time: number;
   private points: number = 100;
 
   constructor() {}
 
-  ngOnInit() {}
+  public ngOnInit() {}
 
-  calculatePoints(): number {
+  public calculatePoints(): number {
     return this.points > 0 ? this.points - this.time / 1000 : 0;
   }
 
-  deductScore(value: number) {
+  public deductScore(value: number) {
     this.points -= value;
   }
 
-  resetScore() {
+  public resetScore() {
     this.points = 100;
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.resetScore();
   }
 }

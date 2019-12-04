@@ -1,9 +1,9 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { DragZoneComponent } from './drag-zone.component';
+import { DragZoneComponent } from "./drag-zone.component";
 
-describe('DragZoneComponent', () => {
+describe("DragZoneComponent", () => {
   let component: DragZoneComponent;
   let fixture: ComponentFixture<DragZoneComponent>;
 
@@ -21,7 +21,7 @@ describe('DragZoneComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

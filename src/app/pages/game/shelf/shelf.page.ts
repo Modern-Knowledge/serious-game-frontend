@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { IngredientService } from "src/app/providers/ingredient.service";
-import { Ingredient } from "src/lib/models/Ingredient";
 import { forkJoin, Subscription } from "rxjs";
 import { FoodCategoryService } from "src/app/providers/food-category.service";
-import { FoodCategory } from "src/lib/models/FoodCategory";
+import { IngredientService } from "src/app/providers/ingredient.service";
 import { CartStoreService } from "src/app/providers/store/cart-store.service";
+import { FoodCategory } from "src/lib/models/FoodCategory";
+import { Ingredient } from "src/lib/models/Ingredient";
 
 @Component({
   selector: "serious-game-shelf",
@@ -13,8 +13,8 @@ import { CartStoreService } from "src/app/providers/store/cart-store.service";
   styleUrls: ["./shelf.page.scss"]
 })
 export class ShelfPage {
-  private foodItems: Ingredient[];
   public foodCategory: FoodCategory;
+  private foodItems: Ingredient[];
   private subscription: Subscription = new Subscription();
 
   constructor(
@@ -24,24 +24,24 @@ export class ShelfPage {
     private cartStore: CartStoreService
   ) {}
 
-  ionViewWillEnter() {
+  public ionViewWillEnter() {
     this.subscription.add(
-      this.route.paramMap.subscribe(params => {
+      this.route.paramMap.subscribe((params) => {
         this.foodCategoryService
           .get(+params.get("id"))
-          .subscribe(foodCategory => (this.foodCategory = foodCategory));
+          .subscribe((foodCategory) => (this.foodCategory = foodCategory));
         this.ingredientService
           .getByFoodCategory(+params.get("id"))
-          .subscribe(ingredients => {
+          .subscribe((ingredients) => {
             this.foodItems = ingredients;
           });
       })
     );
   }
-  doReorder(event: any) {
+  public doReorder(event: any) {
     event.detail.complete();
   }
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 }

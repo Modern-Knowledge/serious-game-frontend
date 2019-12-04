@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 
 @Component({
   selector: "serious-game-error-count",
@@ -9,12 +9,12 @@ export class ErrorCountComponent implements OnInit {
   /**
    * the error count passed to the component
    */
-  @Input() givenErrorCount: number;
+  @Input() public givenErrorCount: number;
 
   /**
    * emits when the error count has increased
    */
-  @Output() countIncreased: EventEmitter<number> = new EventEmitter();
+  @Output() public countIncreased: EventEmitter<number> = new EventEmitter();
 
   /**
    * error count
@@ -23,7 +23,7 @@ export class ErrorCountComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
+  public ngOnInit() {
     if (this.givenErrorCount) {
       this.errorCount = this.givenErrorCount;
     }
@@ -33,7 +33,7 @@ export class ErrorCountComponent implements OnInit {
    * increase game error count
    * @param number value
    */
-  increaseCount(value: number = 1) {
+  public increaseCount(value: number = 1) {
     this.errorCount += value;
     this.countIncreased.emit(this.errorCount);
   }
@@ -41,14 +41,14 @@ export class ErrorCountComponent implements OnInit {
   /**
    * reset game error count to 0
    */
-  reset() {
+  public reset() {
     this.errorCount = 0;
   }
 
   /**
    * reset counter on destroy
    */
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.reset();
   }
 }

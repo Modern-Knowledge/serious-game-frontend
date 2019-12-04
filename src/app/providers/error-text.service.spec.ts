@@ -1,11 +1,11 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 
-import { ErrorTextService } from './error-text.service';
+import { ErrorTextService } from "./error-text.service";
 
-describe('ErrorTextService', () => {
+describe("ErrorTextService", () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
-  it('should be created', () => {
+  it("should be created", () => {
     const service: ErrorTextService = TestBed.get(ErrorTextService);
     expect(service).toBeTruthy();
   });

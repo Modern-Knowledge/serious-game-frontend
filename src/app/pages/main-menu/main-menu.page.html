@@ -1,30 +1,26 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button autoHide="false"></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Hauptmenü</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button autoHide="false"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Hauptmenü</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen="true">
-  <div class="ion-padding">
-    <ion-row class="ion-align-items-center ion-justify-content-center">
-      <ion-list lines="full">
-        <p>
-          <ion-button expand="block" [routerLink]="['/game']"
-            >Start Game</ion-button
-          >
-        </p>
-        <p>
-          <ion-button expand="block" [routerLink]="['/score-board']"
-            >Score Board</ion-button
-          >
-        </p>
-        <p>
-          <ion-button expand="block">About this Game</ion-button>
-        </p>
-      </ion-list>
-    </ion-row>
-  </div>
+    <div class="ion-padding">
+        <ion-row class="ion-align-items-center ion-justify-content-center">
+            <ion-list lines="full">
+                <p>
+                    <ion-button expand="block" [routerLink]="['/game']">Start Game</ion-button>
+                </p>
+                <p>
+                    <ion-button expand="block" [routerLink]="['/score-board']">Score Board</ion-button>
+                </p>
+                <p>
+                    <ion-button expand="block">About this Game</ion-button>
+                </p>
+            </ion-list>
+        </ion-row>
+    </div>
 </ion-content>

@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { RouterModule, Routes } from "@angular/router";
 
-import { IonicModule } from '@ionic/angular';
+import { IonicModule } from "@ionic/angular";
 
-import { FridgePage } from './fridge.page';
-import { GamePageModule } from '../game.module';
-import { SharedModule } from 'src/app/components/shared/shared.module';
+import { SharedModule } from "src/app/components/shared/shared.module";
+import { GamePageModule } from "../game.module";
+import { FridgePage } from "./fridge.page";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: FridgePage
   }
 ];

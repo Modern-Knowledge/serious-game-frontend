@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { Ingredient } from "src/lib/models/Ingredient";
-import { Word } from "src/lib/models/Word";
-import { CartStoreService } from "src/app/providers/store/cart-store.service";
+import { Component, Input, OnInit } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
 import { Subscription } from "rxjs";
+import { CartStoreService } from "src/app/providers/store/cart-store.service";
+import { Ingredient } from "src/lib/models/Ingredient";
+import { Word } from "src/lib/models/Word";
 
 @Component({
   selector: "serious-game-cart",
@@ -11,11 +11,11 @@ import { Subscription } from "rxjs";
   styleUrls: ["./cart.component.scss"]
 })
 export class CartComponent implements OnInit {
-  @Input() id: string;
-  @Input() data: (Ingredient | Word)[];
-  @Input() name: string;
-  @Input() viewing: boolean;
-  private items: (Ingredient | Word)[];
+  @Input() public id: string;
+  @Input() public data: Array<Ingredient | Word>;
+  @Input() public name: string;
+  @Input() public viewing: boolean;
+  private items: Array<Ingredient | Word>;
   private subscriptions: Subscription = new Subscription();
 
   constructor(
@@ -23,15 +23,15 @@ export class CartComponent implements OnInit {
     private dragulaService: DragulaService
   ) {}
 
-  ngOnInit() {
+  public ngOnInit() {
     this.subscriptions.add(
-      this.cartStore.items$.subscribe(items => {
+      this.cartStore.items$.subscribe((items) => {
         this.items = items;
       })
     );
     this.subscriptions.add(
-      this.dragulaService.dropModel(this.name).subscribe(value => {
-        const item = this.data.find(element => element.id === +value.el.id);
+      this.dragulaService.dropModel(this.name).subscribe((value) => {
+        const item = this.data.find((element) => element.id === +value.el.id);
         if (value.target.id === "shelf") {
           this.removeFoodItem(item);
         } else {
@@ -42,15 +42,15 @@ export class CartComponent implements OnInit {
     );
   }
 
-  addFoodItem(item) {
+  public addFoodItem(item) {
     this.cartStore.addItem(item);
   }
 
-  removeFoodItem(item) {
+  public removeFoodItem(item) {
     this.cartStore.removeItem(item);
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
 }

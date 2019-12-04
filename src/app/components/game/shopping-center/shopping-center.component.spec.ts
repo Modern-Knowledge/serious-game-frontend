@@ -1,9 +1,9 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ShoppingCenterComponent } from './shopping-center.component';
+import { ShoppingCenterComponent } from "./shopping-center.component";
 
-describe('ShoppingCenterComponent', () => {
+describe("ShoppingCenterComponent", () => {
   let component: ShoppingCenterComponent;
   let fixture: ComponentFixture<ShoppingCenterComponent>;
 
@@ -21,7 +21,7 @@ describe('ShoppingCenterComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

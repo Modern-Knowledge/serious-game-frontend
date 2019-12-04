@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { User } from "src/lib/models/User";
-import { AuthService } from "src/app/providers/auth.service";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
+import { AuthService } from "src/app/providers/auth.service";
+import { User } from "src/lib/models/User";
 
 @Component({
   selector: "serious-game-home",
@@ -15,20 +15,20 @@ export class HomePage implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit() {
+  public ngOnInit() {
     this.subscription.add(
-      this.authService.getRelatedUser().subscribe(user => {
+      this.authService.getRelatedUser().subscribe((user) => {
         this.user = user;
       })
     );
   }
 
-  onLogout(): void {
+  public onLogout(): void {
     this.authService.logout();
     this.router.navigateByUrl("/login");
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 }

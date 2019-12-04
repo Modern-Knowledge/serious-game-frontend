@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { LoggingService } from "ionic-logging-service";
-import { AbstractStoreService } from "./abstract-store.service";
-import { Ingredient } from "src/lib/models/Ingredient";
 import { Logger } from "log4javascript";
+import { Ingredient } from "src/lib/models/Ingredient";
+import { AbstractStoreService } from "./abstract-store.service";
 
 @Injectable({
   providedIn: "root"

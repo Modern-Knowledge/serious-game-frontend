@@ -1,9 +1,9 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { TherapistProfileComponent } from './therapist-profile.component';
+import { TherapistProfileComponent } from "./therapist-profile.component";
 
-describe('TherapistProfileComponent', () => {
+describe("TherapistProfileComponent", () => {
   let component: TherapistProfileComponent;
   let fixture: ComponentFixture<TherapistProfileComponent>;
 
@@ -21,7 +21,7 @@ describe('TherapistProfileComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

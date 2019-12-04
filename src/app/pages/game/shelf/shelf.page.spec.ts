@@ -1,9 +1,9 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ShelfPage } from './shelf.page';
+import { ShelfPage } from "./shelf.page";
 
-describe('ShelfPage', () => {
+describe("ShelfPage", () => {
   let component: ShelfPage;
   let fixture: ComponentFixture<ShelfPage>;
 
@@ -21,7 +21,7 @@ describe('ShelfPage', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

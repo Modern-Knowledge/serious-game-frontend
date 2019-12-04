@@ -1,9 +1,9 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { DayPlanningComponent } from './day-planning.component';
+import { DayPlanningComponent } from "./day-planning.component";
 
-describe('DayPlanningComponent', () => {
+describe("DayPlanningComponent", () => {
   let component: DayPlanningComponent;
   let fixture: ComponentFixture<DayPlanningComponent>;
 
@@ -21,7 +21,7 @@ describe('DayPlanningComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

@@ -1,9 +1,9 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { HelptextComponent } from './helptext.component';
+import { HelptextComponent } from "./helptext.component";
 
-describe('HelptextComponent', () => {
+describe("HelptextComponent", () => {
   let component: HelptextComponent;
   let fixture: ComponentFixture<HelptextComponent>;
 
@@ -21,7 +21,7 @@ describe('HelptextComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

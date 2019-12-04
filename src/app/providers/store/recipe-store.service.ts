@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
-import { Logger, LoggingService } from 'ionic-logging-service';
-import { Recipe } from 'src/lib/models/Recipe';
+import { Injectable } from "@angular/core";
+import { Logger, LoggingService } from "ionic-logging-service";
+import { Recipe } from "src/lib/models/Recipe";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class RecipeStoreService {
   private _logging: Logger;
   private _currentRecipe: Recipe;
   constructor(private loggingService: LoggingService) {
-    this._logging = this.loggingService.getLogger('recipe-store');
+    this._logging = this.loggingService.getLogger("recipe-store");
   }
 
   /**
@@ -17,7 +17,7 @@ export class RecipeStoreService {
    */
   get currentRecipe() {
     this._logging.info(
-      'getCurrentRecipe',
+      "getCurrentRecipe",
       `getting value of currentRecipe: ${JSON.stringify(this._currentRecipe)}`
     );
     return this._currentRecipe;
@@ -28,7 +28,7 @@ export class RecipeStoreService {
    */
   set currentRecipe(value: Recipe) {
     this._logging.info(
-      'setCurrentRecipe',
+      "setCurrentRecipe",
       `setting value of currentRecipe: ${JSON.stringify(value)}`
     );
     this._currentRecipe = value;

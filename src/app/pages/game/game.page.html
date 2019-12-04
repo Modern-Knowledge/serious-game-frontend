@@ -9,19 +9,19 @@
 
 <ion-content>
     <serious-game-helptext-button
-        [helptexts]="games && games[step].helptexts"
-        *ngIf="games && games[step].helptexts.length"
-    ></serious-game-helptext-button>
+            [helptexts]="games && games[step].helptexts"
+            *ngIf="games && games[step].helptexts.length">
+    </serious-game-helptext-button>
     <ng-template component-is></ng-template>
     <serious-game-stopwatch
-        (isReset)="setTime($event)"
-        (timeChanged)="setTime($event)"
-    ></serious-game-stopwatch>
+            (isReset)="setTime($event)"
+            (timeChanged)="setTime($event)">
+    </serious-game-stopwatch>
     <serious-game-error-count></serious-game-error-count>
     <ion-button expand="block" (click)="onSubmit()" *ngIf="stepValid()">
-        Weiter</ion-button
-    >
-    <ion-button expand="block" (click)="onFinish()" *ngIf="!stepValid()"
-        >Fertigstellen</ion-button
-    >
+        Weiter
+    </ion-button>
+    <ion-button expand="block" (click)="onFinish()" *ngIf="!stepValid()">
+        Fertigstellen
+    </ion-button>
 </ion-content>

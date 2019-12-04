@@ -1,9 +1,9 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ScoredPointsComponent } from './scored-points.component';
+import { ScoredPointsComponent } from "./scored-points.component";
 
-describe('ScoredPointsComponent', () => {
+describe("ScoredPointsComponent", () => {
   let component: ScoredPointsComponent;
   let fixture: ComponentFixture<ScoredPointsComponent>;
 
@@ -21,7 +21,7 @@ describe('ScoredPointsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

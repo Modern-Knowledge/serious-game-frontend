@@ -1,9 +1,9 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { DropZoneComponent } from './drop-zone.component';
+import { DropZoneComponent } from "./drop-zone.component";
 
-describe('DropZoneComponent', () => {
+describe("DropZoneComponent", () => {
   let component: DropZoneComponent;
   let fixture: ComponentFixture<DropZoneComponent>;
 
@@ -21,7 +21,7 @@ describe('DropZoneComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

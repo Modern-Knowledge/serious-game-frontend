@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { DragulaService, DrakeFactory } from "ng2-dragula";
 import { Subscription } from "rxjs";
 
@@ -8,36 +8,36 @@ import { Subscription } from "rxjs";
   styleUrls: ["./drop-zone.component.scss"]
 })
 export class DropZoneComponent implements OnInit {
-  @Input() id: string;
-  @Input() name: string;
-  @Input() model: any[];
-  @Input() displayedItems: any[];
-  @Input() accepts: any;
-  @Output() itemDropped: EventEmitter<any> = new EventEmitter<any>();
-  @Output() itemDragged: EventEmitter<any> = new EventEmitter<any>();
+  @Input() public id: string;
+  @Input() public name: string;
+  @Input() public model: any[];
+  @Input() public displayedItems: any[];
+  @Input() public accepts: any;
+  @Output() public itemDropped: EventEmitter<any> = new EventEmitter<any>();
+  @Output() public itemDragged: EventEmitter<any> = new EventEmitter<any>();
 
   private subscription: Subscription = new Subscription();
 
   constructor(private dragulaService: DragulaService) {}
 
-  ngOnInit() {
+  public ngOnInit() {
     this.subscription.add(
-      this.dragulaService.dropModel(this.name).subscribe(value => {
+      this.dragulaService.dropModel(this.name).subscribe((value) => {
         if (value.target.id === this.id) {
-          const item = this.model.find(element => element.id === +value.el.id);
+          const item = this.model.find((element) => element.id === +value.el.id);
           this.itemDropped.emit(item);
         }
       })
     );
     this.subscription.add(
-      this.dragulaService.drag(this.name).subscribe(value => {
-        const item = this.model.find(element => element.id === +value.el.id);
+      this.dragulaService.drag(this.name).subscribe((value) => {
+        const item = this.model.find((element) => element.id === +value.el.id);
         this.itemDragged.emit(item);
       })
     );
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 }

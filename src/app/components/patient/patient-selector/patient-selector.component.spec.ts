@@ -1,9 +1,9 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { PatientSelectorComponent } from './patient-selector.component';
+import { PatientSelectorComponent } from "./patient-selector.component";
 
-describe('PatientSelectorComponent', () => {
+describe("PatientSelectorComponent", () => {
   let component: PatientSelectorComponent;
   let fixture: ComponentFixture<PatientSelectorComponent>;
 
@@ -21,7 +21,7 @@ describe('PatientSelectorComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

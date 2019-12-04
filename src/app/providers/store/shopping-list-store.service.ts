@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
-import { LoggingService } from 'ionic-logging-service';
-import { Recipe } from 'src/lib/models/Recipe';
+import { Injectable } from "@angular/core";
+import { LoggingService } from "ionic-logging-service";
+import { Recipe } from "src/lib/models/Recipe";
 
-import { AbstractStoreService } from './abstract-store.service';
+import { AbstractStoreService } from "./abstract-store.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class ShoppingListStoreService extends AbstractStoreService {
   constructor(loggingService: LoggingService) {
-    super(loggingService, 'shopping-list-store');
+    super(loggingService, "shopping-list-store");
   }
 
   public addItem(value: Recipe) {
