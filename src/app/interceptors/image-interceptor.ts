@@ -1,16 +1,23 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { DomSanitizer } from "@angular/platform-browser";
-import { Router } from "@angular/router";
-import { LoggingService } from "ionic-logging-service";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
-import { environment } from "src/environments/environment";
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from "@angular/common/http";
+import {Injectable} from "@angular/core";
+import {DomSanitizer} from "@angular/platform-browser";
+import {Router} from "@angular/router";
+import {LoggingService} from "ionic-logging-service";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
+import {environment} from "src/environments/environment";
 
-import { ImageService } from "../providers/image.service";
+import {ImageService} from "../providers/image.service";
 
 @Injectable()
 export class ImageInterceptor implements HttpInterceptor {
+
+    /**
+     * @param imageService image service
+     * @param router authentication service
+     * @param logging logging service
+     * @param sanitizer dom sanitzier
+     */
     constructor(
         private imageService: ImageService,
         private router: Router,
@@ -18,6 +25,13 @@ export class ImageInterceptor implements HttpInterceptor {
         private sanitizer: DomSanitizer
     ) {}
 
+    /**
+     * Intercepts the response of the ingredient endpoint. Changes the image attribute to include the image endpoint
+     * for asynchronously receive the image.
+     *
+     * @param request request to intercept
+     * @param next response to intercept
+     */
     public intercept(
         request: HttpRequest<any>,
         next: HttpHandler
@@ -30,9 +44,8 @@ export class ImageInterceptor implements HttpInterceptor {
                 ) {
                     event.body._data.ingredients.map((ingredient) => {
                         if (ingredient._imageId) {
-                            console.log(ingredient);
                             ingredient.image =
-                                "http://localhost:3000/images/" +
+                                `${environment.backendUrl}/images/` +
                                 ingredient._imageId;
                         }
                     });

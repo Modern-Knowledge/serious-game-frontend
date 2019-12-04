@@ -9,7 +9,7 @@ export class ImageService {
     constructor(private http: HttpClient) {}
 
     /**
-     * Returns the image by id.
+     * Returns an image by id.
      *
      * @param id id of the image to receive
      */
