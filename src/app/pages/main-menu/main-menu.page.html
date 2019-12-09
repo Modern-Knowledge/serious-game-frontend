@@ -11,11 +11,15 @@
     <div class="ion-padding">
         <ion-row class="ion-align-items-center ion-justify-content-center">
             <ion-list lines="full">
-                <p>
-                    <ion-button expand="block" [routerLink]="['/game']">Start Game</ion-button>
+                <p *ngIf="!isTherapist">
+                    <ion-button expand="block" [routerLink]="['/game']"
+                        >Start Game</ion-button
+                    >
                 </p>
                 <p>
-                    <ion-button expand="block" [routerLink]="['/score-board']">Score Board</ion-button>
+                    <ion-button expand="block" [routerLink]="['/score-board']"
+                        >Score Board</ion-button
+                    >
                 </p>
                 <p>
                     <ion-button expand="block">About this Game</ion-button>
