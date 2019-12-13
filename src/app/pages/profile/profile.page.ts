@@ -1,10 +1,11 @@
-import {Component, OnInit} from "@angular/core";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Subscription} from "rxjs";
-import {AuthService} from "src/app/providers/auth.service";
-import {UserStoreService} from "src/app/providers/store/user-store.service";
-import {User} from "src/lib/models/User";
-import {UserService} from "../../providers/user.service";
+import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Subscription } from "rxjs";
+import { AuthService } from "src/app/providers/auth.service";
+import { UserStoreService } from "src/app/providers/store/user-store.service";
+import { User } from "src/lib/models/User";
+
+import { UserService } from "../../providers/user.service";
 
 @Component({
     selector: "serious-game-profile",
@@ -35,12 +36,11 @@ export class ProfilePage implements OnInit {
         this.changeProfileForm = new FormGroup({
             email: new FormControl("", [Validators.email, Validators.required]),
             forename: new FormControl("", Validators.required),
-            lastname: new FormControl("", Validators.required),
+            lastname: new FormControl("", Validators.required)
         });
     }
 
     public onSave() {
-        console.log(this.changeProfileForm.controls);
         this.subscription.add(
             this.userService
                 .updateUser(
@@ -48,9 +48,10 @@ export class ProfilePage implements OnInit {
                     this.changeProfileForm.controls.email.value,
                     this.changeProfileForm.controls.forename.value,
                     this.changeProfileForm.controls.lastname.value
-                ).subscribe((response) => {
+                )
+                .subscribe((response) => {
                     console.log(response);
-            })
+                })
         );
     }
 

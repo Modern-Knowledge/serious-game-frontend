@@ -16,7 +16,6 @@ import { IngredientService } from "src/app/providers/ingredient.service";
 import { RecipeService } from "src/app/providers/recipe.service";
 import { SessionService } from "src/app/providers/session.service";
 import { UserStoreService } from "src/app/providers/store/user-store.service";
-import { WordService } from "src/app/providers/word.service";
 import { ToastPosition, ToastWrapper } from "src/app/util/ToastWrapper";
 import { Errortext } from "src/lib/models/Errortext";
 import { Game } from "src/lib/models/Game";
@@ -65,7 +64,6 @@ export class GamePage {
      * @param errorTextService error-text service
      */
     constructor(
-        private wordService: WordService,
         private recipeService: RecipeService,
         private gameService: GameService,
         private componentFactoryResolver: ComponentFactoryResolver,
@@ -84,6 +82,7 @@ export class GamePage {
      * recipes, games and ingredients.
      */
     public ionViewWillEnter() {
+        console.log("view entered");
         this.subscription.add(
             this.userStore.user.subscribe((user) => {
                 this.user = user;
@@ -142,6 +141,7 @@ export class GamePage {
             }
         };
         const currentGame = this.games[this.step];
+        console.log(currentGame);
         const currentGameComponent = this.gameComponents[
             `serious-game-${currentGame.component}`
         ];
