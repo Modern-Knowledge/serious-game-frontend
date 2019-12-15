@@ -6,35 +6,49 @@ import { UserStoreService } from "src/app/providers/store/user-store.service";
 import { Session } from "src/lib/models/Session";
 
 @Component({
-  selector: "serious-game-score-board",
-  templateUrl: "./score-board.page.html",
-  styleUrls: ["./score-board.page.scss"]
+    selector: "serious-game-score-board",
+    styleUrls: ["./score-board.page.scss"],
+    templateUrl: "./score-board.page.html"
 })
 export class ScoreBoardPage implements OnInit, OnDestroy {
-  public sessions: Observable<Session[]>;
-  private subscription: Subscription = new Subscription();
-  constructor(
-    private sessionService: SessionService,
-    private userStore: UserStoreService
-  ) {}
+    public sessions: Observable<Session[]>;
+    private subscription: Subscription = new Subscription();
+    constructor(
+        private sessionService: SessionService,
+        private userStore: UserStoreService
+    ) {}
 
-  public ngOnInit() {
-    this.subscription.add(
-      this.userStore.user.subscribe((user) => {
-        this.sessions = this.sessionService.getForPatient(user.id);
-      })
-    );
-  }
+    public ngOnInit() {
+        this.subscription.add(
+            this.userStore.user.subscribe((user) => {
+                this.sessionService
+                    .getForPatient(user.id)
+                    .subscribe((sessions) => {
+                        this.sessions = this.groupByName(sessions).filter(
+                            (session) => session
+                        );
+                        console.log(this.sessions);
+                    });
+            })
+        );
+    }
 
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
+    public ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
 
-  public getDifference(start: Date, end: Date) {
-    return moment.duration(moment(end).diff(start)).asMilliseconds();
-  }
+    public getDifference(start: Date, end: Date) {
+        return moment.duration(moment(end).diff(start)).asSeconds();
+    }
 
-  public countErrortexts(session: Session) {
-    return session.statistic.errortexts.length;
-  }
+    public countErrortexts(session: Session) {
+        return session.statistic.errortexts.length;
+    }
+
+    public groupByName(array) {
+        return array.reduce((r, x) => {
+            r[x.gameId] = [...(r[x.gameId] || []), x];
+            return r;
+        }, []);
+    }
 }

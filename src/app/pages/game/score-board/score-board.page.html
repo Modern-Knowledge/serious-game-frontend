@@ -1,23 +1,34 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-card *ngFor="let session of sessions | async">
-    <ion-card-header
-      ><span class="ion-float-left">{{ session.game.name }}</span>
-      <span class="ion-float-right">{{
-        session.statistic.startTime | date: 'dd.MM.yyyy HH:mm'
-      }}</span>
-    </ion-card-header>
-    <ion-card-content
-      >{{ getDifference(session.statistic.startTime, session.statistic.endTime) }}ms
-    </ion-card-content>
-    <serious-game-error-count
-      [givenErrorCount]="countErrortexts(session)"
-    ></serious-game-error-count>
-  </ion-card>
+    <ion-list *ngFor="let groupedSessions of sessions">
+        <ion-list-header *ngIf="groupedSessions">
+            {{groupedSessions[0].game.name}}</ion-list-header
+        >
+        <ion-item *ngFor="let session of groupedSessions; let i=index">
+            <ion-label
+                ><h2>
+                    {{ session.statistic.startTime | date: 'dd.MM.yyyy HH:mm' }}
+                </h2>
+                <p>
+                    Zeit: {{ getDifference(session.statistic.startTime,
+                    session.statistic.endTime) }} Sekunde(n)
+                </p>
+                <p>
+                    <serious-game-error-count
+                        [givenErrorCount]="countErrortexts(session)"
+                    ></serious-game-error-count></p
+            ></ion-label>
+        </ion-item>
+    </ion-list>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="funnel"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>
