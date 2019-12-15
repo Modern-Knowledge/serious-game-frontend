@@ -36,4 +36,8 @@ export class RecipeComponent implements OnInit, IGameComponent {
     public chooseRandomRecipe() {
         return this.data[Math.floor(Math.random() * this.data.length)];
     }
+
+    public cleanupResources() {
+        this.recipeStore.currentRecipe = null;
+    }
 }

@@ -38,4 +38,6 @@ export class DayPlanningComponent implements IGameComponent {
     public doReorder(event: any) {
         event.detail.complete();
     }
+
+    public cleanupResources() {}
 }

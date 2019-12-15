@@ -159,4 +159,10 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
             ) === -1
         );
     }
+
+    public cleanupResources() {
+        this.shoppingListStore.clearItems();
+        this.fridgeStore.clearItems();
+        this.recipeStore.currentRecipe = null;
+    }
 }

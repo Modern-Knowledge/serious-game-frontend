@@ -11,4 +11,5 @@ export interface IGameComponent {
     mainGameSubject: Subject<any>;
     event: EventEmitter<any>;
     errorEvent: EventEmitter<any>;
+    cleanupResources(): void;
 }

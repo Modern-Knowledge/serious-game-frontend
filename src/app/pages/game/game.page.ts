@@ -51,6 +51,7 @@ export class GamePage {
     private sessionErrorTexts: Errortext[] = [];
     private canContinue: boolean;
     private mainGameSubject: Subject<any> = new Subject();
+    private dynamicComponentInstances = [];
 
     /**
      * @param wordService word service
@@ -141,7 +142,6 @@ export class GamePage {
             }
         };
         const currentGame = this.games[this.step];
-        console.log(currentGame);
         const currentGameComponent = this.gameComponents[
             `serious-game-${currentGame.component}`
         ];
@@ -165,6 +165,7 @@ export class GamePage {
         dynamicComponentInstance.errorEvent.subscribe((error) => {
             this.handleError(error);
         });
+        this.dynamicComponentInstances.push(dynamicComponentInstance);
         this.canContinue = currentGameComponent.canContinue;
     }
 
@@ -193,6 +194,7 @@ export class GamePage {
             this.errorCount.reset();
             this.storeSession();
             this.step = 0;
+            this.cleanupResources();
             this.router.navigateByUrl("/main-menu");
         }
     }
@@ -221,6 +223,13 @@ export class GamePage {
                 })
             )
             .subscribe();
+    }
+
+    public cleanupResources() {
+        this.subscription.unsubscribe();
+        this.dynamicComponentInstances.forEach((instance) => {
+            instance.cleanupResources();
+        });
     }
 
     /**

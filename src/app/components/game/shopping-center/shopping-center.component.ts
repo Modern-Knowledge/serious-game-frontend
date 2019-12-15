@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Observable, Subject, Subscription } from "rxjs";
 import { FoodCategoryService } from "src/app/providers/food-category.service";
 import { CartStoreService } from "src/app/providers/store/cart-store.service";
@@ -16,8 +16,7 @@ import { IGameComponent } from "../game.component";
     styleUrls: ["./shopping-center.component.scss"],
     templateUrl: "./shopping-center.component.html"
 })
-export class ShoppingCenterComponent
-    implements OnInit, IGameComponent, OnDestroy {
+export class ShoppingCenterComponent implements OnInit, IGameComponent {
     @Input() public data: Ingredient[];
     @Input() public game: Game;
     @Input() public errorTexts: Errortext[];
@@ -71,7 +70,9 @@ export class ShoppingCenterComponent
         return this.validShoppingCart;
     }
 
-    public ngOnDestroy() {
+    public cleanupResources() {
         this.subscription.unsubscribe();
+        this.shoppingCartStore.clearItems();
+        this.shoppingListStore.clearItems();
     }
 }
