@@ -35,6 +35,7 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
     private fridgeItems: Ingredient[];
     private itemsValid = false;
     private templateParser: TemplateParser = new TemplateParser();
+    private maxItems: number = 5;
 
     constructor(
         private ingredientService: IngredientService,
@@ -46,6 +47,7 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
 
     public ngOnInit() {
         this.ingredients = [...this.recipeStore.currentRecipe.ingredients];
+        this.maxItems += this.recipeStore.currentRecipe.ingredients.length;
         this.subscription.add(
             this.ingredientService.getAll().subscribe((ingredients) => {
                 for (
@@ -59,6 +61,8 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
                         ]
                     );
                 }
+                this.ingredients.splice(this.maxItems);
+                this.shuffle(this.ingredients);
             })
         );
         this.subscription.add(
@@ -172,11 +176,26 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
     }
 
     /**
+     * Shuffles ingredients.
+     * Based on the modern Fisher-Yates-shuffle algorithm.
+     * [https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm]
+     * @param {Array} ingredients The ingredients to shuffle.
+     */
+    public shuffle(ingredients) {
+        for (let i = ingredients.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [ingredients[i], ingredients[j]] = [ingredients[j], ingredients[i]];
+        }
+        return ingredients;
+    }
+
+    /**
      * Clears the initialized storages and the current recipe.
      */
     public cleanupResources() {
         this.shoppingListStore.clearItems();
         this.fridgeStore.clearItems();
         this.recipeStore.currentRecipe = null;
+        this.ingredients = [];
     }
 }
