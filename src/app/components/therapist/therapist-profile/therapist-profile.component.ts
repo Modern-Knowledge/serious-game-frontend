@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 import { TherapistService } from "src/app/providers/therapist.service";
 import { Therapist } from "src/lib/models/Therapist";
@@ -6,22 +6,18 @@ import { Therapist } from "src/lib/models/Therapist";
 @Component({
     selector: "serious-game-therapist-profile",
     styleUrls: ["./therapist-profile.component.scss"],
-    templateUrl: "./therapist-profile.component.html",
+    templateUrl: "./therapist-profile.component.html"
 })
-export class TherapistProfileComponent implements OnInit {
+export class TherapistProfileComponent implements OnDestroy {
     @Input() public user: Therapist;
     private subscription: Subscription = new Subscription();
 
     constructor(private therapistService: TherapistService) {}
 
-    public ngOnInit() {}
-
     public assignPatients(patients) {
         this.user.patients = patients;
         this.subscription.add(
-            this.therapistService.update(this.user).subscribe((response) => {
-                console.log(response);
-            })
+            this.therapistService.update(this.user).subscribe()
         );
     }
 

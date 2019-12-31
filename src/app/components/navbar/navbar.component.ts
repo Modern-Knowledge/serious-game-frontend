@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/providers/auth.service";
 
@@ -7,7 +7,7 @@ import { AuthService } from "src/app/providers/auth.service";
     styleUrls: ["./navbar.component.scss"],
     templateUrl: "./navbar.component.html"
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
     public navigate: any;
 
     /**
@@ -17,8 +17,6 @@ export class NavbarComponent implements OnInit {
     constructor(private authService: AuthService, private router: Router) {
         this.sideMenu();
     }
-
-    public ngOnInit() {}
 
     /**
      * Removes the authentication token and navigates the user back to the login
@@ -62,5 +60,4 @@ export class NavbarComponent implements OnInit {
             }
         ];
     }
-
 }

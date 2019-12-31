@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, NgForm, Validators } from "@angular/forms";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/providers/auth.service";
+
 import { HttpResponse } from "../../../lib/utils/http/HttpResponse";
 
 @Component({
@@ -11,14 +11,11 @@ import { HttpResponse } from "../../../lib/utils/http/HttpResponse";
     styleUrls: ["./login.page.scss"],
     templateUrl: "./login.page.html"
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, OnDestroy {
     public loginForm: FormGroup;
     private subscription: Subscription = new Subscription();
 
-    constructor(
-        public router: Router,
-        private authService: AuthService,
-    ) {}
+    constructor(public router: Router, private authService: AuthService) {}
 
     public ngOnInit() {
         this.loginForm = new FormGroup({
@@ -43,7 +40,9 @@ export class LoginPage implements OnInit {
                     this.loginForm.controls.password.value
                 )
                 .subscribe((response) => {
-                    const httpResponse = new HttpResponse().deserialize(response);
+                    const httpResponse = new HttpResponse().deserialize(
+                        response
+                    );
                     // login successful if there's a jwt token in the response
                     const token = httpResponse.data.token;
                     this.authService.setToken(token);

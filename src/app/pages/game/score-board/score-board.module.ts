@@ -2,27 +2,26 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { RouterModule, Routes } from "@angular/router";
-
 import { IonicModule } from "@ionic/angular";
-
 import { SharedModule } from "src/app/components/shared/shared.module";
+
 import { ScoreBoardPage } from "./score-board.page";
 
 const routes: Routes = [
-  {
-    path: "",
-    component: ScoreBoardPage
-  }
+    {
+        component: ScoreBoardPage,
+        path: ""
+    }
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes),
-    SharedModule
-  ],
-  declarations: [ScoreBoardPage]
+    declarations: [ScoreBoardPage],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        RouterModule.forChild(routes),
+        SharedModule
+    ]
 })
 export class ScoreBoardPageModule {}

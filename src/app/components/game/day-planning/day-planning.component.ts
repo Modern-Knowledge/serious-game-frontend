@@ -39,5 +39,7 @@ export class DayPlanningComponent implements IGameComponent {
         event.detail.complete();
     }
 
-    public cleanupResources() {}
+    public cleanupResources() {
+        //
+    }
 }

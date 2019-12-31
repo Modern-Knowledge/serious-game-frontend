@@ -1,18 +1,14 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { PatientService } from "src/app/providers/patient.service";
 import { Patient } from "src/lib/models/Patient";
 
 @Component({
-  selector: "serious-game-patient-profile",
-  styleUrls: ["./patient-profile.component.scss"],
-  templateUrl: "./patient-profile.component.html"
+    selector: "serious-game-patient-profile",
+    styleUrls: ["./patient-profile.component.scss"],
+    templateUrl: "./patient-profile.component.html"
 })
-export class PatientProfileComponent implements OnInit {
+export class PatientProfileComponent {
+    @Input() public user: Patient;
 
-  @Input() public user: Patient;
-
-  constructor(private patientService: PatientService) { }
-
-  public ngOnInit() {}
-
+    constructor(private patientService: PatientService) {}
 }

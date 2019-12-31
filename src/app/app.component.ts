@@ -1,5 +1,4 @@
-import { Component, OnInit } from "@angular/core";
-
+import { Component } from "@angular/core";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { Platform } from "@ionic/angular";
@@ -8,7 +7,7 @@ import { Platform } from "@ionic/angular";
     selector: "serious-game-root",
     templateUrl: "app.component.html"
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
     /**
      * @param platform platform
      * @param splashScreen splashscreen when starting the app
@@ -21,8 +20,6 @@ export class AppComponent implements OnInit {
     ) {
         this.initializeApp();
     }
-
-    public ngOnInit(): void {}
 
     public initializeApp() {
         this.platform.ready().then(() => {

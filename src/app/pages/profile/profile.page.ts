@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/providers/auth.service";
@@ -12,8 +12,8 @@ import { UserService } from "../../providers/user.service";
     styleUrls: ["./profile.page.scss"],
     templateUrl: "./profile.page.html"
 })
-export class ProfilePage implements OnInit {
-    private user: User;
+export class ProfilePage implements OnInit, OnDestroy {
+    public user: User;
     private isTherapist: boolean;
     private subscription: Subscription = new Subscription();
     private changeProfileForm: FormGroup;
@@ -49,9 +49,7 @@ export class ProfilePage implements OnInit {
                     this.changeProfileForm.controls.forename.value,
                     this.changeProfileForm.controls.lastname.value
                 )
-                .subscribe((response) => {
-                    console.log(response);
-                })
+                .subscribe()
         );
     }
 

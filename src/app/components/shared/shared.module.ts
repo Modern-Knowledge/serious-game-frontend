@@ -11,10 +11,10 @@ import { ErrorCountComponent } from "./error-count/error-count.component";
 import { HelptextButtonComponent } from "./helptext-button/helptext-button.component";
 import { HelptextComponent } from "./helptext/helptext.component";
 import { ImageComponent } from "./image/image.component";
+import { ScoredPointsComponent } from "./scored-points/scored-points.component";
 import { StopwatchComponent } from "./stopwatch/stopwatch.component";
 
 @NgModule({
-    imports: [DragulaModule, CommonModule, FormsModule, IonicModule],
     declarations: [
         DragZoneComponent,
         DropZoneComponent,
@@ -23,7 +23,8 @@ import { StopwatchComponent } from "./stopwatch/stopwatch.component";
         StopwatchComponent,
         ErrorCountComponent,
         HelptextButtonComponent,
-        ImageComponent
+        ImageComponent,
+        ScoredPointsComponent
     ],
     entryComponents: [HelptextComponent],
     exports: [
@@ -34,7 +35,9 @@ import { StopwatchComponent } from "./stopwatch/stopwatch.component";
         StopwatchComponent,
         ErrorCountComponent,
         HelptextButtonComponent,
-        ImageComponent
-    ]
+        ImageComponent,
+        ScoredPointsComponent
+    ],
+    imports: [DragulaModule, CommonModule, FormsModule, IonicModule]
 })
 export class SharedModule {}

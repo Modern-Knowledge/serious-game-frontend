@@ -1,24 +1,17 @@
-import {
-    HttpErrorResponse,
-    HttpEvent,
-    HttpHandler,
-    HttpInterceptor,
-    HttpRequest,
-    HttpResponse
-} from "@angular/common/http";
-import {Injectable} from "@angular/core";
-import {Router} from "@angular/router";
-import {LoggingService} from "ionic-logging-service";
-import {Observable, throwError} from "rxjs";
-import {catchError, tap} from "rxjs/operators";
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { LoggingService } from "ionic-logging-service";
+import { Observable, throwError } from "rxjs";
+import { catchError, tap } from "rxjs/operators";
+import { HttpResponseMessageSeverity } from "src/lib/utils/http/HttpResponse";
 
-import {HTTPStatusCode} from "../../lib/utils/httpStatusCode";
-import {AuthService} from "../providers/auth.service";
-import {ToastPosition, ToastWrapper} from "../util/ToastWrapper";
+import { HTTPStatusCode } from "../../lib/utils/httpStatusCode";
+import { AuthService } from "../providers/auth.service";
+import { ToastPosition, ToastWrapper } from "../util/ToastWrapper";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-
     /**
      * @param authService authentication service
      * @param router application router
@@ -88,15 +81,25 @@ export class ErrorInterceptor implements HttpInterceptor {
                     case HTTPStatusCode.INTERNAL_SERVER_ERROR:
                         this.handleInternalServerError(error);
                         break;
+                    default:
+                        this.handleOtherError(error);
                 }
-
-                for (const item of error.error._messages) {
+                if (!error.error.messages) {
                     const message = new ToastWrapper(
-                        item.message,
+                        "Es besteht keine Internetverbindung, bitte versuchen Sie es in ein paar Minuten erneut.",
                         ToastPosition.TOP,
-                        item._severity
+                        HttpResponseMessageSeverity.DANGER
                     );
                     message.alert();
+                } else {
+                    for (const item of error.error._messages) {
+                        const message = new ToastWrapper(
+                            item.message,
+                            ToastPosition.TOP,
+                            item._severity
+                        );
+                        message.alert();
+                    }
                 }
 
                 return throwError(error);
@@ -152,6 +155,16 @@ export class ErrorInterceptor implements HttpInterceptor {
      */
     private handleInternalServerError(error: HttpErrorResponse): void {
         this.logging.getRootLogger().info(this.handleInternalServerError.name, {
+            message: `${error.message}`
+        });
+    }
+
+    /**
+     * Handles all errors with other status codes than the ones already handled.
+     * @param error http-response error
+     */
+    private handleOtherError(error: HttpErrorResponse): void {
+        this.logging.getRootLogger().info(this.handleOtherError.name, {
             message: `${error.message}`
         });
     }

@@ -179,9 +179,9 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
      * Shuffles ingredients.
      * Based on the modern Fisher-Yates-shuffle algorithm.
      * [https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm]
-     * @param {Array} ingredients The ingredients to shuffle.
+     * @param ingredients The ingredients to shuffle.
      */
-    public shuffle(ingredients) {
+    public shuffle(ingredients: Ingredient[]) {
         for (let i = ingredients.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [ingredients[i], ingredients[j]] = [ingredients[j], ingredients[i]];

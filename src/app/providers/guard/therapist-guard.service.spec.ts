@@ -1,11 +1,11 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 
-import { TherapistGuardService } from './therapist-guard.service';
+import { TherapistGuardService } from "./therapist-guard.service";
 
-describe('TherapistGuardService', () => {
+describe("TherapistGuardService", () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
-  it('should be created', () => {
+  it("should be created", () => {
     const service: TherapistGuardService = TestBed.get(TherapistGuardService);
     expect(service).toBeTruthy();
   });

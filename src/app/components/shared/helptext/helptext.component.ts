@@ -1,22 +1,20 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { Helptext } from "src/lib/models/Helptext";
 
 @Component({
-  selector: "serious-game-helptext",
-  templateUrl: "./helptext.component.html",
-  styleUrls: ["./helptext.component.scss"]
+    selector: "serious-game-helptext",
+    styleUrls: ["./helptext.component.scss"],
+    templateUrl: "./helptext.component.html"
 })
-export class HelptextComponent implements OnInit {
-  @Input() public helptexts: Helptext[];
+export class HelptextComponent {
+    @Input() public helptexts: Helptext[];
 
-  constructor(private modalController: ModalController) {}
+    constructor(private modalController: ModalController) {}
 
-  public ngOnInit() {}
-
-  public dismiss() {
-    this.modalController.dismiss({
-      dismissed: true
-    });
-  }
+    public dismiss() {
+        this.modalController.dismiss({
+            dismissed: true
+        });
+    }
 }

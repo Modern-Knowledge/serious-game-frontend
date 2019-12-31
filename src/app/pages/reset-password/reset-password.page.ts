@@ -1,18 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, NgForm, Validators } from "@angular/forms";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormControl, FormGroup, ValidatorFn, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/providers/auth.service";
-import {environment} from "../../../environments/environment";
-import {HttpResponse} from "../../../lib/utils/http/HttpResponse";
+
+import { environment } from "../../../environments/environment";
 
 @Component({
     selector: "serious-game-reset-password",
     styleUrls: ["./reset-password.page.scss"],
     templateUrl: "./reset-password.page.html"
 })
-export class ResetPasswordPage implements OnInit {
+export class ResetPasswordPage implements OnInit, OnDestroy {
     public resetPasswordForm: FormGroup;
     private subscription: Subscription = new Subscription();
 
@@ -20,31 +19,33 @@ export class ResetPasswordPage implements OnInit {
      * @param router application router
      * @param authService authentication service
      */
-    constructor(
-        public router: Router,
-        private authService: AuthService,
-    ) {}
+    constructor(public router: Router, private authService: AuthService) {}
 
     /**
      * initiates the form when, the component mounted.
      */
     public ngOnInit() {
-        this.resetPasswordForm = new FormGroup({
-            email: new FormControl("", [Validators.email, Validators.required]),
-            password: new FormControl("", [
-                Validators.minLength(environment.passwordLength),
-                Validators.required
-            ]),
-            password_confirmation: new FormControl("", [
-                Validators.minLength(environment.passwordLength),
-                Validators.required,
-            ]),
-            token: new FormControl("", [
-                Validators.maxLength(environment.tokenLength),
-                Validators.minLength(environment.tokenLength),
-                Validators.required
-            ])
-        }, this.matchPasswords
+        this.resetPasswordForm = new FormGroup(
+            {
+                email: new FormControl("", [
+                    Validators.email,
+                    Validators.required
+                ]),
+                password: new FormControl("", [
+                    Validators.minLength(environment.passwordLength),
+                    Validators.required
+                ]),
+                password_confirmation: new FormControl("", [
+                    Validators.minLength(environment.passwordLength),
+                    Validators.required
+                ]),
+                token: new FormControl("", [
+                    Validators.maxLength(environment.tokenLength),
+                    Validators.minLength(environment.tokenLength),
+                    Validators.required
+                ])
+            },
+            this.PasswordMatchValidator
         );
     }
 
@@ -61,14 +62,15 @@ export class ResetPasswordPage implements OnInit {
                     this.resetPasswordForm.controls.token.value
                 )
                 .subscribe((response) => {
-                    const httpResponse = new HttpResponse().deserialize(response);
                     this.router.navigateByUrl("/login");
                 })
         );
     }
 
-    public matchPasswords(form): Boolean {
-        return form.get("password") === form.get("password_confirmation");
+    public PasswordMatchValidator(form): ValidatorFn {
+        if (form.get("password") === form.get("password_confirmation")) {
+            return form.get("password").setErrors({ password_mismatch: true });
+        }
     }
 
     public ngOnDestroy() {

@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 import { IngredientService } from "src/app/providers/ingredient.service";
 import { FridgeStoreService } from "src/app/providers/store/fridge-store.service";
@@ -9,8 +9,8 @@ import { Ingredient } from "src/lib/models/Ingredient";
     styleUrls: ["./fridge.page.scss"],
     templateUrl: "./fridge.page.html"
 })
-export class FridgePage {
-    private ingredients: Ingredient[];
+export class FridgePage implements OnDestroy {
+    public ingredients: Ingredient[];
     private subscription: Subscription = new Subscription();
 
     constructor(
@@ -49,8 +49,8 @@ export class FridgePage {
     }
 
     /**
-     * drops random items from an array
-     * @param items
+     * Drops random items from an array.
+     * @param items - The items to drop random items from.
      */
     public dropRandomItems(items: any[]) {
         let dropAmount = Math.floor(Math.random() * items.length);

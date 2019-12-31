@@ -1,15 +1,11 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { FoodCategory } from "src/lib/models/FoodCategory";
 
 @Component({
-  selector: "serious-game-shelf",
-  templateUrl: "./shelf.component.html",
-  styleUrls: ["./shelf.component.scss"]
+    selector: "serious-game-shelf",
+    styleUrls: ["./shelf.component.scss"],
+    templateUrl: "./shelf.component.html"
 })
-export class ShelfComponent implements OnInit {
-  @Input() public shelf: FoodCategory[];
-
-  constructor() {}
-
-  public ngOnInit() {}
+export class ShelfComponent {
+    @Input() public shelf: FoodCategory;
 }

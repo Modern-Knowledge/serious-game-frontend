@@ -1,10 +1,10 @@
 {
   "$schema": "./node_modules/@angular-devkit/core/src/workspace/workspace-schema.json",
   "version": 1,
-  "defaultProject": "serious-game",
+  "defaultProject": "serious-game-frontend",
   "newProjectRoot": "projects",
   "projects": {
-    "app": {
+    "serious-game-frontend": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -81,11 +81,11 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "app:build"
+            "browserTarget": "serious-game-frontend:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "app:build:production"
+              "browserTarget": "serious-game-frontend:build:production"
             },
             "ci": {
               "progress": false
@@ -95,7 +95,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "app:build"
+            "browserTarget": "serious-game-frontend:build"
           }
         },
         "test": {
@@ -142,30 +142,30 @@
         "ionic-cordova-build": {
           "builder": "@ionic/angular-toolkit:cordova-build",
           "options": {
-            "browserTarget": "app:build"
+            "browserTarget": "serious-game-frontend:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "app:build:production"
+              "browserTarget": "serious-game-frontend:build:production"
             }
           }
         },
         "ionic-cordova-serve": {
           "builder": "@ionic/angular-toolkit:cordova-serve",
           "options": {
-            "cordovaBuildTarget": "app:ionic-cordova-build",
-            "devServerTarget": "app:serve"
+            "cordovaBuildTarget": "serious-game-frontend:ionic-cordova-build",
+            "devServerTarget": "serious-game-frontend:serve"
           },
           "configurations": {
             "production": {
-              "cordovaBuildTarget": "app:ionic-cordova-build:production",
-              "devServerTarget": "app:serve:production"
+              "cordovaBuildTarget": "serious-game-frontend:ionic-cordova-build:production",
+              "devServerTarget": "serious-game-frontend:serve:production"
             }
           }
         }
       }
     },
-    "app-e2e": {
+    "serious-game-frontend-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -173,14 +173,14 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "app:serve"
+            "devServerTarget": "serious-game-frontend:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "app:serve:production"
+              "devServerTarget": "serious-game-frontend:serve:production"
             },
             "ci": {
-              "devServerTarget": "app:serve:ci"
+              "devServerTarget": "serious-game-frontend:serve:ci"
             }
           }
         },

@@ -16,90 +16,116 @@
                     <ion-list lines="full">
                         <ion-item>
                             <ion-label position="stacked">Gender</ion-label>
-                            <ion-select interface="popover" formControlName="gender">
-                                <ion-select-option value="1">männlich</ion-select-option>
-                                <ion-select-option value="2">weiblich</ion-select-option>
+                            <ion-select
+                                interface="popover"
+                                formControlName="gender"
+                            >
+                                <ion-select-option value="1"
+                                    >männlich</ion-select-option
+                                >
+                                <ion-select-option value="2"
+                                    >weiblich</ion-select-option
+                                >
                             </ion-select>
                         </ion-item>
                         <ion-item>
-                            <ion-label position="stacked">Vorname<ion-text color="danger">*</ion-text></ion-label>
+                            <ion-label position="stacked"
+                                >Vorname<ion-text color="danger"
+                                    >*</ion-text
+                                ></ion-label
+                            >
                             <ion-input
-                                    autocomplete="false"
-                                    formControlName="forename"
-                                    autofocus="true"
-                                    clearInput="true"
-                                    name="forename"
-                                    required="true"
-                                    type="text">
+                                autocomplete="false"
+                                formControlName="forename"
+                                autofocus="true"
+                                clearInput="true"
+                                name="forename"
+                                required="true"
+                                type="text"
+                            >
                             </ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-label position="stacked">Nachname<ion-text color="danger">*</ion-text></ion-label>
+                            <ion-label position="stacked"
+                                >Nachname<ion-text color="danger"
+                                    >*</ion-text
+                                ></ion-label
+                            >
                             <ion-input
-                                    autocomplete="false"
-                                    formControlName="lastname"
-                                    autofocus="true"
-                                    clearInput="true"
-                                    name="lastname"
-                                    required="true"
-                                    type="text">
+                                autocomplete="false"
+                                formControlName="lastname"
+                                autofocus="true"
+                                clearInput="true"
+                                name="lastname"
+                                required="true"
+                                type="text"
+                            >
                             </ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-label position="stacked">Email<ion-text color="danger">*</ion-text>
+                            <ion-label position="stacked"
+                                >Email<ion-text color="danger">*</ion-text>
                             </ion-label>
                             <ion-input
-                                    autocomplete="false"
-                                    formControlName="email"
-                                    autofocus="true"
-                                    clearInput="true"
-                                    name="email"
-                                    required="true"
-                                    type="text">
+                                autocomplete="false"
+                                formControlName="email"
+                                autofocus="true"
+                                clearInput="true"
+                                name="email"
+                                required="true"
+                                type="text"
+                            >
                             </ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-label position="stacked">Passwort
+                            <ion-label position="stacked"
+                                >Passwort
                                 <ion-text color="danger">*</ion-text>
                             </ion-label>
                             <ion-input
-                                    autocomplete="false"
-                                    formControlName="password"
-                                    autocorrect="false"
-                                    clearInput="true"
-                                    name="password"
-                                    required="true"
-                                    type="password">
+                                autocomplete="false"
+                                formControlName="password"
+                                autocorrect="false"
+                                clearInput="true"
+                                name="password"
+                                required="true"
+                                type="password"
+                            >
                             </ion-input>
                         </ion-item>
                         <ion-item>
                             <ion-label position="stacked">
-                                Passwort bestätigen<ion-text color="danger">*</ion-text>
+                                Passwort bestätigen<ion-text color="danger"
+                                    >*</ion-text
+                                >
                             </ion-label>
                             <ion-input
-                                    autocomplete="false"
-                                    formControlName="password_confirmation"
-                                    autocorrect="false"
-                                    clearInput="true"
-                                    name="password_confirmation"
-                                    required="true"
-                                    type="password">
+                                autocomplete="false"
+                                formControlName="password_confirmation"
+                                autocorrect="false"
+                                clearInput="true"
+                                name="password_confirmation"
+                                required="true"
+                                type="password"
+                            >
                             </ion-input>
                         </ion-item>
                     </ion-list>
                     <ion-item lines="full">
                         <ion-label>TherapeutIn</ion-label>
                         <ion-checkbox
-                                color="primary"
-                                slot="start"
-                                formControlName="therapist">
+                            color="primary"
+                            slot="start"
+                            formControlName="therapist"
+                        >
                         </ion-checkbox>
                     </ion-item>
                     <ion-button
-                            (click)="onSubmit(registrationForm)"
-                            type="button"
-                            color="light"
-                            shape="round">
+                        (click)="onSubmit()"
+                        type="button"
+                        color="light"
+                        shape="round"
+                    >
                         Registrieren
                     </ion-button>
                 </form>

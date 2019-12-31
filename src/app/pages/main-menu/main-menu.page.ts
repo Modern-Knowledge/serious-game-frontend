@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { AuthService } from "src/app/providers/auth.service";
 
 @Component({
@@ -6,12 +6,11 @@ import { AuthService } from "src/app/providers/auth.service";
     styleUrls: ["./main-menu.page.scss"],
     templateUrl: "./main-menu.page.html"
 })
-export class MainMenuPage implements OnInit {
+export class MainMenuPage {
     public isTherapist: boolean;
 
     constructor(private authService: AuthService) {}
 
-    public ngOnInit() {}
     public ionViewWillEnter() {
         this.isTherapist = this.authService.isTherapist();
     }

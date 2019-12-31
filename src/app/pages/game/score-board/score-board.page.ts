@@ -27,7 +27,6 @@ export class ScoreBoardPage implements OnInit, OnDestroy {
                         this.sessions = this.groupByName(sessions).filter(
                             (session) => session
                         );
-                        console.log(this.sessions);
                     });
             })
         );

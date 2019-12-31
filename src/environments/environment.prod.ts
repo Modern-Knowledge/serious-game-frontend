@@ -12,7 +12,7 @@ export const environment = {
             }
         ]
     },
-    production: true,
     passwordLength: 6,
+    production: true,
     tokenLength: 8
 };

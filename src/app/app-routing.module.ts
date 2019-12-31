@@ -8,67 +8,67 @@ const routes: Routes = [
     { path: "", redirectTo: "login", pathMatch: "full" },
     { path: "home", loadChildren: "./pages/home/home.module#HomePageModule" },
     {
-        path: "login",
-        loadChildren: "./pages/login/login.module#LoginPageModule"
+        loadChildren: "./pages/login/login.module#LoginPageModule",
+        path: "login"
     },
     {
-        path: "password-reset",
         loadChildren:
-            "./pages/password-reset/password-reset.module#PasswordResetModule"
+            "./pages/password-reset/password-reset.module#PasswordResetModule",
+        path: "password-reset"
     },
     {
-        path: "reset-password",
         loadChildren:
-            "./pages/reset-password/reset-password.module#ResetPasswordModule"
+            "./pages/reset-password/reset-password.module#ResetPasswordModule",
+        path: "reset-password"
     },
     {
-        path: "registration",
         loadChildren:
-            "./pages/registration/registration.module#RegistrationPageModule"
+            "./pages/registration/registration.module#RegistrationPageModule",
+        path: "registration"
     },
     {
-        path: "profile",
+        canActivate: [AuthGuardService],
         loadChildren: "./pages/profile/profile.module#ProfilePageModule",
-        canActivate: [AuthGuardService]
+        path: "profile"
     },
     {
-        path: "main-menu",
+        canActivate: [AuthGuardService],
         loadChildren: "./pages/main-menu/main-menu.module#MainMenuPageModule",
-        canActivate: [AuthGuardService]
+        path: "main-menu"
     },
     {
-        path: "game",
+        canActivate: [AuthGuardService, PatientGuardService],
         loadChildren: "./pages/game/game.module#GamePageModule",
-        canActivate: [AuthGuardService, PatientGuardService]
+        path: "game"
     },
     {
-        path: "fridge",
+        canActivate: [AuthGuardService, PatientGuardService],
         loadChildren: "./pages/game/fridge/fridge.module#FridgePageModule",
-        canActivate: [AuthGuardService, PatientGuardService]
+        path: "fridge"
     },
     {
-        path: "shelf/:id",
+        canActivate: [AuthGuardService, PatientGuardService],
         loadChildren: "./pages/game/shelf/shelf.module#ShelfPageModule",
-        canActivate: [AuthGuardService, PatientGuardService]
+        path: "shelf/:id"
     },
     {
-        path: "score-board",
+        canActivate: [AuthGuardService],
         loadChildren:
             "./pages/game/score-board/score-board.module#ScoreBoardPageModule",
-        canActivate: [AuthGuardService]
+        path: "score-board"
     },
     {
-        path: "change-password",
+        canActivate: [AuthGuardService],
         loadChildren:
             "./pages/user/change-password/change-password.module#ChangePasswordPageModule",
-        canActivate: [AuthGuardService]
+        path: "change-password"
     }
 ];
 
 @NgModule({
+    exports: [RouterModule],
     imports: [
         RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
-    ],
-    exports: [RouterModule]
+    ]
 })
 export class AppRoutingModule {}

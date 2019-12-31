@@ -1,22 +1,22 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-card>
-    <ion-card-header>Kühlschrank</ion-card-header>
-    <ion-card-content
-      ><serious-game-drag-zone
-        name="fridge"
-        [model]="ingredients"
-        *ngIf="ingredients && ingredients.length > 0"
-      ></serious-game-drag-zone>
-      <span *ngIf="ingredients && ingredients.length === 0"
-        >Der Kühlschrank ist leer!</span
-      >
-    </ion-card-content>
-  </ion-card>
+    <ion-card>
+        <ion-card-header>Kühlschrank</ion-card-header>
+        <ion-card-content
+            ><serious-game-drag-zone
+                name="fridge"
+                [model]="ingredients"
+                *ngIf="ingredients && ingredients.length > 0"
+            ></serious-game-drag-zone>
+            <span *ngIf="ingredients && ingredients.length === 0"
+                >Der Kühlschrank ist leer!</span
+            >
+        </ion-card-content>
+    </ion-card>
 </ion-content>

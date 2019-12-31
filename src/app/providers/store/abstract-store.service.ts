@@ -1,10 +1,6 @@
-import { Injectable } from "@angular/core";
 import { Logger, LoggingService } from "ionic-logging-service";
 import { BehaviorSubject, Observable } from "rxjs";
 
-@Injectable({
-    providedIn: "root"
-})
 export abstract class AbstractStoreService {
     /**
      * returns last value in emitted items behaviour subject.

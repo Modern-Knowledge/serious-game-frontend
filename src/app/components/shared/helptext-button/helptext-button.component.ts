@@ -1,22 +1,22 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { ModalWrapper } from "src/app/util/ModalWrapper";
 import { Helptext } from "src/lib/models/Helptext";
 
 import { HelptextComponent } from "../helptext/helptext.component";
 
 @Component({
-  selector: "serious-game-helptext-button",
-  templateUrl: "./helptext-button.component.html",
-  styleUrls: ["./helptext-button.component.scss"],
-  providers: [ModalWrapper]
+    providers: [ModalWrapper],
+    selector: "serious-game-helptext-button",
+    styleUrls: ["./helptext-button.component.scss"],
+    templateUrl: "./helptext-button.component.html"
 })
-export class HelptextButtonComponent implements OnInit {
-  @Input() public helptexts: Helptext[];
-  constructor(private modalWrapper: ModalWrapper) {}
+export class HelptextButtonComponent {
+    @Input() public helptexts: Helptext[];
+    constructor(private modalWrapper: ModalWrapper) {}
 
-  public ngOnInit() {}
-
-  public showHelpText() {
-    this.modalWrapper.present(HelptextComponent, { helptexts: this.helptexts });
-  }
+    public showHelpText() {
+        this.modalWrapper.present(HelptextComponent, {
+            helptexts: this.helptexts
+        });
+    }
 }

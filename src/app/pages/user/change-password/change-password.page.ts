@@ -1,31 +1,34 @@
-import { Component, OnInit } from "@angular/core";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
-import {Subscription} from "rxjs";
-import {environment} from "../../../../environments/environment";
-import {HttpResponse} from "../../../../lib/utils/http/HttpResponse";
-import {AuthService} from "../../../providers/auth.service";
-import {UserService} from "../../../providers/user.service";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormControl, FormGroup, ValidatorFn, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { Subscription } from "rxjs";
+
+import { environment } from "../../../../environments/environment";
+import { HttpResponse } from "../../../../lib/utils/http/HttpResponse";
+import { AuthService } from "../../../providers/auth.service";
+import { UserService } from "../../../providers/user.service";
 
 @Component({
     selector: "serious-game-change-password",
     styleUrls: ["./change-password.page.scss"],
-    templateUrl: "./change-password.page.html",
+    templateUrl: "./change-password.page.html"
 })
-export class ChangePasswordPage implements OnInit {
-    private changePasswordForm: FormGroup;
+export class ChangePasswordPage implements OnInit, OnDestroy {
+    public changePasswordForm: FormGroup;
     private subscription: Subscription = new Subscription();
 
-    constructor(public router: Router,
-                private userService: UserService,
-                private authService: AuthService
+    constructor(
+        public router: Router,
+        private userService: UserService,
+        private authService: AuthService
     ) {}
 
     /**
      * Creates the form and the
      */
     public ngOnInit() {
-        this.changePasswordForm = new FormGroup({
+        this.changePasswordForm = new FormGroup(
+            {
                 old_password: new FormControl("", [
                     Validators.minLength(environment.passwordLength),
                     Validators.required
@@ -36,10 +39,10 @@ export class ChangePasswordPage implements OnInit {
                 ]),
                 password_confirmation: new FormControl("", [
                     Validators.minLength(environment.passwordLength),
-                    Validators.required,
-                ]),
-
-            }, this.matchPasswords
+                    Validators.required
+                ])
+            },
+            this.PasswordMatchValidator
         );
     }
 
@@ -50,7 +53,7 @@ export class ChangePasswordPage implements OnInit {
                     this.authService.getUserIdFromToken(),
                     this.changePasswordForm.controls.old_password.value,
                     this.changePasswordForm.controls.password.value,
-                    this.changePasswordForm.controls.password_confirmation.value,
+                    this.changePasswordForm.controls.password_confirmation.value
                 )
                 .subscribe((response) => {
                     new HttpResponse().deserialize(response);
@@ -62,12 +65,12 @@ export class ChangePasswordPage implements OnInit {
      * Checks if both passwords are equal
      * @param form form to take the values from
      */
-    public matchPasswords(form): Boolean {
-        return form.get("password") === form.get("password_confirmation");
+    public PasswordMatchValidator(form): ValidatorFn {
+        if (form.get("password") === form.get("password_confirmation")) {
+            return form.get("password").setErrors({ password_mismatch: true });
+        }
     }
-
     public ngOnDestroy() {
         this.subscription.unsubscribe();
     }
-
 }

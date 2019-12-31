@@ -83,7 +83,6 @@ export class GamePage {
      * recipes, games and ingredients.
      */
     public ionViewWillEnter() {
-        console.log("view entered");
         this.subscription.add(
             this.userStore.user.subscribe((user) => {
                 this.user = user;

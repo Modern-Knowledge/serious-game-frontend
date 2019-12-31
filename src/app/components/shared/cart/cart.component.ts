@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
 import { Subscription } from "rxjs";
 import { CartStoreService } from "src/app/providers/store/cart-store.service";
@@ -10,7 +10,7 @@ import { Word } from "src/lib/models/Word";
     styleUrls: ["./cart.component.scss"],
     templateUrl: "./cart.component.html"
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
     @Input() public id: string;
     @Input() public data: Array<Ingredient | Word>;
     @Input() public name: string;
