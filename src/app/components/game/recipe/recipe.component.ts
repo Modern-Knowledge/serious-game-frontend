@@ -20,7 +20,7 @@ export class RecipeComponent implements OnInit, IGameComponent {
     @Output() public event: EventEmitter<any> = new EventEmitter();
     @Output() public errorEvent: EventEmitter<any> = new EventEmitter();
 
-    private chosenRecipe: Recipe;
+    public chosenRecipe: Recipe;
 
     constructor(private recipeStore: RecipeStoreService) {}
 

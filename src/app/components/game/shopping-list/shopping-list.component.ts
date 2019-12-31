@@ -16,10 +16,10 @@ import { SharedModule } from "../../shared/shared.module";
 import { IGameComponent } from "../game.component";
 
 @Component({
-    selector: "serious-game-shopping-list",
-    templateUrl: "./shopping-list.component.html",
     providers: [SharedModule],
-    styleUrls: ["./shopping-list.component.scss"]
+    selector: "serious-game-shopping-list",
+    styleUrls: ["./shopping-list.component.scss"],
+    templateUrl: "./shopping-list.component.html"
 })
 export class ShoppingListComponent implements OnInit, IGameComponent {
     @Input() public game: Game;
@@ -29,7 +29,7 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
     @Output() public event: EventEmitter<any> = new EventEmitter();
     @Output() public errorEvent: EventEmitter<any> = new EventEmitter();
     public name = "shoppinglist";
-    public ingredients: Ingredient[];
+    public ingredients: Ingredient[] = [];
     public shoppingListItems: Ingredient[];
     private subscription: Subscription = new Subscription();
     private fridgeItems: Ingredient[];
@@ -45,9 +45,20 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
     ) {}
 
     public ngOnInit() {
+        this.ingredients = [...this.recipeStore.currentRecipe.ingredients];
         this.subscription.add(
-            this.ingredientService.getAll().subscribe((ingredient) => {
-                this.ingredients = ingredient;
+            this.ingredientService.getAll().subscribe((ingredients) => {
+                for (
+                    let i = Math.floor(Math.random() * ingredients.length);
+                    i < ingredients.length;
+                    i++
+                ) {
+                    this.ingredients.push(
+                        ingredients[
+                            Math.floor(Math.random() * ingredients.length)
+                        ]
+                    );
+                }
             })
         );
         this.subscription.add(
@@ -88,7 +99,7 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
         );
     }
     /**
-     * adds item to shopping list
+     * Adds item to shopping list
      * @param item Ingredient|Word
      */
     public addItem(item) {
@@ -120,7 +131,7 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
     }
 
     /**
-     * compares the ingredients defined in the recipe with the items
+     * Compares the ingredients defined in the recipe with the items
      * of the fridge + the items in the shopping list
      * @return whether the shopping list contains every needed item or not
      */
@@ -138,7 +149,7 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
     }
 
     /**
-     * removes item from the shopping list
+     * Removes item from the shopping list
      * @param item Ingredient|Word
      */
     public removeItem(item) {
@@ -149,7 +160,7 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
     }
 
     /**
-     * checks if item added to the shopping list is valid
+     * Checks if item added to the shopping list is valid
      * @param item Ingredient|Word
      */
     public validShoppingListItem(item: Ingredient | Word): boolean {
@@ -160,6 +171,9 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
         );
     }
 
+    /**
+     * Clears the initialized storages and the current recipe.
+     */
     public cleanupResources() {
         this.shoppingListStore.clearItems();
         this.fridgeStore.clearItems();
