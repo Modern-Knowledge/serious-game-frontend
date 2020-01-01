@@ -61,6 +61,9 @@ export class ShoppingCenterComponent implements OnInit, IGameComponent {
      * check if the shopping cart is valid
      */
     public shoppingCartIsValid(): boolean {
+        if (this.shoppingListStore.items.length === 0) {
+            return true;
+        }
         this.shoppingListStore.items.forEach((item) => {
             this.validShoppingCart =
                 this.shoppingCartStore.items.findIndex((shoppingCartItem) => {
