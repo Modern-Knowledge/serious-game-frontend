@@ -8,6 +8,8 @@ import { Component, Inject, Input, OnInit } from "@angular/core";
 export class ImageComponent implements OnInit {
     public source: string;
     @Input() public imageId: string;
+    @Input() public width: number;
+    @Input() public height: number;
 
     constructor(@Inject("BACKEND_URL") private baseUrl: string) {}
 
