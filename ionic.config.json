@@ -1,5 +1,7 @@
 {
   "name": "serious-game-frontend",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
