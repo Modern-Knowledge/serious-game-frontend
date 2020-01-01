@@ -84,7 +84,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                     default:
                         this.handleOtherError(error);
                 }
-                if (!error.error.messages) {
+                if (!error.error._messages) {
                     const message = new ToastWrapper(
                         "Es besteht keine Internetverbindung, bitte versuchen Sie es in ein paar Minuten erneut.",
                         ToastPosition.TOP,
