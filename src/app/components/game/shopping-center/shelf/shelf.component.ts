@@ -21,7 +21,7 @@ export class ShelfComponent implements OnInit, OnDestroy {
             this.ingredientService
                 .getByFoodCategory(+this.shelf.id)
                 .subscribe((ingredients) => {
-                    this.foodItems = ingredients.splice(3);
+                    this.foodItems = ingredients;
                 })
         );
     }
