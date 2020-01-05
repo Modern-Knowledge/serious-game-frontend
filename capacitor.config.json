@@ -1,8 +1,0 @@
-{
-  "appId": "plan-your-day",
-  "appName": "serious-game-frontend",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
-  "webDir": "www",
-  "cordova": {}
-}

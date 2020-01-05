@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar color="primary">
-        <ion-title>registration</ion-title>
+        <ion-title>Registrierung</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -8,18 +8,19 @@
     <div class="ion-padding">
         <ion-grid>
             <ion-row class="ion-align-items-center ion-justify-content-center">
-                <h1>Serious Game Frontend</h1>
+                <h1>{{environment.appName}}</h1>
             </ion-row>
 
             <ion-row class="ion-align-items-center ion-justify-content-center">
                 <form [formGroup]="registrationForm">
                     <ion-list lines="full">
                         <ion-item>
-                            <ion-label position="stacked">Gender</ion-label>
+                            <ion-label position="stacked">Geschlecht</ion-label>
                             <ion-select
                                 interface="popover"
                                 formControlName="gender"
                             >
+                                <ion-select-option value="0"></ion-select-option>
                                 <ion-select-option value="1"
                                     >männlich</ion-select-option
                                 >
@@ -64,7 +65,7 @@
                         </ion-item>
                         <ion-item>
                             <ion-label position="stacked"
-                                >Email<ion-text color="danger">*</ion-text>
+                                >E-Mail<ion-text color="danger">*</ion-text>
                             </ion-label>
                             <ion-input
                                 autocomplete="false"

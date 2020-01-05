@@ -16,8 +16,11 @@ import { HttpResponse } from "../../../lib/utils/http/HttpResponse";
 export class RegistrationPage implements OnInit, OnDestroy {
     public registrationForm: FormGroup;
     private subscription: Subscription = new Subscription();
+    private environment;
 
-    constructor(private authService: AuthService, private router: Router) {}
+    constructor(private authService: AuthService, private router: Router) {
+        this.environment = environment.appName;
+    }
 
     public ngOnInit() {
         this.registrationForm = new FormGroup(

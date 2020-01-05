@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+    appName: "Plan your Day",
     backendUrl: "http://localhost:3000",
     logging: {
         ajaxAppender: {

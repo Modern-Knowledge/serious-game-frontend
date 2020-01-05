@@ -8,14 +8,14 @@
     <div class="ion-padding">
         <ion-grid>
             <ion-row class="ion-align-items-center ion-justify-content-center">
-                <h1>Serious Game Frontend</h1>
+                <h1>{{environment.appName}}</h1>
             </ion-row>
 
             <ion-row class="ion-align-items-center ion-justify-content-center">
                 <form [formGroup]="loginForm">
                     <ion-list lines="full">
                         <ion-item>
-                            <ion-label position="stacked">Email<ion-text color="danger">*</ion-text></ion-label>
+                            <ion-label position="stacked">E-Mail<ion-text color="danger">*</ion-text></ion-label>
                             <ion-input
                                     autocomplete="false"
                                     formControlName="email"
