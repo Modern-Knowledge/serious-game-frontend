@@ -1,10 +1,10 @@
 export const environment = {
     appName: "Plan your Day",
-    backendUrl: "http://localhost:3000",
+    backendUrl: "http://rehastroke01.research.inso-w.com:8080",
     logging: {
         ajaxAppender: {
             threshold: "ERROR",
-            url: "http://localhost:3000/logging/"
+            url: "http://rehastroke01.research.inso-w.com:8080/logging/"
         },
         logLevels: [
             {
