@@ -3,7 +3,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "es2015",
-    "declaration": true,
+    "declaration": false,
     "sourceMap": true,
     "outDir": "./dist/out-tsc",
     "removeComments": true,
