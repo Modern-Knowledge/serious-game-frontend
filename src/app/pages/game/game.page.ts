@@ -179,8 +179,8 @@ export class GamePage {
             this.storeSession();
             this.step++;
             this.canContinue = false;
+            this.loadGame();
         }
-        this.loadGame();
     }
 
     /**

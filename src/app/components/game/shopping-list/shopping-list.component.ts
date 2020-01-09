@@ -120,7 +120,6 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
                     (errorText) => errorText.name === "fridge-not-checked"
                 )
             );
-            this.errorEvent.emit(shoppingListErrorText);
         } else if (!this.validShoppingListItem(item)) {
             shoppingListErrorText.deserialize(
                 this.errorTexts.find(
@@ -131,7 +130,6 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
                 shoppingListErrorText.text,
                 [item.name]
             );
-            this.errorEvent.emit(shoppingListErrorText);
         } else {
             this.shoppingListStore.addItem(item);
             if (this.compareShoppingListWithRecipe()) {
