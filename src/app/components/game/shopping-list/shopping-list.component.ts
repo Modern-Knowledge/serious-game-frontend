@@ -55,11 +55,17 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
                     i < ingredients.length;
                     i++
                 ) {
-                    this.ingredients.push(
-                        ingredients[
-                            Math.floor(Math.random() * ingredients.length)
-                        ]
+                    const index = Math.floor(
+                        Math.random() * ingredients.length
                     );
+                    if (
+                        this.ingredients.findIndex(
+                            (ingredient) =>
+                                ingredient.id === ingredients[index].id
+                        ) === -1
+                    ) {
+                        this.ingredients.push(ingredients[index]);
+                    }
                 }
                 this.ingredients.splice(this.maxItems);
                 this.shuffle(this.ingredients);

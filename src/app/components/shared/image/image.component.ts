@@ -10,6 +10,7 @@ export class ImageComponent implements OnInit {
     @Input() public imageId: string;
     @Input() public width: number;
     @Input() public height: number;
+    @Input() public title: string;
 
     constructor(@Inject("BACKEND_URL") private baseUrl: string) {}
 

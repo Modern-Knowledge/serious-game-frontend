@@ -13,17 +13,10 @@
                     [id]="item.id"
                     *ngFor="let item of shoppingListItems"
                 >
-                    <ion-item>
-                        <serious-game-image
-                            [imageId]="item.imageId"
-                        ></serious-game-image>
-
-                        <ion-label
-                            class="ion-text-wrap"
-                            *ngIf="!item.imageId"
-                            >{{ item.name }}</ion-label
-                        >
-                    </ion-item>
+                    <serious-game-image
+                        [imageId]="item.imageId"
+                        [title]="item.name"
+                    ></serious-game-image>
                 </ion-col>
                 <ion-col></ion-col>
             </ion-row>
