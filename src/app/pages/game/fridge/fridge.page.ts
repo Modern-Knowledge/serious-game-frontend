@@ -2,6 +2,7 @@ import { Component, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 import { IngredientService } from "src/app/providers/ingredient.service";
 import { FridgeStoreService } from "src/app/providers/store/fridge-store.service";
+import { RecipeStoreService } from "src/app/providers/store/recipe-store.service";
 import { Ingredient } from "src/lib/models/Ingredient";
 
 @Component({
@@ -15,7 +16,8 @@ export class FridgePage implements OnDestroy {
 
     constructor(
         private ingredientService: IngredientService,
-        private fridgeStore: FridgeStoreService
+        private fridgeStore: FridgeStoreService,
+        private recipeStore: RecipeStoreService
     ) {}
 
     public ionViewWillEnter() {
@@ -53,6 +55,17 @@ export class FridgePage implements OnDestroy {
      * @param items - The items to drop random items from.
      */
     public dropRandomItems(items: any[]) {
+        // always drop one needed ingredient beforehand
+        const droppedItem = this.recipeStore.currentRecipe.ingredients[
+            Math.floor(
+                Math.random() *
+                    this.recipeStore.currentRecipe.ingredients.length
+            )
+        ];
+        items.splice(
+            items.findIndex((item) => item.id === droppedItem.id),
+            1
+        );
         let dropAmount = Math.floor(Math.random() * items.length);
         for (dropAmount; dropAmount <= items.length; dropAmount++) {
             const randomIndex = Math.floor(Math.random() * items.length);
