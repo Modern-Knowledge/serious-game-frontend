@@ -3,8 +3,8 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/providers/auth.service";
-import { environment } from "../../../environments/environment";
 
+import { environment } from "../../../environments/environment";
 import { HttpResponse } from "../../../lib/utils/http/HttpResponse";
 
 @Component({
@@ -15,7 +15,7 @@ import { HttpResponse } from "../../../lib/utils/http/HttpResponse";
 export class LoginPage implements OnInit, OnDestroy {
     public loginForm: FormGroup;
     private subscription: Subscription = new Subscription();
-    private environment;
+    public environment;
 
     constructor(public router: Router, private authService: AuthService) {
         this.environment = environment;
