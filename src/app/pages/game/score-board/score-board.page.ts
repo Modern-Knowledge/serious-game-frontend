@@ -37,7 +37,11 @@ export class ScoreBoardPage implements OnInit, OnDestroy {
     }
 
     public getDifference(start: Date, end: Date) {
-        return moment.duration(moment(end).diff(start)).asSeconds();
+        const duration = moment.duration(moment(end).diff(start));
+        const minutes = duration.minutes();
+        duration.subtract(moment.duration(minutes, "minutes"));
+        const seconds = duration.seconds();
+        return { minutes, seconds };
     }
 
     public countErrortexts(session: Session) {

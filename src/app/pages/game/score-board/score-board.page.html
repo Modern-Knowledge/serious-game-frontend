@@ -17,7 +17,8 @@
                 </h2>
                 <p>
                     Zeit: {{ getDifference(session.statistic.startTime,
-                    session.statistic.endTime) }} Sekunde(n)
+                    session.statistic.endTime).minutes }} Minute(n) {{ getDifference(session.statistic.startTime,
+                    session.statistic.endTime).seconds }} Sekunde(n)
                 </p>
                 <p>
                     <serious-game-error-count
