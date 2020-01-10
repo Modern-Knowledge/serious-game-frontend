@@ -1,10 +1,15 @@
+/*
+ * Copyright (c) 2020 Florian Mold
+ * All rights reserved.
+ */
+
 export const environment = {
     appName: "Plan your Day",
-    backendUrl: "http://rehastroke01.research.inso-w.com:8080",
+    backendUrl: "https://rehastroke.inso-w.at",
     logging: {
         ajaxAppender: {
             threshold: "ERROR",
-            url: "http://rehastroke01.research.inso-w.com:8080/logging/"
+            url: "https://rehastroke.inso-w.at/logging/"
         },
         logLevels: [
             {
