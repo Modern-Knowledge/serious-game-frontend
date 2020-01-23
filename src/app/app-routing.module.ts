@@ -1,12 +1,17 @@
-import { NgModule } from "@angular/core";
-import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
+/*
+ * Copyright (c) 2020 Florian Mold
+ * All rights reserved.
+ */
 
-import { AuthGuardService } from "./providers/guard/auth-guard.service";
-import { PatientGuardService } from "./providers/guard/patient-guard.service";
+import {NgModule} from "@angular/core";
+import {PreloadAllModules, RouterModule, Routes} from "@angular/router";
+
+import {AuthGuardService} from "./providers/guard/auth-guard.service";
+import {PatientGuardService} from "./providers/guard/patient-guard.service";
 
 const routes: Routes = [
-    { path: "", redirectTo: "login", pathMatch: "full" },
-    { path: "home", loadChildren: "./pages/home/home.module#HomePageModule" },
+    {path: "", redirectTo: "login", pathMatch: "full"},
+    {path: "home", loadChildren: "./pages/home/home.module#HomePageModule"},
     {
         loadChildren: "./pages/login/login.module#LoginPageModule",
         path: "login"
@@ -62,13 +67,21 @@ const routes: Routes = [
         loadChildren:
             "./pages/user/change-password/change-password.module#ChangePasswordPageModule",
         path: "change-password"
+    },
+    {
+        canActivate: [AuthGuardService],
+        loadChildren: "./recipe-info/recipe-info.module#RecipeInfoPageModule",
+        path: "recipe-info",
+
     }
+
 ];
 
 @NgModule({
     exports: [RouterModule],
     imports: [
-        RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+        RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})
     ]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}
