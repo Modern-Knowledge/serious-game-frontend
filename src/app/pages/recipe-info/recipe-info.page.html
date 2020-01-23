@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Rezepte</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+    <ion-grid>
+
+        <ion-card *ngFor="let recipe of recipes">
+            <ion-card-header>
+                <ion-card-title>{{recipe.name}}</ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content>
+                <ion-list>
+                    <ion-item>
+                        <ion-label><b>Beschreibung</b>: {{recipe.description}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label><b>Tageszeit</b>: {{recipe.mealtime}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label><b>Schwierigkeit</b>: {{recipe.difficulty.difficultyName}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label><b>Zutaten</b>: {{recipe.commaSeparatedIngredientNames}}</ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+    </ion-grid>
+</ion-content>

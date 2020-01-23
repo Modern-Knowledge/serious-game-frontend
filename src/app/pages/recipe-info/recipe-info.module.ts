@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2020 Florian Mold
- * All rights reserved.
- */
-
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";

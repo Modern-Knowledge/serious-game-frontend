@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2020 Florian Mold
- * All rights reserved.
- */
 
 import {NgModule} from "@angular/core";
 import {PreloadAllModules, RouterModule, Routes} from "@angular/router";
@@ -70,7 +66,7 @@ const routes: Routes = [
     },
     {
         canActivate: [AuthGuardService],
-        loadChildren: "./recipe-info/recipe-info.module#RecipeInfoPageModule",
+        loadChildren: "./pages/recipe-info/recipe-info.module#RecipeInfoPageModule",
         path: "recipe-info",
 
     }
