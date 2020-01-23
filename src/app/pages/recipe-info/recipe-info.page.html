@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar color="primary">
         <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
+            <ion-menu-button autoHide="false"></ion-menu-button>
         </ion-buttons>
         <ion-title>Rezepte</ion-title>
     </ion-toolbar>
@@ -9,7 +9,13 @@
 
 <ion-content fullscreen="true">
     <ion-grid>
-
+        <ion-card>
+            <ion-card-header>
+                <ion-card-title>
+                    Hier sehen Sie eine Übersicht über alle Rezepte und wichtigen Informationen.
+                </ion-card-title>
+            </ion-card-header>
+        </ion-card>
         <ion-card *ngFor="let recipe of recipes">
             <ion-card-header>
                 <ion-card-title>{{recipe.name}}</ion-card-title>
