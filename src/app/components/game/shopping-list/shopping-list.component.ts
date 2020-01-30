@@ -14,6 +14,7 @@ import { TemplateParser } from "src/lib/utils/TemplateParser";
 
 import { SharedModule } from "../../shared/shared.module";
 import { IGameComponent } from "../game.component";
+import { IonContent } from '@ionic/angular';
 
 @Component({
     providers: [SharedModule],
@@ -26,6 +27,7 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
     @Input() public data: Array<Recipe | Word>;
     @Input() public errorTexts: Errortext[];
     @Input() public mainGameSubject: Subject<any>;
+    @Input() public scrollContainer: IonContent;
     @Output() public event: EventEmitter<any> = new EventEmitter();
     @Output() public errorEvent: EventEmitter<any> = new EventEmitter();
     public name = "shoppinglist";

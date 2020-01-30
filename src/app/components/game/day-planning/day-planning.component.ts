@@ -7,6 +7,7 @@ import { Recipe } from "src/lib/models/Recipe";
 import { Word } from "src/lib/models/Word";
 
 import { IGameComponent } from "../game.component";
+import { IonContent } from '@ionic/angular';
 
 @Component({
     selector: "serious-game-day-planning",
@@ -18,6 +19,7 @@ export class DayPlanningComponent implements IGameComponent {
     @Input() public game: Game;
     @Input() public errorTexts: Errortext[];
     @Input() public mainGameSubject: Subject<any>;
+    @Input() public scrollContainer: IonContent;
     @Output() public event: EventEmitter<Recipe> = new EventEmitter<Recipe>();
     @Output() public errorEvent: EventEmitter<any> = new EventEmitter<any>();
 
