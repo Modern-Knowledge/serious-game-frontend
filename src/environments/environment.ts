@@ -5,6 +5,7 @@
 export const environment = {
     appName: "Plan your Day",
     backendUrl: "http://localhost:3000",
+    lastBuildDate: "2020-01-01",
     logging: {
         ajaxAppender: {
             threshold: "DEBUG",
