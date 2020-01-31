@@ -20,7 +20,7 @@ export const environment = {
     passwordLength: 6,
     production: false,
     tokenLength: 8,
-
+    version: "1.0.0"
 };
 
 /*
