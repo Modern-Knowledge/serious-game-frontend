@@ -29,7 +29,6 @@ export class ShoppingCenterComponent implements OnInit, IGameComponent {
 
     private shoppingCart: Ingredient[] = [];
     private availableItems: Array<Ingredient | Word>;
-    private validShoppingCart = false;
     private subscription: Subscription = new Subscription();
 
     constructor(
@@ -44,7 +43,7 @@ export class ShoppingCenterComponent implements OnInit, IGameComponent {
         this.subscription.add(
             this.mainGameSubject.subscribe(() => {
                 if (this.shoppingCart) {
-                    if (this.shoppingCartIsValid()) {
+                    if (this.shoppingCartIsValid() === true) {
                         this.event.emit();
                     } else {
                         this.errorEvent.emit(
@@ -63,16 +62,23 @@ export class ShoppingCenterComponent implements OnInit, IGameComponent {
      * check if the shopping cart is valid
      */
     public shoppingCartIsValid(): boolean {
+        let allItemsFound = true;
         if (this.shoppingListStore.items.length === 0) {
             return true;
         }
+        if(this.shoppingListStore.items.length !== this.shoppingCartStore.items.length){
+            return false;
+        }
         this.shoppingListStore.items.forEach((item) => {
-            this.validShoppingCart =
+            const valid =
                 this.shoppingCartStore.items.findIndex((shoppingCartItem) => {
                     return shoppingCartItem.id === item.id;
                 }) > -1;
+            if(valid === false){
+                allItemsFound = false;
+            }
         });
-        return this.validShoppingCart;
+        return allItemsFound;
     }
 
     public cleanupResources() {
