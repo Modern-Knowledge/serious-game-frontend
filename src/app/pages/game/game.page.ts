@@ -198,6 +198,12 @@ export class GamePage {
             this.storeSession();
             this.step = 0;
             this.cleanupResources();
+            const message = new ToastWrapper(
+                "Das Spiel wurde erfolgreich abgeschlossen!",
+                ToastPosition.TOP,
+                HttpResponseMessageSeverity.SUCCESS
+            );
+            message.alert();
             this.router.navigateByUrl("/main-menu");
         }
     }
