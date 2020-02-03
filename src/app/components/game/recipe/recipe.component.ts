@@ -6,6 +6,7 @@ import { Game } from "src/lib/models/Game";
 import { Recipe } from "src/lib/models/Recipe";
 
 import { IGameComponent } from "../game.component";
+import { IonContent } from '@ionic/angular';
 
 @Component({
     selector: "serious-game-recipe",
@@ -17,6 +18,7 @@ export class RecipeComponent implements OnInit, IGameComponent {
     @Input() public game: Game;
     @Input() public errorTexts: Errortext[];
     @Input() public mainGameSubject: Subject<any>;
+    @Input() public scrollContainer: IonContent;
     @Output() public event: EventEmitter<any> = new EventEmitter();
     @Output() public errorEvent: EventEmitter<any> = new EventEmitter();
 

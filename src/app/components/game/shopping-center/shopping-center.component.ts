@@ -10,6 +10,7 @@ import { Ingredient } from "src/lib/models/Ingredient";
 import { Word } from "src/lib/models/Word";
 
 import { IGameComponent } from "../game.component";
+import { IonContent } from '@ionic/angular';
 
 @Component({
     selector: "serious-game-shopping-center",
@@ -21,6 +22,7 @@ export class ShoppingCenterComponent implements OnInit, IGameComponent {
     @Input() public game: Game;
     @Input() public errorTexts: Errortext[];
     @Input() public mainGameSubject: Subject<any>;
+    @Input() public scrollContainer: IonContent;
     @Output() public event: EventEmitter<any> = new EventEmitter();
     @Output() public errorEvent: EventEmitter<any> = new EventEmitter();
     public shelves: Observable<FoodCategory[]>;
