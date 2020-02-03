@@ -35,7 +35,6 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
     public shoppingListItems: Ingredient[];
     private subscription: Subscription = new Subscription();
     private fridgeItems: Ingredient[];
-    private itemsValid = false;
     private templateParser: TemplateParser = new TemplateParser();
     private maxItems: number = 5;
 
@@ -98,7 +97,7 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
         );
         this.subscription.add(
             this.mainGameSubject.subscribe(() => {
-                if (this.compareShoppingListWithRecipe()) {
+                if (this.compareShoppingListWithRecipe() === true) {
                     this.event.emit();
                 } else {
                     this.errorEvent.emit(
@@ -122,16 +121,6 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
                     (errorText) => errorText.name === "fridge-not-checked"
                 )
             );
-        } else if (!this.validShoppingListItem(item)) {
-            shoppingListErrorText.deserialize(
-                this.errorTexts.find(
-                    (errorText) => errorText.name === "item-already-in-fridge"
-                )
-            );
-            shoppingListErrorText.text = this.templateParser.parse(
-                shoppingListErrorText.text,
-                [item.name]
-            );
         } else {
             this.shoppingListStore.addItem(item);
             if (this.compareShoppingListWithRecipe()) {
@@ -146,16 +135,23 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
      * @return whether the shopping list contains every needed item or not
      */
     public compareShoppingListWithRecipe(): boolean {
+        let allItemsFound = true;
+        let noDuplicateItems = true;
         this.recipeStore.currentRecipe.ingredients.forEach((ingredient) => {
-            this.itemsValid =
-                this.shoppingListItems
+            if(this.shoppingListItems.findIndex(item => item.id === ingredient.id) > -1 && this.fridgeItems.findIndex(item => item.id === ingredient.id) > -1){
+                noDuplicateItems = false;
+            }
+            const valid = this.shoppingListItems
                     .concat(this.fridgeItems)
                     .findIndex(
                         (recipeIngredient) =>
                             recipeIngredient.id === ingredient.id
                     ) > -1;
+            if(valid === false){
+                allItemsFound = false;
+            }
         });
-        return this.itemsValid;
+        return allItemsFound && noDuplicateItems;
     }
 
     /**
