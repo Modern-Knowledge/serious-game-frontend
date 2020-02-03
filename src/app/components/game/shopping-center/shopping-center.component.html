@@ -5,6 +5,7 @@
             id="shelf"
             *ngFor="let shelf of shelves | async"
             [shelf]="shelf"
+            [scrollContainer]="scrollContainer"
         ></serious-game-shelf>
         <serious-game-cart
             name="foodItems"
