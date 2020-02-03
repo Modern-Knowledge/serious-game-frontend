@@ -32,18 +32,20 @@ export class DragZoneComponent implements OnInit {
                 const that = this;
                 this.dragging = true;
                 document.addEventListener("touchmove", listener, options);
-                Promise.resolve(this.scrollElement.getScrollElement()).then(
-                    (element) => {
-                        autoScroll([element], {
-                            direction: "vertical",
-                            margin: 50,
-                            maxSpeed: 10,
-                            autoScroll() {
-                                return that.dragging;
-                            }
-                        });
-                    }
-                );
+                if(this.scrollElement){
+                    Promise.resolve(this.scrollElement.getScrollElement()).then(
+                        (element) => {
+                            autoScroll([element], {
+                                direction: "vertical",
+                                margin: 50,
+                                maxSpeed: 10,
+                                autoScroll() {
+                                    return that.dragging;
+                                }
+                            });
+                        }
+                    );
+                }
             })
         );
         this.subscription.add(
