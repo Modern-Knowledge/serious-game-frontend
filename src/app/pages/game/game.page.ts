@@ -85,7 +85,7 @@ export class GamePage {
      * First it loads the authenticated user. Afterwards it loads the
      * recipes, games and ingredients.
      */
-    public ionViewWillEnter() {       
+    public ionViewWillEnter() {    
         this.subscription.add(
             this.userStore.user.subscribe((user) => {
                 this.user = user;
@@ -117,59 +117,61 @@ export class GamePage {
      *
      */
     public loadGame() {
-        this.gameComponents = {
-            "serious-game-day-planning": {
-                callback: "addRecipe",
-                canContinue: false,
-                data: this.dayPlanningData,
-                type: DayPlanningComponent
-            },
-            "serious-game-recipe": {
-                canContinue: true,
-                data: this.chosenRecipes,
-                type: RecipeComponent
-            },
-            "serious-game-shopping-list": {
-                callback: "setCanContinue",
-                canContinue: false,
-                data: this.shoppingCenterData,
-                type: ShoppingListComponent
-            },
-            // tslint:disable-next-line: object-literal-sort-keys
-            "serious-game-shopping-center": {
-                callback: "setCanContinue",
-                canContinue: false,
-                data: this.shoppingCenterData,
-                type: ShoppingCenterComponent
-            }
-        };
-        const currentGame = this.games[this.step];
-        const currentGameComponent = this.gameComponents[
-            `serious-game-${currentGame.component}`
-        ];
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-            currentGameComponent.type
-        );
-        const viewContainerRef = this.componentIs.viewContainerRef;
-        viewContainerRef.clear();
-        const componentRef = viewContainerRef.createComponent(componentFactory);
-        const dynamicComponentInstance = componentRef.instance as IGameComponent;
-        dynamicComponentInstance.data = currentGameComponent.data;
-        dynamicComponentInstance.game = currentGame;
-        dynamicComponentInstance.scrollContainer = this.content;
-        dynamicComponentInstance.mainGameSubject = this.mainGameSubject;
-        dynamicComponentInstance.errorTexts = currentGame.errortexts;
-        dynamicComponentInstance.event.subscribe((event) => {
-            if (currentGameComponent.callback) {
-                this[currentGameComponent.callback](event);
-            }
-        });
-
-        dynamicComponentInstance.errorEvent.subscribe((error) => {
-            this.handleError(error);
-        });
-        this.dynamicComponentInstances.push(dynamicComponentInstance);
-        this.canContinue = currentGameComponent.canContinue;
+        if(this.componentIs){
+            this.gameComponents = {
+                "serious-game-day-planning": {
+                    callback: "addRecipe",
+                    canContinue: false,
+                    data: this.dayPlanningData,
+                    type: DayPlanningComponent
+                },
+                "serious-game-recipe": {
+                    canContinue: true,
+                    data: this.chosenRecipes,
+                    type: RecipeComponent
+                },
+                "serious-game-shopping-list": {
+                    callback: "setCanContinue",
+                    canContinue: false,
+                    data: this.shoppingCenterData,
+                    type: ShoppingListComponent
+                },
+                // tslint:disable-next-line: object-literal-sort-keys
+                "serious-game-shopping-center": {
+                    callback: "setCanContinue",
+                    canContinue: false,
+                    data: this.shoppingCenterData,
+                    type: ShoppingCenterComponent
+                }
+            };
+            const currentGame = this.games[this.step];
+            const currentGameComponent = this.gameComponents[
+                `serious-game-${currentGame.component}`
+            ];
+            const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
+                currentGameComponent.type
+            );
+            const viewContainerRef = this.componentIs.viewContainerRef;
+            viewContainerRef.clear();
+            const componentRef = viewContainerRef.createComponent(componentFactory);
+            const dynamicComponentInstance = componentRef.instance as IGameComponent;
+            dynamicComponentInstance.data = currentGameComponent.data;
+            dynamicComponentInstance.game = currentGame;
+            dynamicComponentInstance.scrollContainer = this.content;
+            dynamicComponentInstance.mainGameSubject = this.mainGameSubject;
+            dynamicComponentInstance.errorTexts = currentGame.errortexts;
+            dynamicComponentInstance.event.subscribe((event) => {
+                if (currentGameComponent.callback) {
+                    this[currentGameComponent.callback](event);
+                }
+            });
+    
+            dynamicComponentInstance.errorEvent.subscribe((error) => {
+                this.handleError(error);
+            });
+            this.dynamicComponentInstances.push(dynamicComponentInstance);
+            this.canContinue = currentGameComponent.canContinue;
+        }
     }
 
     /**
@@ -300,7 +302,14 @@ export class GamePage {
     /**
      * Executed, when the view is left
      */
-    public ionViewDidLeave(): void {
-        this.subscription.unsubscribe();
+    public ionViewDidLeave(): void {    
+        this.mainGameSubject.next();
+        this.stopWatch.reset();
+        this.errorCount.reset();
+        this.storeSession();
+        this.step = 0;
+        this.componentIs.viewContainerRef.detach();
+        this.games = [];
+        this.cleanupResources();
     }
 }
