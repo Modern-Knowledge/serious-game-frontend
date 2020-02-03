@@ -14,6 +14,7 @@ export class DragZoneComponent implements OnInit {
     @Input() public name: string;
     @Input() public model: string;
     @Input() public scrollElement: IonContent;
+    public dragging: boolean = false;
 
     private subscription: Subscription = new Subscription();
 
@@ -28,6 +29,8 @@ export class DragZoneComponent implements OnInit {
         };
         this.subscription.add(
             this.dragulaService.drag(this.name).subscribe((value) => {
+                const that = this;
+                this.dragging = true;
                 document.addEventListener("touchmove", listener, options);
                 Promise.resolve(this.scrollElement.getScrollElement()).then(
                     (element) => {
@@ -36,7 +39,7 @@ export class DragZoneComponent implements OnInit {
                             margin: 50,
                             maxSpeed: 10,
                             autoScroll() {
-                                return true;
+                                return that.dragging;
                             }
                         });
                     }
@@ -46,6 +49,7 @@ export class DragZoneComponent implements OnInit {
         this.subscription.add(
             this.dragulaService.drop(this.name).subscribe((value) => {
                 document.removeEventListener("touchmove", listener, options);
+                this.dragging = false;
             })
         );
     }
