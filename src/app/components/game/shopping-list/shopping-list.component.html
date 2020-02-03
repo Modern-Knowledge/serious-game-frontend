@@ -4,26 +4,40 @@
     [model]="ingredients"
     [scrollElement]="scrollContainer"
 ></serious-game-drag-zone>
-<ion-card>
-    <ion-card-header>Einkaufsliste</ion-card-header>
-    <ion-card-content>
-        <ion-grid>
-            <ion-row [dragula]="name" [dragulaModel]="ingredients">
-                <ion-col
-                    size="4"
-                    [id]="item.id"
-                    *ngFor="let item of shoppingListItems"
-                >
-                    <serious-game-image
-                        [imageId]="item.imageId"
-                        [title]="item.name"
-                    ></serious-game-image>
-                </ion-col>
-                <ion-col></ion-col>
-            </ion-row>
-        </ion-grid>
-    </ion-card-content>
-</ion-card>
-<ion-card [routerLink]="['/fridge']" routerLinkActive="router-link-active"
-    ><ion-card-header>Kühlschrank</ion-card-header></ion-card
->
+<ion-grid>
+    <ion-row>
+        <ion-col size="8">
+            <ion-card>
+                <ion-card-header>Einkaufsliste</ion-card-header>
+                <ion-card-content>
+                    <ion-grid>
+                        <ion-row [dragula]="name" [dragulaModel]="ingredients">
+                            <ion-col
+                                size="4"
+                                [id]="item.id"
+                                *ngFor="let item of shoppingListItems"
+                            >
+                                <serious-game-image
+                                    [imageId]="item.imageId"
+                                    [title]="item.name"
+                                ></serious-game-image>
+                            </ion-col>
+                            <ion-col></ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-card-content>
+            </ion-card>
+        </ion-col>
+        <ion-col size="2">
+            <ion-card [routerLink]="['/fridge']" routerLinkActive="router-link-active" class="fridge" col-2
+                ><ion-card-header>
+                    <img 
+                    src="assets/img/fridge.png" 
+                    alt="fridge"
+                    height="87"
+                    width="20" />
+                </ion-card-header>
+            </ion-card>
+        </ion-col>
+    </ion-row>
+</ion-grid>
