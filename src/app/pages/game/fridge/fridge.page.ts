@@ -71,6 +71,9 @@ export class FridgePage implements OnDestroy {
             const randomIndex = Math.floor(Math.random() * items.length);
             items.splice(randomIndex, 1);
         }
+        if (items.length > 5) {
+            items.splice(5);
+        }
         return items;
     }
 
