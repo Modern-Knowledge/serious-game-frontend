@@ -9,8 +9,8 @@
 
 <ion-content [scrollEvents]="true" #scrollContainer class="scroll-container">
     <serious-game-helptext-button
-        [helptexts]="games && games.length > 0 && games[step].helptexts"
-        *ngIf="games && games.length > 0 && games[step].helptexts.length"
+        [helptexts]="games && games[step].helptexts"
+        *ngIf="games && games[step].helptexts.length"
     >
     </serious-game-helptext-button>
     <ng-template seriousGameComponentIs></ng-template>
