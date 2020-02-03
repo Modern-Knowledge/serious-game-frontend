@@ -15,7 +15,7 @@ import { HttpResponse } from "../../../lib/utils/http/HttpResponse";
 export class LoginPage implements OnInit, OnDestroy {
     public loginForm: FormGroup;
     private subscription: Subscription = new Subscription();
-    public environment;
+    private environment;
 
     constructor(public router: Router, private authService: AuthService) {
         this.environment = environment;

@@ -69,8 +69,12 @@ const routes: Routes = [
         loadChildren: "./pages/recipe-info/recipe-info.module#RecipeInfoPageModule",
         path: "recipe-info",
 
+    },
+    {
+        canActivate: [AuthGuardService],
+        loadChildren: "./pages/about/about.module#AboutPageModule",
+        path: "about"
     }
-
 ];
 
 @NgModule({
