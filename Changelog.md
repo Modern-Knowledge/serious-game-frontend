@@ -1,3 +1,7 @@
+## Unreleased
+ - Redirect to main-menu after the password has changed.
+
+ 
 ## [1.1.0] - 2020-02-06
 ### Added
  - Add about-use page with information about the backend and the frontend.
