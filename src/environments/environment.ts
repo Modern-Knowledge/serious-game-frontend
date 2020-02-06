@@ -3,7 +3,25 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+    appName: "Plan your Day",
+    backendUrl: "http://localhost:3000",
+    lastBuildDate: "2020-01-01",
+    logging: {
+        ajaxAppender: {
+            threshold: "DEBUG",
+            url: "http://localhost:3000/logging/"
+        },
+        logLevels: [
+            {
+                logLevel: "DEBUG",
+                loggerName: "root"
+            }
+        ]
+    },
+    passwordLength: 6,
+    production: false,
+    tokenLength: 8,
+    version: "1.0.0"
 };
 
 /*

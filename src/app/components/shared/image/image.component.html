@@ -1,0 +1,7 @@
+<img
+    *ngIf="width && height && imageId"
+    [src]="source"
+    [width]="width"
+    [height]="height"
+/>
+<img *ngIf="(!width || !height) && imageId" [src]="source" />

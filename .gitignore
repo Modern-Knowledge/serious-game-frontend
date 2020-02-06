@@ -1,2 +1,7 @@
 \node_modules/
 \.idea/
+src/lib
+docs/
+www/
+android/
+resources/

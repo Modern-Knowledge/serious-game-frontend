@@ -1,0 +1,16 @@
+<ion-grid>
+    <ion-row [dragula]="name" [dragulaModel]="model" [id]="id">
+        <ion-col size="4" [id]="element.id" *ngFor="let element of model" class="scroll-element">
+            <ion-card lines="full">
+                <serious-game-image
+                    [imageId]="element.imageId"
+                    [title]="element.name"
+                    *ngIf="element.imageId"
+                ></serious-game-image>
+                <ion-card-content class="ion-text-wrap">{{
+                    element.name
+                }}</ion-card-content>
+            </ion-card>
+        </ion-col>
+    </ion-row>
+</ion-grid>

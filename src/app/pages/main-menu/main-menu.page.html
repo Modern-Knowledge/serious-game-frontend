@@ -1,0 +1,34 @@
+<!--
+  ~ Copyright (c) 2020 Florian Mold
+  ~ All rights reserved.
+  -->
+
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button autoHide="false"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Hauptmenü</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+    <div class="ion-padding">
+        <ion-row class="ion-align-items-center ion-justify-content-center">
+            <ion-list lines="full">
+                <p *ngIf="!isTherapist">
+                    <ion-button expand="block" [routerLink]="['/game']">Spiel starten</ion-button>
+                </p>
+                <p>
+                    <ion-button expand="block" [routerLink]="['/recipe-info']">Rezepte</ion-button>
+                </p>
+                <p>
+                    <ion-button expand="block" [routerLink]="['/score-board']">Statistiken</ion-button>
+                </p>
+                <p>
+                    <ion-button expand="block" [routerLink]="['/about']">Über dieses Spiel</ion-button>
+                </p>
+            </ion-list>
+        </ion-row>
+    </div>
+</ion-content>

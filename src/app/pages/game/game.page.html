@@ -1,0 +1,29 @@
+<ion-header >
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button autoHide="false"></ion-menu-button>
+        </ion-buttons>
+        <ion-title *ngIf="user">Tagesplan von {{ user.fullName }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true" #scrollContainer class="scroll-container">
+    <serious-game-helptext-button
+        [helptexts]="games && games[step].helptexts"
+        *ngIf="games && games[step].helptexts.length"
+    >
+    </serious-game-helptext-button>
+    <ng-template seriousGameComponentIs></ng-template>
+    <serious-game-stopwatch
+        (isReset)="setTime($event)"
+        (timeChanged)="setTime($event)"
+    >
+    </serious-game-stopwatch>
+    <serious-game-error-count></serious-game-error-count>
+    <ion-button expand="block" (click)="onSubmit()" *ngIf="stepValid()">
+        Weiter
+    </ion-button>
+    <ion-button expand="block" (click)="onFinish()" *ngIf="!stepValid()">
+        Fertigstellen
+    </ion-button>
+</ion-content>

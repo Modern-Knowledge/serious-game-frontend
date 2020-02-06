@@ -1,0 +1,77 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button autoHide="false"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Über dieses Spiel</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+    <ion-grid>
+        <ion-card>
+            <ion-card-header>
+                <ion-card-title>App-Informationen</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-list>
+                    <ion-item>
+                        <ion-label><b>EntwicklerInnen</b>: {{authors}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label><b>Version</b>: {{environment.version}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label><b>Letztes Build Datum</b>: {{lastBuildDateFrontend}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label><b>Backend-URL</b>: {{environment.backendUrl}}</ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-header>
+                <ion-card-title>Backend-Informationen:</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-list>
+                    <ion-item>
+                        <ion-label><b>Version</b>: {{version}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label><b>Letztes Build Datum</b>: {{lastBuildDate}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label><b>Laufzeit</b>: {{uptime}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label><b>Commit</b>: {{commit}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label><b>MySQL</b>: {{mysql}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label><b>Node.js</b>: {{nodejs}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label><b>Betriebssystem</b>: {{os}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label><b>Mail-Server</b>: {{mailServer}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label><b>Datenbank</b>: {{database}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label><b>Datenbank erreichbar</b>: <ion-icon *ngIf="databaseReachable === true" style="color: green" name="checkmark"></ion-icon> <ion-icon *ngIf="!databaseReachable" style="color: red" name="close"></ion-icon></ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label><b>Mail-Server erreichbar</b>: <ion-icon *ngIf="mailServerReachable === true" style="color: green" name="checkmark"></ion-icon> <ion-icon *ngIf="!mailServerReachable" style="color: red" name="close"></ion-icon></ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+    </ion-grid>
+</ion-content>

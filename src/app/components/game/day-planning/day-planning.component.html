@@ -1,0 +1,41 @@
+<serious-game-drag-zone
+    name="recipes"
+    [model]="data"
+    [scrollElement]="scrollContainer"
+></serious-game-drag-zone>
+<ion-card>
+    <ion-item>Zeitung holen</ion-item>
+    <ion-card>
+        <serious-game-mealtime
+            title="Frühstück zubereiten"
+            [model]="data"
+            (event)="addRecipe($event)"
+            [mealtime]="breakfast"
+            [errorTexts]="errorTexts"
+            (errorEvent)="showError($event)"
+        ></serious-game-mealtime>
+    </ion-card>
+    <ion-item>Haustier füttern</ion-item>
+    <ion-card>
+        <serious-game-mealtime
+            title="Mittagessen zubereiten"
+            [model]="data"
+            (event)="addRecipe($event)"
+            [mealtime]="lunch"
+            [errorTexts]="errorTexts"
+            (errorEvent)="showError($event)"
+        ></serious-game-mealtime>
+    </ion-card>
+    <ion-card>
+        <serious-game-mealtime
+            title="Abendessen zubereiten"
+            [model]="data"
+            (event)="addRecipe($event)"
+            [mealtime]="dinner"
+            [errorTexts]="errorTexts"
+            (errorEvent)="showError($event)"
+        ></serious-game-mealtime>
+    </ion-card>
+    <ion-item>Bad nehmen</ion-item>
+    <ion-item>Schlafen gehen</ion-item>
+</ion-card>

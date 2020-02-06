@@ -4,13 +4,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "app",
+      "seriousGame",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "app",
+      "serious-game",
       "page",
       "kebab-case"
     ]

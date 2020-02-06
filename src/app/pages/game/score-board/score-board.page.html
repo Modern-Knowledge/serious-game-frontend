@@ -1,0 +1,41 @@
+<!--
+  ~ Copyright (c) 2020 Florian Mold
+  ~ All rights reserved.
+  -->
+
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Statistiken</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-list *ngFor="let groupedSessions of sessions">
+        <ion-list-header *ngIf="groupedSessions">
+            {{groupedSessions[0].game.name}}</ion-list-header
+        >
+        <ion-item *ngFor="let session of groupedSessions; let i=index">
+            <ion-label
+                ><h2>
+                    {{ session.statistic.startTime | date: 'dd.MM.yyyy HH:mm' }}
+                </h2>
+                <p>
+                    Zeit: {{ getDifference(session.statistic.startTime,
+                    session.statistic.endTime).minutes }} Minute(n) {{ getDifference(session.statistic.startTime,
+                    session.statistic.endTime).seconds }} Sekunde(n)
+                </p>
+                <p>
+                    <serious-game-error-count
+                        [givenErrorCount]="countErrortexts(session)"
+                    ></serious-game-error-count></p
+            ></ion-label>
+        </ion-item>
+    </ion-list>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="funnel"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>

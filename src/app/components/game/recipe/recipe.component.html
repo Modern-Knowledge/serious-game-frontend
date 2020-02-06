@@ -1,0 +1,11 @@
+<ion-card *ngIf="chosenRecipe">
+  <ion-card-header>Rezept: {{ chosenRecipe.name }}</ion-card-header>
+  <ion-card-content>
+    <ion-list>
+      <ion-item *ngFor="let ingredient of chosenRecipe.ingredients">{{
+        ingredient.name
+      }}</ion-item>
+    </ion-list>
+    {{ chosenRecipe.description }}
+  </ion-card-content>
+</ion-card>
