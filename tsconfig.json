@@ -2,7 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "target": "es5",
-    "module": "es2015",
+    "module": "esnext",
     "declaration": false,
     "sourceMap": true,
     "outDir": "./dist/out-tsc",
@@ -28,5 +28,9 @@
     "allowSyntheticDefaultImports": true,
     "diagnostics": true,
     "extendedDiagnostics": true
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
   }
 }
