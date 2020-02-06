@@ -1,5 +1,7 @@
 ## Unreleased
  - Redirect to main-menu after the password has changed.
+ - Fix registration without gender.
+ - Fix spacing of some elements.
 
  
 ## [1.1.0] - 2020-02-06
