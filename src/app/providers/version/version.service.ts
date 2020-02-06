@@ -16,7 +16,7 @@ export class VersionService {
     }
 
     /**
-     * Returns information's of the backend.
+     * Returns information's about the backend.
      */
     public get(): Observable<HttpResponse> {
         return this.http.get<HttpResponse>(`version`).pipe(
