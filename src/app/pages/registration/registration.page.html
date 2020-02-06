@@ -19,25 +19,14 @@
                     <ion-list lines="full">
                         <ion-item>
                             <ion-label position="stacked">Geschlecht</ion-label>
-                            <ion-select
-                                interface="popover"
-                                formControlName="gender"
-                            >
+                            <ion-select interface="popover" formControlName="gender">
                                 <ion-select-option value="0"></ion-select-option>
-                                <ion-select-option value="1"
-                                    >männlich</ion-select-option
-                                >
-                                <ion-select-option value="2"
-                                    >weiblich</ion-select-option
-                                >
+                                <ion-select-option value="1">männlich</ion-select-option>
+                                <ion-select-option value="2">weiblich</ion-select-option>
                             </ion-select>
                         </ion-item>
                         <ion-item>
-                            <ion-label position="stacked"
-                                >Vorname<ion-text color="danger"
-                                    >*</ion-text
-                                ></ion-label
-                            >
+                            <ion-label position="stacked">Vorname<ion-text color="danger">*</ion-text></ion-label>
                             <ion-input
                                 autocomplete="false"
                                 formControlName="forename"
@@ -45,16 +34,11 @@
                                 clearInput="true"
                                 name="forename"
                                 required="true"
-                                type="text"
-                            >
+                                type="text">
                             </ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-label position="stacked"
-                                >Nachname<ion-text color="danger"
-                                    >*</ion-text
-                                ></ion-label
-                            >
+                            <ion-label position="stacked">Nachname<ion-text color="danger">*</ion-text></ion-label>
                             <ion-input
                                 autocomplete="false"
                                 formControlName="lastname"
@@ -67,9 +51,7 @@
                             </ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-label position="stacked"
-                                >E-Mail<ion-text color="danger">*</ion-text>
-                            </ion-label>
+                            <ion-label position="stacked">E-Mail<ion-text color="danger">*</ion-text></ion-label>
                             <ion-input
                                 autocomplete="false"
                                 formControlName="email"
@@ -77,15 +59,11 @@
                                 clearInput="true"
                                 name="email"
                                 required="true"
-                                type="text"
-                            >
+                                type="text">
                             </ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-label position="stacked"
-                                >Passwort
-                                <ion-text color="danger">*</ion-text>
-                            </ion-label>
+                            <ion-label position="stacked">Passwort<ion-text color="danger">*</ion-text></ion-label>
                             <ion-input
                                 autocomplete="false"
                                 formControlName="password"
@@ -94,14 +72,10 @@
                                 name="password"
                                 required="true"
                                 type="password"
-                            >
-                            </ion-input>
+                            ></ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-label position="stacked">
-                                Passwort bestätigen<ion-text color="danger"
-                                    >*</ion-text
-                                >
+                            <ion-label position="stacked">Passwort bestätigen<ion-text color="danger">*</ion-text>
                             </ion-label>
                             <ion-input
                                 autocomplete="false"
@@ -110,8 +84,7 @@
                                 clearInput="true"
                                 name="password_confirmation"
                                 required="true"
-                                type="password"
-                            >
+                                type="password">
                             </ion-input>
                         </ion-item>
                     </ion-list>
@@ -120,8 +93,7 @@
                         <ion-checkbox
                             color="primary"
                             slot="start"
-                            formControlName="therapist"
-                        >
+                            formControlName="therapist">
                         </ion-checkbox>
                     </ion-item>
                 </form>

@@ -45,6 +45,9 @@ export class RegistrationPage implements OnInit, OnDestroy {
 
     public onSubmit() {
         const user = new User().deserialize(this.registrationForm.value);
+        if (!user.gender) {
+            user.gender = 0;
+        }
         this.subscription.add(
             this.authService
                 .register(user, this.registrationForm.controls.therapist.value)
