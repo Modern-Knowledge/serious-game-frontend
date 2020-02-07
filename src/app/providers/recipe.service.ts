@@ -34,14 +34,29 @@ export class RecipeService {
      */
     public getAll(): Observable<Recipe[]> {
         return this.http.get<HttpResponse>(`recipes`).pipe(
-            map((recipes) => {
-                const recipesModel = new HttpResponse().deserialize(recipes);
-                return recipesModel.status === HttpResponseStatus.SUCCESS
-                    ? recipesModel.data.recipes.map((recipe) =>
-                        new Recipe().deserialize(recipe)
-                    )
-                    : [];
-            })
+            map(this.serializeRecipes)
         );
+    }
+
+    /**
+     * Returns all recipes of the application
+     */
+    public getFiltered(mealtime: string, difficulty: number): Observable<Recipe[]> {
+        return this.http.get<HttpResponse>(`recipes/${mealtime}/${difficulty}`).pipe(
+            map(this.serializeRecipes)
+        );
+    }
+
+    /**
+     * Serialize retrieved recipes into recipe objects.
+     *
+     * @param recipes retrieved recipes
+     */
+    private serializeRecipes(recipes: HttpResponse) {
+        const recipesModel = new HttpResponse().deserialize(recipes);
+        return recipesModel.status === HttpResponseStatus.SUCCESS
+            ? recipesModel.data.recipes.map((recipe) =>
+                new Recipe().deserialize(recipe)
+            ) : [];
     }
 }
