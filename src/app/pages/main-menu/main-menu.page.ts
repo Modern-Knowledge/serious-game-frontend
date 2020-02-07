@@ -1,5 +1,8 @@
 import { Component } from "@angular/core";
 import { AuthService } from "src/app/providers/auth.service";
+import { environment } from "../../../environments/environment";
+import {formatDate} from "../../../lib/utils/dateFormatter";
+import moment from "moment";
 
 @Component({
     selector: "serious-game-main-menu",
@@ -8,8 +11,13 @@ import { AuthService } from "src/app/providers/auth.service";
 })
 export class MainMenuPage {
     public isTherapist: boolean;
+    private environment;
+    private buildDate;
 
-    constructor(private authService: AuthService) {}
+    constructor(private authService: AuthService) {
+        this.environment = environment;
+        this.buildDate = formatDate(moment(environment.lastBuildDate).toDate());
+    }
 
     public ionViewWillEnter() {
         this.isTherapist = this.authService.isTherapist();

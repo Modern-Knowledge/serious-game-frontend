@@ -4,7 +4,9 @@ import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/providers/auth.service";
 
+import moment from "moment";
 import { environment } from "../../../environments/environment";
+import {formatDate} from "../../../lib/utils/dateFormatter";
 import { HttpResponse } from "../../../lib/utils/http/HttpResponse";
 
 @Component({
@@ -16,9 +18,11 @@ export class LoginPage implements OnInit, OnDestroy {
     public loginForm: FormGroup;
     private subscription: Subscription = new Subscription();
     private environment;
+    private buildDate;
 
     constructor(public router: Router, private authService: AuthService) {
         this.environment = environment;
+        this.buildDate = formatDate(moment(environment.lastBuildDate).toDate());
     }
 
     public ngOnInit() {
