@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
+import moment from "moment";
 import { AuthService } from "src/app/providers/auth.service";
 import { environment } from "../../../environments/environment";
 import {formatDate} from "../../../lib/utils/dateFormatter";
-import moment from "moment";
 
 @Component({
     selector: "serious-game-main-menu",
