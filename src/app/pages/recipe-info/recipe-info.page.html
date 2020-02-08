@@ -29,7 +29,7 @@
                         <ion-label>Schwierigkeit</ion-label>
                         <ion-select interface="popover" (ionChange)="changeDifficulty($event)">
                             <ion-select-option selected="true" value="0">Alle</ion-select-option>
-                            <ion-select-option *ngFor="let difficulty of this.difficulties" value="{{difficulty.id}}">{{difficulty.difficultyName}}</ion-select-option>
+                            <ion-select-option *ngFor="let difficulty of this.difficulties" value="{{difficulty.difficulty}}">{{difficulty.difficultyName}}</ion-select-option>
                         </ion-select>
                     </ion-item>
                 </ion-list>
@@ -59,7 +59,17 @@
                         </ion-select>
                     </ion-item>
                     <ion-item>
-                        <ion-label><b>Schwierigkeit</b>: {{recipe.difficulty.difficultyName}}</ion-label>
+                        <ion-label><b>Schwierigkeit</b>:</ion-label>
+                        <span *ngIf="!this.isTherapist">{{recipe.difficulty.difficultyName}}</span>
+
+                        <ion-select *ngIf="this.isTherapist" interface="popover"
+                                    (ionChange)="updateDifficulty($event, recipe)">
+                            <ion-select-option [selected]="recipe.difficultyId == difficulty.difficulty"
+                                               *ngFor="let difficulty of this.difficulties"
+                                               value="{{difficulty.difficulty}}">
+                                {{difficulty.difficultyName}}
+                            </ion-select-option>
+                        </ion-select>
                     </ion-item>
                     <ion-item>
                         <ion-label><b>Zutaten</b>: {{recipe.commaSeparatedIngredientNames}}</ion-label>

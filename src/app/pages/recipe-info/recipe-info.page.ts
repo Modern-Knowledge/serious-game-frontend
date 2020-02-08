@@ -73,16 +73,30 @@ export class RecipeInfoPage {
         this.fetchRecipes();
     }
 
+    /**
+     * Update the mealtime for the given recipe.
+     *
+     * @param event javascript event
+     * @param recipe recipe to update
+     */
     private updateMealtime(event, recipe: Recipe): void {
-       const target = event.target;
-       recipe.mealtime = target.value;
+        const target = event.target;
+        recipe.mealtime = target.value;
 
-       this.subscription.add(
-            this.recipeService.updateRecipe(recipe)
-                .subscribe((updatedRecipe: Recipe) => {
-                    this.fetchRecipes();
-                })
-        );
+        this.updateRecipe(recipe);
+    }
+
+    /**
+     * Update the difficulty for the given recipe
+     *
+     * @param event javascript event
+     * @param recipe recipe to update
+     */
+    private updateDifficulty(event, recipe: Recipe): void {
+        const target = event.target;
+        recipe.difficultyId = target.value;
+
+        this.updateRecipe(recipe);
     }
 
     /**
@@ -102,8 +116,22 @@ export class RecipeInfoPage {
         this.subscription.add(
             this.recipeService.getFiltered(this.selectedMealtime, this.selectedDifficulty)
                 .subscribe((recipes: Recipe[]) => {
-                this.recipes = recipes;
-            })
+                    this.recipes = recipes;
+                })
+        );
+    }
+
+    /**
+     * Updates the recipes and fetches the updated recipes.
+     *
+     * @param recipe recipe to update
+     */
+    private updateRecipe(recipe: Recipe) {
+        this.subscription.add(
+            this.recipeService.updateRecipe(recipe)
+                .subscribe((updatedRecipe: Recipe) => {
+                    this.fetchRecipes();
+                })
         );
     }
 }
