@@ -3,6 +3,7 @@ import {Subscription} from "rxjs";
 import {Mealtimes} from "../../../lib/enums/Mealtimes";
 import {Difficulty} from "../../../lib/models/Difficulty";
 import {Recipe} from "../../../lib/models/Recipe";
+import {AuthService} from "../../providers/auth.service";
 import {RecipeService} from "../../providers/recipe.service";
 import {UtilService} from "../../providers/util/util.service";
 
@@ -20,18 +21,26 @@ export class RecipeInfoPage {
     private selectedDifficulty = 0;
     private selectedMealtime = "all";
 
+    private isTherapist: boolean;
+
     /**
      * @param recipeService recipe service
-     * @param utilService util service<
+     * @param utilService util service
+     * @param authService authentication service
      */
     constructor(
         private recipeService: RecipeService,
-        private utilService: UtilService
+        private utilService: UtilService,
+        private authService: AuthService,
     ) {
         this.subscription = new Subscription();
     }
 
+    /**
+     * Executes when the ionic enters the page.
+     */
     public ionViewWillEnter() {
+        this.isTherapist = this.authService.isTherapist();
         this.fetchRecipes();
 
         this.subscription.add(
@@ -62,6 +71,18 @@ export class RecipeInfoPage {
     private changeMealtime(event): void {
         this.selectedMealtime = event.target.value;
         this.fetchRecipes();
+    }
+
+    private updateMealtime(event, recipe: Recipe): void {
+       const target = event.target;
+       recipe.mealtime = target.value;
+
+       this.subscription.add(
+            this.recipeService.updateRecipe(recipe)
+                .subscribe((updatedRecipe: Recipe) => {
+                    this.fetchRecipes();
+                })
+        );
     }
 
     /**
