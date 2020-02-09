@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { IonContent } from "@ionic/angular";
 import { DragulaService } from "ng2-dragula";
 import { Subject, Subscription } from "rxjs";
 import { IngredientService } from "src/app/providers/ingredient.service";
@@ -14,7 +15,6 @@ import { TemplateParser } from "src/lib/utils/TemplateParser";
 
 import { SharedModule } from "../../shared/shared.module";
 import { IGameComponent } from "../game.component";
-import { IonContent } from '@ionic/angular';
 
 @Component({
     providers: [SharedModule],
@@ -138,16 +138,24 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
         let allItemsFound = true;
         let noDuplicateItems = true;
         this.recipeStore.currentRecipe.ingredients.forEach((ingredient) => {
-            if(this.shoppingListItems.findIndex(item => item.id === ingredient.id) > -1 && this.fridgeItems.findIndex(item => item.id === ingredient.id) > -1){
+            if (
+                this.shoppingListItems.findIndex(
+                    (item) => item.id === ingredient.id
+                ) > -1 &&
+                this.fridgeItems.findIndex(
+                    (item) => item.id === ingredient.id
+                ) > -1
+            ) {
                 noDuplicateItems = false;
             }
-            const valid = this.shoppingListItems
+            const valid =
+                this.shoppingListItems
                     .concat(this.fridgeItems)
                     .findIndex(
                         (recipeIngredient) =>
                             recipeIngredient.id === ingredient.id
                     ) > -1;
-            if(valid === false){
+            if (valid === false) {
                 allItemsFound = false;
             }
         });

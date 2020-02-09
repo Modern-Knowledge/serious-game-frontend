@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
+import { MealtimeStoreService } from "src/app/providers/store/mealtime-store.service";
 import { Mealtimes } from "src/lib/enums/Mealtimes";
 import { Errortext } from "src/lib/models/Errortext";
 import { Recipe } from "src/lib/models/Recipe";
@@ -18,10 +19,19 @@ export class MealtimeComponent {
     @Output() public event: EventEmitter<Recipe> = new EventEmitter<Recipe>();
     @Output() public errorEvent: EventEmitter<any> = new EventEmitter<any>();
     private templateParser: TemplateParser = new TemplateParser();
-    constructor(private dragulaService: DragulaService) {}
+    constructor(
+        private dragulaService: DragulaService,
+        private mealtimeStorage: MealtimeStoreService
+    ) {}
 
+    /**
+     * If the passed recipe matches with the mealtime, it is added to the global mealtime storage
+     * and the addItem event is emitted.
+     * @param value - The recipe to be added.
+     */
     public addRecipe(value: Recipe) {
         if (this.matchMealtimes(value.mealtime)) {
+            this.mealtimeStorage.addItem(value, this.mealtime);
             this.event.emit(value);
         } else {
             const mealTimeErrorText: Errortext = new Errortext().deserialize(
@@ -39,6 +49,10 @@ export class MealtimeComponent {
         }
     }
 
+    /**
+     * Checks if the given mealtime has the correct mealtime.
+     * @returns Whether the recipe matches this mealtime.
+     */
     public matchMealtimes(mealtime: Mealtimes): boolean {
         return this.mealtime === mealtime;
     }

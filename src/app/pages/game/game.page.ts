@@ -1,5 +1,6 @@
-import { Component, ComponentFactoryResolver, ViewChild, ElementRef } from "@angular/core";
+import { Component, ComponentFactoryResolver, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
+import { IonContent } from "@ionic/angular";
 import { forkJoin, Observable, Subject, Subscription } from "rxjs";
 import { switchMap } from "rxjs/operators";
 import { DayPlanningComponent } from "src/app/components/game/day-planning/day-planning.component";
@@ -25,7 +26,6 @@ import { Recipe } from "src/lib/models/Recipe";
 import { Therapist } from "src/lib/models/Therapist";
 import { Word } from "src/lib/models/Word";
 import { HttpResponseMessageSeverity } from "src/lib/utils/http/HttpResponse";
-import { IonContent } from '@ionic/angular';
 
 @Component({
     selector: "serious-game-game",
@@ -40,7 +40,7 @@ export class GamePage {
     @ViewChild(ErrorCountComponent, { static: false })
     public errorCount: ErrorCountComponent;
 
-    @ViewChild('scrollContainer', { static: false }) content: IonContent;
+    @ViewChild("scrollContainer", { static: false }) content: IonContent;
 
     public user: Therapist | Patient;
     public games: Game[];
@@ -85,7 +85,7 @@ export class GamePage {
      * First it loads the authenticated user. Afterwards it loads the
      * recipes, games and ingredients.
      */
-    public ionViewWillEnter() {       
+    public ionViewWillEnter() {
         this.subscription.add(
             this.userStore.user.subscribe((user) => {
                 this.user = user;
