@@ -73,6 +73,9 @@ export class LoginPage implements OnInit, OnDestroy {
         this.router.navigateByUrl("/password-reset");
     }
 
+    /**
+     * Unsubscribes from the AuthService subscription on destroy.
+     */
     public ngOnDestroy() {
         this.subscription.unsubscribe();
     }
