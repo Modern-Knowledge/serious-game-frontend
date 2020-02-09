@@ -31,6 +31,12 @@ export class NavbarComponent implements OnInit {
         this.router.navigateByUrl("/login");
     }
 
+    /**
+     * Returns an array consisting of the entries to be shown inside of the sidebar.
+     * Every item hat an icon identifier, a title which is displayed,
+     * an url to point the routing to, and a boolean value whether it should be displayed or not.
+     * @returns An array of sidebar entries.
+     */
     public sideMenu() {
         this.navigate = [
             {
