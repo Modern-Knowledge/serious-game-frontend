@@ -1,8 +1,3 @@
-<!--
-  ~ Copyright (c) 2020 Florian Mold
-  ~ All rights reserved.
-  -->
-
 <ion-header>
     <ion-toolbar color="primary">
         <ion-buttons slot="start">
@@ -17,16 +12,24 @@
         <ion-row class="ion-align-items-center ion-justify-content-center">
             <ion-list lines="full">
                 <p *ngIf="!isTherapist">
-                    <ion-button expand="block" [routerLink]="['/game']">Spiel starten</ion-button>
+                    <ion-button expand="block" [routerLink]="['/game']"
+                        >Spiel starten</ion-button
+                    >
                 </p>
                 <p>
-                    <ion-button expand="block" [routerLink]="['/recipe-info']">Rezepte</ion-button>
+                    <ion-button expand="block" [routerLink]="['/recipe-info']"
+                        >Rezepte</ion-button
+                    >
                 </p>
                 <p>
-                    <ion-button expand="block" [routerLink]="['/score-board']">Statistiken</ion-button>
+                    <ion-button expand="block" [routerLink]="['/score-board']"
+                        >Statistiken</ion-button
+                    >
                 </p>
                 <p>
-                    <ion-button expand="block" [routerLink]="['/about']">Über dieses Spiel</ion-button>
+                    <ion-button expand="block" [routerLink]="['/about']"
+                        >Über dieses Spiel</ion-button
+                    >
                 </p>
             </ion-list>
         </ion-row>
@@ -36,7 +39,9 @@
 <ion-footer>
     <ion-toolbar>
         <ion-row justify-content-center>
-            <ion-label>Version: {{environment.version}}, {{buildDate}}</ion-label>
+            <ion-label
+                >Version: {{environment.version}}, {{buildDate}}</ion-label
+            >
         </ion-row>
     </ion-toolbar>
 </ion-footer>

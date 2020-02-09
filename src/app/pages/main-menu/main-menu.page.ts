@@ -1,8 +1,9 @@
 import { Component } from "@angular/core";
 import moment from "moment";
 import { AuthService } from "src/app/providers/auth.service";
+
 import { environment } from "../../../environments/environment";
-import {formatDate} from "../../../lib/utils/dateFormatter";
+import { formatDate } from "../../../lib/utils/dateFormatter";
 
 @Component({
     selector: "serious-game-main-menu",
@@ -11,8 +12,8 @@ import {formatDate} from "../../../lib/utils/dateFormatter";
 })
 export class MainMenuPage {
     public isTherapist: boolean;
-    private environment;
-    private buildDate;
+    public environment;
+    public buildDate;
 
     constructor(private authService: AuthService) {
         this.environment = environment;
