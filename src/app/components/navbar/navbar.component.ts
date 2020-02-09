@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/providers/auth.service";
 
@@ -7,14 +7,19 @@ import { AuthService } from "src/app/providers/auth.service";
     styleUrls: ["./navbar.component.scss"],
     templateUrl: "./navbar.component.html"
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
     public navigate: any;
 
     /**
      * @param authService authentication service
      * @param router application router
      */
-    constructor(private authService: AuthService, private router: Router) {
+    constructor(private authService: AuthService, private router: Router) {}
+
+    /**
+     * Initializes the side menu data after initializing the component.
+     */
+    public ngOnInit() {
         this.sideMenu();
     }
 
