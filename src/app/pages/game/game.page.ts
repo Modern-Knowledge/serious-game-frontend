@@ -247,8 +247,11 @@ export class GamePage {
      * @param recipe recipe to add to the chosen recipes
      */
     public addRecipe(recipe: Recipe) {
-        this.chosenRecipes.push(recipe);
-        this.setCanContinue();
+        if (recipe) {
+            this.chosenRecipes.push(recipe);
+            console.log(this.chosenRecipes);
+            this.setCanContinue();
+        }
     }
 
     /**
