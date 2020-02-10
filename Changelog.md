@@ -1,8 +1,12 @@
+# "Plan your Day"-Frontend Changelog 
+
 ## Unreleased
  - Redirect to main-menu after the password has changed.
  - Fix registration without gender.
  - Fix spacing of some elements.
  - Add filters (mealtime, difficulty) to recipe-info page.
+ - Update mealtime, difficulties of recipes.
+ - Display changelog of backend.
 
  
 ## [1.1.0] - 2020-02-06
