@@ -159,4 +159,15 @@ export class AuthService {
 
         return false;
     }
+
+    /**
+     * Returns true if the logged in user is a admin. If the user is not logged in, the function returns false.
+     */
+    public isAdmin() {
+        if (this.isLoggedIn()) {
+            return this.helper.decodeToken(this.getToken()).admin;
+        }
+
+        return false;
+    }
 }

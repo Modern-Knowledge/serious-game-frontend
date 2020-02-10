@@ -23,7 +23,7 @@
                 <p>
                     <ion-button expand="block" [routerLink]="['/about']">Über dieses Spiel</ion-button>
                 </p>
-                <p *ngIf="isTherapist">
+                <p *ngIf="isAdmin">
                     <ion-button expand="block" [routerLink]="['/logs']">Logs</ion-button>
                 </p>
             </ion-list>

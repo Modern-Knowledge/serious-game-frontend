@@ -12,6 +12,7 @@ import { formatDate } from "../../../lib/utils/dateFormatter";
 })
 export class MainMenuPage {
     public isTherapist: boolean;
+    public isAdmin: boolean;
     public environment;
     public buildDate;
 
@@ -22,5 +23,6 @@ export class MainMenuPage {
 
     public ionViewWillEnter() {
         this.isTherapist = this.authService.isTherapist();
+        this.isAdmin = this.authService.isAdmin();
     }
 }
