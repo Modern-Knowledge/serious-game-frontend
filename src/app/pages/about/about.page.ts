@@ -82,7 +82,6 @@ export class AboutPage {
         this.subscription.add(
             this.utilService.getFrontendChangelog().subscribe((changelog: string) => {
                 this.changelogFrontend = changelog;
-                console.log(this.changelogFrontend);
             })
         );
     }

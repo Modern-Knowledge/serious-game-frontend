@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Logs</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+    <ion-grid>
+        <ion-card>
+            <ion-card-header>
+                <ion-card-title>Log-Dateien</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-list>
+                    <ion-item *ngFor="let l of logs">
+                        <ion-label>{{l}}</ion-label>
+                        <ion-button expand="block" color="primary" [routerLink]="['/log']" [queryParams]="{ name: l, level: 'debug'}">Debug</ion-button>
+                        <ion-button expand="block" color="tertiary" [routerLink]="['/log']" [queryParams]="{ name: l, level: 'info'}">Info</ion-button>
+                        <ion-button expand="block" color="warning" [routerLink]="['/log']" [queryParams]="{ name: l, level: 'warn'}">Warnung</ion-button>
+                        <ion-button expand="block" color="danger" [routerLink]="['/log']" [queryParams]="{ name: l, level: 'error'}">Error</ion-button>
+                    </ion-item>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+    </ion-grid>
+</ion-content>

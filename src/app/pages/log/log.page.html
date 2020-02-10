@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{name}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+    <ion-grid>
+        <ion-card>
+            <ion-card-header>
+                <ion-card-title>Log-Dateien</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-list>
+                    <ion-item *ngFor="let l of log">
+                        <ion-label>
+                            <h2>{{l.timestamp}} {{l.level}}</h2>
+                            <p>{{l.message}}</p>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+    </ion-grid>
+</ion-content>
