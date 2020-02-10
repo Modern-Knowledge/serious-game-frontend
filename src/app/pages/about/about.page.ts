@@ -30,6 +30,9 @@ export class AboutPage {
     private environment: any;
     private lastBuildDateFrontend: string;
 
+    private changelogFrontend: string;
+    private changelogBackend: string;
+
     private subscription: Subscription;
 
     constructor(
@@ -71,6 +74,11 @@ export class AboutPage {
                 this.mysql = databaseVersion.data.version;
             })
         );
+        this.subscription.add(
+           this.utilService.getBackendChangelog().subscribe((changelog: HttpResponse) => {
+                this.changelogBackend = changelog.data.content;
+            })
+        );
     }
 
     /**
@@ -79,5 +87,4 @@ export class AboutPage {
     public ionViewDidLeave(): void {
         this.subscription.unsubscribe();
     }
-
 }

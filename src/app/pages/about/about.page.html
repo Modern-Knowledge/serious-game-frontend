@@ -70,6 +70,9 @@
                     <ion-item>
                         <ion-label><b>Mail-Server erreichbar</b>: <ion-icon *ngIf="mailServerReachable === true" style="color: green" name="checkmark"></ion-icon> <ion-icon *ngIf="!mailServerReachable" style="color: red" name="close"></ion-icon></ion-label>
                     </ion-item>
+                    <ion-item>
+                        <ngx-md [data]="changelogBackend"></ngx-md>
+                    </ion-item>
                 </ion-list>
             </ion-card-content>
         </ion-card>

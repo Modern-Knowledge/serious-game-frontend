@@ -18,6 +18,15 @@ export class UtilService {
     }
 
     /**
+     * Returns the changelog from the frontend.
+     */
+    public getBackendChangelog(): Observable<HttpResponse> {
+        return this.http.get<HttpResponse>(``).pipe(
+            map((response: HttpResponse) => new HttpResponse().deserialize(response))
+        );
+    }
+
+    /**
      * Loads information whether the database is accessible.
      */
     public getDatabaseInformation(): Observable<HttpResponse> {
