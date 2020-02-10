@@ -14,7 +14,11 @@ export class BaseUrlInterceptor implements HttpInterceptor {
      * @param next http-response
      */
     public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const apiReq = request.clone({ url: `${this.baseUrl}/${request.url}` });
-        return next.handle(apiReq);
+        if (request.url !== "Changelog.md") {
+            const apiReq = request.clone({url: `${this.baseUrl}/${request.url}`});
+            return next.handle(apiReq);
+        }
+
+        return next.handle(request);
     }
 }

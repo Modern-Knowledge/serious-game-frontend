@@ -7,6 +7,7 @@
  - Add filters (mealtime, difficulty) to recipe-info page.
  - Update mealtime, difficulties of recipes.
  - Display changelog of backend.
+ - Display changelog of frontend.
 
  
 ## [1.1.0] - 2020-02-06

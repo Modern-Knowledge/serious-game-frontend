@@ -20,6 +20,13 @@ export class UtilService {
     /**
      * Returns the changelog from the frontend.
      */
+    public getFrontendChangelog(): Observable<string> {
+        return this.http.get("Changelog.md", {responseType: "text"});
+    }
+
+    /**
+     * Returns the changelog from the backend.
+     */
     public getBackendChangelog(): Observable<HttpResponse> {
         return this.http.get<HttpResponse>(``).pipe(
             map((response: HttpResponse) => new HttpResponse().deserialize(response))

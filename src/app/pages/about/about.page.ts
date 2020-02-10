@@ -79,6 +79,12 @@ export class AboutPage {
                 this.changelogBackend = changelog.data.content;
             })
         );
+        this.subscription.add(
+            this.utilService.getFrontendChangelog().subscribe((changelog: string) => {
+                this.changelogFrontend = changelog;
+                console.log(this.changelogFrontend);
+            })
+        );
     }
 
     /**
