@@ -1,5 +1,6 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
+import {Http} from "@angular/http";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {Recipe} from "src/lib/models/Recipe";
@@ -9,6 +10,31 @@ import {HttpResponse, HttpResponseStatus} from "src/lib/utils/http/HttpResponse"
     providedIn: "root"
 })
 export class RecipeService {
+
+    /**
+     * Serialize retrieved recipes into recipe objects.
+     *
+     * @param recipes retrieved recipes
+     */
+    private static serializeRecipes(recipes: HttpResponse) {
+        const recipesModel = new HttpResponse().deserialize(recipes);
+        return recipesModel.status === HttpResponseStatus.SUCCESS
+            ? recipesModel.data.recipes.map((recipe) =>
+                new Recipe().deserialize(recipe)
+            ) : [];
+    }
+
+    /**
+     * Serialize retrieved recipe into recipe object.
+     *
+     * @param recipe retrieved recipe
+     */
+    private static serializeRecipe(recipe: HttpResponse) {
+        const recipeModel = new HttpResponse().deserialize(recipe);
+        return recipeModel.status === HttpResponseStatus.SUCCESS ?
+            new Recipe().deserialize(recipeModel.data.recipe) : null;
+    }
+
     constructor(private http: HttpClient) {
     }
 
@@ -34,7 +60,7 @@ export class RecipeService {
      */
     public getAll(): Observable<Recipe[]> {
         return this.http.get<HttpResponse>(`recipes`).pipe(
-            map(this.serializeRecipes)
+            map(RecipeService.serializeRecipes)
         );
     }
 
@@ -43,20 +69,18 @@ export class RecipeService {
      */
     public getFiltered(mealtime: string, difficulty: number): Observable<Recipe[]> {
         return this.http.get<HttpResponse>(`recipes/${mealtime}/${difficulty}`).pipe(
-            map(this.serializeRecipes)
+            map(RecipeService.serializeRecipes)
         );
     }
 
     /**
-     * Serialize retrieved recipes into recipe objects.
+     * Updates the recipe in the database.
      *
-     * @param recipes retrieved recipes
+     * @param recipe recipe to update
      */
-    private serializeRecipes(recipes: HttpResponse) {
-        const recipesModel = new HttpResponse().deserialize(recipes);
-        return recipesModel.status === HttpResponseStatus.SUCCESS
-            ? recipesModel.data.recipes.map((recipe) =>
-                new Recipe().deserialize(recipe)
-            ) : [];
+    public updateRecipe(recipe: Recipe): Observable<Recipe> {
+        return this.http.put<HttpResponse>(`recipes/${recipe.id}`, recipe).pipe(
+            map(RecipeService.serializeRecipe)
+        );
     }
 }
