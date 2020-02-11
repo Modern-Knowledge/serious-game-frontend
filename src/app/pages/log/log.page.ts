@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
+import {formatDateTime} from "../../../lib/utils/dateFormatter";
 import {HttpResponse} from "../../../lib/utils/http/HttpResponse";
 import {UtilService} from "../../providers/util/util.service";
 
@@ -31,7 +32,11 @@ export class LogPage {
 
             this.subscription.add(
                 this.utilService.getLog(this.name + level).subscribe((log: HttpResponse) => {
-                    this.log = log.data.content;
+                    this.log = log.data.content.map((value) => {
+                        const nl = {...value};
+                        nl.timestamp = formatDateTime(value.timestamp);
+                        return nl;
+                    });
                 })
             );
         });
