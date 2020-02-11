@@ -35,6 +35,9 @@ export class AboutPage {
 
     private subscription: Subscription;
 
+    private showChangelogFrontend: boolean = false;
+    private showChangelogBackend: boolean = false;
+
     constructor(
         private versionService: VersionService,
         private utilService: UtilService
@@ -91,5 +94,13 @@ export class AboutPage {
      */
     public ionViewDidLeave(): void {
         this.subscription.unsubscribe();
+    }
+
+    public toggleChangelogFrontend(): void {
+        this.showChangelogFrontend = !this.showChangelogFrontend;
+    }
+
+    public toggleChangelogBackend(): void {
+        this.showChangelogBackend = !this.showChangelogBackend;
     }
 }
