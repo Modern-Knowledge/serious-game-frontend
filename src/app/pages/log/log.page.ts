@@ -13,7 +13,7 @@ import {UtilService} from "../../providers/util/util.service";
 export class LogPage {
     public orderObj;
     private name: string;
-    private log: any;
+    private log: any = [];
     private subscription: Subscription;
 
     constructor(
@@ -32,11 +32,13 @@ export class LogPage {
 
             this.subscription.add(
                 this.utilService.getLog(this.name + level).subscribe((log: HttpResponse) => {
-                    this.log = log.data.content.map((value) => {
-                        const nl = {...value};
-                        nl.timestamp = formatDateTime(value.timestamp);
-                        return nl;
-                    }).reverse();
+                    if (log.data.content && Object.entries(log.data.content).length > 0) {
+                        this.log = log.data.content.map((value) => {
+                            const nl = {...value};
+                            nl.timestamp = formatDateTime(value.timestamp);
+                            return nl;
+                        }).reverse();
+                    }
                 })
             );
         });

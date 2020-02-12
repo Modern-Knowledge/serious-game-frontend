@@ -1,3 +1,4 @@
+import {HttpHeaders} from "@angular/common/http";
 import {Component, OnInit} from "@angular/core";
 import {Subscription} from "rxjs";
 import {HttpResponse} from "../../../lib/utils/http/HttpResponse";
@@ -11,7 +12,7 @@ import {UtilService} from "../../providers/util/util.service";
 })
 export class LogsPage {
     public isTherapist: boolean;
-    private logs: any;
+    private logs: any = [];
     private subscription: Subscription;
 
     constructor(
