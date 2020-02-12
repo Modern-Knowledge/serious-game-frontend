@@ -42,4 +42,11 @@ export class LogPage {
         });
     }
 
+    /**
+     * Executed, when the view is left.
+     */
+    public ionViewDidLeave(): void {
+        this.subscription.unsubscribe();
+    }
+
 }

@@ -36,6 +36,17 @@ export class UtilService {
     }
 
     /**
+     * Delete the log with the specified log.
+     *
+     * @param name name of the log
+     */
+    public deleteLogs(name: string): Observable<HttpResponse> {
+        return this.http.delete<HttpResponse>(`logs/${name}`).pipe(
+            map((response: HttpResponse) => new HttpResponse().deserialize(response))
+        );
+    }
+
+    /**
      * Returns the changelog from the frontend.
      */
     public getFrontendChangelog(): Observable<string> {

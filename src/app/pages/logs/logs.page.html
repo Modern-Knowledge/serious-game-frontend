@@ -21,6 +21,7 @@
                         <ion-button expand="block" color="tertiary" [routerLink]="['/log']" [queryParams]="{ name: l, level: 'info'}">Info</ion-button>
                         <ion-button expand="block" color="warning" [routerLink]="['/log']" [queryParams]="{ name: l, level: 'warn'}">Warnung</ion-button>
                         <ion-button expand="block" color="danger" [routerLink]="['/log']" [queryParams]="{ name: l, level: 'error'}">Error</ion-button>
+                        <ion-icon name="trash" title="Log löschen" (click)="deleteLogs(l)" style="color: red; margin-left: 20px"></ion-icon>
                     </ion-item>
                 </ion-list>
             </ion-card-content>

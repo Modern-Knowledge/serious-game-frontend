@@ -31,4 +31,21 @@ export class LogsPage {
         );
     }
 
+    public deleteLogs(name: string) {
+        this.subscription.add(
+            this.utilService.deleteLogs(name).subscribe(() => {
+                this.utilService.getLogs().subscribe((logs: HttpResponse) => {
+                    this.logs = logs.data.files;
+                });
+            })
+        );
+    }
+
+    /**
+     * Executed, when the view is left.
+     */
+    public ionViewDidLeave(): void {
+        this.subscription.unsubscribe();
+    }
+
 }
