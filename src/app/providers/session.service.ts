@@ -41,6 +41,22 @@ export class SessionService {
     }
 
     /**
+     * Returns the sessions for the given therapist.
+     *
+     * @param id id of the patient
+     */
+    public getForTherapist(id: number): Observable<Session[]> {
+        return this.http.get<HttpResponse>(`sessions/therapist/${id}`).pipe(
+            map((sessions) => {
+                const sessionsModel = new HttpResponse().deserialize(sessions);
+                return sessionsModel.status === HttpResponseStatus.SUCCESS
+                    ? sessionsModel.data.sessions.map((session) => new Session().deserialize(session))
+                    : [];
+            })
+        );
+    }
+
+    /**
      * Create a new Session with the given data.
      *
      * @param gameId game of the new session

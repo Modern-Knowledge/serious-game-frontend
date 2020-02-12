@@ -4,6 +4,7 @@ import { Observable, Subscription } from "rxjs";
 import { SessionService } from "src/app/providers/session.service";
 import { UserStoreService } from "src/app/providers/store/user-store.service";
 import { Session } from "src/lib/models/Session";
+import { AuthService } from 'src/app/providers/auth.service';
 
 @Component({
     selector: "serious-game-score-board",
@@ -15,13 +16,23 @@ export class ScoreBoardPage implements OnInit, OnDestroy {
     private subscription: Subscription = new Subscription();
     constructor(
         private sessionService: SessionService,
-        private userStore: UserStoreService
+        private userStore: UserStoreService,
+        private authService: AuthService
     ) {}
 
     public ngOnInit() {
         this.subscription.add(
             this.userStore.user.subscribe((user) => {
-                this.sessionService
+                this.authService.isTherapist()
+                ? this.sessionService
+                    .getForTherapist(user.id)
+                    .subscribe((sessions) => {
+                        console.log(this.groupByPatient(sessions))
+                        this.sessions = this.groupByPatient(sessions).filter(
+                            (session) => session
+                        );
+                    })
+                : this.sessionService
                     .getForPatient(user.id)
                     .subscribe((sessions) => {
                         this.sessions = this.groupByName(sessions).filter(
@@ -46,6 +57,14 @@ export class ScoreBoardPage implements OnInit, OnDestroy {
 
     public countErrortexts(session: Session) {
         return session.statistic.errortexts.length;
+    }
+
+    public groupByPatient(sessions) {
+        console.log(sessions)
+        return sessions.reduce((r, x) => {
+            r[x.patientId] = this.groupByName([...(r[x.patientId] || []), x]);
+            return r;
+        }, []);
     }
 
     public groupByName(array) {
