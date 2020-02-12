@@ -5,6 +5,7 @@ import { Subscription } from "rxjs";
 import { AuthService } from "src/app/providers/auth.service";
 import { User } from "src/lib/models/User";
 
+import {JwtHelperService} from "@auth0/angular-jwt";
 import { environment } from "../../../environments/environment";
 import { HttpResponse } from "../../../lib/utils/http/HttpResponse";
 
@@ -17,6 +18,7 @@ export class RegistrationPage implements OnInit, OnDestroy {
     public registrationForm: FormGroup;
     private subscription: Subscription = new Subscription();
     private environment;
+    private helper = new JwtHelperService();
 
     constructor(private authService: AuthService, private router: Router) {
         this.environment = environment.appName;
@@ -51,14 +53,20 @@ export class RegistrationPage implements OnInit, OnDestroy {
         this.subscription.add(
             this.authService
                 .register(user, this.registrationForm.controls.therapist.value)
-                .subscribe((response) => {
+                .subscribe((response: User) => {
                     const httpResponse = new HttpResponse().deserialize(
                         response
                     );
 
                     const token = httpResponse.data.token;
                     this.authService.setToken(token);
-                    this.router.navigateByUrl("/main-menu");
+                    const authUser = this.helper.decodeToken(token);
+
+                    if (authUser.therapist === true) {
+                        this.router.navigateByUrl("/login");
+                    } else {
+                        this.router.navigateByUrl("/main-menu");
+                    }
                 })
         );
     }
