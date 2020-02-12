@@ -1,4 +1,4 @@
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
@@ -41,7 +41,11 @@ export class UtilService {
      * @param name name of the log
      */
     public deleteLogs(name: string): Observable<HttpResponse> {
-        return this.http.delete<HttpResponse>(`logs/${name}`).pipe(
+        const httpOptions = {
+            headers: new HttpHeaders({ "Content-Type": "application/json" })
+        };
+
+        return this.http.delete<HttpResponse>(`logs/${name}`, httpOptions).pipe(
             map((response: HttpResponse) => new HttpResponse().deserialize(response))
         );
     }
