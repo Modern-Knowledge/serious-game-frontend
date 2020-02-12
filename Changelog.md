@@ -11,6 +11,7 @@
  - Add page to display logs.
  - Fix text-wrap in log-page.
  - Add page to show ingredients.
+ - Add option to stay logged in.
  
 ## [1.1.0] - 2020-02-06
 ### Added

@@ -20,10 +20,12 @@ export class AuthService {
      *
      * @param email email of the user
      * @param password password of the user
+     * @param loggedIn indicates that the user wants to be logged in permanently
      */
-    public login(email: string, password: string) {
+    public login(email: string, password: string, loggedIn: boolean) {
         return this.httpClient.post<User>("login", {
             email,
+            loggedIn,
             password
         });
     }

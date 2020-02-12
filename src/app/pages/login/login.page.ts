@@ -37,10 +37,11 @@ export class LoginPage implements OnInit, OnDestroy {
 
         this.loginForm = new FormGroup({
             email: new FormControl("", [Validators.email, Validators.required]),
+            loggedin : new FormControl(false),
             password: new FormControl("", [
                 Validators.required,
                 Validators.minLength(6)
-            ])
+            ]),
         });
     }
 
@@ -54,7 +55,8 @@ export class LoginPage implements OnInit, OnDestroy {
             this.authService
                 .login(
                     this.loginForm.controls.email.value,
-                    this.loginForm.controls.password.value
+                    this.loginForm.controls.password.value,
+                    this.loginForm.controls.loggedin.value
                 )
                 .subscribe((response) => {
                     const httpResponse = new HttpResponse().deserialize(
