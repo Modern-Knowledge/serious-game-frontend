@@ -30,7 +30,6 @@ export class ProfilePage implements OnDestroy {
     ) {}
 
     public onSave() {
-        console.log(this.changeProfileForm);
         this.subscription.add(
             this.userService
                 .updateUser(
