@@ -12,9 +12,7 @@ export class PatientSelectorComponent implements OnInit, OnDestroy {
     public patients: Patient[];
     public patientSubscription: Subscription = new Subscription();
     @Input() public selectedPatients: Patient[];
-    @Output() public patientSelected: EventEmitter<
-        Patient[]
-    > = new EventEmitter();
+    @Output() public patientSelected: EventEmitter<Patient[]> = new EventEmitter();
 
     constructor(private patientService: PatientService) {}
 
