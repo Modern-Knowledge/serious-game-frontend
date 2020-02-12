@@ -7,7 +7,8 @@ import { AuthService } from "src/app/providers/auth.service";
 import moment from "moment";
 import { environment } from "../../../environments/environment";
 import {formatDate} from "../../../lib/utils/dateFormatter";
-import { HttpResponse } from "../../../lib/utils/http/HttpResponse";
+import {HttpResponse, HttpResponseMessageSeverity} from "../../../lib/utils/http/HttpResponse";
+import {ToastPosition, ToastWrapper} from "../../util/ToastWrapper";
 
 @Component({
     selector: "serious-game-login",
@@ -20,12 +21,20 @@ export class LoginPage implements OnInit, OnDestroy {
     public buildDate;
     private subscription: Subscription = new Subscription();
 
-    constructor(public router: Router, private authService: AuthService) {
+    constructor(
+        public router: Router,
+        private authService: AuthService
+    ) {
         this.environment = environment;
         this.buildDate = formatDate(moment(environment.lastBuildDate).toDate());
     }
 
     public ngOnInit() {
+        if (this.authService.isLoggedIn()) {
+            this.router.navigateByUrl("main-menu");
+            return true;
+        }
+
         this.loginForm = new FormGroup({
             email: new FormControl("", [Validators.email, Validators.required]),
             password: new FormControl("", [
