@@ -11,6 +11,7 @@ import { Patient } from "src/lib/models/Patient";
 export class PatientSelectorComponent implements OnInit, OnDestroy {
     public patients: Patient[];
     public patientSubscription: Subscription = new Subscription();
+    public selectedPatientIds: number[];
     @Input() public selectedPatients: Patient[];
     @Output() public patientSelected: EventEmitter<Patient[]> = new EventEmitter();
 
@@ -20,6 +21,7 @@ export class PatientSelectorComponent implements OnInit, OnDestroy {
         this.patientSubscription.add(
             this.patientService.getAll().subscribe((patients) => {
                 this.patients = patients;
+                this.selectedPatientIds = this.selectedPatients.map((patient) => patient.id);
             })
         );
     }
