@@ -20,10 +20,10 @@
                 <ion-list>
                     <ion-item *ngFor="let l of logs">
                         <ion-label>{{l.file}} [{{l.size}} KB]</ion-label>
-                        <ion-button expand="block" color="primary" [routerLink]="['/log']" [queryParams]="{ name: l, level: 'debug'}">Debug</ion-button>
-                        <ion-button expand="block" color="tertiary" [routerLink]="['/log']" [queryParams]="{ name: l, level: 'info'}">Info</ion-button>
-                        <ion-button expand="block" color="warning" [routerLink]="['/log']" [queryParams]="{ name: l, level: 'warn'}">Warnung</ion-button>
-                        <ion-button expand="block" color="danger" [routerLink]="['/log']" [queryParams]="{ name: l, level: 'error'}">Error</ion-button>
+                        <ion-button expand="block" color="primary" [routerLink]="['/log']" [queryParams]="{ name: l.file, level: 'debug'}">Debug</ion-button>
+                        <ion-button expand="block" color="tertiary" [routerLink]="['/log']" [queryParams]="{ name: l.file, level: 'info'}">Info</ion-button>
+                        <ion-button expand="block" color="warning" [routerLink]="['/log']" [queryParams]="{ name: l.file, level: 'warn'}">Warnung</ion-button>
+                        <ion-button expand="block" color="danger" [routerLink]="['/log']" [queryParams]="{ name: l.file, level: 'error'}">Error</ion-button>
                     </ion-item>
                 </ion-list>
             </ion-card-content>
