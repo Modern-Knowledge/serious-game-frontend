@@ -12,7 +12,7 @@ import { UserService } from "../../providers/user.service";
     styleUrls: ["./profile.page.scss"],
     templateUrl: "./profile.page.html"
 })
-export class ProfilePage implements OnInit, OnDestroy {
+export class ProfilePage implements OnDestroy {
     public user: User;
     private isTherapist: boolean;
     private subscription: Subscription = new Subscription();
@@ -28,17 +28,6 @@ export class ProfilePage implements OnInit, OnDestroy {
         private userStore: UserStoreService,
         private userService: UserService
     ) {}
-
-    /**
-     * Creates the change profile form.
-     */
-    public ngOnInit() {
-        this.changeProfileForm = new FormGroup({
-            email: new FormControl("", [Validators.email, Validators.required]),
-            forename: new FormControl("", Validators.required),
-            lastname: new FormControl("", Validators.required)
-        });
-    }
 
     public onSave() {
         this.subscription.add(
@@ -58,6 +47,11 @@ export class ProfilePage implements OnInit, OnDestroy {
         this.subscription.add(
             this.userStore.user.subscribe((user) => {
                 this.user = user;
+                this.changeProfileForm = new FormGroup({
+                    email: new FormControl(this.user.email || "", [Validators.email, Validators.required]),
+                    forename: new FormControl(this.user.forename || "", Validators.required),
+                    lastname: new FormControl(this.user.lastname || "", Validators.required)
+                });
             })
         );
     }
