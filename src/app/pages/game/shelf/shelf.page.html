@@ -1,27 +1,28 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
-<ion-content>
-  <ion-reorder-group (ionItemReorder)="doReorder($event)" disabled="false">
-    <ion-card *ngIf="foodCategory">
-      <ion-card-header>{{ foodCategory.name }}</ion-card-header>
-      <ion-card-content>
-        <serious-game-drag-zone
-          id="shelf"
-          name="foodItems"
-          [model]="foodItems"
-        ></serious-game-drag-zone
-      ></ion-card-content>
-    </ion-card>
-    <serious-game-cart
-      id="cart"
-      name="foodItems"
-      [data]="foodItems"
-      [viewing]="false"
-    ></serious-game-cart>
-  </ion-reorder-group>
+<ion-content [scrollEvents]="true" #scrollContainer class="scroll-container">
+    <ion-reorder-group (ionItemReorder)="doReorder($event)" disabled="false">
+        <ion-card *ngIf="foodCategory">
+            <ion-card-header>{{ foodCategory.name }}</ion-card-header>
+            <ion-card-content>
+                <serious-game-drag-zone
+                    id="shelf"
+                    name="foodItems"
+                    [model]="foodItems"
+                    [scrollElement]="content"
+                ></serious-game-drag-zone
+            ></ion-card-content>
+        </ion-card>
+        <serious-game-cart
+            id="cart"
+            name="foodItems"
+            [data]="foodItems"
+            [viewing]="false"
+        ></serious-game-cart>
+    </ion-reorder-group>
 </ion-content>
