@@ -3,13 +3,13 @@
   <ion-item>
     <ion-label>Patienten</ion-label>
     <ion-select
-      multiple="true"
+      [multiple]="true"
       (ionChange)="selectPatient($event.detail.value)"
+      [value]="selectedPatientIds"
     >
       <ion-select-option
         *ngFor="let patient of patients"
-        value="{{ patient.id }}"
-        [selected]="checkIfPatientIsSelected(patient)"
+        [value]="patient.id"
         >{{ patient.forename }} {{ patient.lastname }}</ion-select-option
       >
     </ion-select>
@@ -17,7 +17,7 @@
 </ion-list>
 <ion-list>
   <ion-item *ngFor="let patient of selectedPatients"
-    ><ion-label id="{{ patient.id }}"
+    ><ion-label [id]="patient.id"
       >{{ patient.forename }} {{ patient.lastname }}</ion-label
     ></ion-item
   >

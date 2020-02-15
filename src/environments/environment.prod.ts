@@ -1,7 +1,7 @@
 export const environment = {
     appName: "Plan your Day",
     backendUrl: "https://rehastroke.inso-w.at",
-    lastBuildDate: "2020-01-01",
+    lastBuildDate: "2020-02-06",
     logging: {
         ajaxAppender: {
             threshold: "ERROR",
@@ -17,5 +17,5 @@ export const environment = {
     passwordLength: 6,
     production: true,
     tokenLength: 8,
-    version: "1.1.0",
+    version: "1.2.0"
 };

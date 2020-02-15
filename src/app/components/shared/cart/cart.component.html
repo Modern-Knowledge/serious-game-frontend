@@ -1,17 +1,17 @@
-<span>Einkaufswagen</span>
-<ion-grid>
-    <ion-row [dragula]="name" [dragulaModel]="data" [id]="id">
-        <ion-col size="4" [id]="item.id" *ngFor="let item of items">
-            <ion-item>
-                <serious-game-image
-                    [imageId]="item.imageId"
-                ></serious-game-image>
+<ion-card>
+    <ion-card-header>
+        <ion-card-subtitle>Einkaufswagen</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-row [dragula]="name" [dragulaModel]="data" [id]="id">
+            <ion-col size="4" [id]="item.id" *ngFor="let item of items">
+                <ion-item>
+                    <serious-game-image [imageId]="item.imageId"></serious-game-image>
 
-                <ion-label class="ion-text-wrap" *ngIf="!item.imageId">{{
-                    item.name
-                }}</ion-label>
-            </ion-item>
-        </ion-col>
-        <ion-col></ion-col>
-    </ion-row>
-</ion-grid>
+                    <ion-label class="ion-text-wrap" *ngIf="!item.imageId">{{item.name}}</ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col></ion-col>
+        </ion-row>
+    </ion-card-content>
+</ion-card>

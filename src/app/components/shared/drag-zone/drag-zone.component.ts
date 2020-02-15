@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { IonContent } from "@ionic/angular";
 import autoScroll from "dom-autoscroller";
 import { DragulaService } from "ng2-dragula";
@@ -12,8 +12,9 @@ import { Subscription } from "rxjs";
 export class DragZoneComponent implements OnInit {
     @Input() public id: string;
     @Input() public name: string;
-    @Input() public model: string;
+    @Input() public model: any[];
     @Input() public scrollElement: IonContent;
+    @Output() public itemDropped: EventEmitter<any> = new EventEmitter<any>();
     public dragging: boolean = false;
 
     private subscription: Subscription = new Subscription();
@@ -32,7 +33,7 @@ export class DragZoneComponent implements OnInit {
                 const that = this;
                 this.dragging = true;
                 document.addEventListener("touchmove", listener, options);
-                if(this.scrollElement){
+                if (this.scrollElement) {
                     Promise.resolve(this.scrollElement.getScrollElement()).then(
                         (element) => {
                             autoScroll([element], {

@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Zutaten</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+    <ion-grid>
+        <ion-row>
+            <ion-col *ngFor="let i of ingredients" size="4">
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-subtitle>{{i.name}}</ion-card-subtitle>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-img [src]="baseUrl + '/images/' + i.id" [alt]="i.name"></ion-img>
+                    </ion-card-content>
+                    <ion-list>
+                        <ion-item>
+                            <ion-label>{{i.foodCategory.name}}</ion-label>
+                        </ion-item>
+                    </ion-list>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

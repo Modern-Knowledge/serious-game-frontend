@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { IonContent } from "@ionic/angular";
 import { Subject } from "rxjs";
 import { RecipeStoreService } from "src/app/providers/store/recipe-store.service";
 import { Errortext } from "src/lib/models/Errortext";
@@ -6,7 +7,6 @@ import { Game } from "src/lib/models/Game";
 import { Recipe } from "src/lib/models/Recipe";
 
 import { IGameComponent } from "../game.component";
-import { IonContent } from '@ionic/angular';
 
 @Component({
     selector: "serious-game-recipe",

@@ -4,8 +4,11 @@ import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/providers/auth.service";
 
+import moment from "moment";
 import { environment } from "../../../environments/environment";
-import { HttpResponse } from "../../../lib/utils/http/HttpResponse";
+import {formatDate} from "../../../lib/utils/dateFormatter";
+import {HttpResponse, HttpResponseMessageSeverity} from "../../../lib/utils/http/HttpResponse";
+import {ToastPosition, ToastWrapper} from "../../util/ToastWrapper";
 
 @Component({
     selector: "serious-game-login",
@@ -14,20 +17,31 @@ import { HttpResponse } from "../../../lib/utils/http/HttpResponse";
 })
 export class LoginPage implements OnInit, OnDestroy {
     public loginForm: FormGroup;
+    public environment;
+    public buildDate;
     private subscription: Subscription = new Subscription();
-    private environment;
 
-    constructor(public router: Router, private authService: AuthService) {
+    constructor(
+        public router: Router,
+        private authService: AuthService
+    ) {
         this.environment = environment;
+        this.buildDate = formatDate(moment(environment.lastBuildDate).toDate());
     }
 
     public ngOnInit() {
+        if (this.authService.isLoggedIn()) {
+            this.router.navigateByUrl("main-menu");
+            return true;
+        }
+
         this.loginForm = new FormGroup({
             email: new FormControl("", [Validators.email, Validators.required]),
+            loggedin : new FormControl(false),
             password: new FormControl("", [
                 Validators.required,
                 Validators.minLength(6)
-            ])
+            ]),
         });
     }
 
@@ -41,7 +55,8 @@ export class LoginPage implements OnInit, OnDestroy {
             this.authService
                 .login(
                     this.loginForm.controls.email.value,
-                    this.loginForm.controls.password.value
+                    this.loginForm.controls.password.value,
+                    this.loginForm.controls.loggedin.value
                 )
                 .subscribe((response) => {
                     const httpResponse = new HttpResponse().deserialize(
@@ -69,6 +84,9 @@ export class LoginPage implements OnInit, OnDestroy {
         this.router.navigateByUrl("/password-reset");
     }
 
+    /**
+     * Unsubscribes from the AuthService subscription on destroy.
+     */
     public ngOnDestroy() {
         this.subscription.unsubscribe();
     }

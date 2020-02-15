@@ -30,7 +30,13 @@ export class AboutPage {
     private environment: any;
     private lastBuildDateFrontend: string;
 
+    private changelogFrontend: string;
+    private changelogBackend: string;
+
     private subscription: Subscription;
+
+    private showChangelogFrontend: boolean = false;
+    private showChangelogBackend: boolean = false;
 
     constructor(
         private versionService: VersionService,
@@ -71,6 +77,16 @@ export class AboutPage {
                 this.mysql = databaseVersion.data.version;
             })
         );
+        this.subscription.add(
+           this.utilService.getBackendChangelog().subscribe((changelog: HttpResponse) => {
+                this.changelogBackend = changelog.data.content;
+            })
+        );
+        this.subscription.add(
+            this.utilService.getFrontendChangelog().subscribe((changelog: string) => {
+                this.changelogFrontend = changelog;
+            })
+        );
     }
 
     /**
@@ -80,4 +96,11 @@ export class AboutPage {
         this.subscription.unsubscribe();
     }
 
+    public toggleChangelogFrontend(): void {
+        this.showChangelogFrontend = !this.showChangelogFrontend;
+    }
+
+    public toggleChangelogBackend(): void {
+        this.showChangelogBackend = !this.showChangelogBackend;
+    }
 }

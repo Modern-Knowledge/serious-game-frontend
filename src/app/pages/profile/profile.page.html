@@ -27,7 +27,7 @@
                                     name="email"
                                     required="true"
                                     type="email"
-                                    value="{{user.email}}">
+                                    [value]="user.email">
                             </ion-input>
                         </ion-item>
                         <ion-item>
@@ -40,7 +40,7 @@
                                     name="forename"
                                     required="true"
                                     type="text"
-                                    value="{{user.forename}}">
+                                    [value]="user.forename">
                             </ion-input>
                         </ion-item>
                         <ion-item>
@@ -53,7 +53,7 @@
                                     name="lastname"
                                     required="true"
                                     type="text"
-                                    value="{{user.lastname}}">
+                                    [value]="user.lastname">
                             </ion-input>
                         </ion-item>
                     </ion-list>
@@ -69,14 +69,14 @@
             </ion-row>
 
 
-<!--            <serious-game-therapist-profile-->
-<!--                    [user]="user"-->
-<!--                    *ngIf="isTherapist">-->
-<!--            </serious-game-therapist-profile>-->
-<!--            <serious-game-patient-profile-->
-<!--                    [user]="user"-->
-<!--                    *ngIf="!isTherapist">-->
-<!--            </serious-game-patient-profile>-->
+           <serious-game-therapist-profile
+                   [user]="user"
+                   *ngIf="isTherapist">
+            </serious-game-therapist-profile>
+            <serious-game-patient-profile
+                    [user]="user"
+                    *ngIf="!isTherapist">
+            </serious-game-patient-profile>
         </ion-card-content>
     </ion-card>
 </ion-content>

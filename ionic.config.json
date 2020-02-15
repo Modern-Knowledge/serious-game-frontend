@@ -1,8 +1,7 @@
 {
   "name": "serious-game-frontend",
   "integrations": {
-    "capacitor": {},
-    "cordova": {}
+    "capacitor": {}
   },
   "type": "angular"
 }

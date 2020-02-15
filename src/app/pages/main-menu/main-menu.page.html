@@ -1,8 +1,3 @@
-<!--
-  ~ Copyright (c) 2020 Florian Mold
-  ~ All rights reserved.
-  -->
-
 <ion-header>
     <ion-toolbar color="primary">
         <ion-buttons slot="start">
@@ -23,12 +18,28 @@
                     <ion-button expand="block" [routerLink]="['/recipe-info']">Rezepte</ion-button>
                 </p>
                 <p>
+                    <ion-button expand="block" [routerLink]="['/ingredients']">Zutaten</ion-button>
+                </p>
+                <p>
                     <ion-button expand="block" [routerLink]="['/score-board']">Statistiken</ion-button>
                 </p>
                 <p>
                     <ion-button expand="block" [routerLink]="['/about']">Über dieses Spiel</ion-button>
                 </p>
+                <p *ngIf="isAdmin">
+                    <ion-button expand="block" [routerLink]="['/logs']">Logs</ion-button>
+                </p>
             </ion-list>
         </ion-row>
     </div>
 </ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-row class="justify-content-center">
+            <ion-label
+                >Version: {{environment.version}}, {{buildDate}}</ion-label
+            >
+        </ion-row>
+    </ion-toolbar>
+</ion-footer>

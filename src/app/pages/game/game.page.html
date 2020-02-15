@@ -8,22 +8,33 @@
 </ion-header>
 
 <ion-content [scrollEvents]="true" #scrollContainer class="scroll-container">
-    <serious-game-helptext-button
-        [helptexts]="games && games[step].helptexts"
-        *ngIf="games && games[step].helptexts.length"
-    >
-    </serious-game-helptext-button>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="12">
+                <serious-game-helptext-button
+                    [helptexts]="games && games[step].helptexts"
+                    *ngIf="games && games[step].helptexts.length">
+                </serious-game-helptext-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
     <ng-template seriousGameComponentIs></ng-template>
     <serious-game-stopwatch
         (isReset)="setTime($event)"
         (timeChanged)="setTime($event)"
     >
     </serious-game-stopwatch>
-    <serious-game-error-count></serious-game-error-count>
-    <ion-button expand="block" (click)="onSubmit()" *ngIf="stepValid()">
-        Weiter
-    </ion-button>
-    <ion-button expand="block" (click)="onFinish()" *ngIf="!stepValid()">
-        Fertigstellen
-    </ion-button>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="12">
+                <serious-game-error-count></serious-game-error-count>
+                <ion-button expand="block" (click)="onSubmit()" *ngIf="stepValid()">
+                    Weiter
+                </ion-button>
+                <ion-button expand="block" (click)="onFinish()" *ngIf="!stepValid()">
+                    Fertigstellen
+                </ion-button>
+            </ion-col>
+        </ion-row><br/>
+    </ion-grid>
 </ion-content>

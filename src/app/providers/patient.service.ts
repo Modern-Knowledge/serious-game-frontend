@@ -32,7 +32,7 @@ export class PatientService {
             .pipe(
                 map((patients) => {
                         const patientsModel = new HttpResponse().deserialize(patients);
-                        return patientsModel.data.map((patient) => new Patient().deserialize(patient));
+                        return patientsModel.data.patients.map((patient) => new Patient().deserialize(patient));
                     }
                 )
             );

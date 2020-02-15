@@ -5,6 +5,7 @@ import { RouterModule, Routes } from "@angular/router";
 
 import { IonicModule } from "@ionic/angular";
 
+import { NgxMdModule } from "ngx-md";
 import { AboutPage } from "./about.page";
 
 const routes: Routes = [
@@ -20,7 +21,8 @@ const routes: Routes = [
         CommonModule,
         FormsModule,
         IonicModule,
-        RouterModule.forChild(routes)
+        RouterModule.forChild(routes),
+        NgxMdModule.forRoot(),
     ],
 })
 export class AboutPageModule {}

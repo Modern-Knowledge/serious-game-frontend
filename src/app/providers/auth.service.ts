@@ -20,10 +20,12 @@ export class AuthService {
      *
      * @param email email of the user
      * @param password password of the user
+     * @param loggedIn indicates that the user wants to be logged in permanently
      */
-    public login(email: string, password: string) {
+    public login(email: string, password: string, loggedIn: boolean) {
         return this.httpClient.post<User>("login", {
             email,
+            loggedIn,
             password
         });
     }
@@ -155,6 +157,17 @@ export class AuthService {
     public isTherapist() {
         if (this.isLoggedIn()) {
             return this.helper.decodeToken(this.getToken()).therapist;
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns true if the logged in user is a admin. If the user is not logged in, the function returns false.
+     */
+    public isAdmin() {
+        if (this.isLoggedIn()) {
+            return this.helper.decodeToken(this.getToken()).admin;
         }
 
         return false;

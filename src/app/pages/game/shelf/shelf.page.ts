@@ -1,5 +1,6 @@
-import { Component, OnDestroy } from "@angular/core";
+import { Component, OnDestroy, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { IonContent } from "@ionic/angular";
 import { Subscription } from "rxjs";
 import { FoodCategoryService } from "src/app/providers/food-category.service";
 import { IngredientService } from "src/app/providers/ingredient.service";
@@ -15,6 +16,8 @@ import { Ingredient } from "src/lib/models/Ingredient";
 export class ShelfPage implements OnDestroy {
     public foodCategory: FoodCategory;
     public foodItems: Ingredient[];
+    @ViewChild("scrollContainer", { static: false })
+    public content: IonContent;
     private subscription: Subscription = new Subscription();
 
     constructor(

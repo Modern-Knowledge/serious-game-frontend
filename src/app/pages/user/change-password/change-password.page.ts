@@ -57,6 +57,7 @@ export class ChangePasswordPage implements OnInit, OnDestroy {
                 )
                 .subscribe((response) => {
                     new HttpResponse().deserialize(response);
+                    this.router.navigateByUrl("/main-menu");
                 })
         );
     }

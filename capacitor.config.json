@@ -1,0 +1,8 @@
+{
+  "appId": "serious.game.frontend",
+  "appName": "Plan your Day",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}
