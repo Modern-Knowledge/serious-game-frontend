@@ -1,17 +1,17 @@
-import {HttpClient} from "@angular/common/http";
-import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {HttpResponse, HttpResponseStatus} from "src/lib/utils/http/HttpResponse";
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
+import { Patient } from "src/lib/models/Patient";
+import { HttpResponse, HttpResponseStatus } from "src/lib/utils/http/HttpResponse";
 
-import {Session} from "../../lib/models/Session";
+import { Session } from "../../lib/models/Session";
 
 @Injectable({
     providedIn: "root"
 })
 export class SessionService {
-    constructor(private http: HttpClient) {
-    }
+    constructor(private http: HttpClient) {}
 
     /**
      * Returns the session by id.
@@ -34,7 +34,9 @@ export class SessionService {
             map((sessions) => {
                 const sessionsModel = new HttpResponse().deserialize(sessions);
                 return sessionsModel.status === HttpResponseStatus.SUCCESS
-                    ? sessionsModel.data.sessions.map((session) => new Session().deserialize(session))
+                    ? sessionsModel.data.sessions.map((session) =>
+                          new Session().deserialize(session)
+                      )
                     : [];
             })
         );
@@ -50,7 +52,13 @@ export class SessionService {
             map((sessions) => {
                 const sessionsModel = new HttpResponse().deserialize(sessions);
                 return sessionsModel.status === HttpResponseStatus.SUCCESS
-                    ? sessionsModel.data.sessions.map((session) => new Session().deserialize(session))
+                    ? sessionsModel.data.sessions.map((session) => {
+                          session[0] = new Patient().deserialize(session[0]);
+                          session[1] = session[1].map((patientSession) => {
+                              return new Session().deserialize(patientSession);
+                          });
+                          return session;
+                      })
                     : [];
             })
         );
@@ -64,7 +72,12 @@ export class SessionService {
      * @param gameSettingId game-setting of the new id
      * @param elapsedTime elapsed time of the session
      */
-    public create(gameId: number, patientId: number, gameSettingId: number, elapsedTime: number) {
+    public create(
+        gameId: number,
+        patientId: number,
+        gameSettingId: number,
+        elapsedTime: number
+    ) {
         return this.http
             .post<HttpResponse>("sessions", {
                 _elapsedTime: elapsedTime,
@@ -74,8 +87,12 @@ export class SessionService {
             })
             .pipe(
                 map((session) => {
-                    const sessionsModel = new HttpResponse().deserialize(session);
-                    return new Session().deserialize(sessionsModel.data.session);
+                    const sessionsModel = new HttpResponse().deserialize(
+                        session
+                    );
+                    return new Session().deserialize(
+                        sessionsModel.data.session
+                    );
                 })
             );
     }

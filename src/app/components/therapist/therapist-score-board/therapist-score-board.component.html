@@ -1,0 +1,35 @@
+<ion-list *ngFor="let patientSessions of sessions">
+    <ion-list-header> {{ patientSessions.patient.fullName }}</ion-list-header>
+    <ion-item *ngFor="let session of patientSessions.sessions; let i = index">
+        <ion-label
+            ><h2>
+                {{
+                    session.statistic.startTime
+                        | date: "dd.MM.yyyy
+                        HH:mm"
+                }}
+            </h2>
+            <p>
+                Zeit:
+                {{
+                    getDifference(
+                        session.statistic.startTime,
+                        session.statistic.endTime
+                    ).minutes
+                }}
+                Minute(n)
+                {{
+                    getDifference(
+                        session.statistic.startTime,
+                        session.statistic.endTime
+                    ).seconds
+                }}
+                Sekunde(n)
+            </p>
+            <p>
+                <serious-game-error-count
+                    [givenErrorCount]="session.statistic.errortexts.length"
+                ></serious-game-error-count></p
+        ></ion-label>
+    </ion-item>
+</ion-list>
