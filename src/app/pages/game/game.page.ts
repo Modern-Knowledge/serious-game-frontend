@@ -249,7 +249,6 @@ export class GamePage {
     public addRecipe(recipe: Recipe) {
         if (recipe) {
             this.chosenRecipes.push(recipe);
-            console.log(this.chosenRecipes);
             this.setCanContinue();
         }
     }
