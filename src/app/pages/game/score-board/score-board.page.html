@@ -7,9 +7,10 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ng-template *ngIf="!userIsTherapist else therapistView">
-        <serious-game-patient-score-board> </serious-game-patient-score-board>
-    </ng-template>
+    <serious-game-patient-score-board
+        *ngIf="userIsTherapist === false else therapistView"
+    >
+    </serious-game-patient-score-board>
     <ng-template #therapistView>
         <serious-game-therapist-score-board></serious-game-therapist-score-board>
     </ng-template>

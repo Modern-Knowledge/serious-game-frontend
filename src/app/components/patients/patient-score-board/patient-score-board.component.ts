@@ -29,6 +29,7 @@ export class PatientScoreBoardComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit() {
+        console.log("test");
         this.subscription.add(
             this.userStore.user.subscribe((user) => {
                 this.sessionService
