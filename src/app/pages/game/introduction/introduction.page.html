@@ -1,0 +1,43 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title>Einführung</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-content>
+            <p>
+                Willkommen zu "Plan you Day"! In diesem Spiel werden Sie den
+                Ablauf des typischen Alltags simulieren.
+            </p>
+            <p>
+                Im ersten Schritt werden Sie eines oder mehrere Rezepte
+                auswählen und in die passende Tageszeit einordnen. Sobald sie
+                dies getan haben, und auf "weiter" geklickt haben, sehen Sie
+                eine Auflistung der erforderlichen Zutaten für eines der
+                ausgewählten Rezepte.
+            </p>
+            <p>
+                Prägen Sie sich diese gut ein, da Sie im darauffolgenden Schritt
+                eine Einkaufsliste anhand des Rezeptes erstellen müssen.
+            </p>
+            <p>
+                Als letzten Schritt begeben Sie sich in ein Einkaufszentrum und
+                wählen die passenden Zutaten aus Regalen aus und legen sie in
+                den Einkaufswagen.
+            </p>
+            <p>
+                Falls Probleme auftreten sollen, können Sie auf den '?'-Button
+                klicken oder sich an einen/eine TherapeutIn wenden. Wir wünschen
+                Ihnen viel Spaß und Erfolg beim Spiel!
+            </p>
+        </ion-card-content>
+    </ion-card>
+    <ion-button expand="block" [routerLink]="['/game']"
+        >Spiel starten</ion-button
+    >
+</ion-content>
