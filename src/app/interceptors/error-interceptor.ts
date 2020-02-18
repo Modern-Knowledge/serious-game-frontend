@@ -1,4 +1,10 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
+import {
+    HttpErrorResponse,
+    HttpEvent,
+    HttpHandler,
+    HttpInterceptor,
+    HttpRequest,
+    HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { LoggingService } from "ionic-logging-service";
@@ -44,7 +50,8 @@ export class ErrorInterceptor implements HttpInterceptor {
                     evt.body._status === "success"
                 ) {
                     const messages = evt.body._messages;
-
+                    this.logging.getRootLogger()
+                        .info(`${evt.status} ${evt.statusText}`, evt.url, evt.body);
                     for (const item of messages) {
                         if (item._visible === true) {
                             const message = new ToastWrapper(
@@ -55,12 +62,6 @@ export class ErrorInterceptor implements HttpInterceptor {
                             );
                             message.alert();
                         }
-
-                        this.logging
-                            .getRootLogger()
-                            .info(this.handleUnauthorized.name, {
-                                message: `${item.message}`
-                            });
                     }
                 }
             }),
@@ -96,7 +97,8 @@ export class ErrorInterceptor implements HttpInterceptor {
                         const message = new ToastWrapper(
                             item.message,
                             ToastPosition.TOP,
-                            item._severity
+                            item._severity,
+                            "Fehler"
                         );
                         message.alert();
                     }
@@ -114,9 +116,8 @@ export class ErrorInterceptor implements HttpInterceptor {
     private handleUnauthorized(error: HttpErrorResponse): void {
         this.authService.logout();
         this.router.navigateByUrl("/login");
-        this.logging.getRootLogger().info(this.handleUnauthorized.name, {
-            message: `${error.message} Redirecting user to login page.`
-        });
+        this.logging.getRootLogger()
+            .error(`${error.status} ${error.statusText}`, error.message, error.error);
     }
 
     /**
@@ -124,9 +125,8 @@ export class ErrorInterceptor implements HttpInterceptor {
      * @param error http-response error
      */
     private handleBadRequest(error: HttpErrorResponse): void {
-        this.logging.getRootLogger().info(this.handleBadRequest.name, {
-            message: `${error.message}`
-        });
+        this.logging.getRootLogger()
+            .error(`${error.status} ${error.statusText}`, error.message, error.error);
     }
 
     /**
@@ -134,9 +134,8 @@ export class ErrorInterceptor implements HttpInterceptor {
      * @param error http-response error
      */
     private handleForbidden(error: HttpErrorResponse): void {
-        this.logging.getRootLogger().info(this.handleForbidden.name, {
-            message: `${error.message}`
-        });
+        this.logging.getRootLogger()
+            .error(`${error.status} ${error.statusText}`, error.message, error.error);
     }
 
     /**
@@ -144,9 +143,8 @@ export class ErrorInterceptor implements HttpInterceptor {
      * @param error http-response error
      */
     private handleNotFound(error: HttpErrorResponse): void {
-        this.logging.getRootLogger().info(this.handleNotFound.name, {
-            message: `${error.message}`
-        });
+        this.logging.getRootLogger()
+            .error(`${error.status} ${error.statusText}`, error.message, error.error);
     }
 
     /**
@@ -154,9 +152,8 @@ export class ErrorInterceptor implements HttpInterceptor {
      * @param error http-response error
      */
     private handleInternalServerError(error: HttpErrorResponse): void {
-        this.logging.getRootLogger().info(this.handleInternalServerError.name, {
-            message: `${error.message}`
-        });
+        this.logging.getRootLogger()
+            .error(`${error.status} ${error.statusText}`, error.message, error.error);
     }
 
     /**
@@ -164,8 +161,7 @@ export class ErrorInterceptor implements HttpInterceptor {
      * @param error http-response error
      */
     private handleOtherError(error: HttpErrorResponse): void {
-        this.logging.getRootLogger().info(this.handleOtherError.name, {
-            message: `${error.message}`
-        });
+        this.logging.getRootLogger()
+            .error(`${error.status} ${error.statusText}`, error.message, error.error);
     }
 }
