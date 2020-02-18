@@ -16,7 +16,7 @@ export class RecipeStoreService {
    * get the currently selected recipe
    */
   get currentRecipe() {
-    this._logging.info(
+    this._logging.debug(
       "getCurrentRecipe",
       `getting value of currentRecipe: ${JSON.stringify(this._currentRecipe)}`
     );
@@ -27,7 +27,7 @@ export class RecipeStoreService {
    * set the currently selected recipe
    */
   set currentRecipe(value: Recipe) {
-    this._logging.info(
+    this._logging.debug(
       "setCurrentRecipe",
       `setting value of currentRecipe: ${JSON.stringify(value)}`
     );
