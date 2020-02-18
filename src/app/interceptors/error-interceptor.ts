@@ -50,8 +50,11 @@ export class ErrorInterceptor implements HttpInterceptor {
                     evt.body._status === "success"
                 ) {
                     const messages = evt.body._messages;
-                    this.logging.getRootLogger()
-                        .info(`${evt.status} ${evt.statusText}`, evt.url, evt.body);
+                    if (!evt.url.includes("changelog")) {
+                        this.logging.getRootLogger()
+                            .info(`${evt.status} ${evt.statusText}`, evt.url, evt.body);
+                    }
+
                     for (const item of messages) {
                         if (item._visible === true) {
                             const message = new ToastWrapper(
