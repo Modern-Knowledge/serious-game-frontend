@@ -12,31 +12,31 @@ import {VersionService} from "../../providers/version/version.service";
     templateUrl: "./about.page.html"
 })
 export class AboutPage {
-    private data: any;
-    private version: string;
-    private lastBuildDate: string;
-    private uptime: string;
-    private commit: string;
-    private mysql: string;
-    private nodejs: string;
-    private authors: string[];
-    private os: string;
-    private mailServer: string;
-    private database: string;
+    public data: any;
+    public version: string;
+    public lastBuildDate: string;
+    public uptime: string;
+    public commit: string;
+    public mysql: string;
+    public nodejs: string;
+    public authors: string[];
+    public os: string;
+    public mailServer: string;
+    public database: string;
 
-    private mailServerReachable: boolean;
-    private databaseReachable: boolean;
+    public mailServerReachable: boolean;
+    public databaseReachable: boolean;
 
-    private environment: any;
-    private lastBuildDateFrontend: string;
+    public environment: any;
+    public lastBuildDateFrontend: string;
 
-    private changelogFrontend: string;
-    private changelogBackend: string;
+    public changelogFrontend: string;
+    public changelogBackend: string;
 
-    private subscription: Subscription;
+    public subscription: Subscription;
 
-    private showChangelogFrontend: boolean = false;
-    private showChangelogBackend: boolean = false;
+    public showChangelogFrontend: boolean = false;
+    public showChangelogBackend: boolean = false;
 
     constructor(
         private versionService: VersionService,

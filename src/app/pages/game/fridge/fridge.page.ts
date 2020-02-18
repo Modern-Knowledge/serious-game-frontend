@@ -12,6 +12,7 @@ import { Ingredient } from "src/lib/models/Ingredient";
 })
 export class FridgePage implements OnDestroy {
     public ingredients: Ingredient[];
+    public scrollContainer: any;
     private subscription: Subscription = new Subscription();
 
     constructor(

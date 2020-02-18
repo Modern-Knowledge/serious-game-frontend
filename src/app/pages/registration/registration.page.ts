@@ -16,8 +16,9 @@ import { HttpResponse } from "../../../lib/utils/http/HttpResponse";
 })
 export class RegistrationPage implements OnInit, OnDestroy {
     public registrationForm: FormGroup;
+    public environment;
+
     private subscription: Subscription = new Subscription();
-    private environment;
     private helper = new JwtHelperService();
 
     constructor(private authService: AuthService, private router: Router) {

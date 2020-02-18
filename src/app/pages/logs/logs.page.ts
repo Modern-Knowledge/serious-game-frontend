@@ -12,7 +12,7 @@ import {UtilService} from "../../providers/util/util.service";
 })
 export class LogsPage {
     public isTherapist: boolean;
-    private logs: any = [];
+    public logs: any = [];
     private subscription: Subscription;
 
     constructor(

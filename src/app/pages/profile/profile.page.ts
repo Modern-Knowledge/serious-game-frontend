@@ -14,9 +14,9 @@ import { UserService } from "../../providers/user.service";
 })
 export class ProfilePage implements OnDestroy {
     public user: User;
-    private isTherapist: boolean;
+    public isTherapist: boolean;
+    public changeProfileForm: FormGroup;
     private subscription: Subscription = new Subscription();
-    private changeProfileForm: FormGroup;
 
     /**
      * @param authService authentication service

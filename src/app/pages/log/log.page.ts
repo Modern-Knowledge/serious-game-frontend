@@ -12,8 +12,8 @@ import {UtilService} from "../../providers/util/util.service";
 })
 export class LogPage {
     public orderObj;
-    private name: string;
-    private log: any = [];
+    public name: string;
+    public log: any = [];
     private subscription: Subscription;
 
     constructor(

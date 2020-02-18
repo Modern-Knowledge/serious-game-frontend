@@ -9,12 +9,12 @@ import {IngredientService} from "../../providers/ingredient.service";
     templateUrl: "./ingredients.page.html",
 })
 export class IngredientsPage {
+    public ingredients: Ingredient[];
     private subscription: Subscription;
-    private ingredients: Ingredient[];
 
     constructor(
         private ingredientService: IngredientService,
-        @Inject("BACKEND_URL") private baseUrl: string
+        @Inject("BACKEND_URL") public baseUrl: string
     ) {
         this.subscription = new Subscription();
     }
