@@ -40,7 +40,7 @@ export class GamePage {
     @ViewChild(ErrorCountComponent, { static: false })
     public errorCount: ErrorCountComponent;
 
-    @ViewChild("scrollContainer", { static: false }) content: IonContent;
+    @ViewChild("scrollContainer", { static: false }) public content: IonContent;
 
     public user: Therapist | Patient;
     public games: Game[];
@@ -93,7 +93,7 @@ export class GamePage {
         );
         this.subscription.add(
             this.requestMultipleResources().subscribe((responseList) => {
-                this.dayPlanningData = responseList[0];
+                this.dayPlanningData = this.shuffle(responseList[0]);
                 this.games = responseList[1];
                 this.shoppingCenterData = responseList[2];
                 this.loadGame();
@@ -311,4 +311,17 @@ export class GamePage {
     public ionViewDidLeave(): void {
         this.subscription.unsubscribe();
     }
+
+    /**
+     * Shuffles array in place
+     * @param a items An array containing the items.
+     */
+    public shuffle(a: any[]) {
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
 }
