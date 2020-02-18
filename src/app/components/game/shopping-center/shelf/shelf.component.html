@@ -2,7 +2,7 @@
     [routerLink]="['/shelf', shelf.id]"
     routerLinkActive="router-link-active"
     >{{ shelf.name }}
-    <span *ngFor="let element of foodItems">
+    <span *ngFor="let element of foodItems.slice(0, 4)">
         <serious-game-image
             [width]="50"
             [height]="50"

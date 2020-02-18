@@ -13,7 +13,7 @@ import { Ingredient } from "src/lib/models/Ingredient";
 export class ShelfComponent implements OnInit, OnDestroy {
     @Input() public shelf: FoodCategory;
     @Input() public scrollContainer: IonContent;
-    public foodItems: Ingredient[];
+    public foodItems: Ingredient[] = [];
     private subscription: Subscription = new Subscription();
 
     constructor(private ingredientService: IngredientService) {}
