@@ -36,9 +36,11 @@ export class PasswordResetPage implements OnInit, OnDestroy {
                     const httpResponse = new HttpResponse().deserialize(
                         response
                     );
-                    const validUntil = httpResponse.data.reset_code.valid_until;
-                    this.authService.setResetTokenValidUntil(validUntil);
-                    this.router.navigateByUrl("/reset-password");
+                    if (httpResponse.data.reset_code) {
+                        const validUntil = httpResponse.data.reset_code.valid_until;
+                        this.authService.setResetTokenValidUntil(validUntil);
+                        this.router.navigateByUrl("/reset-password");
+                    }
                 })
         );
     }
