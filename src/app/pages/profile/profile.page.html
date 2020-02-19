@@ -27,6 +27,8 @@
                                     name="email"
                                     required="true"
                                     type="email"
+                                    minlength="1"
+                                    maxlength="255"
                                     [value]="user.email">
                             </ion-input>
                         </ion-item>
@@ -40,6 +42,8 @@
                                     name="forename"
                                     required="true"
                                     type="text"
+                                    minlength="1"
+                                    maxlength="45"
                                     [value]="user.forename">
                             </ion-input>
                         </ion-item>
@@ -53,6 +57,8 @@
                                     name="lastname"
                                     required="true"
                                     type="text"
+                                    minlength="1"
+                                    maxlength="45"
                                     [value]="user.lastname">
                             </ion-input>
                         </ion-item>
