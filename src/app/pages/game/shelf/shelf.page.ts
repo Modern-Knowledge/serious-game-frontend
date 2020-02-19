@@ -1,3 +1,4 @@
+import { Location } from "@angular/common";
 import { Component, OnDestroy, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { IonContent } from "@ionic/angular";
@@ -24,7 +25,8 @@ export class ShelfPage implements OnDestroy {
         private route: ActivatedRoute,
         private ingredientService: IngredientService,
         private foodCategoryService: FoodCategoryService,
-        private cartStore: CartStoreService
+        private cartStore: CartStoreService,
+        private location: Location
     ) {}
 
     public ionViewWillEnter() {
@@ -48,5 +50,8 @@ export class ShelfPage implements OnDestroy {
     }
     public ngOnDestroy() {
         this.subscription.unsubscribe();
+    }
+    public goBack() {
+        this.location.back();
     }
 }

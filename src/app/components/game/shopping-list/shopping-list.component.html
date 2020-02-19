@@ -1,9 +1,17 @@
-<serious-game-drag-zone
-    id="drag"
-    [name]="name"
-    [model]="ingredients"
-    [scrollElement]="scrollContainer"
-></serious-game-drag-zone>
+<ion-card>
+    <ion-card-header>
+        <ion-card-subtitle>Zutaten</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+        <serious-game-drag-zone
+                id="drag"
+                [name]="name"
+                [model]="ingredients"
+                [scrollElement]="scrollContainer"
+        ></serious-game-drag-zone>
+    </ion-card-content>
+</ion-card>
+
 <ion-grid>
     <ion-row>
         <ion-col size="8">
