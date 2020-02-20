@@ -13,7 +13,7 @@ import { UserService } from "../../providers/user.service";
     templateUrl: "./profile.page.html"
 })
 export class ProfilePage implements OnDestroy {
-    public user: User;
+    public user: UserDto;
     public isTherapist: boolean;
     public changeProfileForm: FormGroup;
     private subscription: Subscription = new Subscription();
