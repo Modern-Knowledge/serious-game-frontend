@@ -9,6 +9,7 @@ import { AuthService } from "src/app/providers/auth.service";
 })
 export class NavbarComponent implements OnInit {
     public navigate: any;
+    public user;
 
     /**
      * @param authService authentication service
@@ -21,6 +22,13 @@ export class NavbarComponent implements OnInit {
      */
     public ngOnInit() {
         this.sideMenu();
+        this.getUser();
+    }
+
+    public getUser() {
+        this.authService.getRelatedUser().subscribe((user) => {
+            this.user = user;
+        });
     }
 
     /**
