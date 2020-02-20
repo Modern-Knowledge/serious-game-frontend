@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import { PatientDto } from "src/lib/models/Dto/PatientDto";
 import { Patient } from "src/lib/models/Patient";
 import { HttpResponse, HttpResponseStatus } from "src/lib/utils/http/HttpResponse";
 
@@ -53,7 +54,9 @@ export class SessionService {
                 const sessionsModel = new HttpResponse().deserialize(sessions);
                 return sessionsModel.status === HttpResponseStatus.SUCCESS
                     ? sessionsModel.data.sessions.map((session) => {
-                          session[0] = new Patient().deserialize(session[0]);
+                          session[0] = new PatientDto(
+                              new Patient().deserialize(session[0])
+                          ).deserialize(session[0]);
                           session[1] = session[1].map((patientSession) => {
                               return new Session().deserialize(patientSession);
                           });

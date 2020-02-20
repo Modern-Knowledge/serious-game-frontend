@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { Subscription } from "rxjs";
 import { PatientService } from "src/app/providers/patient.service";
+import { PatientDto } from "src/lib/models/Dto/PatientDto";
 import { Patient } from "src/lib/models/Patient";
 
 @Component({
@@ -9,11 +10,13 @@ import { Patient } from "src/lib/models/Patient";
     templateUrl: "./patient-selector.component.html"
 })
 export class PatientSelectorComponent implements OnInit, OnDestroy {
-    public patients: Patient[];
+    public patients: PatientDto[];
     public patientSubscription: Subscription = new Subscription();
     public selectedPatientIds: number[];
-    @Input() public selectedPatients: Patient[];
-    @Output() public patientSelected: EventEmitter<Patient[]> = new EventEmitter();
+    @Input() public selectedPatients: PatientDto[];
+    @Output() public patientSelected: EventEmitter<
+        PatientDto[]
+    > = new EventEmitter();
 
     constructor(private patientService: PatientService) {}
 
@@ -21,7 +24,9 @@ export class PatientSelectorComponent implements OnInit, OnDestroy {
         this.patientSubscription.add(
             this.patientService.getAll().subscribe((patients) => {
                 this.patients = patients;
-                this.selectedPatientIds = this.selectedPatients.map((patient) => patient.id);
+                this.selectedPatientIds = this.selectedPatients.map(
+                    (patient) => patient.id
+                );
             })
         );
     }

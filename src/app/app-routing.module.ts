@@ -1,13 +1,12 @@
+import { NgModule } from "@angular/core";
+import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 
-import {NgModule} from "@angular/core";
-import {PreloadAllModules, RouterModule, Routes} from "@angular/router";
-
-import {AuthGuardService} from "./providers/guard/auth-guard.service";
-import {PatientGuardService} from "./providers/guard/patient-guard.service";
+import { AuthGuardService } from "./providers/guard/auth-guard.service";
+import { PatientGuardService } from "./providers/guard/patient-guard.service";
 
 const routes: Routes = [
-    {path: "", redirectTo: "login", pathMatch: "full"},
-    {path: "home", loadChildren: "./pages/home/home.module#HomePageModule"},
+    { path: "", redirectTo: "login", pathMatch: "full" },
+    { path: "home", loadChildren: "./pages/home/home.module#HomePageModule" },
     {
         loadChildren: "./pages/login/login.module#LoginPageModule",
         path: "login"
@@ -66,9 +65,9 @@ const routes: Routes = [
     },
     {
         canActivate: [AuthGuardService],
-        loadChildren: "./pages/recipe-info/recipe-info.module#RecipeInfoPageModule",
-        path: "recipe-info",
-
+        loadChildren:
+            "./pages/recipe-info/recipe-info.module#RecipeInfoPageModule",
+        path: "recipe-info"
     },
     {
         canActivate: [AuthGuardService],
@@ -87,17 +86,22 @@ const routes: Routes = [
     },
     {
         canActivate: [AuthGuardService],
-        loadChildren: "./pages/ingredients/ingredients.module#IngredientsPageModule",
-        path: "ingredients",
+        loadChildren:
+            "./pages/ingredients/ingredients.module#IngredientsPageModule",
+        path: "ingredients"
     },
-
+    {
+        canActivate: [AuthGuardService, PatientGuardService],
+        loadChildren:
+            "./pages/game/introduction/introduction.module#IntroductionPageModule",
+        path: "introduction"
+    }
 ];
 
 @NgModule({
     exports: [RouterModule],
     imports: [
-        RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})
+        RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
     ]
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/providers/auth.service";
 import { UserStoreService } from "src/app/providers/store/user-store.service";
-import { User } from "src/lib/models/User";
+import { UserDto } from "src/lib/models/Dto/UserDto";
 
 import { UserService } from "../../providers/user.service";
 
@@ -48,9 +48,18 @@ export class ProfilePage implements OnDestroy {
             this.userStore.user.subscribe((user) => {
                 this.user = user;
                 this.changeProfileForm = new FormGroup({
-                    email: new FormControl(this.user.email || "", [Validators.email, Validators.required]),
-                    forename: new FormControl(this.user.forename || "", Validators.required),
-                    lastname: new FormControl(this.user.lastname || "", Validators.required)
+                    email: new FormControl(this.user.email || "", [
+                        Validators.email,
+                        Validators.required
+                    ]),
+                    forename: new FormControl(
+                        this.user.forename || "",
+                        Validators.required
+                    ),
+                    lastname: new FormControl(
+                        this.user.lastname || "",
+                        Validators.required
+                    )
                 });
             })
         );

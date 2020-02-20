@@ -1,31 +1,31 @@
-import {Component, ComponentFactoryResolver, ViewChild} from "@angular/core";
-import {Router} from "@angular/router";
-import {IonContent} from "@ionic/angular";
-import {forkJoin, Observable, Subject, Subscription} from "rxjs";
-import {switchMap} from "rxjs/operators";
-import {DayPlanningComponent} from "src/app/components/game/day-planning/day-planning.component";
-import {IGameComponent} from "src/app/components/game/game.component";
-import {RecipeComponent} from "src/app/components/game/recipe/recipe.component";
-import {ShoppingCenterComponent} from "src/app/components/game/shopping-center/shopping-center.component";
-import {ShoppingListComponent} from "src/app/components/game/shopping-list/shopping-list.component";
-import {ErrorCountComponent} from "src/app/components/shared/error-count/error-count.component";
-import {StopwatchComponent} from "src/app/components/shared/stopwatch/stopwatch.component";
-import {ComponentIsDirective} from "src/app/directives/component-is.directive";
-import {ErrorTextService} from "src/app/providers/error-text.service";
-import {GameService} from "src/app/providers/game.service";
-import {IngredientService} from "src/app/providers/ingredient.service";
-import {RecipeService} from "src/app/providers/recipe.service";
-import {SessionService} from "src/app/providers/session.service";
-import {UserStoreService} from "src/app/providers/store/user-store.service";
-import {ToastPosition, ToastWrapper} from "src/app/util/ToastWrapper";
-import {Errortext} from "src/lib/models/Errortext";
-import {Game} from "src/lib/models/Game";
-import {Ingredient} from "src/lib/models/Ingredient";
-import {Patient} from "src/lib/models/Patient";
-import {Recipe} from "src/lib/models/Recipe";
-import {Therapist} from "src/lib/models/Therapist";
-import {Word} from "src/lib/models/Word";
-import {HttpResponseMessageSeverity} from "src/lib/utils/http/HttpResponse";
+import { Component, ComponentFactoryResolver, ViewChild } from "@angular/core";
+import { Router } from "@angular/router";
+import { IonContent } from "@ionic/angular";
+import { forkJoin, Observable, Subject, Subscription } from "rxjs";
+import { switchMap } from "rxjs/operators";
+import { DayPlanningComponent } from "src/app/components/game/day-planning/day-planning.component";
+import { IGameComponent } from "src/app/components/game/game.component";
+import { RecipeComponent } from "src/app/components/game/recipe/recipe.component";
+import { ShoppingCenterComponent } from "src/app/components/game/shopping-center/shopping-center.component";
+import { ShoppingListComponent } from "src/app/components/game/shopping-list/shopping-list.component";
+import { ErrorCountComponent } from "src/app/components/shared/error-count/error-count.component";
+import { StopwatchComponent } from "src/app/components/shared/stopwatch/stopwatch.component";
+import { ComponentIsDirective } from "src/app/directives/component-is.directive";
+import { ErrorTextService } from "src/app/providers/error-text.service";
+import { GameService } from "src/app/providers/game.service";
+import { IngredientService } from "src/app/providers/ingredient.service";
+import { RecipeService } from "src/app/providers/recipe.service";
+import { SessionService } from "src/app/providers/session.service";
+import { UserStoreService } from "src/app/providers/store/user-store.service";
+import { ToastPosition, ToastWrapper } from "src/app/util/ToastWrapper";
+import { PatientDto } from "src/lib/models/Dto/PatientDto";
+import { TherapistDto } from "src/lib/models/Dto/TherapistDto";
+import { Errortext } from "src/lib/models/Errortext";
+import { Game } from "src/lib/models/Game";
+import { Ingredient } from "src/lib/models/Ingredient";
+import { Recipe } from "src/lib/models/Recipe";
+import { Word } from "src/lib/models/Word";
+import { HttpResponseMessageSeverity } from "src/lib/utils/http/HttpResponse";
 
 @Component({
     selector: "serious-game-game",
@@ -42,7 +42,7 @@ export class GamePage {
 
     @ViewChild("scrollContainer", { static: false }) public content: IonContent;
 
-    public user: Therapist | Patient;
+    public user: TherapistDto | PatientDto;
     public games: Game[];
     public step: number;
     private dayPlanningData: Array<Word | Recipe>;

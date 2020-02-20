@@ -12,22 +12,44 @@
         <ion-row class="ion-align-items-center ion-justify-content-center">
             <ion-list lines="full">
                 <p *ngIf="!isTherapist">
-                    <ion-button expand="block" [routerLink]="['/game']">Spiel starten</ion-button>
+                    <ion-button
+                        expand="block"
+                        [routerLink]="['/game']"
+                        *ngIf="skipIntroduction else showIntroduction"
+                        >Spiel starten</ion-button
+                    >
+                    <ng-template #showIntroduction
+                        ><ion-button
+                            expand="block"
+                            [routerLink]="['/introduction']"
+                            >Spiel starten</ion-button
+                        ></ng-template
+                    >
                 </p>
                 <p>
-                    <ion-button expand="block" [routerLink]="['/recipe-info']">Rezepte</ion-button>
+                    <ion-button expand="block" [routerLink]="['/recipe-info']"
+                        >Rezepte</ion-button
+                    >
                 </p>
                 <p>
-                    <ion-button expand="block" [routerLink]="['/ingredients']">Zutaten</ion-button>
+                    <ion-button expand="block" [routerLink]="['/ingredients']"
+                        >Zutaten</ion-button
+                    >
                 </p>
                 <p>
-                    <ion-button expand="block" [routerLink]="['/score-board']">Statistiken</ion-button>
+                    <ion-button expand="block" [routerLink]="['/score-board']"
+                        >Statistiken</ion-button
+                    >
                 </p>
                 <p>
-                    <ion-button expand="block" [routerLink]="['/about']">Über dieses Spiel</ion-button>
+                    <ion-button expand="block" [routerLink]="['/about']"
+                        >Über dieses Spiel</ion-button
+                    >
                 </p>
                 <p *ngIf="isAdmin">
-                    <ion-button expand="block" [routerLink]="['/logs']">Logs</ion-button>
+                    <ion-button expand="block" [routerLink]="['/logs']"
+                        >Logs</ion-button
+                    >
                 </p>
             </ion-list>
         </ion-row>

@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 import { TherapistService } from "src/app/providers/therapist.service";
+import { TherapistDto } from "src/lib/models/Dto/TherapistDto";
 import { Therapist } from "src/lib/models/Therapist";
 
 @Component({
@@ -17,7 +18,9 @@ export class TherapistProfileComponent implements OnDestroy {
     public assignPatients(patients) {
         this.user.patients = patients;
         this.subscription.add(
-            this.therapistService.update(this.user).subscribe()
+            this.therapistService
+                .update(new TherapistDto(this.user))
+                .subscribe()
         );
     }
 

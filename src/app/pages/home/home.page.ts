@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/providers/auth.service";
-import { User } from "src/lib/models/User";
+import { UserDto } from "src/lib/models/Dto/UserDto";
 
 @Component({
     selector: "serious-game-home",
@@ -10,7 +10,7 @@ import { User } from "src/lib/models/User";
     templateUrl: "home.page.html"
 })
 export class HomePage implements OnInit, OnDestroy {
-    public user: User;
+    public user: UserDto;
     private subscription: Subscription = new Subscription();
 
     constructor(private authService: AuthService, private router: Router) {}
