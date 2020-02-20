@@ -1,8 +1,10 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Inject, Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 import { JwtHelperService } from "@auth0/angular-jwt";
-import { Observable, of } from "rxjs";
+import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import { PatientDto } from "src/lib/models/Dto/PatientDto";
+import { TherapistDto } from "src/lib/models/Dto/TherapistDto";
 import { Patient } from "src/lib/models/Patient";
 import { Therapist } from "src/lib/models/Therapist";
 import { User } from "src/lib/models/User";
@@ -37,7 +39,10 @@ export class AuthService {
      * @param type type of the user (patient = false, therapist = true) that should be registered
      */
     public register(user: User, type: boolean): Observable<User> {
-        return this.httpClient.post<User>(type ? "therapists" : "patients", user);
+        return this.httpClient.post<User>(
+            type ? "therapists" : "patients",
+            user
+        );
     }
 
     /**
@@ -59,7 +64,12 @@ export class AuthService {
      * @param passwordConfirmation password confirmation
      * @param token reset-token of the user, that wants to reset his password
      */
-    public resetPassword(email: string, password: string, passwordConfirmation: string, token: number) {
+    public resetPassword(
+        email: string,
+        password: string,
+        passwordConfirmation: string,
+        token: number
+    ) {
         return this.httpClient.post<HttpResponse>("password/reset-password", {
             email,
             password,
@@ -71,18 +81,22 @@ export class AuthService {
     /**
      * Returns information about the user.
      */
-    public getRelatedUser(): Observable<Therapist | Patient> {
+    public getRelatedUser(): Observable<TherapistDto | PatientDto> {
         return this.httpClient
             .get<HttpResponse>(`users/related`)
             .pipe(
                 map((user) =>
                     this.isTherapist()
-                        ? new Therapist().deserialize(
-                        new HttpResponse().deserialize(user).data.user
-                        )
-                        : new Patient().deserialize(
-                        new HttpResponse().deserialize(user).data.user
-                        )
+                        ? new TherapistDto(
+                              new Therapist().deserialize(user)
+                          ).deserialize(
+                              new HttpResponse().deserialize(user).data.user
+                          )
+                        : new PatientDto(
+                              new Patient().deserialize(user)
+                          ).deserialize(
+                              new HttpResponse().deserialize(user).data.user
+                          )
                 )
             );
     }

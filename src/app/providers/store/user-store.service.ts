@@ -1,16 +1,18 @@
 import { Injectable } from "@angular/core";
 import { Logger, LoggingService } from "ionic-logging-service";
 import { BehaviorSubject, Observable, Subject, Subscription } from "rxjs";
-import { Patient } from "src/lib/models/Patient";
-import { Therapist } from "src/lib/models/Therapist";
+import { PatientDto } from "src/lib/models/Dto/PatientDto";
+import { TherapistDto } from "src/lib/models/Dto/TherapistDto";
+
 import { AuthService } from "../auth.service";
 
 @Injectable({
     providedIn: "root"
 })
 export class UserStoreService {
-
-    private readonly _user = new BehaviorSubject<Therapist | Patient>(null);
+    private readonly _user = new BehaviorSubject<TherapistDto | PatientDto>(
+        null
+    );
     /**
      * provide read-only access to the user as an observable.
      */
@@ -31,8 +33,8 @@ export class UserStoreService {
     /**
      * returns value in emitted user behavior subject.
      */
-    get user(): Observable<Therapist | Patient> {
-        const user = new Subject<Therapist | Patient>();
+    get user(): Observable<TherapistDto | PatientDto> {
+        const user = new Subject<TherapistDto | PatientDto>();
         if (!this._user.getValue()) {
             this.subscription.add(
                 this.authService.getRelatedUser().subscribe((userResponse) => {
@@ -46,5 +48,4 @@ export class UserStoreService {
         user.next(this._user.getValue());
         return user.asObservable();
     }
-
 }

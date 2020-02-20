@@ -1,26 +1,25 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { RouterModule, Routes } from "@angular/router";
+import { IonicModule } from "@ionic/angular";
 
-import { IonicModule } from '@ionic/angular';
-
-import { IntroductionPage } from './introduction.page';
+import { IntroductionPage } from "./introduction.page";
 
 const routes: Routes = [
-  {
-    path: '',
-    component: IntroductionPage
-  }
+    {
+        path: "",
+        component: IntroductionPage
+    }
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [IntroductionPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        RouterModule.forChild(routes)
+    ],
+    declarations: [IntroductionPage]
 })
 export class IntroductionPageModule {}

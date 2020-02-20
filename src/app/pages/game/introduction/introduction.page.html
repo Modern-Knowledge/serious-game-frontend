@@ -37,6 +37,15 @@
             </p>
         </ion-card-content>
     </ion-card>
+    <ion-item lines="full">
+        <ion-label>Diese Seite nicht mehr anzeigen</ion-label>
+        <ion-checkbox
+            (ionChange)="setShowIntroduction()"
+            color="primary"
+            slot="start"
+        >
+        </ion-checkbox>
+    </ion-item>
     <ion-button expand="block" [routerLink]="['/game']"
         >Spiel starten</ion-button
     >

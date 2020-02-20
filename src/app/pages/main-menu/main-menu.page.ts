@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import moment from "moment";
 import { AuthService } from "src/app/providers/auth.service";
 import { UserStoreService } from "src/app/providers/store/user-store.service";
-import { Patient } from "src/lib/models/Patient";
+import { PatientDto } from "src/lib/models/Dto/PatientDto";
 
 import { environment } from "../../../environments/environment";
 import { formatDate } from "../../../lib/utils/dateFormatter";
@@ -17,7 +17,7 @@ export class MainMenuPage {
     public isAdmin: boolean;
     public environment;
     public buildDate;
-    public showIntroduction: boolean = true;
+    public skipIntroduction: boolean = true;
 
     constructor(
         private authService: AuthService,
@@ -32,7 +32,7 @@ export class MainMenuPage {
         this.isAdmin = this.authService.isAdmin();
         this.userStore.user.subscribe((user) => {
             if (!this.isTherapist) {
-                this.showIntroduction = (user as Patient).patientSetting.showIntroduction;
+                this.skipIntroduction = (user as PatientDto).patientSetting.skipIntroduction;
             }
         });
     }

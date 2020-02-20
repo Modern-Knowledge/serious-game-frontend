@@ -18,12 +18,12 @@ import { RecipeService } from "src/app/providers/recipe.service";
 import { SessionService } from "src/app/providers/session.service";
 import { UserStoreService } from "src/app/providers/store/user-store.service";
 import { ToastPosition, ToastWrapper } from "src/app/util/ToastWrapper";
+import { PatientDto } from "src/lib/models/Dto/PatientDto";
+import { TherapistDto } from "src/lib/models/Dto/TherapistDto";
 import { Errortext } from "src/lib/models/Errortext";
 import { Game } from "src/lib/models/Game";
 import { Ingredient } from "src/lib/models/Ingredient";
-import { Patient } from "src/lib/models/Patient";
 import { Recipe } from "src/lib/models/Recipe";
-import { Therapist } from "src/lib/models/Therapist";
 import { Word } from "src/lib/models/Word";
 import { HttpResponseMessageSeverity } from "src/lib/utils/http/HttpResponse";
 
@@ -42,7 +42,7 @@ export class GamePage {
 
     @ViewChild("scrollContainer", { static: false }) content: IonContent;
 
-    public user: Therapist | Patient;
+    public user: TherapistDto | PatientDto;
     public games: Game[];
     public step: number;
     private dayPlanningData: Array<Word | Recipe>;
