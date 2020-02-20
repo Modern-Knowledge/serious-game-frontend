@@ -123,6 +123,12 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
             );
         } else {
             this.shoppingListStore.addItem(item);
+            this.ingredients.splice(
+                this.ingredients.findIndex(
+                    (ingredient) => ingredient.id === item.id
+                ),
+                1
+            );
             if (this.compareShoppingListWithRecipe()) {
                 this.event.emit();
             }
@@ -168,6 +174,7 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
      */
     public removeItem(item) {
         this.shoppingListStore.removeItem(item);
+        this.ingredients.push(item);
         if (this.compareShoppingListWithRecipe()) {
             this.event.emit();
         }
