@@ -1,6 +1,13 @@
 <ion-grid>
     <ion-row [dragula]="name" [dragulaModel]="model" [id]="id">
-        <ion-col size="4" [id]="element.id" *ngFor="let element of model" class="scroll-element">
+        <ion-col
+            size="4"
+            sizeLg="2"
+            sizeMd="2"
+            [id]="element.id"
+            *ngFor="let element of model"
+            class="scroll-element"
+        >
             <ion-card lines="full">
                 <serious-game-image
                     [imageId]="element.imageId"
