@@ -26,7 +26,7 @@ export class IntroductionPage implements OnInit {
         );
     }
 
-    public setShowIntroduction() {
+    public setSkipIntroduction() {
         this.user.patientSetting.skipIntroduction = !this.user.patientSetting
             .skipIntroduction;
         this.subscription.add(

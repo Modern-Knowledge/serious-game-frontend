@@ -14,12 +14,14 @@
                 <p *ngIf="!isTherapist">
                     <ion-button
                         expand="block"
-                        [routerLink]="['/introduction']"
-                        *ngIf="skipIntroduction else skipIntroduction"
+                        [routerLink]="['/game']"
+                        *ngIf="skipIntroduction else showIntroduction"
                         >Spiel starten</ion-button
                     >
-                    <ng-template #skipIntroduction
-                        ><ion-button expand="block" [routerLink]="['/game']"
+                    <ng-template #showIntroduction
+                        ><ion-button
+                            expand="block"
+                            [routerLink]="['/introduction']"
                             >Spiel starten</ion-button
                         ></ng-template
                     >
