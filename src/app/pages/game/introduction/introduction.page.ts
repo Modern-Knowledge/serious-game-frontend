@@ -29,6 +29,7 @@ export class IntroductionPage implements OnInit {
     public setSkipIntroduction() {
         this.user.patientSetting.skipIntroduction = !this.user.patientSetting
             .skipIntroduction;
+
         this.subscription.add(
             this.patientService.update(this.user).subscribe()
         );

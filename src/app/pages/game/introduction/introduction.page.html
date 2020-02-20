@@ -7,7 +7,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="user">
     <ion-card>
         <ion-card-content>
             <p>
@@ -40,9 +40,9 @@
     <ion-item lines="full">
         <ion-label>Diese Seite nicht mehr anzeigen</ion-label>
         <ion-checkbox
-            (ionChange)="setSkipIntroduction()"
             color="primary"
             slot="start"
+            (ionChange)="setSkipIntroduction()"
         >
         </ion-checkbox>
     </ion-item>
