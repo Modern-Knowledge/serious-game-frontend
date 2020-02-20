@@ -1,4 +1,5 @@
-import { Component, OnDestroy } from "@angular/core";
+import { Component, OnDestroy, ViewChild } from "@angular/core";
+import { IonContent } from "@ionic/angular";
 import { Subscription } from "rxjs";
 import { IngredientService } from "src/app/providers/ingredient.service";
 import { FridgeStoreService } from "src/app/providers/store/fridge-store.service";
@@ -12,7 +13,8 @@ import { Ingredient } from "src/lib/models/Ingredient";
 })
 export class FridgePage implements OnDestroy {
     public ingredients: Ingredient[];
-    public scrollContainer: any;
+    @ViewChild("scrollContainer", { static: false })
+    public content: IonContent;
     private subscription: Subscription = new Subscription();
 
     constructor(
