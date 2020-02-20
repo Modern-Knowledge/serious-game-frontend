@@ -1,6 +1,7 @@
 import {HttpClient} from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import {HttpResponse} from "../../lib/utils/http/HttpResponse";
+import {map} from "rxjs/operators";
+import {HttpResponse, HttpResponseStatus} from "../../lib/utils/http/HttpResponse";
 
 @Injectable({
     providedIn: "root"
@@ -41,7 +42,13 @@ export class UserService {
            _email: email,
            _forename: forename,
            _lastname: lastname
-        });
+        }).pipe(
+            map((user: HttpResponse) => {
+                const userModel = new HttpResponse().deserialize(user);
+                return userModel.status === HttpResponseStatus.SUCCESS ?
+                    userModel.data.user : undefined;
+            })
+        );
     }
 
 }
