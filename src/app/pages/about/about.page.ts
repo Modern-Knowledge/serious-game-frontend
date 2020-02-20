@@ -1,8 +1,9 @@
-import {Component, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {Subscription} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {formatDate} from "../../../lib/utils/dateFormatter";
 import {HttpResponse} from "../../../lib/utils/http/HttpResponse";
+import {AuthService} from "../../providers/auth.service";
 import {UtilService} from "../../providers/util/util.service";
 import {VersionService} from "../../providers/version/version.service";
 
@@ -40,7 +41,8 @@ export class AboutPage {
 
     constructor(
         private versionService: VersionService,
-        private utilService: UtilService
+        private utilService: UtilService,
+        private authService: AuthService
     ) {
         this.subscription = new Subscription();
         this.environment = environment;
@@ -62,23 +64,25 @@ export class AboutPage {
                 this.authors = this.data.authors.map((author) => author.name).join(", ");
             })
         );
+        if (this.authService.isTherapist() && this.authService.isAdmin()) {
+            this.subscription.add(
+                this.utilService.getDatabaseInformation().subscribe((database: HttpResponse) => {
+                    this.databaseReachable = database.data.connectable;
+                })
+            );
+            this.subscription.add(
+                this.utilService.getMailServerInformation().subscribe((mailServer: HttpResponse) => {
+                    this.mailServerReachable = mailServer.data.connectable;
+                })
+            );
+            this.subscription.add(
+                this.utilService.getDatabaseVersion().subscribe((databaseVersion: HttpResponse) => {
+                    this.mysql = databaseVersion.data.version;
+                })
+            );
+        }
         this.subscription.add(
-            this.utilService.getDatabaseInformation().subscribe((database: HttpResponse) => {
-                this.databaseReachable = database.data.connectable;
-            })
-        );
-        this.subscription.add(
-            this.utilService.getMailServerInformation().subscribe((mailServer: HttpResponse) => {
-                this.mailServerReachable = mailServer.data.connectable;
-            })
-        );
-        this.subscription.add(
-            this.utilService.getDatabaseVersion().subscribe((databaseVersion: HttpResponse) => {
-                this.mysql = databaseVersion.data.version;
-            })
-        );
-        this.subscription.add(
-           this.utilService.getBackendChangelog().subscribe((changelog: HttpResponse) => {
+            this.utilService.getBackendChangelog().subscribe((changelog: HttpResponse) => {
                 this.changelogBackend = changelog.data.content;
             })
         );
