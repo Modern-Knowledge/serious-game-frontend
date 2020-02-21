@@ -174,7 +174,14 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
      */
     public removeItem(item) {
         this.shoppingListStore.removeItem(item);
-        this.ingredients.push(item);
+        if (
+            this.ingredients.findIndex(
+                (ingredient) => ingredient.id === item.id
+            ) === -1
+        ) {
+            this.ingredients.push(item);
+        }
+
         if (this.compareShoppingListWithRecipe()) {
             this.event.emit();
         }
