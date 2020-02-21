@@ -21,13 +21,13 @@ export class NavbarComponent implements OnInit {
      * Initializes the side menu data after initializing the component.
      */
     public ngOnInit() {
+        this.sideMenu();
         this.getUser();
     }
 
     public getUser() {
         this.authService.getRelatedUser().subscribe((user) => {
             this.user = user;
-            this.sideMenu();
         });
     }
 
