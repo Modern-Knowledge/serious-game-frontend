@@ -42,7 +42,7 @@ export class AboutPage {
     constructor(
         private versionService: VersionService,
         private utilService: UtilService,
-        private authService: AuthService
+        public authService: AuthService
     ) {
         this.subscription = new Subscription();
         this.environment = environment;
