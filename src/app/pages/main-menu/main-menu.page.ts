@@ -20,7 +20,7 @@ export class MainMenuPage {
     public skipIntroduction: boolean = true;
 
     constructor(
-        private authService: AuthService,
+        public authService: AuthService,
         private userStore: UserStoreService
     ) {
         this.environment = environment;

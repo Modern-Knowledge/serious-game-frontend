@@ -60,7 +60,7 @@
     <ion-toolbar>
         <ion-row class="justify-content-center">
             <ion-label
-                >Version: {{environment.version}}, {{buildDate}}</ion-label
+                >Version: {{environment.version}}, {{buildDate}} [{{this.authService.isTherapist() ? this.authService.isAdmin() ? "Admin" : "Therapeut" : "Patient"}}]</ion-label
             >
         </ion-row>
     </ion-toolbar>
