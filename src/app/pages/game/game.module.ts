@@ -10,6 +10,8 @@ import { RecipeComponent } from "src/app/components/game/recipe/recipe.component
 import { ShelfComponent } from "src/app/components/game/shopping-center/shelf/shelf.component";
 import { ShoppingCenterComponent } from "src/app/components/game/shopping-center/shopping-center.component";
 import { ShoppingListComponent } from "src/app/components/game/shopping-list/shopping-list.component";
+import { DragZoneComponent } from "src/app/components/shared/drag-zone/drag-zone.component";
+import { DropZoneComponent } from "src/app/components/shared/drop-zone/drop-zone.component";
 import { SharedModule } from "src/app/components/shared/shared.module";
 import { DirectivesModule } from "src/app/directives/directives.module";
 
@@ -33,7 +35,9 @@ const routes: Routes = [
         MealtimeComponent,
         ShelfComponent,
         FridgePage,
-        ShelfPage
+        ShelfPage,
+        DragZoneComponent,
+        DropZoneComponent
     ],
     entryComponents: [
         DayPlanningComponent,
