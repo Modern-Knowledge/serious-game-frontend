@@ -9,7 +9,7 @@ import { Subscription } from "rxjs";
     styleUrls: ["./drag-zone.component.scss"],
     templateUrl: "./drag-zone.component.html"
 })
-export class DragZoneComponent implements OnInit {
+export class DragZoneComponent implements OnInit, OnDestroy {
     @Input() public id: string;
     @Input() public name: string;
     @Input() public model: any[];
@@ -62,5 +62,10 @@ export class DragZoneComponent implements OnInit {
                 this.dragging = false;
             })
         );
+    }
+
+    public ngOnDestroy() {
+        this.dragulaService.destroy(this.name);
+        this.subscription.unsubscribe();
     }
 }
