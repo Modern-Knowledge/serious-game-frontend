@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { IonContent } from "@ionic/angular";
 import { Observable, Subject, Subscription } from "rxjs";
 import { FoodCategoryService } from "src/app/providers/food-category.service";
 import { CartStoreService } from "src/app/providers/store/cart-store.service";
@@ -10,7 +11,6 @@ import { Ingredient } from "src/lib/models/Ingredient";
 import { Word } from "src/lib/models/Word";
 
 import { IGameComponent } from "../game.component";
-import { IonContent } from '@ionic/angular';
 
 @Component({
     selector: "serious-game-shopping-center",
@@ -66,7 +66,10 @@ export class ShoppingCenterComponent implements OnInit, IGameComponent {
         if (this.shoppingListStore.items.length === 0) {
             return true;
         }
-        if(this.shoppingListStore.items.length !== this.shoppingCartStore.items.length){
+        if (
+            this.shoppingListStore.items.length !==
+            this.shoppingCartStore.items.length
+        ) {
             return false;
         }
         this.shoppingListStore.items.forEach((item) => {
@@ -74,7 +77,7 @@ export class ShoppingCenterComponent implements OnInit, IGameComponent {
                 this.shoppingCartStore.items.findIndex((shoppingCartItem) => {
                     return shoppingCartItem.id === item.id;
                 }) > -1;
-            if(valid === false){
+            if (valid === false) {
                 allItemsFound = false;
             }
         });

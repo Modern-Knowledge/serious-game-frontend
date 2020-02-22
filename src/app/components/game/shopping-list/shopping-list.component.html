@@ -39,11 +39,7 @@
             </ion-card>
         </ion-col>
         <ion-col size="2">
-            <ion-card
-                [routerLink]="['/fridge']"
-                routerLinkActive="router-link-active"
-                class="fridge"
-                col-2
+            <ion-card (click)="showFridge()" class="fridge" col-2
                 ><ion-card-header>
                     <img
                         src="assets/img/fridge.png"

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, ViewChild } from "@angular/core";
-import { IonContent } from "@ionic/angular";
+import { IonContent, ModalController } from "@ionic/angular";
 import { Subscription } from "rxjs";
 import { IngredientService } from "src/app/providers/ingredient.service";
 import { FridgeStoreService } from "src/app/providers/store/fridge-store.service";
@@ -20,7 +20,8 @@ export class FridgePage implements OnDestroy {
     constructor(
         private ingredientService: IngredientService,
         private fridgeStore: FridgeStoreService,
-        private recipeStore: RecipeStoreService
+        private recipeStore: RecipeStoreService,
+        private modalController: ModalController
     ) {}
 
     public ionViewWillEnter() {
@@ -33,6 +34,10 @@ export class FridgePage implements OnDestroy {
                 }
             })
         );
+    }
+
+    public closeFridge() {
+        this.modalController.dismiss();
     }
 
     /**

@@ -1,7 +1,6 @@
-import { Location } from "@angular/common";
 import { Component, OnDestroy, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { IonContent } from "@ionic/angular";
+import { IonContent, ModalController, NavParams } from "@ionic/angular";
 import { Subscription } from "rxjs";
 import { FoodCategoryService } from "src/app/providers/food-category.service";
 import { IngredientService } from "src/app/providers/ingredient.service";
@@ -26,23 +25,22 @@ export class ShelfPage implements OnDestroy {
         private ingredientService: IngredientService,
         private foodCategoryService: FoodCategoryService,
         private cartStore: CartStoreService,
-        private location: Location
+        private modalController: ModalController,
+        private params: NavParams
     ) {}
 
     public ionViewWillEnter() {
         this.subscription.add(
-            this.route.paramMap.subscribe((params) => {
-                this.foodCategoryService
-                    .get(+params.get("id"))
-                    .subscribe(
-                        (foodCategory) => (this.foodCategory = foodCategory)
-                    );
-                this.ingredientService
-                    .getByFoodCategory(+params.get("id"))
-                    .subscribe((ingredients) => {
-                        this.foodItems = ingredients;
-                    });
-            })
+            this.foodCategoryService
+                .get(+this.params.get("id"))
+                .subscribe((foodCategory) => (this.foodCategory = foodCategory))
+        );
+        this.subscription.add(
+            this.ingredientService
+                .getByFoodCategory(+this.params.get("id"))
+                .subscribe((ingredients) => {
+                    this.foodItems = ingredients;
+                })
         );
     }
     public doReorder(event: any) {
@@ -52,6 +50,6 @@ export class ShelfPage implements OnDestroy {
         this.subscription.unsubscribe();
     }
     public goBack() {
-        this.location.back();
+        this.modalController.dismiss();
     }
 }

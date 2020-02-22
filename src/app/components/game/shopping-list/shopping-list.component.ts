@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { IonContent } from "@ionic/angular";
+import { IonContent, ModalController } from "@ionic/angular";
 import { DragulaService } from "ng2-dragula";
 import { Subject, Subscription } from "rxjs";
+import { FridgePage } from "src/app/pages/game/fridge/fridge.page";
 import { IngredientService } from "src/app/providers/ingredient.service";
 import { FridgeStoreService } from "src/app/providers/store/fridge-store.service";
 import { RecipeStoreService } from "src/app/providers/store/recipe-store.service";
@@ -43,7 +44,8 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
         private shoppingListStore: ShoppingListStoreService,
         private dragulaService: DragulaService,
         private fridgeStore: FridgeStoreService,
-        private recipeStore: RecipeStoreService
+        private recipeStore: RecipeStoreService,
+        public modalController: ModalController
     ) {}
 
     public ngOnInit() {
@@ -166,6 +168,13 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
             }
         });
         return allItemsFound && noDuplicateItems;
+    }
+
+    public async showFridge() {
+        const modal = await this.modalController.create({
+            component: FridgePage
+        });
+        return await modal.present();
     }
 
     /**

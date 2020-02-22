@@ -15,7 +15,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [FridgePage],
     imports: [
         CommonModule,
         FormsModule,
