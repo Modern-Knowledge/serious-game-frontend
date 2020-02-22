@@ -213,7 +213,9 @@ export class GamePage {
                 HttpResponseMessageSeverity.SUCCESS
             );
             message.alert();
-            this.router.navigateByUrl("/main-menu");
+            this.router.navigate(["/main-menu"], {
+                queryParams: { mayLeave: true }
+            });
         }
     }
 
@@ -313,12 +315,12 @@ export class GamePage {
     public setTime(time: number): void {
         this.elapsedTime = time;
     }
-
     /**
      * Executed, when the view is left
      */
     public ionViewDidLeave(): void {
         this.subscription.unsubscribe();
+        this.cleanupResources();
     }
 
     /**

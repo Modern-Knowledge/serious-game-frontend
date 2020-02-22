@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 
 import { AuthGuardService } from "./providers/guard/auth-guard.service";
+import { LeaveGuard } from "./providers/guard/leave.guard";
 import { PatientGuardService } from "./providers/guard/patient-guard.service";
 
 const routes: Routes = [
@@ -38,6 +39,7 @@ const routes: Routes = [
     },
     {
         canActivate: [AuthGuardService, PatientGuardService],
+        canDeactivate: [LeaveGuard],
         loadChildren: "./pages/game/game.module#GamePageModule",
         path: "game"
     },
