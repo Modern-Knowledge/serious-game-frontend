@@ -18,6 +18,14 @@
                 <form [formGroup]="changeProfileForm">
                     <ion-list lines="full">
                         <ion-item>
+                            <ion-label position="stacked">Geschlecht</ion-label>
+                            <ion-select interface="popover" formControlName="gender">
+                                <ion-select-option [selected]="user.gender === 0" value="0">Kein</ion-select-option>
+                                <ion-select-option [selected]="user.gender === 1" value="1">männlich</ion-select-option>
+                                <ion-select-option [selected]="user.gender === 2" value="2">weiblich</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item>
                             <ion-label position="stacked">E-Mail</ion-label>
                             <ion-input
                                     autocomplete="false"
@@ -60,6 +68,22 @@
                                     minlength="1"
                                     maxlength="45"
                                     [value]="user.lastname">
+                            </ion-input>
+                        </ion-item>
+                        <ion-item *ngIf="!this.authService.isTherapist()">
+                            <ion-label position="stacked">Geburtstag</ion-label>
+                            <ion-input
+                                    autocomplete="false"
+                                    formControlName="birthday"
+                                    autofocus="true"
+                                    clearInput="true"
+                                    name="birthday"
+                                    required="true"
+                                    type="text"
+                                    minlength="1"
+                                    maxlength="45"
+                                    disabled="true"
+                                    [value]="formatDate(user.birthday)">
                             </ion-input>
                         </ion-item>
                     </ion-list>
