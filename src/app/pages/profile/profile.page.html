@@ -70,22 +70,6 @@
                                     [value]="user.lastname">
                             </ion-input>
                         </ion-item>
-                        <ion-item *ngIf="!this.authService.isTherapist()">
-                            <ion-label position="stacked">Geburtstag</ion-label>
-                            <ion-input
-                                    autocomplete="false"
-                                    formControlName="birthday"
-                                    autofocus="true"
-                                    clearInput="true"
-                                    name="birthday"
-                                    required="true"
-                                    type="text"
-                                    minlength="1"
-                                    maxlength="45"
-                                    disabled="true"
-                                    [value]="formatDate(user.birthday)">
-                            </ion-input>
-                        </ion-item>
                     </ion-list>
 
                     <ion-button

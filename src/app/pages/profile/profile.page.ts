@@ -51,10 +51,6 @@ export class ProfilePage implements OnDestroy {
             this.userStore.user.subscribe((user: TherapistDto | PatientDto) => {
                 this.user = user;
                 this.changeProfileForm = new FormGroup({
-                    birthday: new FormControl(
-                        this.user.birthday || "",
-                        Validators.required
-                    ),
                     email: new FormControl(this.user.email || "", [
                         Validators.email,
                         Validators.required
