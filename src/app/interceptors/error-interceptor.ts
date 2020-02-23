@@ -52,7 +52,8 @@ export class ErrorInterceptor implements HttpInterceptor {
                     evt.body._status === "success"
                 ) {
                     const messages = evt.body._messages;
-                    if (!evt.url.includes("changelog")) {
+
+                    if (!evt.url.includes("changelog") && !evt.url.includes("logs")) {
                         this.logging.getRootLogger()
                             .info(
                                 `${evt.status} ${evt.statusText}`,
