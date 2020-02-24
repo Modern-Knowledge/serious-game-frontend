@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { JwtHelperService } from "@auth0/angular-jwt";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { map } from "rxjs/operators";
 import { PatientDto } from "src/lib/models/Dto/PatientDto";
 import { TherapistDto } from "src/lib/models/Dto/TherapistDto";
@@ -15,6 +15,7 @@ export class AuthService {
     public user: User;
     public helper = new JwtHelperService();
     public redirectUrl: string;
+    private loggedInSubject = new Subject<boolean>();
     constructor(private httpClient: HttpClient) {}
 
     /**
@@ -118,6 +119,7 @@ export class AuthService {
         if (token) {
             // store username and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem("accessToken", token);
+            this.loggedInSubject.next(true);
         }
     }
 
@@ -145,20 +147,21 @@ export class AuthService {
     public logout(): void {
         // clear token remove user from local storage to log user out
         localStorage.removeItem("accessToken");
+        this.loggedInSubject.next(false);
     }
 
     /**
      * Checks if the user is logged in. Tests if the token is not null.
      */
-    public isLoggedIn(): boolean {
-        return this.getToken() !== null;
+    public isLoggedIn(): Observable<boolean> {
+        return this.loggedInSubject.asObservable();
     }
 
     /**
      * Checks if the user is logged in and returns the user id. If the user is not logged in, null is returned.
      */
     public getUserIdFromToken(): number | null {
-        if (this.isLoggedIn()) {
+        if (this.getToken() !== null) {
             return this.helper.decodeToken(this.getToken()).id;
         }
 
@@ -169,7 +172,7 @@ export class AuthService {
      * Returns true if the logged in user is a therapist. If the user is not logged in, the function returns false.
      */
     public isTherapist() {
-        if (this.isLoggedIn()) {
+        if (this.getToken() !== null) {
             return this.helper.decodeToken(this.getToken()).therapist;
         }
 
@@ -180,7 +183,7 @@ export class AuthService {
      * Returns true if the logged in user is a admin. If the user is not logged in, the function returns false.
      */
     public isAdmin() {
-        if (this.isLoggedIn()) {
+        if (this.getToken() !== null) {
             return this.helper.decodeToken(this.getToken()).admin;
         }
 

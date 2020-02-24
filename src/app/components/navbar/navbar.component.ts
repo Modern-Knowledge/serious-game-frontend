@@ -9,6 +9,7 @@ import { AuthService } from "src/app/providers/auth.service";
 })
 export class NavbarComponent implements OnInit {
     public navigate: any;
+    public loggedIn: boolean;
 
     /**
      * @param authService authentication service
@@ -20,7 +21,10 @@ export class NavbarComponent implements OnInit {
      * Initializes the side menu data after initializing the component.
      */
     public ngOnInit() {
-        this.sideMenu();
+        this.authService.isLoggedIn().subscribe((loggedIn) => {
+            this.loggedIn = loggedIn;
+            this.sideMenu();
+        });
     }
 
     /**
@@ -43,31 +47,31 @@ export class NavbarComponent implements OnInit {
                 icon: "home",
                 title: "Hauptmenü",
                 url: "/main-menu",
-                visible: this.authService.isLoggedIn()
+                visible: this.loggedIn
             },
             {
                 icon: "person",
                 title: "Profil",
                 url: "/profile",
-                visible: this.authService.isLoggedIn()
+                visible: this.loggedIn
             },
             {
                 icon: "lock",
                 title: "Passwort ändern",
                 url: "/change-password",
-                visible: this.authService.isLoggedIn()
+                visible: this.loggedIn
             },
             {
                 icon: "arrow-dropleft-circle",
                 onClick: "onLogout",
                 title: "Logout",
-                visible: this.authService.isLoggedIn()
+                visible: this.loggedIn
             },
             {
                 icon: "arrow-dropright-circle",
                 title: "Login",
                 url: "/login",
-                visible: !this.authService.isLoggedIn()
+                visible: !this.loggedIn
             }
         ];
     }
