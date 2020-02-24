@@ -1,48 +1,51 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import moment from "moment";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/providers/auth.service";
 
-import moment from "moment";
 import { environment } from "../../../environments/environment";
-import {formatDate} from "../../../lib/utils/dateFormatter";
-import {HttpResponse, HttpResponseMessageSeverity} from "../../../lib/utils/http/HttpResponse";
-import {ToastPosition, ToastWrapper} from "../../util/ToastWrapper";
+import { formatDate } from "../../../lib/utils/dateFormatter";
+import { HttpResponse } from "../../../lib/utils/http/HttpResponse";
 
 @Component({
     selector: "serious-game-login",
     styleUrls: ["./login.page.scss"],
     templateUrl: "./login.page.html"
 })
-export class LoginPage implements OnInit, OnDestroy {
+export class LoginPage implements OnInit {
     public loginForm: FormGroup;
     public environment;
     public buildDate;
-    private subscription: Subscription = new Subscription();
-
+    private subscription: Subscription;
     constructor(
         public router: Router,
-        private authService: AuthService
+        private authService: AuthService,
+        private formBuilder: FormBuilder
     ) {
         this.environment = environment;
         this.buildDate = formatDate(moment(environment.lastBuildDate).toDate());
     }
 
     public ngOnInit() {
-        if (this.authService.isLoggedIn()) {
-            this.router.navigateByUrl("main-menu");
-            return true;
-        }
-
-        this.loginForm = new FormGroup({
-            email: new FormControl("", [Validators.email, Validators.required]),
-            loggedin : new FormControl(false),
-            password: new FormControl("", [
-                Validators.required,
-                Validators.minLength(6)
-            ]),
+        this.loginForm = this.formBuilder.group({
+            email: ["", [Validators.email, Validators.required]],
+            loggedin: [false],
+            password: ["", [Validators.required, Validators.minLength(6)]]
         });
+    }
+
+    public ionViewWillEnter() {
+        this.subscription = new Subscription();
+        this.subscription.add(
+            this.authService.isLoggedIn().subscribe((isLoggedIn) => {
+                if (isLoggedIn) {
+                    this.router.navigateByUrl("main-menu");
+                    return true;
+                }
+            })
+        );
     }
 
     /**
@@ -87,7 +90,8 @@ export class LoginPage implements OnInit, OnDestroy {
     /**
      * Unsubscribes from the AuthService subscription on destroy.
      */
-    public ngOnDestroy() {
+    public ionViewWillLeave() {
+        this.loginForm.reset();
         this.subscription.unsubscribe();
     }
 }
