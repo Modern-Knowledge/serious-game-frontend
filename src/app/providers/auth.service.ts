@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { JwtHelperService } from "@auth0/angular-jwt";
-import { Observable, Subject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { PatientDto } from "src/lib/models/Dto/PatientDto";
 import { TherapistDto } from "src/lib/models/Dto/TherapistDto";
@@ -15,7 +15,9 @@ export class AuthService {
     public user: User;
     public helper = new JwtHelperService();
     public redirectUrl: string;
-    private loggedInSubject = new Subject<boolean>();
+    private loggedInSubject = new BehaviorSubject<boolean>(
+        this.getToken() !== null
+    );
     constructor(private httpClient: HttpClient) {}
 
     /**
