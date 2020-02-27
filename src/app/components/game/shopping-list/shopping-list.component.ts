@@ -116,9 +116,8 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
      * @param item Ingredient|Word
      */
     public addItem(item) {
-        const shoppingListErrorText: Errortext = new Errortext();
         if (!this.fridgeStore.alreadyRandomized) {
-            shoppingListErrorText.deserialize(
+            this.errorEvent.emit(
                 this.errorTexts.find(
                     (errorText) => errorText.name === "fridge-not-checked"
                 )
