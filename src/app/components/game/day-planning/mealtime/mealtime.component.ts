@@ -93,4 +93,8 @@ export class MealtimeComponent implements OnInit {
     public matchMealtimes(mealtime: Mealtimes): boolean {
         return this.mealtime === mealtime;
     }
+
+    public ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
 }
