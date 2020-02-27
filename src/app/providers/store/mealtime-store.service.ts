@@ -16,4 +16,7 @@ export class MealtimeStoreService {
     public addItem(value: Recipe, mealtime: Mealtimes) {
         this.items.set(mealtime, value);
     }
+    public emptyMealtime(mealtime: Mealtimes) {
+        this.items.set(mealtime, undefined);
+    }
 }

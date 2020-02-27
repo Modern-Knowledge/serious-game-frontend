@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
+import { Subscription } from "rxjs";
 import { MealtimeStoreService } from "src/app/providers/store/mealtime-store.service";
 import { Mealtimes } from "src/lib/enums/Mealtimes";
 import { Errortext } from "src/lib/models/Errortext";
@@ -11,42 +12,78 @@ import { TemplateParser } from "src/lib/utils/TemplateParser";
     styleUrls: ["./mealtime.component.scss"],
     templateUrl: "./mealtime.component.html"
 })
-export class MealtimeComponent {
+export class MealtimeComponent implements OnInit {
     @Input() public title: string;
-    @Input() public model: string;
+    @Input() public model: Recipe[];
     @Input() public mealtime: Mealtimes;
     @Input() public errorTexts: Errortext[];
     @Output() public event: EventEmitter<Recipe> = new EventEmitter<Recipe>();
     @Output() public errorEvent: EventEmitter<any> = new EventEmitter<any>();
     private templateParser: TemplateParser = new TemplateParser();
+    private subscription: Subscription = new Subscription();
     constructor(
         private dragulaService: DragulaService,
         private mealtimeStorage: MealtimeStoreService
     ) {}
 
+    public ngOnInit() {
+        this.subscription.add(
+            this.dragulaService.dropModel("recipes").subscribe((value) => {
+                const item = this.model.find(
+                    (element) => element.id === +value.el.id
+                );
+                if (
+                    value.target.id === "recipe-drag" &&
+                    item.mealtime === this.mealtime
+                ) {
+                    this.mealtimeStorage.emptyMealtime(this.mealtime);
+                }
+            })
+        );
+    }
+
     /**
      * If the passed recipe matches with the mealtime, it is added to the global mealtime storage
      * and the addItem event is emitted.
      * @param value - The recipe to be added.
+     * @returns - Whether the recipe was successfully added.
      */
     public addRecipe(value: Recipe) {
-        if (this.matchMealtimes(value.mealtime)) {
+        if (
+            this.matchMealtimes(value.mealtime) === true &&
+            this.mealTimeEmpty() === true
+        ) {
             this.mealtimeStorage.addItem(value, this.mealtime);
             this.event.emit(value);
-        } else {
-            const mealTimeErrorText: Errortext = new Errortext().deserialize(
-                this.errorTexts.find(
-                    (errorText: Errortext) => errorText.name === "mealtime"
-                )
+            return true;
+        }
+        let mealTimeErrorText: Errortext = new Errortext().deserialize(
+            this.errorTexts.find(
+                (errorText: Errortext) => errorText.name === "mealtime"
+            )
+        );
+        mealTimeErrorText.text = this.templateParser.parse(
+            mealTimeErrorText.text,
+            [value.name, this.mealtime]
+        );
+        if (!this.mealTimeEmpty() === true) {
+            mealTimeErrorText = this.errorTexts.find(
+                (errorText: Errortext) => errorText.name === "mealtime-filled"
             );
-            this.dragulaService.find("recipes").drake.cancel(true);
-
             mealTimeErrorText.text = this.templateParser.parse(
                 mealTimeErrorText.text,
-                [value.name, this.mealtime]
+                [this.mealtime]
             );
-            this.errorEvent.emit(mealTimeErrorText);
         }
+
+        this.dragulaService.find("recipes").drake.cancel(true);
+
+        this.errorEvent.emit(mealTimeErrorText);
+        return false;
+    }
+
+    public mealTimeEmpty(): boolean {
+        return this.mealtimeStorage.items.get(this.mealtime) === undefined;
     }
 
     /**

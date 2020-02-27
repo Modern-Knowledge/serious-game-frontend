@@ -16,6 +16,7 @@ import { GameService } from "src/app/providers/game.service";
 import { IngredientService } from "src/app/providers/ingredient.service";
 import { RecipeService } from "src/app/providers/recipe.service";
 import { SessionService } from "src/app/providers/session.service";
+import { MealtimeStoreService } from "src/app/providers/store/mealtime-store.service";
 import { UserStoreService } from "src/app/providers/store/user-store.service";
 import { ToastPosition, ToastWrapper } from "src/app/util/ToastWrapper";
 import { PatientDto } from "src/lib/models/Dto/PatientDto";
@@ -75,7 +76,8 @@ export class GamePage {
         private sessionService: SessionService,
         private router: Router,
         private userStore: UserStoreService,
-        private errorTextService: ErrorTextService
+        private errorTextService: ErrorTextService,
+        private mealtimeStorage: MealtimeStoreService
     ) {
         this.step = 0;
     }
@@ -178,7 +180,6 @@ export class GamePage {
     public onSubmit() {
         this.mainGameSubject.next();
         if (this.canContinue) {
-
             const message = new ToastWrapper(
                 "Abschnitt erfolgreich absolviert!",
                 ToastPosition.TOP,
@@ -259,7 +260,9 @@ export class GamePage {
      */
     public addRecipe(recipe: Recipe) {
         if (recipe) {
-            this.chosenRecipes.push(recipe);
+            this.chosenRecipes = Array.from(
+                this.mealtimeStorage.items.values()
+            );
             this.setCanContinue();
         }
     }
@@ -334,5 +337,4 @@ export class GamePage {
         }
         return a;
     }
-
 }
