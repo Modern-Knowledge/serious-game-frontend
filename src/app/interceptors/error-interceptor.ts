@@ -113,8 +113,11 @@ export class ErrorInterceptor implements HttpInterceptor {
      */
     private handleUnauthorized(error: HttpErrorResponse): void {
         this.authService.logout();
-        this.router.navigateByUrl("/login");
-        this.logging.getRootLogger()
+        this.router.navigate(["/login"], {
+            queryParams: { mayLeave: true }
+        });
+        this.logging
+            .getRootLogger()
             .error(
                 `${error.status} ${error.statusText}`,
                 error.message,
