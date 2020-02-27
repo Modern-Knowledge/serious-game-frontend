@@ -51,7 +51,7 @@ export class GamePage {
     private shoppingCenterData: Array<Word | Ingredient>;
     private elapsedTime: number;
     private gameComponents;
-    private subscription: Subscription = new Subscription();
+    private subscription: Subscription;
     private sessionErrorTexts: Errortext[] = [];
     private canContinue: boolean;
     private mainGameSubject: Subject<any> = new Subject();
@@ -78,9 +78,7 @@ export class GamePage {
         private userStore: UserStoreService,
         private errorTextService: ErrorTextService,
         private mealtimeStorage: MealtimeStoreService
-    ) {
-        this.step = 0;
-    }
+    ) {}
 
     /**
      * Function that is executed, when the view is entered.
@@ -88,6 +86,8 @@ export class GamePage {
      * recipes, games and ingredients.
      */
     public ionViewWillEnter() {
+        this.step = 0;
+        this.subscription = new Subscription();
         this.subscription.add(
             this.userStore.user.subscribe((user) => {
                 this.user = user;
@@ -206,8 +206,8 @@ export class GamePage {
             this.stopWatch.reset();
             this.errorCount.reset();
             this.storeSession();
-            this.step = 0;
             this.cleanupResources();
+            this.componentIs.viewContainerRef.clear();
             const message = new ToastWrapper(
                 "Das Spiel wurde erfolgreich abgeschlossen!",
                 ToastPosition.TOP,
@@ -247,6 +247,7 @@ export class GamePage {
     }
 
     public cleanupResources() {
+        this.step = 0;
         this.subscription.unsubscribe();
         this.dynamicComponentInstances.forEach((instance) => {
             instance.cleanupResources();
