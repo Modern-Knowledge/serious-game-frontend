@@ -4,11 +4,13 @@ import { Observable, Subject, Subscription } from "rxjs";
 import { FoodCategoryService } from "src/app/providers/food-category.service";
 import { CartStoreService } from "src/app/providers/store/cart-store.service";
 import { ShoppingListStoreService } from "src/app/providers/store/shopping-list-store.service";
+import { Errortexts } from "src/lib/enums/Errortexts";
 import { Errortext } from "src/lib/models/Errortext";
 import { FoodCategory } from "src/lib/models/FoodCategory";
 import { Game } from "src/lib/models/Game";
 import { Ingredient } from "src/lib/models/Ingredient";
 import { Word } from "src/lib/models/Word";
+import { getErrorText } from "src/lib/utils/errorTextHelper";
 
 import { IGameComponent } from "../game.component";
 
@@ -46,12 +48,11 @@ export class ShoppingCenterComponent implements OnInit, IGameComponent {
                     if (this.shoppingCartIsValid() === true) {
                         this.event.emit();
                     } else {
-                        this.errorEvent.emit(
-                            this.errorTexts.find(
-                                (errorText) =>
-                                    errorText.name === "shopping-cart"
-                            )
+                        const errorText = getErrorText(
+                            this.errorTexts,
+                            Errortexts.SHOPPING_CART
                         );
+                        this.errorEvent.emit(errorText);
                     }
                 }
             })

@@ -7,11 +7,13 @@ import { IngredientService } from "src/app/providers/ingredient.service";
 import { FridgeStoreService } from "src/app/providers/store/fridge-store.service";
 import { RecipeStoreService } from "src/app/providers/store/recipe-store.service";
 import { ShoppingListStoreService } from "src/app/providers/store/shopping-list-store.service";
+import { Errortexts } from "src/lib/enums/Errortexts";
 import { Errortext } from "src/lib/models/Errortext";
 import { Game } from "src/lib/models/Game";
 import { Ingredient } from "src/lib/models/Ingredient";
 import { Recipe } from "src/lib/models/Recipe";
 import { Word } from "src/lib/models/Word";
+import { getErrorText } from "src/lib/utils/errorTextHelper";
 import { TemplateParser } from "src/lib/utils/TemplateParser";
 
 import { SharedModule } from "../../shared/shared.module";
@@ -102,11 +104,11 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
                 if (this.compareShoppingListWithRecipe() === true) {
                     this.event.emit();
                 } else {
-                    this.errorEvent.emit(
-                        this.errorTexts.find(
-                            (errorText) => errorText.name === "shopping-list"
-                        )
+                    const errorText = getErrorText(
+                        this.errorTexts,
+                        Errortexts.SHOPPING_LIST
                     );
+                    this.errorEvent.emit(errorText);
                 }
             })
         );
@@ -117,11 +119,11 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
      */
     public addItem(item) {
         if (!this.fridgeStore.alreadyRandomized) {
-            this.errorEvent.emit(
-                this.errorTexts.find(
-                    (errorText) => errorText.name === "fridge-not-checked"
-                )
+            const errorText = getErrorText(
+                this.errorTexts,
+                Errortexts.FRIDGE_NOT_CHECKED
             );
+            this.errorEvent.emit(errorText);
         } else {
             this.shoppingListStore.addItem(item);
             this.ingredients.splice(

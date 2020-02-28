@@ -2,9 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
 import { Subscription } from "rxjs";
 import { MealtimeStoreService } from "src/app/providers/store/mealtime-store.service";
+import { Errortexts } from "src/lib/enums/Errortexts";
 import { Mealtimes } from "src/lib/enums/Mealtimes";
 import { Errortext } from "src/lib/models/Errortext";
 import { Recipe } from "src/lib/models/Recipe";
+import { getErrorText } from "src/lib/utils/errorTextHelper";
 import { TemplateParser } from "src/lib/utils/TemplateParser";
 
 @Component({
@@ -56,30 +58,33 @@ export class MealtimeComponent implements OnInit {
             this.mealtimeStorage.addItem(value, this.mealtime);
             this.event.emit(value);
             return true;
-        }
-        let mealTimeErrorText: Errortext = new Errortext().deserialize(
-            this.errorTexts.find(
-                (errorText: Errortext) => errorText.name === "mealtime"
-            )
-        );
-        mealTimeErrorText.text = this.templateParser.parse(
-            mealTimeErrorText.text,
-            [value.name, this.mealtime]
-        );
-        if (!this.mealTimeEmpty() === true) {
-            mealTimeErrorText = this.errorTexts.find(
-                (errorText: Errortext) => errorText.name === "mealtime-filled"
-            );
-            mealTimeErrorText.text = this.templateParser.parse(
-                mealTimeErrorText.text,
-                [this.mealtime]
-            );
-        }
+        } else {
+            let mealTimeErrorText: Errortext;
+            if (this.matchMealtimes(value.mealtime) === false) {
+                mealTimeErrorText = getErrorText(
+                    this.errorTexts,
+                    Errortexts.MEALTIME
+                );
+                mealTimeErrorText.text = this.templateParser.parse(
+                    mealTimeErrorText.text,
+                    [value.name, this.mealtime]
+                );
+            } else if (this.mealTimeEmpty() === false) {
+                mealTimeErrorText = getErrorText(
+                    this.errorTexts,
+                    Errortexts.MEALTIME_FILLED
+                );
+                mealTimeErrorText.text = this.templateParser.parse(
+                    mealTimeErrorText.text,
+                    [this.mealtime]
+                );
+            }
 
-        this.dragulaService.find("recipes").drake.cancel(true);
+            this.dragulaService.find("recipes").drake.cancel(true);
 
-        this.errorEvent.emit(mealTimeErrorText);
-        return false;
+            this.errorEvent.emit(mealTimeErrorText);
+            return false;
+        }
     }
 
     public mealTimeEmpty(): boolean {
