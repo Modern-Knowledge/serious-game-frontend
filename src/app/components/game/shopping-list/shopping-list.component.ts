@@ -146,6 +146,9 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
     public compareShoppingListWithRecipe(): boolean {
         let allItemsFound = true;
         let noDuplicateItems = true;
+        if (!this.recipeStore.currentRecipe) {
+            return false;
+        }
         this.recipeStore.currentRecipe.ingredients.forEach((ingredient) => {
             if (
                 this.shoppingListItems.findIndex(
@@ -230,6 +233,7 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
         this.shoppingListStore.clearItems();
         this.fridgeStore.clearItems();
         this.recipeStore.currentRecipe = null;
+        this.fridgeStore.alreadyRandomized = false;
         this.ingredients = [];
     }
 }

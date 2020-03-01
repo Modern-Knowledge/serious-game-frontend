@@ -8,12 +8,12 @@ export const environment = {
     lastBuildDate: "2020-02-06",
     logging: {
         ajaxAppender: {
-            threshold: "DEBUG",
+            threshold: "ERROR",
             url: "http://localhost:3000/logging/"
         },
         logLevels: [
             {
-                logLevel: "DEBUG",
+                logLevel: "ERROR",
                 loggerName: "root"
             }
         ]
