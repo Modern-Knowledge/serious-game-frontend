@@ -14,6 +14,7 @@ import { Ingredient } from "src/lib/models/Ingredient";
 import { Recipe } from "src/lib/models/Recipe";
 import { Word } from "src/lib/models/Word";
 import { getErrorText } from "src/lib/utils/errorTextHelper";
+import { shuffle } from "src/lib/utils/helper";
 import { TemplateParser } from "src/lib/utils/TemplateParser";
 
 import { SharedModule } from "../../shared/shared.module";
@@ -73,7 +74,7 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
                     }
                 }
                 this.ingredients.splice(this.maxItems);
-                this.shuffle(this.ingredients);
+                shuffle(this.ingredients);
             })
         );
         this.subscription.add(
@@ -210,20 +211,6 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
                 (fridgeItem) => fridgeItem.id === item.id
             ) === -1
         );
-    }
-
-    /**
-     * Shuffles ingredients.
-     * Based on the modern Fisher-Yates-shuffle algorithm.
-     * [https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm]
-     * @param ingredients The ingredients to shuffle.
-     */
-    public shuffle(ingredients: Ingredient[]) {
-        for (let i = ingredients.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [ingredients[i], ingredients[j]] = [ingredients[j], ingredients[i]];
-        }
-        return ingredients;
     }
 
     /**

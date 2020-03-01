@@ -26,6 +26,7 @@ import { Game } from "src/lib/models/Game";
 import { Ingredient } from "src/lib/models/Ingredient";
 import { Recipe } from "src/lib/models/Recipe";
 import { Word } from "src/lib/models/Word";
+import { shuffle } from "src/lib/utils/helper";
 import { HttpResponseMessageSeverity } from "src/lib/utils/http/HttpResponse";
 
 @Component({
@@ -95,7 +96,7 @@ export class GamePage {
         );
         this.subscription.add(
             this.requestMultipleResources().subscribe((responseList) => {
-                this.dayPlanningData = this.shuffle(responseList[0]);
+                this.dayPlanningData = shuffle(responseList[0]);
                 this.games = responseList[1];
                 this.shoppingCenterData = responseList[2];
                 this.loadGame();
@@ -321,17 +322,5 @@ export class GamePage {
     public ionViewDidLeave(): void {
         this.subscription.unsubscribe();
         this.cleanupResources();
-    }
-
-    /**
-     * Shuffles array in place
-     * @param a items An array containing the items.
-     */
-    public shuffle(a: any[]) {
-        for (let i = a.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [a[i], a[j]] = [a[j], a[i]];
-        }
-        return a;
     }
 }
