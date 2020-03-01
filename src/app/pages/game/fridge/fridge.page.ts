@@ -5,6 +5,7 @@ import { IngredientService } from "src/app/providers/ingredient.service";
 import { FridgeStoreService } from "src/app/providers/store/fridge-store.service";
 import { RecipeStoreService } from "src/app/providers/store/recipe-store.service";
 import { Ingredient } from "src/lib/models/Ingredient";
+import { shuffle } from "src/lib/utils/helper";
 
 @Component({
     selector: "serious-game-fridge",
@@ -75,12 +76,13 @@ export class FridgePage implements OnDestroy {
             1
         );
         let dropAmount = Math.floor(Math.random() * items.length);
+        items = shuffle(items);
         for (dropAmount; dropAmount <= items.length; dropAmount++) {
             const randomIndex = Math.floor(Math.random() * items.length);
             items.splice(randomIndex, 1);
         }
-        if (items.length > 5) {
-            items.splice(5);
+        if (items.length > 6) {
+            items.splice(6);
         }
         return items;
     }
