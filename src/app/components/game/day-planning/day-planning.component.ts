@@ -78,6 +78,7 @@ export class DayPlanningComponent implements IGameComponent, OnInit {
      */
     public cleanupResources() {
         this.subscription.unsubscribe();
+        this.mealtimeStorage.clearItems();
     }
     /**
      * Checks whether all recipes that are currently set have the correct mealtime assigned.
@@ -85,6 +86,7 @@ export class DayPlanningComponent implements IGameComponent, OnInit {
      * @returns Whether all recipes that are currently set have the correct mealtime assigned.
      */
     private validMealtimes() {
+        console.log(this.mealtimeStorage.items);
         if (this.mealtimeStorage.items.size <= 0) {
             return false;
         }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
 import { Subscription } from "rxjs";
 import { MealtimeStoreService } from "src/app/providers/store/mealtime-store.service";
@@ -14,7 +14,7 @@ import { TemplateParser } from "src/lib/utils/TemplateParser";
     styleUrls: ["./mealtime.component.scss"],
     templateUrl: "./mealtime.component.html"
 })
-export class MealtimeComponent implements OnInit {
+export class MealtimeComponent implements OnInit, OnDestroy {
     @Input() public title: string;
     @Input() public model: Recipe[];
     @Input() public mealtime: Mealtimes;

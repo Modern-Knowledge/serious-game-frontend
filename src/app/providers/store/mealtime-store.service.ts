@@ -13,10 +13,16 @@ export class MealtimeStoreService {
     get items(): Map<Mealtimes, Recipe> {
         return this._items.value;
     }
+    set items(value) {
+        this._items.next(value);
+    }
     public addItem(value: Recipe, mealtime: Mealtimes) {
         this.items.set(mealtime, value);
     }
     public emptyMealtime(mealtime: Mealtimes) {
         this.items.set(mealtime, undefined);
+    }
+    public clearItems() {
+        this.items = new Map(null);
     }
 }

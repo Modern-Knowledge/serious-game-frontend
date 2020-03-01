@@ -259,13 +259,9 @@ export class GamePage {
      *
      * @param recipe recipe to add to the chosen recipes
      */
-    public addRecipe(recipe: Recipe) {
-        if (recipe) {
-            this.chosenRecipes = Array.from(
-                this.mealtimeStorage.items.values()
-            );
-            this.setCanContinue();
-        }
+    public addRecipe() {
+        this.chosenRecipes = Array.from(this.mealtimeStorage.items.values());
+        this.setCanContinue();
     }
 
     /**
