@@ -3,12 +3,12 @@
         <ion-buttons slot="start">
             <ion-back-button></ion-back-button>
         </ion-buttons>
+        <ion-title *ngIf="foodCategory">{{ foodCategory.name }}</ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content [scrollEvents]="true" #scrollContainer class="scroll-container">
     <ion-reorder-group (ionItemReorder)="doReorder($event)" disabled="false">
         <ion-card *ngIf="foodCategory">
-            <ion-card-header>{{ foodCategory.name }}</ion-card-header>
             <ion-card-content>
                 <serious-game-drag-zone
                     id="shelf"

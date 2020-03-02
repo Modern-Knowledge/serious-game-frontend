@@ -4,7 +4,7 @@
     </ion-card-header>
     <ion-card-content>
         <ion-row [dragula]="name" [dragulaModel]="data" [id]="id">
-            <ion-col size="4" [id]="item.id" *ngFor="let item of items">
+            <ion-col size="3" [id]="item.id" *ngFor="let item of items">
                 <ion-item>
                     <serious-game-image [imageId]="item.imageId"></serious-game-image>
 
