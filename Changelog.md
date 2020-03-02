@@ -1,6 +1,6 @@
 # "Plan your Day"-Frontend Changelog
 
-## Unreleased
+## [1.3.0] - 2020-03-02
 
 ### Added
 - Add filters (mealtime, difficulty) to recipe-info page.
@@ -14,6 +14,7 @@
 - Show role of user in main-menu.
 - Add a warning, before leaving the game.
 - Add auto-login if user is already authenticated.
+- Add close button to fridge- and shelf-view
 
 ### Changed
 - Redirect to main-menu after the password has changed.
