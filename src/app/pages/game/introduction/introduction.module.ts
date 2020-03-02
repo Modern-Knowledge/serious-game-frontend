@@ -3,14 +3,13 @@ import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { RouterModule, Routes } from "@angular/router";
 import { IonicModule } from "@ionic/angular";
-import { SharedModule } from "src/app/components/shared/shared.module";
 
-import { FridgePage } from "./fridge.page";
+import { IntroductionPage } from "./introduction.page";
 
 const routes: Routes = [
     {
-        component: FridgePage,
-        path: ""
+        path: "",
+        component: IntroductionPage
     }
 ];
 
@@ -19,8 +18,8 @@ const routes: Routes = [
         CommonModule,
         FormsModule,
         IonicModule,
-        RouterModule.forChild(routes),
-        SharedModule
-    ]
+        RouterModule.forChild(routes)
+    ],
+    declarations: [IntroductionPage]
 })
-export class FridgePageModule {}
+export class IntroductionPageModule {}

@@ -2,11 +2,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { IonContent } from "@ionic/angular";
 import { Subject, Subscription } from "rxjs";
 import { MealtimeStoreService } from "src/app/providers/store/mealtime-store.service";
+import { Errortexts } from "src/lib/enums/Errortexts";
 import { Mealtimes } from "src/lib/enums/Mealtimes";
 import { Errortext } from "src/lib/models/Errortext";
 import { Game } from "src/lib/models/Game";
 import { Recipe } from "src/lib/models/Recipe";
 import { Word } from "src/lib/models/Word";
+import { getErrorText } from "src/lib/utils/errorTextHelper";
 
 import { IGameComponent } from "../game.component";
 
@@ -43,11 +45,11 @@ export class DayPlanningComponent implements IGameComponent, OnInit {
                 if (this.validMealtimes() === true) {
                     this.event.emit();
                 } else {
-                    this.errorEvent.emit(
-                        this.errorTexts.find(
-                            (errorText) => errorText.name === "day-planning"
-                        )
+                    const errorText = getErrorText(
+                        this.errorTexts,
+                        Errortexts.DAY_PLANNING
                     );
+                    this.errorEvent.emit(errorText);
                 }
             })
         );
@@ -76,6 +78,7 @@ export class DayPlanningComponent implements IGameComponent, OnInit {
      */
     public cleanupResources() {
         this.subscription.unsubscribe();
+        this.mealtimeStorage.clearItems();
     }
     /**
      * Checks whether all recipes that are currently set have the correct mealtime assigned.

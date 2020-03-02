@@ -1,12 +1,12 @@
 <ion-card>
     <ion-card-header>Einkauf</ion-card-header>
     <ion-card-content>
-        <serious-game-shelf
+        <serious-game-shelf-component
             id="shelf"
             *ngFor="let shelf of shelves | async"
             [shelf]="shelf"
             [scrollContainer]="scrollContainer"
-        ></serious-game-shelf>
+        ></serious-game-shelf-component>
         <serious-game-cart
             name="foodItems"
             [data]="data"

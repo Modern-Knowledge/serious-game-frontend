@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Observable, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 import { SessionService } from "src/app/providers/session.service";
 import { UserStoreService } from "src/app/providers/store/user-store.service";
 import { getDifference } from "src/app/util/dateUtils";
-import { Session } from "src/lib/models/Session";
 
 @Component({
     selector: "serious-game-therapist-score-board",
@@ -11,7 +10,7 @@ import { Session } from "src/lib/models/Session";
     templateUrl: "./therapist-score-board.component.html"
 })
 export class TherapistScoreBoardComponent implements OnInit, OnDestroy {
-    public sessions: Observable<Session[]>;
+    public sessions: any[];
     private subscription: Subscription = new Subscription();
     constructor(
         private sessionService: SessionService,

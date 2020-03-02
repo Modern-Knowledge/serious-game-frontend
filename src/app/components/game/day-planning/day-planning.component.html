@@ -1,8 +1,17 @@
-<serious-game-drag-zone
-    name="recipes"
-    [model]="data"
-    [scrollElement]="scrollContainer"
-></serious-game-drag-zone>
+<ion-card>
+    <ion-card-header>
+        <ion-card-subtitle>Rezepte</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+        <serious-game-drag-zone
+            id="recipe-drag"
+            name="recipes"
+            [model]="data"
+            [scrollElement]="scrollContainer"
+        ></serious-game-drag-zone>
+    </ion-card-content>
+</ion-card>
+
 <ion-card>
     <ion-item>Zeitung holen</ion-item>
     <ion-card>

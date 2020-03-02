@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { IonContent } from "@ionic/angular";
 import autoScroll from "dom-autoscroller";
 import { DragulaService } from "ng2-dragula";
@@ -9,7 +9,7 @@ import { Subscription } from "rxjs";
     styleUrls: ["./drag-zone.component.scss"],
     templateUrl: "./drag-zone.component.html"
 })
-export class DragZoneComponent implements OnInit {
+export class DragZoneComponent implements OnInit, OnDestroy {
     @Input() public id: string;
     @Input() public name: string;
     @Input() public model: any[];
@@ -28,11 +28,18 @@ export class DragZoneComponent implements OnInit {
         const listener = (e) => {
             e.preventDefault();
         };
+        if (!this.dragulaService.find(this.name)) {
+            this.dragulaService.createGroup(this.name, null);
+        }
+        this.dragulaService.find(this.name).drake.on("cancel", (event) => {
+            document.removeEventListener("touchmove", listener, options);
+        });
         this.subscription.add(
             this.dragulaService.drag(this.name).subscribe((value) => {
                 const that = this;
                 this.dragging = true;
                 document.addEventListener("touchmove", listener, options);
+
                 if (this.scrollElement) {
                     Promise.resolve(this.scrollElement.getScrollElement()).then(
                         (element) => {
@@ -55,5 +62,10 @@ export class DragZoneComponent implements OnInit {
                 this.dragging = false;
             })
         );
+    }
+
+    public ngOnDestroy() {
+        this.dragulaService.destroy(this.name);
+        this.subscription.unsubscribe();
     }
 }

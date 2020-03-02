@@ -26,7 +26,7 @@ export class FridgeStoreService extends AbstractStoreService {
   }
 
   public get alreadyRandomized(): boolean {
-    this.logging.info(
+    this.logging.debug(
       "getAlreadyRandomized",
       `getting value of alreadyRandomized: ${this._alreadyRandomized}`
     );
@@ -34,7 +34,7 @@ export class FridgeStoreService extends AbstractStoreService {
   }
 
   public set alreadyRandomized(value: boolean) {
-    this.logging.info(
+    this.logging.debug(
       "setAlreadyRandomized",
       `setting value of alreadyRandomized: ${value}`
     );

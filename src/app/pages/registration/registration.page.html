@@ -34,7 +34,9 @@
                                 clearInput="true"
                                 name="forename"
                                 required="true"
-                                type="text">
+                                type="text"
+                                minlength="1"
+                                maxlength="45">
                             </ion-input>
                         </ion-item>
                         <ion-item>
@@ -47,7 +49,8 @@
                                 name="lastname"
                                 required="true"
                                 type="text"
-                            >
+                                minlength="1"
+                                maxlength="45">
                             </ion-input>
                         </ion-item>
                         <ion-item>
@@ -59,7 +62,9 @@
                                 clearInput="true"
                                 name="email"
                                 required="true"
-                                type="text">
+                                type="text"
+                                minlength="1"
+                                maxlength="45">
                             </ion-input>
                         </ion-item>
                         <ion-item>
@@ -72,6 +77,8 @@
                                 name="password"
                                 required="true"
                                 type="password"
+                                minlength="1"
+                                maxlength="255"
                             ></ion-input>
                         </ion-item>
                         <ion-item>
@@ -84,7 +91,10 @@
                                 clearInput="true"
                                 name="password_confirmation"
                                 required="true"
-                                type="password">
+                                type="password"
+                                minlength="1"
+                                maxlength="255"
+                            >
                             </ion-input>
                         </ion-item>
                     </ion-list>

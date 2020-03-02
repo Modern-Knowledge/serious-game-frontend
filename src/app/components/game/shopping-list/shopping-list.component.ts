@@ -1,16 +1,20 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { IonContent } from "@ionic/angular";
+import { IonContent, ModalController } from "@ionic/angular";
 import { DragulaService } from "ng2-dragula";
 import { Subject, Subscription } from "rxjs";
+import { FridgePage } from "src/app/pages/game/fridge/fridge.page";
 import { IngredientService } from "src/app/providers/ingredient.service";
 import { FridgeStoreService } from "src/app/providers/store/fridge-store.service";
 import { RecipeStoreService } from "src/app/providers/store/recipe-store.service";
 import { ShoppingListStoreService } from "src/app/providers/store/shopping-list-store.service";
+import { Errortexts } from "src/lib/enums/Errortexts";
 import { Errortext } from "src/lib/models/Errortext";
 import { Game } from "src/lib/models/Game";
 import { Ingredient } from "src/lib/models/Ingredient";
 import { Recipe } from "src/lib/models/Recipe";
 import { Word } from "src/lib/models/Word";
+import { getErrorText } from "src/lib/utils/errorTextHelper";
+import { shuffle } from "src/lib/utils/helper";
 import { TemplateParser } from "src/lib/utils/TemplateParser";
 
 import { SharedModule } from "../../shared/shared.module";
@@ -43,7 +47,8 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
         private shoppingListStore: ShoppingListStoreService,
         private dragulaService: DragulaService,
         private fridgeStore: FridgeStoreService,
-        private recipeStore: RecipeStoreService
+        private recipeStore: RecipeStoreService,
+        public modalController: ModalController
     ) {}
 
     public ngOnInit() {
@@ -69,7 +74,7 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
                     }
                 }
                 this.ingredients.splice(this.maxItems);
-                this.shuffle(this.ingredients);
+                shuffle(this.ingredients);
             })
         );
         this.subscription.add(
@@ -100,11 +105,11 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
                 if (this.compareShoppingListWithRecipe() === true) {
                     this.event.emit();
                 } else {
-                    this.errorEvent.emit(
-                        this.errorTexts.find(
-                            (errorText) => errorText.name === "shopping-list"
-                        )
+                    const errorText = getErrorText(
+                        this.errorTexts,
+                        Errortexts.SHOPPING_LIST
                     );
+                    this.errorEvent.emit(errorText);
                 }
             })
         );
@@ -114,15 +119,20 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
      * @param item Ingredient|Word
      */
     public addItem(item) {
-        const shoppingListErrorText: Errortext = new Errortext();
         if (!this.fridgeStore.alreadyRandomized) {
-            shoppingListErrorText.deserialize(
-                this.errorTexts.find(
-                    (errorText) => errorText.name === "fridge-not-checked"
-                )
+            const errorText = getErrorText(
+                this.errorTexts,
+                Errortexts.FRIDGE_NOT_CHECKED
             );
+            this.errorEvent.emit(errorText);
         } else {
             this.shoppingListStore.addItem(item);
+            this.ingredients.splice(
+                this.ingredients.findIndex(
+                    (ingredient) => ingredient.id === item.id
+                ),
+                1
+            );
             if (this.compareShoppingListWithRecipe()) {
                 this.event.emit();
             }
@@ -137,6 +147,9 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
     public compareShoppingListWithRecipe(): boolean {
         let allItemsFound = true;
         let noDuplicateItems = true;
+        if (!this.recipeStore.currentRecipe) {
+            return false;
+        }
         this.recipeStore.currentRecipe.ingredients.forEach((ingredient) => {
             if (
                 this.shoppingListItems.findIndex(
@@ -162,12 +175,27 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
         return allItemsFound && noDuplicateItems;
     }
 
+    public async showFridge() {
+        const modal = await this.modalController.create({
+            component: FridgePage
+        });
+        return await modal.present();
+    }
+
     /**
      * Removes item from the shopping list
      * @param item Ingredient|Word
      */
     public removeItem(item) {
         this.shoppingListStore.removeItem(item);
+        if (
+            this.ingredients.findIndex(
+                (ingredient) => ingredient.id === item.id
+            ) === -1
+        ) {
+            this.ingredients.push(item);
+        }
+
         if (this.compareShoppingListWithRecipe()) {
             this.event.emit();
         }
@@ -186,26 +214,13 @@ export class ShoppingListComponent implements OnInit, IGameComponent {
     }
 
     /**
-     * Shuffles ingredients.
-     * Based on the modern Fisher-Yates-shuffle algorithm.
-     * [https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm]
-     * @param ingredients The ingredients to shuffle.
-     */
-    public shuffle(ingredients: Ingredient[]) {
-        for (let i = ingredients.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [ingredients[i], ingredients[j]] = [ingredients[j], ingredients[i]];
-        }
-        return ingredients;
-    }
-
-    /**
      * Clears the initialized storages and the current recipe.
      */
     public cleanupResources() {
         this.shoppingListStore.clearItems();
         this.fridgeStore.clearItems();
         this.recipeStore.currentRecipe = null;
+        this.fridgeStore.alreadyRandomized = false;
         this.ingredients = [];
     }
 }

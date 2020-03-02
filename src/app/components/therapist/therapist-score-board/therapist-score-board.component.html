@@ -1,36 +1,62 @@
-<ion-list *ngFor="let patientSessions of sessions">
-    <ion-list-header> {{ patientSessions.patient.fullName }}</ion-list-header>
-    <ion-item *ngFor="let session of patientSessions.sessions; let i = index">
-        <ion-label
-            ><h2>
-                {{
-                    session.statistic.startTime
-                        | date: "dd.MM.yyyy
+<ng-container *ngIf="sessions !== undefined; else loadingTemplate">
+    <ng-container *ngIf="sessions.length > 0; else noPatientsTemplate">
+        <ion-list *ngFor="let patientSessions of sessions">
+            <ion-list-header>
+                {{ patientSessions.patient.fullName }}</ion-list-header
+            >
+            <ion-item
+                *ngFor="let session of patientSessions.sessions; let i = index"
+            >
+                <ion-label
+                    ><h2>
+                        {{
+                            session.statistic.startTime
+                                | date
+                                    : "dd.MM.yyyy
                         HH:mm"
-                }}
-            </h2>
-            <p>Spiel: {{ session.game.name }}</p>
-            <p>
-                Zeit:
-                {{
-                    getDifference(
-                        session.statistic.startTime,
-                        session.statistic.endTime
-                    ).minutes
-                }}
-                Minute(n)
-                {{
-                    getDifference(
-                        session.statistic.startTime,
-                        session.statistic.endTime
-                    ).seconds
-                }}
-                Sekunde(n)
-            </p>
-            <p>
-                <serious-game-error-count
-                    [givenErrorCount]="session.statistic.errortexts.length"
-                ></serious-game-error-count></p
-        ></ion-label>
-    </ion-item>
-</ion-list>
+                        }}
+                    </h2>
+                    <p>Spiel: {{ session.game.name }}</p>
+                    <p>
+                        Zeit:
+                        {{
+                            getDifference(
+                                session.statistic.startTime,
+                                session.statistic.endTime
+                            ).minutes
+                        }}
+                        Minute(n)
+                        {{
+                            getDifference(
+                                session.statistic.startTime,
+                                session.statistic.endTime
+                            ).seconds
+                        }}
+                        Sekunde(n)
+                    </p>
+                    <p>
+                        <serious-game-error-count
+                            [givenErrorCount]="
+                                session.statistic.errortexts.length
+                            "
+                        ></serious-game-error-count></p
+                ></ion-label>
+            </ion-item>
+        </ion-list>
+    </ng-container>
+</ng-container>
+<ng-template #loadingTemplate>
+    <ion-spinner name="crescent"></ion-spinner>
+</ng-template>
+<ng-template #noPatientsTemplate>
+    <div class="ion-margin">
+        <h5>
+            Ihrem Profil wurden noch keine PatientInnen zugewiesen, die bereits
+            Spielsitzungen abgelegt haben.
+        </h5>
+
+        <ion-button expand="block" [routerLink]="['/profile']"
+            >PatientInnen zuweisen</ion-button
+        >
+    </div>
+</ng-template>

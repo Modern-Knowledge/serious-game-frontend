@@ -16,15 +16,17 @@ import { GameService } from "src/app/providers/game.service";
 import { IngredientService } from "src/app/providers/ingredient.service";
 import { RecipeService } from "src/app/providers/recipe.service";
 import { SessionService } from "src/app/providers/session.service";
+import { MealtimeStoreService } from "src/app/providers/store/mealtime-store.service";
 import { UserStoreService } from "src/app/providers/store/user-store.service";
 import { ToastPosition, ToastWrapper } from "src/app/util/ToastWrapper";
+import { PatientDto } from "src/lib/models/Dto/PatientDto";
+import { TherapistDto } from "src/lib/models/Dto/TherapistDto";
 import { Errortext } from "src/lib/models/Errortext";
 import { Game } from "src/lib/models/Game";
 import { Ingredient } from "src/lib/models/Ingredient";
-import { Patient } from "src/lib/models/Patient";
 import { Recipe } from "src/lib/models/Recipe";
-import { Therapist } from "src/lib/models/Therapist";
 import { Word } from "src/lib/models/Word";
+import { shuffle } from "src/lib/utils/helper";
 import { HttpResponseMessageSeverity } from "src/lib/utils/http/HttpResponse";
 
 @Component({
@@ -40,9 +42,9 @@ export class GamePage {
     @ViewChild(ErrorCountComponent, { static: false })
     public errorCount: ErrorCountComponent;
 
-    @ViewChild("scrollContainer", { static: false }) content: IonContent;
+    @ViewChild("scrollContainer", { static: false }) public content: IonContent;
 
-    public user: Therapist | Patient;
+    public user: TherapistDto | PatientDto;
     public games: Game[];
     public step: number;
     private dayPlanningData: Array<Word | Recipe>;
@@ -50,7 +52,7 @@ export class GamePage {
     private shoppingCenterData: Array<Word | Ingredient>;
     private elapsedTime: number;
     private gameComponents;
-    private subscription: Subscription = new Subscription();
+    private subscription: Subscription;
     private sessionErrorTexts: Errortext[] = [];
     private canContinue: boolean;
     private mainGameSubject: Subject<any> = new Subject();
@@ -75,10 +77,9 @@ export class GamePage {
         private sessionService: SessionService,
         private router: Router,
         private userStore: UserStoreService,
-        private errorTextService: ErrorTextService
-    ) {
-        this.step = 0;
-    }
+        private errorTextService: ErrorTextService,
+        private mealtimeStorage: MealtimeStoreService
+    ) {}
 
     /**
      * Function that is executed, when the view is entered.
@@ -86,6 +87,8 @@ export class GamePage {
      * recipes, games and ingredients.
      */
     public ionViewWillEnter() {
+        this.step = 0;
+        this.subscription = new Subscription();
         this.subscription.add(
             this.userStore.user.subscribe((user) => {
                 this.user = user;
@@ -93,7 +96,7 @@ export class GamePage {
         );
         this.subscription.add(
             this.requestMultipleResources().subscribe((responseList) => {
-                this.dayPlanningData = responseList[0];
+                this.dayPlanningData = shuffle(responseList[0]);
                 this.games = responseList[1];
                 this.shoppingCenterData = responseList[2];
                 this.loadGame();
@@ -178,6 +181,14 @@ export class GamePage {
     public onSubmit() {
         this.mainGameSubject.next();
         if (this.canContinue) {
+            const message = new ToastWrapper(
+                "Abschnitt erfolgreich absolviert!",
+                ToastPosition.TOP,
+                HttpResponseMessageSeverity.SUCCESS,
+                "Erfolg"
+            );
+            message.alert();
+
             this.stopWatch.reset();
             this.errorCount.reset();
             this.storeSession();
@@ -196,15 +207,17 @@ export class GamePage {
             this.stopWatch.reset();
             this.errorCount.reset();
             this.storeSession();
-            this.step = 0;
             this.cleanupResources();
+            this.componentIs.viewContainerRef.clear();
             const message = new ToastWrapper(
                 "Das Spiel wurde erfolgreich abgeschlossen!",
                 ToastPosition.TOP,
                 HttpResponseMessageSeverity.SUCCESS
             );
             message.alert();
-            this.router.navigateByUrl("/main-menu");
+            this.router.navigate(["/main-menu"], {
+                queryParams: { mayLeave: true }
+            });
         }
     }
 
@@ -235,6 +248,7 @@ export class GamePage {
     }
 
     public cleanupResources() {
+        this.step = 0;
         this.subscription.unsubscribe();
         this.dynamicComponentInstances.forEach((instance) => {
             instance.cleanupResources();
@@ -246,11 +260,9 @@ export class GamePage {
      *
      * @param recipe recipe to add to the chosen recipes
      */
-    public addRecipe(recipe: Recipe) {
-        if (recipe) {
-            this.chosenRecipes.push(recipe);
-            this.setCanContinue();
-        }
+    public addRecipe() {
+        this.chosenRecipes = Array.from(this.mealtimeStorage.items.values());
+        this.setCanContinue();
     }
 
     /**
@@ -304,11 +316,11 @@ export class GamePage {
     public setTime(time: number): void {
         this.elapsedTime = time;
     }
-
     /**
      * Executed, when the view is left
      */
     public ionViewDidLeave(): void {
         this.subscription.unsubscribe();
+        this.cleanupResources();
     }
 }

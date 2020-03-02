@@ -37,7 +37,7 @@ export abstract class AbstractStoreService {
      * removes all items from the state
      */
     public clearItems() {
-        this.logging.info("clearItems", `remove all items from store`);
+        this.logging.debug("clearItems", `remove all items from store`);
         this.items = [];
     }
 
@@ -47,15 +47,15 @@ export abstract class AbstractStoreService {
     protected addItem(value: any) {
         if (value) {
             if (this.items.findIndex((item) => item.id === value.id) === -1) {
-                this.logging.info("addItem", `store item with id ${value.id}`);
+                this.logging.debug("addItem", `store item with id ${value.id}`);
                 this.items = [...this.items, value];
             } else {
-                this.logging.warn(
+                this.logging.debug(
                     "addItem",
                     `item with id ${value.id} is already in the store`
                 );
             }
-            this.logging.info(
+            this.logging.debug(
                 "addItem",
                 `current state:${JSON.stringify(this.items)}`
             );
@@ -75,9 +75,9 @@ export abstract class AbstractStoreService {
      * removes an item from the state
      */
     protected removeItem(value: any) {
-        this.logging.info("removeItem", `remove item with id ${value.id}`);
+        this.logging.debug("removeItem", `remove item with id ${value.id}`);
         this.items = this.items.filter((item) => item.id !== value.id);
-        this.logging.info(
+        this.logging.debug(
             "removeItem",
             `current state:${JSON.stringify(this.items)}`
         );

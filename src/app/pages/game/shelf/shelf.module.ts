@@ -15,7 +15,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [ShelfPage],
     imports: [
         CommonModule,
         FormsModule,

@@ -1,14 +1,14 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
+    <ion-toolbar color="primary">
+        <ion-title *ngIf="foodCategory">{{ foodCategory.name }}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="this.goBack()">Fertig</ion-button>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
 <ion-content [scrollEvents]="true" #scrollContainer class="scroll-container">
     <ion-reorder-group (ionItemReorder)="doReorder($event)" disabled="false">
         <ion-card *ngIf="foodCategory">
-            <ion-card-header>{{ foodCategory.name }}</ion-card-header>
             <ion-card-content>
                 <serious-game-drag-zone
                     id="shelf"
@@ -24,5 +24,12 @@
             [data]="foodItems"
             [viewing]="false"
         ></serious-game-cart>
+        <ion-grid margin-top="10">
+            <ion-row>
+                <ion-col size="12">
+                    <ion-button expand="block" (click)="this.goBack()">Fertig</ion-button>
+                </ion-col>
+            </ion-row><br/>
+        </ion-grid>
     </ion-reorder-group>
 </ion-content>

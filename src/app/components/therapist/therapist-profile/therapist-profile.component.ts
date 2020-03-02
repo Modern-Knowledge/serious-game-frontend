@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 import { TherapistService } from "src/app/providers/therapist.service";
-import { Therapist } from "src/lib/models/Therapist";
+import { TherapistDto } from "src/lib/models/Dto/TherapistDto";
 
 @Component({
     selector: "serious-game-therapist-profile",
@@ -9,16 +9,14 @@ import { Therapist } from "src/lib/models/Therapist";
     templateUrl: "./therapist-profile.component.html"
 })
 export class TherapistProfileComponent implements OnDestroy {
-    @Input() public user: Therapist;
+    @Input() public user: TherapistDto;
     private subscription: Subscription = new Subscription();
 
     constructor(private therapistService: TherapistService) {}
 
     public assignPatients(patients) {
         this.user.patients = patients;
-        this.subscription.add(
-            this.therapistService.update(this.user).subscribe()
-        );
+        this.therapistService.update(this.user).subscribe();
     }
 
     public ngOnDestroy() {

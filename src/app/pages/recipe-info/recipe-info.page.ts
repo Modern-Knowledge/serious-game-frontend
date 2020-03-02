@@ -13,15 +13,14 @@ import {UtilService} from "../../providers/util/util.service";
     templateUrl: "./recipe-info.page.html"
 })
 export class RecipeInfoPage {
-    private recipes: Recipe[];
-    private difficulties: Difficulty[];
-    private mealtimes: Mealtimes[];
+    public recipes: Recipe[];
+    public difficulties: Difficulty[];
+    public mealtimes: Mealtimes[];
+    public selectedDifficulty = 0;
+    public selectedMealtime = "all";
+    public isTherapist: boolean;
+
     private subscription: Subscription;
-
-    private selectedDifficulty = 0;
-    private selectedMealtime = "all";
-
-    private isTherapist: boolean;
 
     /**
      * @param recipeService recipe service
@@ -68,7 +67,7 @@ export class RecipeInfoPage {
      *
      * @param event html event
      */
-    private changeMealtime(event): void {
+    public changeMealtime(event): void {
         this.selectedMealtime = event.target.value;
         this.fetchRecipes();
     }
@@ -79,7 +78,7 @@ export class RecipeInfoPage {
      * @param event javascript event
      * @param recipe recipe to update
      */
-    private updateMealtime(event, recipe: Recipe): void {
+    public updateMealtime(event, recipe: Recipe): void {
         const target = event.target;
         recipe.mealtime = target.value;
 
@@ -92,7 +91,7 @@ export class RecipeInfoPage {
      * @param event javascript event
      * @param recipe recipe to update
      */
-    private updateDifficulty(event, recipe: Recipe): void {
+    public updateDifficulty(event, recipe: Recipe): void {
         const target = event.target;
         recipe.difficultyId = target.value;
 
@@ -104,7 +103,7 @@ export class RecipeInfoPage {
      *
      * @param event html event
      */
-    private changeDifficulty(event): void {
+    public changeDifficulty(event): void {
         this.selectedDifficulty = event.target.value;
         this.fetchRecipes();
     }

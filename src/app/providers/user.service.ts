@@ -1,6 +1,7 @@
 import {HttpClient} from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import {HttpResponse} from "../../lib/utils/http/HttpResponse";
+import {Injectable} from "@angular/core";
+import {map} from "rxjs/operators";
+import {HttpResponse, HttpResponseStatus} from "../../lib/utils/http/HttpResponse";
 
 @Injectable({
     providedIn: "root"
@@ -10,7 +11,8 @@ export class UserService {
     /**
      * @param httpClient http-client for requests
      */
-    constructor(private httpClient: HttpClient) {}
+    constructor(private httpClient: HttpClient) {
+    }
 
     /**
      * Tries to change the password of the given user-id.
@@ -33,15 +35,23 @@ export class UserService {
      *
      * @param id id of the user
      * @param email email of the user
+     * @param gender gender of the user
      * @param forename forename of the user
      * @param lastname lastname of the user
      */
-    public updateUser(id: number, email: string, forename: string, lastname: string) {
+    public updateUser(id: number, gender: number, email: string, forename: string, lastname: string) {
         return this.httpClient.put<HttpResponse>("users/" + id, {
-           _email: email,
-           _forename: forename,
-           _lastname: lastname
-        });
+            _email: email,
+            _forename: forename,
+            _gender: gender,
+            _lastname: lastname
+        }).pipe(
+            map((user: HttpResponse) => {
+                const userModel = new HttpResponse().deserialize(user);
+                return userModel.status === HttpResponseStatus.SUCCESS ?
+                    userModel.data.user : undefined;
+            })
+        );
     }
 
 }

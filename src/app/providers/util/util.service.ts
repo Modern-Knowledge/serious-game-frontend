@@ -61,7 +61,7 @@ export class UtilService {
      * Returns the changelog from the backend.
      */
     public getBackendChangelog(): Observable<HttpResponse> {
-        return this.http.get<HttpResponse>(``).pipe(
+        return this.http.get<HttpResponse>(`changelog`).pipe(
             map((response: HttpResponse) => new HttpResponse().deserialize(response))
         );
     }

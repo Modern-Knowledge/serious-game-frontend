@@ -1,8 +1,10 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Inject, Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 import { JwtHelperService } from "@auth0/angular-jwt";
-import { Observable, of } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import { PatientDto } from "src/lib/models/Dto/PatientDto";
+import { TherapistDto } from "src/lib/models/Dto/TherapistDto";
 import { Patient } from "src/lib/models/Patient";
 import { Therapist } from "src/lib/models/Therapist";
 import { User } from "src/lib/models/User";
@@ -13,6 +15,9 @@ export class AuthService {
     public user: User;
     public helper = new JwtHelperService();
     public redirectUrl: string;
+    private loggedInSubject = new BehaviorSubject<boolean>(
+        this.getToken() !== null
+    );
     constructor(private httpClient: HttpClient) {}
 
     /**
@@ -37,7 +42,10 @@ export class AuthService {
      * @param type type of the user (patient = false, therapist = true) that should be registered
      */
     public register(user: User, type: boolean): Observable<User> {
-        return this.httpClient.post<User>(type ? "therapists" : "patients", user);
+        return this.httpClient.post<User>(
+            type ? "therapists" : "patients",
+            user
+        );
     }
 
     /**
@@ -59,7 +67,12 @@ export class AuthService {
      * @param passwordConfirmation password confirmation
      * @param token reset-token of the user, that wants to reset his password
      */
-    public resetPassword(email: string, password: string, passwordConfirmation: string, token: number) {
+    public resetPassword(
+        email: string,
+        password: string,
+        passwordConfirmation: string,
+        token: number
+    ) {
         return this.httpClient.post<HttpResponse>("password/reset-password", {
             email,
             password,
@@ -71,18 +84,22 @@ export class AuthService {
     /**
      * Returns information about the user.
      */
-    public getRelatedUser(): Observable<Therapist | Patient> {
+    public getRelatedUser(): Observable<TherapistDto | PatientDto> {
         return this.httpClient
             .get<HttpResponse>(`users/related`)
             .pipe(
                 map((user) =>
                     this.isTherapist()
-                        ? new Therapist().deserialize(
-                        new HttpResponse().deserialize(user).data.user
-                        )
-                        : new Patient().deserialize(
-                        new HttpResponse().deserialize(user).data.user
-                        )
+                        ? new TherapistDto(
+                              new Therapist().deserialize(user)
+                          ).deserialize(
+                              new HttpResponse().deserialize(user).data.user
+                          )
+                        : new PatientDto(
+                              new Patient().deserialize(user)
+                          ).deserialize(
+                              new HttpResponse().deserialize(user).data.user
+                          )
                 )
             );
     }
@@ -104,6 +121,7 @@ export class AuthService {
         if (token) {
             // store username and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem("accessToken", token);
+            this.loggedInSubject.next(true);
         }
     }
 
@@ -131,20 +149,21 @@ export class AuthService {
     public logout(): void {
         // clear token remove user from local storage to log user out
         localStorage.removeItem("accessToken");
+        this.loggedInSubject.next(false);
     }
 
     /**
      * Checks if the user is logged in. Tests if the token is not null.
      */
-    public isLoggedIn(): boolean {
-        return this.getToken() !== null;
+    public isLoggedIn(): Observable<boolean> {
+        return this.loggedInSubject.asObservable();
     }
 
     /**
      * Checks if the user is logged in and returns the user id. If the user is not logged in, null is returned.
      */
     public getUserIdFromToken(): number | null {
-        if (this.isLoggedIn()) {
+        if (this.getToken() !== null) {
             return this.helper.decodeToken(this.getToken()).id;
         }
 
@@ -155,7 +174,7 @@ export class AuthService {
      * Returns true if the logged in user is a therapist. If the user is not logged in, the function returns false.
      */
     public isTherapist() {
-        if (this.isLoggedIn()) {
+        if (this.getToken() !== null) {
             return this.helper.decodeToken(this.getToken()).therapist;
         }
 
@@ -166,7 +185,7 @@ export class AuthService {
      * Returns true if the logged in user is a admin. If the user is not logged in, the function returns false.
      */
     public isAdmin() {
-        if (this.isLoggedIn()) {
+        if (this.getToken() !== null) {
             return this.helper.decodeToken(this.getToken()).admin;
         }
 

@@ -24,6 +24,8 @@
                                     name="email"
                                     required="true"
                                     type="text"
+                                    minlength="1"
+                                    maxlength="255"
                             ></ion-input>
                         </ion-item>
                         <ion-item>
@@ -36,12 +38,15 @@
                                     name="password"
                                     required="true"
                                     type="password"
+                                    minlength="1"
+                                    maxlength="255"
                             ></ion-input>
                         </ion-item>
                         <ion-item>
                             <ion-label>Angemeldet bleiben</ion-label>
                             <ion-checkbox color="primary" slot="start" formControlName="loggedin"
-                                          name="loggedin" value="1"></ion-checkbox>
+                                          name="loggedin" value="1">
+                            </ion-checkbox>
                         </ion-item>
                     </ion-list>
 
