@@ -1,9 +1,9 @@
 <ion-header>
     <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
-        </ion-buttons>
         <ion-title *ngIf="foodCategory">{{ foodCategory.name }}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="this.goBack()">Fertig</ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 <ion-content [scrollEvents]="true" #scrollContainer class="scroll-container">
