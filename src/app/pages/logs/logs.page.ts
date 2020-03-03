@@ -13,6 +13,7 @@ import {UtilService} from "../../providers/util/util.service";
 export class LogsPage {
     public isTherapist: boolean;
     public logs: any;
+    public level: string;
     private subscription: Subscription;
 
     constructor(
@@ -28,6 +29,7 @@ export class LogsPage {
         this.subscription.add(
             this.utilService.getLogs().subscribe((logs: HttpResponse) => {
                 this.logs = logs.data.files;
+                this.level = logs.data.level;
             })
         );
     }
