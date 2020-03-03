@@ -7,7 +7,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen="true">
+<ion-content fullscreen="true" *ngIf="recipes">
     <ion-grid>
         <ion-card>
             <ion-card-header>
@@ -50,10 +50,10 @@
                         <span *ngIf="!this.isTherapist">{{recipe.mealtime}}</span>
 
                         <ion-select *ngIf="this.isTherapist" interface="popover"
-                                    (ionChange)="updateMealtime($event, recipe)">
-                            <ion-select-option [selected]="recipe.mealtime == mealtime"
-                                               *ngFor="let mealtime of this.mealtimes"
-                                               value="{{mealtime}}">
+                                    (ionChange)="updateMealtime($event, recipe)"
+                                    [value]="recipe.mealtime">
+                            <ion-select-option *ngFor="let mealtime of this.mealtimes"
+                                               [value]="mealtime">
                                 {{mealtime}}
                             </ion-select-option>
                         </ion-select>
@@ -63,10 +63,11 @@
                         <span *ngIf="!this.isTherapist">{{recipe.difficulty.difficultyName}}</span>
 
                         <ion-select *ngIf="this.isTherapist" interface="popover"
-                                    (ionChange)="updateDifficulty($event, recipe)">
+                                    (ionChange)="updateDifficulty($event, recipe)"
+                                    [value]="recipe.difficulty.difficultyName">
                             <ion-select-option [selected]="recipe.difficultyId == difficulty.difficulty"
                                                *ngFor="let difficulty of this.difficulties"
-                                               value="{{difficulty.difficulty}}">
+                                               [value]="difficulty.difficultyName">
                                 {{difficulty.difficultyName}}
                             </ion-select-option>
                         </ion-select>
