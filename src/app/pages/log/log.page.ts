@@ -13,7 +13,7 @@ import {UtilService} from "../../providers/util/util.service";
 export class LogPage {
     public orderObj;
     public name: string;
-    public log: any = [];
+    public log: any;
     private subscription: Subscription;
 
     constructor(

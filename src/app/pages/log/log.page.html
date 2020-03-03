@@ -14,16 +14,29 @@
                 <ion-card-title>Log-Dateien</ion-card-title>
             </ion-card-header>
             <ion-card-content>
-                <ion-label *ngIf="log.length === 0">Keine Logs gefunden!</ion-label>
-                <ion-list>
-                    <ion-item *ngFor="let l of log">
-                        <ion-label>{{l.timestamp}} <b>{{l.level}}</b></ion-label>
-                        <ion-textarea disabled="true">
-                            {{l.message.substring(19)}}
-                        </ion-textarea>
-                    </ion-item>
-                </ion-list>
+                <ng-container *ngIf="log !== undefined; else loadingTemplate">
+                    <ng-container *ngIf="log.length > 0; else noLogsTemplate">
+                        <ion-list>
+                            <ion-item *ngFor="let l of log">
+                                <ion-label>{{l.timestamp}} <b>{{l.level}}</b></ion-label>
+                                <ion-textarea disabled="true">
+                                    {{l.message.substring(19)}}
+                                </ion-textarea>
+                            </ion-item>
+                        </ion-list>
+                    </ng-container>
+                </ng-container>
             </ion-card-content>
         </ion-card>
     </ion-grid>
 </ion-content>
+
+<ng-template #loadingTemplate>
+    <ion-spinner name="crescent"></ion-spinner>
+</ng-template>
+
+<ng-template #noLogsTemplate>
+    <div class="ion-margin">
+        <ion-label>Keine Logs gefunden!</ion-label>
+    </div>
+</ng-template>
