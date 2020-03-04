@@ -64,10 +64,10 @@
 
                         <ion-select *ngIf="this.isTherapist" interface="popover"
                                     (ionChange)="updateDifficulty($event, recipe)"
-                                    [value]="recipe.difficulty.difficultyName">
+                                    [value]="recipe.difficulty.difficulty">
                             <ion-select-option [selected]="recipe.difficultyId == difficulty.difficulty"
                                                *ngFor="let difficulty of this.difficulties"
-                                               [value]="difficulty.difficultyName">
+                                               [value]="difficulty.difficulty">
                                 {{difficulty.difficultyName}}
                             </ion-select-option>
                         </ion-select>
