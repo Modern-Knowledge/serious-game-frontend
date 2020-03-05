@@ -37,9 +37,9 @@ export class LogPage {
                             const nl = {...value};
                             nl.timestamp = formatDateTime(value.timestamp);
                             return nl;
-                        })
-                            .filter((value) => value.message)
-                            .reverse();
+                        }).filter((value) => value.message).reverse();
+                    } else {
+                        this.log = [];
                     }
                 })
             );
