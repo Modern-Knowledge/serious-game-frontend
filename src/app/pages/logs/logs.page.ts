@@ -1,5 +1,4 @@
-import {HttpHeaders} from "@angular/common/http";
-import {Component, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {Subscription} from "rxjs";
 import {HttpResponse} from "../../../lib/utils/http/HttpResponse";
 import {AuthService} from "../../providers/auth.service";
@@ -14,6 +13,13 @@ export class LogsPage {
     public isTherapist: boolean;
     public logs: any;
     public level: string;
+
+    public possibleLevel = {
+        debug: 0,
+        error: 3,
+        info: 1,
+        warn: 2
+    };
     private subscription: Subscription;
 
     constructor(
@@ -42,6 +48,19 @@ export class LogsPage {
                 });
             })
         );
+    }
+
+    /**
+     * Returns true if the button with the given level should be displayed.
+     * The levels that should be displayed are sent with the backend.
+     *
+     * @param btnLevel level of the button that should be displayed
+     */
+    public showButton(btnLevel: string): boolean {
+        const nr = this.possibleLevel[btnLevel];
+        const backendLevel = this.possibleLevel[this.level];
+
+        return nr >= backendLevel;
     }
 
     /**

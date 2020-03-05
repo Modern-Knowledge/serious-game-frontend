@@ -20,10 +20,10 @@
                             <ion-item *ngFor="let l of logs">
                                 <ion-label>{{l.file}} [{{l.size}} KB]</ion-label>
                                 <ion-button expand="block" color="light" [routerLink]="['/log']" [queryParams]="{ name: l.file}">Alle</ion-button>
-                                <ion-button expand="block" color="primary" *ngIf="level === 'debug'" [routerLink]="['/log']" [queryParams]="{ name: l.file, level: 'debug'}">Debug</ion-button>
-                                <ion-button expand="block" color="tertiary" *ngIf="level === 'info'" [routerLink]="['/log']" [queryParams]="{ name: l.file, level: 'info'}">Info</ion-button>
-                                <ion-button expand="block" color="warning" *ngIf="level === 'warn'" [routerLink]="['/log']" [queryParams]="{ name: l.file, level: 'warn'}">Warnung</ion-button>
-                                <ion-button expand="block" color="danger" *ngIf="level === 'error'" [routerLink]="['/log']" [queryParams]="{ name: l.file, level: 'error'}">Error</ion-button>
+                                <ion-button expand="block" color="primary" *ngIf="showButton('debug')" [routerLink]="['/log']" [queryParams]="{ name: l.file, level: 'debug'}">Debug</ion-button>
+                                <ion-button expand="block" color="tertiary" *ngIf="showButton('info')" [routerLink]="['/log']" [queryParams]="{ name: l.file, level: 'info'}">Info</ion-button>
+                                <ion-button expand="block" color="warning" *ngIf="showButton('warn')" [routerLink]="['/log']" [queryParams]="{ name: l.file, level: 'warn'}">Warnung</ion-button>
+                                <ion-button expand="block" color="danger" *ngIf="showButton('error')" [routerLink]="['/log']" [queryParams]="{ name: l.file, level: 'error'}">Error</ion-button>
                             </ion-item>
                         </ion-list>
                     </ng-container>
