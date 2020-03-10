@@ -33,6 +33,7 @@ export class TherapistScoreBoardComponent implements OnInit, OnDestroy {
                     .getForTherapist(user.id)
                     .subscribe((sessions) => {
                         this.sessions = this.groupByPatient(sessions);
+                        console.log(this.sessions)
                     });
             })
         );
@@ -48,8 +49,18 @@ export class TherapistScoreBoardComponent implements OnInit, OnDestroy {
             (patientSessions) =>
                 (patientSessions = {
                     patient: patientSessions[0],
-                    sessions: patientSessions[1]
+                    sessions: this.groupByName(patientSessions[1])
                 })
         );
+    }
+
+    /**
+     * Groups the sessions by the game name.
+     */
+    public groupByName(sessions) {
+        return sessions.reduce((s, x) => {
+            s[x.gameId] = [...(s[x.gameId] || []), x];
+            return s;
+        }, []).filter((session) => session)
     }
 }

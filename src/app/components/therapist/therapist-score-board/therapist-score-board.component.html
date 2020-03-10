@@ -1,48 +1,50 @@
 <ng-container *ngIf="sessions !== undefined; else loadingTemplate">
     <ng-container *ngIf="sessions.length > 0; else noPatientsTemplate">
-        <ion-list *ngFor="let patientSessions of sessions">
-            <ion-list-header>
-                {{ patientSessions.patient.fullName }}</ion-list-header
-            >
-            <ion-item
-                *ngFor="let session of patientSessions.sessions; let i = index"
-            >
-                <ion-label
-                    ><h2>
-                        {{
-                            session.statistic.startTime
-                                | date
-                                    : "dd.MM.yyyy
-                        HH:mm"
-                        }}
-                    </h2>
-                    <p>Spiel: {{ session.game.name }}</p>
-                    <p>
-                        Zeit:
-                        {{
-                            getDifference(
-                                session.statistic.startTime,
-                                session.statistic.endTime
-                            ).minutes
-                        }}
-                        Minute(n)
-                        {{
-                            getDifference(
-                                session.statistic.startTime,
-                                session.statistic.endTime
-                            ).seconds
-                        }}
-                        Sekunde(n)
-                    </p>
-                    <p>
-                        <serious-game-error-count
-                            [givenErrorCount]="
-                                session.statistic.errortexts.length
-                            "
-                        ></serious-game-error-count></p
-                ></ion-label>
-            </ion-item>
-        </ion-list>
+        <serious-game-list-accordion [title]="patientSessions.patient.fullName" *ngFor="let patientSessions of sessions">
+            <ng-container *ngFor="let patientGameSessions of patientSessions.sessions; let i = index">
+                <serious-game-list-accordion
+                    *ngIf="patientGameSessions.length > 0"
+                    [title]="patientGameSessions[0].game.name"
+                >
+                <ion-item *ngFor="let session of patientGameSessions; let i = index">
+                    <ion-label
+                        ><h2>
+                            {{
+                                session.statistic.startTime
+                                    | date
+                                        : "dd.MM.yyyy
+                            HH:mm"
+                            }}
+                        </h2>
+                        <p>Spiel: {{ session.game.name }}</p>
+                        <p>
+                            Zeit:
+                            {{
+                                getDifference(
+                                    session.statistic.startTime,
+                                    session.statistic.endTime
+                                ).minutes
+                            }}
+                            Minute(n)
+                            {{
+                                getDifference(
+                                    session.statistic.startTime,
+                                    session.statistic.endTime
+                                ).seconds
+                            }}
+                            Sekunde(n)
+                        </p>
+                        <p>
+                            <serious-game-error-count
+                                [givenErrorCount]="
+                                    session.statistic.errortexts.length
+                                "
+                            ></serious-game-error-count></p
+                    ></ion-label>
+                </ion-item>
+                </serious-game-list-accordion>
+            </ng-container>
+        </serious-game-list-accordion>
     </ng-container>
 </ng-container>
 <ng-template #loadingTemplate>

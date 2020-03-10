@@ -1,0 +1,9 @@
+.accordion-container{
+    transition: max-height 0.4s ease-in-out;
+    overflow: hidden;
+    height: auto;
+    padding: 0 10% 0 10%
+}
+.collapsed {
+    max-height: 0;
+}

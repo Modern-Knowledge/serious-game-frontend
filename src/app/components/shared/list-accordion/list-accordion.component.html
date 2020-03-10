@@ -1,0 +1,13 @@
+<ion-row>
+  <ion-col class="title" size="8">
+    <ion-list-header>{{title}}</ion-list-header>
+  </ion-col>
+  <ion-col size="4">
+    <ion-button (click)="expanded=!expanded">
+      <ion-icon [name]="expanded ? 'arrow-dropup' : 'arrow-dropdown'"></ion-icon>
+    </ion-button>
+  </ion-col>
+</ion-row>
+<div class="accordion-container" [class.collapsed]="!expanded">
+  <ng-content></ng-content>
+</div>
