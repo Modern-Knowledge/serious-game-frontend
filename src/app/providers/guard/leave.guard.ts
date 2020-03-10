@@ -11,6 +11,9 @@ export interface IComponentCanDeactivate {
 export class LeaveGuard implements CanDeactivate<IComponentCanDeactivate> {
     constructor(private alertController: AlertController) {}
 
+    /**
+     * Warns the user before leaving by showing a modal to confirm the process.
+     */
     public async canDeactivate(
         component: IComponentCanDeactivate,
         currentRoute: ActivatedRouteSnapshot,

@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { AlertController } from "@ionic/angular";
 import { AuthService } from "src/app/providers/auth.service";
+import { LeaveGuard } from "src/app/providers/guard/leave.guard";
 
 @Component({
     selector: "serious-game-navbar",
@@ -28,11 +30,15 @@ export class NavbarComponent implements OnInit {
     }
 
     /**
-     * Removes the authentication token and navigates the user back to the login
+     * Removes the authentication token and navigates the user back to the login,
+     * if all guards are passed
      */
     public onLogout() {
-        this.authService.logout();
-        this.router.navigateByUrl("/login");
+        this.router.navigateByUrl("/login").then((valid) => {
+            if (valid) {
+                this.authService.logout();
+            }
+        });
     }
 
     /**
