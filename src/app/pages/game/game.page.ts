@@ -244,7 +244,9 @@ export class GamePage {
                     );
                 })
             )
-            .subscribe();
+            .subscribe(() => {
+                this.sessionErrorTexts = [];
+            });
     }
 
     public cleanupResources() {
