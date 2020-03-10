@@ -33,7 +33,6 @@ export class TherapistScoreBoardComponent implements OnInit, OnDestroy {
                     .getForTherapist(user.id)
                     .subscribe((sessions) => {
                         this.sessions = this.groupByPatient(sessions);
-                        console.log(this.sessions)
                     });
             })
         );
