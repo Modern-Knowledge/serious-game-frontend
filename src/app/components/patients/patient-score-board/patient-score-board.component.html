@@ -1,7 +1,4 @@
-<ion-list *ngFor="let groupedSessions of sessions">
-    <ion-list-header *ngIf="groupedSessions">
-        {{ groupedSessions[0].game.name }}</ion-list-header
-    >
+<serious-game-list-accordion *ngFor="let groupedSessions of sessions" [title]="groupedSessions[0].game.name">
     <ion-item *ngFor="let session of groupedSessions; let i = index">
         <ion-label
             ><h2>
@@ -34,4 +31,4 @@
                 ></serious-game-error-count></p
         ></ion-label>
     </ion-item>
-</ion-list>
+</serious-game-list-accordion>
