@@ -1,0 +1,6 @@
+<div class="accordion-container" [class.collapsed]="!expanded">
+  <ng-content></ng-content>
+</div>
+<ion-button (click)="expanded=!expanded">
+  <ion-icon [name]="expanded ? 'arrow-dropup' : 'arrow-dropdown'"></ion-icon>
+</ion-button>

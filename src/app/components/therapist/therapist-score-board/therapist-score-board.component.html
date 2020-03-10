@@ -4,9 +4,10 @@
             <ion-list-header>
                 {{ patientSessions.patient.fullName }}</ion-list-header
             >
-            <ion-item
+            <serious-game-list-accordion
                 *ngFor="let session of patientSessions.sessions; let i = index"
             >
+            <ion-item>
                 <ion-label
                     ><h2>
                         {{
@@ -42,6 +43,7 @@
                         ></serious-game-error-count></p
                 ></ion-label>
             </ion-item>
+            </serious-game-list-accordion>
         </ion-list>
     </ng-container>
 </ng-container>

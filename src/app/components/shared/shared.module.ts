@@ -9,6 +9,7 @@ import { ErrorCountComponent } from "./error-count/error-count.component";
 import { HelptextButtonComponent } from "./helptext-button/helptext-button.component";
 import { HelptextComponent } from "./helptext/helptext.component";
 import { ImageComponent } from "./image/image.component";
+import { ListAccordionComponent } from "./list-accordion/list-accordion.component";
 import { ScoredPointsComponent } from "./scored-points/scored-points.component";
 import { StopwatchComponent } from "./stopwatch/stopwatch.component";
 
@@ -20,7 +21,8 @@ import { StopwatchComponent } from "./stopwatch/stopwatch.component";
         ErrorCountComponent,
         HelptextButtonComponent,
         ImageComponent,
-        ScoredPointsComponent
+        ScoredPointsComponent,
+        ListAccordionComponent
     ],
     entryComponents: [HelptextComponent],
     exports: [
@@ -30,7 +32,8 @@ import { StopwatchComponent } from "./stopwatch/stopwatch.component";
         ErrorCountComponent,
         HelptextButtonComponent,
         ImageComponent,
-        ScoredPointsComponent
+        ScoredPointsComponent,
+        ListAccordionComponent
     ],
     imports: [DragulaModule, CommonModule, FormsModule, IonicModule]
 })
