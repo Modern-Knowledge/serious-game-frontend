@@ -5,6 +5,7 @@
                 {{ patientSessions.patient.fullName }}</ion-list-header
             >
             <serious-game-list-accordion
+                [title]="session.game.name"
                 *ngFor="let session of patientSessions.sessions; let i = index"
             >
             <ion-item>

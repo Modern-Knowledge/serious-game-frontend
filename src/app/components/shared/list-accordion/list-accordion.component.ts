@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from "@angular/core";
 })
 export class ListAccordionComponent implements OnInit {
 
+  @Input() public title: string;
   @Input() public expanded: boolean = false;
 
   constructor() {
