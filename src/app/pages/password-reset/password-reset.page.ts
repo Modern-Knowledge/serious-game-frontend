@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/providers/auth.service";
 
-import { HttpResponse } from "../../../lib/utils/http/HttpResponse";
+import { HttpResponse } from "serious-game-library/dist/utils/http/HttpResponse";
 
 @Component({
     selector: "serious-game-password-reset",

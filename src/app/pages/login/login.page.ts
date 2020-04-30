@@ -6,8 +6,8 @@ import { Subscription } from "rxjs";
 import { AuthService } from "src/app/providers/auth.service";
 
 import { environment } from "../../../environments/environment";
-import { formatDate } from "../../../lib/utils/dateFormatter";
-import { HttpResponse } from "../../../lib/utils/http/HttpResponse";
+import { formatDate } from "serious-game-library/dist/utils/dateFormatter";
+import { HttpResponse } from "serious-game-library/dist/utils/http/HttpResponse";
 
 @Component({
     selector: "serious-game-login",

@@ -1,8 +1,8 @@
 import { EventEmitter } from "@angular/core";
 import { Subject } from "rxjs";
-import { AbstractModel } from "src/lib/models/AbstractModel";
-import { Errortext } from "src/lib/models/Errortext";
-import { Game } from "src/lib/models/Game";
+import { AbstractModel } from "serious-game-library/dist/models/AbstractModel";
+import { Errortext } from "serious-game-library/dist/models/Errortext";
+import { Game } from "serious-game-library/dist/models/Game";
 import { IonContent } from '@ionic/angular';
 
 export interface IGameComponent {

@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 import { TherapistService } from "src/app/providers/therapist.service";
-import { TherapistDto } from "src/lib/models/Dto/TherapistDto";
+import { TherapistDto } from "serious-game-library/dist/models/Dto/TherapistDto";
 
 @Component({
     selector: "serious-game-therapist-profile",

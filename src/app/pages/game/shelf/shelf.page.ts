@@ -5,8 +5,8 @@ import { Subscription } from "rxjs";
 import { FoodCategoryService } from "src/app/providers/food-category.service";
 import { IngredientService } from "src/app/providers/ingredient.service";
 import { CartStoreService } from "src/app/providers/store/cart-store.service";
-import { FoodCategory } from "src/lib/models/FoodCategory";
-import { Ingredient } from "src/lib/models/Ingredient";
+import { FoodCategory } from "serious-game-library/dist/models/FoodCategory";
+import { Ingredient } from "serious-game-library/dist/models/Ingredient";
 
 @Component({
     selector: "serious-game-shelf",

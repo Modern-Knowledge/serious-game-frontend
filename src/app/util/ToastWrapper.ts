@@ -1,5 +1,5 @@
 import { ToastController } from "@ionic/angular";
-import { HttpResponseMessageSeverity } from "src/lib/utils/http/HttpResponse";
+import { HttpResponseMessageSeverity } from "serious-game-library/dist/utils/http/HttpResponse";
 
 export class ToastWrapper {
     private _header: string;

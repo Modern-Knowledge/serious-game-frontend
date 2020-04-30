@@ -2,8 +2,8 @@ import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
-import {Game} from "src/lib/models/Game";
-import {HttpResponse, HttpResponseStatus} from "src/lib/utils/http/HttpResponse";
+import {Game} from "serious-game-library/dist/models/Game";
+import {HttpResponse, HttpResponseStatus} from "serious-game-library/dist/utils/http/HttpResponse";
 
 @Injectable({
     providedIn: "root"

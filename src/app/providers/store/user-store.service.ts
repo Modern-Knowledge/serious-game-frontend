@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Logger, LoggingService } from "ionic-logging-service";
 import { BehaviorSubject, Observable, Subject, Subscription } from "rxjs";
-import { PatientDto } from "src/lib/models/Dto/PatientDto";
-import { TherapistDto } from "src/lib/models/Dto/TherapistDto";
+import { PatientDto } from "serious-game-library/dist/models/Dto/PatientDto";
+import { TherapistDto } from "serious-game-library/dist/models/Dto/TherapistDto";
 
 import { AuthService } from "../auth.service";
 

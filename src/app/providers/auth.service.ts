@@ -3,12 +3,12 @@ import { Injectable } from "@angular/core";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { PatientDto } from "src/lib/models/Dto/PatientDto";
-import { TherapistDto } from "src/lib/models/Dto/TherapistDto";
-import { Patient } from "src/lib/models/Patient";
-import { Therapist } from "src/lib/models/Therapist";
-import { User } from "src/lib/models/User";
-import { HttpResponse } from "src/lib/utils/http/HttpResponse";
+import { PatientDto } from "serious-game-library/dist/models/Dto/PatientDto";
+import { TherapistDto } from "serious-game-library/dist/models/Dto/TherapistDto";
+import { Patient } from "serious-game-library/dist/models/Patient";
+import { Therapist } from "serious-game-library/dist/models/Therapist";
+import { User } from "serious-game-library/dist/models/User";
+import { HttpResponse } from "serious-game-library/dist/utils/http/HttpResponse";
 
 @Injectable()
 export class AuthService {

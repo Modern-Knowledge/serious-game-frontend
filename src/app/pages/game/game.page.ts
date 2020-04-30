@@ -19,15 +19,15 @@ import { SessionService } from "src/app/providers/session.service";
 import { MealtimeStoreService } from "src/app/providers/store/mealtime-store.service";
 import { UserStoreService } from "src/app/providers/store/user-store.service";
 import { ToastPosition, ToastWrapper } from "src/app/util/ToastWrapper";
-import { PatientDto } from "src/lib/models/Dto/PatientDto";
-import { TherapistDto } from "src/lib/models/Dto/TherapistDto";
-import { Errortext } from "src/lib/models/Errortext";
-import { Game } from "src/lib/models/Game";
-import { Ingredient } from "src/lib/models/Ingredient";
-import { Recipe } from "src/lib/models/Recipe";
-import { Word } from "src/lib/models/Word";
-import { shuffle } from "src/lib/utils/helper";
-import { HttpResponseMessageSeverity } from "src/lib/utils/http/HttpResponse";
+import { PatientDto } from "serious-game-library/dist/models/Dto/PatientDto";
+import { TherapistDto } from "serious-game-library/dist/models/Dto/TherapistDto";
+import { Errortext } from "serious-game-library/dist/models/Errortext";
+import { Game } from "serious-game-library/dist/models/Game";
+import { Ingredient } from "serious-game-library/dist/models/Ingredient";
+import { Recipe } from "serious-game-library/dist/models/Recipe";
+import { Word } from "serious-game-library/dist/models/Word";
+import { shuffle } from "serious-game-library/dist/utils/helper";
+import { HttpResponseMessageSeverity } from "serious-game-library/dist/utils/http/HttpResponse";
 
 @Component({
     selector: "serious-game-game",

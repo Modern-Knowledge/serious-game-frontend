@@ -2,13 +2,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { IonContent } from "@ionic/angular";
 import { Subject, Subscription } from "rxjs";
 import { MealtimeStoreService } from "src/app/providers/store/mealtime-store.service";
-import { Errortexts } from "src/lib/enums/Errortexts";
-import { Mealtimes } from "src/lib/enums/Mealtimes";
-import { Errortext } from "src/lib/models/Errortext";
-import { Game } from "src/lib/models/Game";
-import { Recipe } from "src/lib/models/Recipe";
-import { Word } from "src/lib/models/Word";
-import { getErrorText } from "src/lib/utils/errorTextHelper";
+import { Errortexts } from "serious-game-library/dist/enums/Errortexts";
+import { Mealtimes } from "serious-game-library/dist/enums/Mealtimes";
+import { Errortext } from "serious-game-library/dist/models/Errortext";
+import { Game } from "serious-game-library/dist/models/Game";
+import { Recipe } from "serious-game-library/dist/models/Recipe";
+import { Word } from "serious-game-library/dist/models/Word";
+import { getErrorText } from "serious-game-library/dist/utils/errorTextHelper";
 
 import { IGameComponent } from "../game.component";
 

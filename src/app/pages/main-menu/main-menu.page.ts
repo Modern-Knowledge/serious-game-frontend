@@ -2,10 +2,10 @@ import { Component } from "@angular/core";
 import moment from "moment";
 import { AuthService } from "src/app/providers/auth.service";
 import { UserStoreService } from "src/app/providers/store/user-store.service";
-import { PatientDto } from "src/lib/models/Dto/PatientDto";
+import { PatientDto } from "serious-game-library/dist/models/Dto/PatientDto";
 
 import { environment } from "../../../environments/environment";
-import { formatDate } from "../../../lib/utils/dateFormatter";
+import { formatDate } from "serious-game-library/dist/utils/dateFormatter";
 
 @Component({
     selector: "serious-game-main-menu",

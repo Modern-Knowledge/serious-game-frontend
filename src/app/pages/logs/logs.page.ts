@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {Subscription} from "rxjs";
-import {HttpResponse} from "../../../lib/utils/http/HttpResponse";
+import {HttpResponse} from "serious-game-library/dist/utils/http/HttpResponse";
 import {AuthService} from "../../providers/auth.service";
 import {UtilService} from "../../providers/util/util.service";
 

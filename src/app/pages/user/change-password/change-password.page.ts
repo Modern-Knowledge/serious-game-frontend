@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 
 import { environment } from "../../../../environments/environment";
-import { HttpResponse } from "../../../../lib/utils/http/HttpResponse";
+import { HttpResponse } from "serious-game-library/dist/utils/http/HttpResponse";
 import { AuthService } from "../../../providers/auth.service";
 import { UserService } from "../../../providers/user.service";
 

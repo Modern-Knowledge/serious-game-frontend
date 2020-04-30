@@ -1,7 +1,7 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {map} from "rxjs/operators";
-import {HttpResponse, HttpResponseStatus} from "../../lib/utils/http/HttpResponse";
+import {HttpResponse, HttpResponseStatus} from "serious-game-library/dist/utils/http/HttpResponse";
 
 @Injectable({
     providedIn: "root"

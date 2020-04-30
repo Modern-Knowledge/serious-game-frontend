@@ -7,14 +7,12 @@
     "ng": "ng",
     "start": "ng serve",
     "start-production": "ng serve --prod",
-    "build": "npm run pre-build && ionic build --prod",
+    "build": "ionic build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build-docs": "npm run delete-docs && typedoc",
-    "delete-docs": "rm -rf www/",
-    "pre-build-delete": "rm -rf src/lib",
-    "pre-build": "npm run pre-build-delete && cp -r ../serious-game-library/src/. ./src/lib"
+    "delete-docs": "rm -rf www/"
   },
   "private": true,
   "dependencies": {

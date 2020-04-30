@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { Subscription } from "rxjs";
 import { PatientService } from "src/app/providers/patient.service";
-import { PatientDto } from "src/lib/models/Dto/PatientDto";
-import { Patient } from "src/lib/models/Patient";
+import { PatientDto } from "serious-game-library/dist/models/Dto/PatientDto";
+import { Patient } from "serious-game-library/dist/models/Patient";
 
 @Component({
     selector: "serious-game-patient-selector",

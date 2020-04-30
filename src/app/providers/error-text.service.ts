@@ -2,9 +2,9 @@ import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
-import {Errortext} from "src/lib/models/Errortext";
-import {Session} from "src/lib/models/Session";
-import {HttpResponse, HttpResponseStatus} from "src/lib/utils/http/HttpResponse";
+import {Errortext} from "serious-game-library/dist/models/Errortext";
+import {Session} from "serious-game-library/dist/models/Session";
+import {HttpResponse, HttpResponseStatus} from "serious-game-library/dist/utils/http/HttpResponse";
 
 @Injectable({
     providedIn: "root"

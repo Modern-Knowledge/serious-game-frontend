@@ -2,9 +2,9 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
-import {Mealtimes} from "../../../lib/enums/Mealtimes";
-import {Difficulty} from "../../../lib/models/Difficulty";
-import {HttpResponse, HttpResponseStatus} from "../../../lib/utils/http/HttpResponse";
+import {Mealtimes} from "serious-game-library/dist/enums/Mealtimes";
+import {Difficulty} from "serious-game-library/dist/models/Difficulty";
+import {HttpResponse, HttpResponseStatus} from "serious-game-library/dist/utils/http/HttpResponse";
 
 @Injectable({
     providedIn: "root"

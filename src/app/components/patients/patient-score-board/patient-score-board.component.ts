@@ -3,7 +3,7 @@ import { Observable, Subscription } from "rxjs";
 import { SessionService } from "src/app/providers/session.service";
 import { UserStoreService } from "src/app/providers/store/user-store.service";
 import { getDifference } from "src/app/util/dateUtils";
-import { Session } from "src/lib/models/Session";
+import { Session } from "serious-game-library/dist/models/Session";
 
 @Component({
     selector: "serious-game-patient-score-board",

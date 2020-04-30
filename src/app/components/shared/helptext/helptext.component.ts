@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { ModalController } from "@ionic/angular";
-import { Helptext } from "src/lib/models/Helptext";
+import { Helptext } from "serious-game-library/dist/models/Helptext";
 
 @Component({
     selector: "serious-game-helptext",

@@ -4,9 +4,9 @@ import { Subscription } from "rxjs";
 import { AuthService } from "src/app/providers/auth.service";
 import { UserStoreService } from "src/app/providers/store/user-store.service";
 
-import {PatientDto} from "../../../lib/models/Dto/PatientDto";
-import {TherapistDto} from "../../../lib/models/Dto/TherapistDto";
-import {formatDate} from "../../../lib/utils/dateFormatter";
+import {PatientDto} from "serious-game-library/dist/models/Dto/PatientDto";
+import {TherapistDto} from "serious-game-library/dist/models/Dto/TherapistDto";
+import {formatDate} from "serious-game-library/dist/utils/dateFormatter";
 import { UserService } from "../../providers/user.service";
 
 @Component({

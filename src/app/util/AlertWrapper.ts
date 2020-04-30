@@ -62,7 +62,7 @@ export class AlertWrapper {
     }
 }
 
-export const enum AlertButton {
+export enum AlertButton {
     OK = "OK",
     ABORT = "Abbrechen"
 }

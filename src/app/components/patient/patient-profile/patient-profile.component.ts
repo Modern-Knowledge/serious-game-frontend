@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { PatientService } from "src/app/providers/patient.service";
-import { Patient } from "src/lib/models/Patient";
+import { Patient } from "serious-game-library/dist/models/Patient";
 
 @Component({
     selector: "serious-game-patient-profile",

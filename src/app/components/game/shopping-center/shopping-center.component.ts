@@ -4,13 +4,13 @@ import { Observable, Subject, Subscription } from "rxjs";
 import { FoodCategoryService } from "src/app/providers/food-category.service";
 import { CartStoreService } from "src/app/providers/store/cart-store.service";
 import { ShoppingListStoreService } from "src/app/providers/store/shopping-list-store.service";
-import { Errortexts } from "src/lib/enums/Errortexts";
-import { Errortext } from "src/lib/models/Errortext";
-import { FoodCategory } from "src/lib/models/FoodCategory";
-import { Game } from "src/lib/models/Game";
-import { Ingredient } from "src/lib/models/Ingredient";
-import { Word } from "src/lib/models/Word";
-import { getErrorText } from "src/lib/utils/errorTextHelper";
+import { Errortexts } from "serious-game-library/dist/enums/Errortexts";
+import { Errortext } from "serious-game-library/dist/models/Errortext";
+import { FoodCategory } from "serious-game-library/dist/models/FoodCategory";
+import { Game } from "serious-game-library/dist/models/Game";
+import { Ingredient } from "serious-game-library/dist/models/Ingredient";
+import { Word } from "serious-game-library/dist/models/Word";
+import { getErrorText } from "serious-game-library/dist/utils/errorTextHelper";
 
 import { IGameComponent } from "../game.component";
 

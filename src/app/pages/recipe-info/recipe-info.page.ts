@@ -1,8 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import {Subscription} from "rxjs";
-import {Mealtimes} from "../../../lib/enums/Mealtimes";
-import {Difficulty} from "../../../lib/models/Difficulty";
-import {Recipe} from "../../../lib/models/Recipe";
+import {Mealtimes} from "serious-game-library/dist/enums/Mealtimes";
+import {Difficulty} from "serious-game-library/dist/models/Difficulty";
+import {Recipe} from "serious-game-library/dist/models/Recipe";
 import {AuthService} from "../../providers/auth.service";
 import {RecipeService} from "../../providers/recipe.service";
 import {UtilService} from "../../providers/util/util.service";

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { LoggingService } from "ionic-logging-service";
 import { Logger } from "log4javascript";
-import { Ingredient } from "src/lib/models/Ingredient";
+import { Ingredient } from "serious-game-library/dist/models/Ingredient";
 import { AbstractStoreService } from "./abstract-store.service";
 
 @Injectable({

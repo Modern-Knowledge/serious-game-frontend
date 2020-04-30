@@ -3,8 +3,8 @@ import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
-import {Recipe} from "src/lib/models/Recipe";
-import {HttpResponse, HttpResponseStatus} from "src/lib/utils/http/HttpResponse";
+import {Recipe} from "serious-game-library/dist/models/Recipe";
+import {HttpResponse, HttpResponseStatus} from "serious-game-library/dist/utils/http/HttpResponse";
 
 @Injectable({
     providedIn: "root"

@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { PatientService } from "src/app/providers/patient.service";
 import { UserStoreService } from "src/app/providers/store/user-store.service";
-import { PatientDto } from "src/lib/models/Dto/PatientDto";
+import { PatientDto } from "serious-game-library/dist/models/Dto/PatientDto";
 
 @Component({
     selector: "serious-game-introduction",

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { Mealtimes } from "src/lib/enums/Mealtimes";
-import { Recipe } from "src/lib/models/Recipe";
+import { Mealtimes } from "serious-game-library/dist/enums/Mealtimes";
+import { Recipe } from "serious-game-library/dist/models/Recipe";
 
 @Injectable({
     providedIn: "root"

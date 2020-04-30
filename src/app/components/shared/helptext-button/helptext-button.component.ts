@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { ModalWrapper } from "src/app/util/ModalWrapper";
-import { Helptext } from "src/lib/models/Helptext";
+import { Helptext } from "serious-game-library/dist/models/Helptext";
 
 import { HelptextComponent } from "../helptext/helptext.component";
 

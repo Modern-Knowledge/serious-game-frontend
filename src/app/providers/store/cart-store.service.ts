@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Logger, LoggingService } from "ionic-logging-service";
 import { BehaviorSubject, Observable } from "rxjs";
-import { Recipe } from "src/lib/models/Recipe";
+import { Recipe } from "serious-game-library/dist/models/Recipe";
 import { AbstractStoreService } from "./abstract-store.service";
 
 @Injectable({

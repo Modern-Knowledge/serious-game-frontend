@@ -1,6 +1,6 @@
 import {Component, Inject} from "@angular/core";
 import {Subscription} from "rxjs";
-import {Ingredient} from "../../../lib/models/Ingredient";
+import {Ingredient} from "serious-game-library/dist/models/Ingredient";
 import {IngredientService} from "../../providers/ingredient.service";
 
 @Component({

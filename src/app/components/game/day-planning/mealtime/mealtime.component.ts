@@ -2,12 +2,12 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angu
 import { DragulaService } from "ng2-dragula";
 import { Subscription } from "rxjs";
 import { MealtimeStoreService } from "src/app/providers/store/mealtime-store.service";
-import { Errortexts } from "src/lib/enums/Errortexts";
-import { Mealtimes } from "src/lib/enums/Mealtimes";
-import { Errortext } from "src/lib/models/Errortext";
-import { Recipe } from "src/lib/models/Recipe";
-import { getErrorText } from "src/lib/utils/errorTextHelper";
-import { TemplateParser } from "src/lib/utils/TemplateParser";
+import { Errortexts } from "serious-game-library/dist/enums/Errortexts";
+import { Mealtimes } from "serious-game-library/dist/enums/Mealtimes";
+import { Errortext } from "serious-game-library/dist/models/Errortext";
+import { Recipe } from "serious-game-library/dist/models/Recipe";
+import { getErrorText } from "serious-game-library/dist/utils/errorTextHelper";
+import { TemplateParser } from "serious-game-library/dist/utils/TemplateParser";
 
 @Component({
     selector: "serious-game-mealtime",

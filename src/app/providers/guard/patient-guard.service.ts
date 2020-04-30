@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
 import { ToastPosition, ToastWrapper } from "src/app/util/ToastWrapper";
-import { HttpResponseMessageSeverity } from "src/lib/utils/http/HttpResponse";
+import { HttpResponseMessageSeverity } from "serious-game-library/dist/utils/http/HttpResponse";
 
 import { AuthService } from "../auth.service";
 

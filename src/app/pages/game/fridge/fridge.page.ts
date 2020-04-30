@@ -4,8 +4,8 @@ import { Subscription } from "rxjs";
 import { IngredientService } from "src/app/providers/ingredient.service";
 import { FridgeStoreService } from "src/app/providers/store/fridge-store.service";
 import { RecipeStoreService } from "src/app/providers/store/recipe-store.service";
-import { Ingredient } from "src/lib/models/Ingredient";
-import { shuffle } from "src/lib/utils/helper";
+import { Ingredient } from "serious-game-library/dist/models/Ingredient";
+import { shuffle } from "serious-game-library/dist/utils/helper";
 
 @Component({
     selector: "serious-game-fridge",

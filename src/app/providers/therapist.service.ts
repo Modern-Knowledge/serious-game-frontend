@@ -2,8 +2,8 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { TherapistDto } from "src/lib/models/Dto/TherapistDto";
-import { Therapist } from "src/lib/models/Therapist";
+import { TherapistDto } from "serious-game-library/dist/models/Dto/TherapistDto";
+import { Therapist } from "serious-game-library/dist/models/Therapist";
 
 @Injectable({
     providedIn: "root"

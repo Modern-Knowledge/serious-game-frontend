@@ -2,9 +2,9 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { PatientDto } from "src/lib/models/Dto/PatientDto";
-import { Patient } from "src/lib/models/Patient";
-import { HttpResponse } from "src/lib/utils/http/HttpResponse";
+import { PatientDto } from "serious-game-library/dist/models/Dto/PatientDto";
+import { Patient } from "serious-game-library/dist/models/Patient";
+import { HttpResponse } from "serious-game-library/dist/utils/http/HttpResponse";
 
 @Injectable({
     providedIn: "root"

@@ -3,11 +3,11 @@ import { FormControl, FormGroup, ValidatorFn, Validators } from "@angular/forms"
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/providers/auth.service";
-import { User } from "src/lib/models/User";
+import { User } from "serious-game-library/dist/models/User";
 
 import {JwtHelperService} from "@auth0/angular-jwt";
 import { environment } from "../../../environments/environment";
-import { HttpResponse } from "../../../lib/utils/http/HttpResponse";
+import { HttpResponse } from "serious-game-library/dist/utils/http/HttpResponse";
 
 @Component({
     selector: "serious-game-registration",

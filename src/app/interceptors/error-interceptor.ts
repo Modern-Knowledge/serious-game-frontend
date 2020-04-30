@@ -11,9 +11,9 @@ import {Router} from "@angular/router";
 import {LoggingService} from "ionic-logging-service";
 import {Observable, throwError} from "rxjs";
 import {catchError, tap} from "rxjs/operators";
-import {HttpResponseMessageSeverity} from "src/lib/utils/http/HttpResponse";
+import {HttpResponseMessageSeverity} from "serious-game-library/dist/utils/http/HttpResponse";
 
-import {HTTPStatusCode} from "../../lib/utils/httpStatusCode";
+import {HTTPStatusCode} from "serious-game-library/dist/utils/httpStatusCode";
 import {AuthService} from "../providers/auth.service";
 import {ToastPosition, ToastWrapper} from "../util/ToastWrapper";
 

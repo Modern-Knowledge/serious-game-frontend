@@ -1,8 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
-import {formatDateTime} from "../../../lib/utils/dateFormatter";
-import {HttpResponse} from "../../../lib/utils/http/HttpResponse";
+import {formatDateTime} from "serious-game-library/dist/utils/dateFormatter";
+import {HttpResponse} from "serious-game-library/dist/utils/http/HttpResponse";
 import {UtilService} from "../../providers/util/util.service";
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/providers/auth.service";
-import { UserDto } from "src/lib/models/Dto/UserDto";
+import { UserDto } from "serious-game-library/dist/models/Dto/UserDto";
 
 @Component({
     selector: "serious-game-home",

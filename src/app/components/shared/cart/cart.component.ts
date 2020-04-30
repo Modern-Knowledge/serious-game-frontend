@@ -2,8 +2,8 @@ import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
 import { Subscription } from "rxjs";
 import { CartStoreService } from "src/app/providers/store/cart-store.service";
-import { Ingredient } from "src/lib/models/Ingredient";
-import { Word } from "src/lib/models/Word";
+import { Ingredient } from "serious-game-library/dist/models/Ingredient";
+import { Word } from "serious-game-library/dist/models/Word";
 
 @Component({
     selector: "serious-game-cart",
