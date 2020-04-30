@@ -5,3 +5,4 @@ docs/
 www/
 android/
 resources/
+*.iml
