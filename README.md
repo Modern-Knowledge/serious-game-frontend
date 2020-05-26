@@ -1,41 +1,34 @@
 # Serious Game Frontend
 
-Die Frontend-Instanz des Serious Games.
+Frontend-Instance of the serious-games.
 
 ## Getting Started
 
 ```
-git clone https://repo.inso.tuwien.ac.at/florian.mold/serious-game-frontend
+git clone https://github.com/Modern-Knowledge/serious-game-frontend
 cd serious-game-frontend
 ```
 
 ### Prerequisites
 
-#### NPM installieren:
+#### Install npm
 ```
 $ npm install npm@latest -g
 ```
 
-#### Ionic installieren:
+#### Install ionic
 ```
 $ sudo npm install -g ionic
 ```
 
 ### Installing
 
-Um eine lokale Instanz zum laufen zu bringen, müssen folgende Schritte ausgeführt werden:
+To run a locale instance, complete the following steps.
 
-
-#### Dependencies installieren:
+#### Install dependencies
 
 ```
 npm install
-```
-
-#### Die Serious-Game-Library ins Projekt kopieren:
-
-```
-npm run build
 ```
 
 ### Das Projekt ausführen:
